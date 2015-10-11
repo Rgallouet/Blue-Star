@@ -12,12 +12,9 @@ public class BasePlayer {
 	private string playerLastName;	
 	private string playerBio;
 	private string playerGender;
-
-	//HP are always 100, same for action points
-	private int hp; 		//Health Points are always 100
-	private int ap;			//Action Points are always 100
-	private int currenthp; 		//Health Points are always 100
-	private int currentap;			//Action Points are always 100
+	
+	private int currentembodiment; 	
+	private int currentinfluence;	
 
 	private int totalXP;
 	private int currentXP;
@@ -29,12 +26,14 @@ public class BasePlayer {
 	private int humanCrap;
 
 	//Primary stats for Physical
+	private int embodiment; 		//embodiment
 	private int strength;
 	private int speed;
 	private int dexterity;
 	private int reflex;
 	private int resilience;
-	
+
+	private int influence;        //influence
 	private int knowledge;
 	private int elocution;
 	private int intellect;
@@ -73,10 +72,10 @@ public class BasePlayer {
 
 	public int 		HumanCrap 						{ get; set;}
 
-	public int 		HP 								{ get; set;}
-	public int 		AP 								{ get; set;}
-	public int 		CurrentHP 						{ get; set;}
-	public int 		CurrentAP 						{ get; set;}
+	public int 		Embodiment 								{ get; set;}
+	public int 		Influence 								{ get; set;}
+	public int 		CurrentEmbodiment 						{ get; set;}
+	public int 		CurrentInfluence 						{ get; set;}
 
 	public int Strength		{ get; set;}
 	public int Speed		{ get; set;}

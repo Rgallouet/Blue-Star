@@ -7,9 +7,9 @@ public class LordClass : BaseClass {
 		ClassName = "Lord";
 		ClassDescription = "My dead life is not something I want to part with just yet...";
 		
-		//HP are always 100, same for action points
-		HP=5; 		//Health Points are always 100
-		AP=-5;			//Action Points are always 100
+		//Embodiment are always 100, same for action points
+		Embodiment=5; 		//Health Points are always 100
+		Influence=-5;			//Action Points are always 100
 		
 
 		//Primary physical

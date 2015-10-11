@@ -8,9 +8,9 @@ public class ButcherClass : BaseClass {
 		ClassName = "Butcher";
 		ClassDescription = "Gotta slice 'em all!";
 
-		//HP are always 100, same for action points
-		HP=0; 		//Health Points are always 100
-		AP=0;			//Action Points are always 100
+		//Embodiment are always 100, same for action points
+		Embodiment=0; 		//Health Points are always 100
+		Influence=0;			//Action Points are always 100
 
 		//Primary physical
 		Strength = 		2; 	//Crit dmg

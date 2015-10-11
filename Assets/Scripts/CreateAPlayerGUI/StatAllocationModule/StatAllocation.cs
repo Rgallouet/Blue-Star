@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StatAllocationModule{
+public class StatAllocation{
 
 
 
@@ -213,56 +213,94 @@ public class StatAllocationModule{
 	private void RetrieveStatBaseStatPoints(){
 
 
-		primaryStatPointsToAllocate = GameInformation.PrimaryStatPointsToAllocate;
-		heroicStatPointsToAllocate = GameInformation.HeroicStatPointsToAllocate;
-		secondaryStatPointsToAllocate = GameInformation.SecondaryStatPointsToAllocate;
+		primaryStatPointsToAllocate = GameInformation.basePlayer.PrimaryStatPointsToAllocate;
+		heroicStatPointsToAllocate = GameInformation.basePlayer.HeroicStatPointsToAllocate;
+		secondaryStatPointsToAllocate = GameInformation.basePlayer.SecondaryStatPointsToAllocate;
 
 
 		// Initiation des stats allouées
-		primaryPointsToAllocate[0] = GameInformation.Strength;
-		primaryPointsMinimum[0] = GameInformation.Strength;
-		primaryPointsToAllocate[1] = GameInformation.Speed;
-		primaryPointsMinimum[1] = GameInformation.Speed;
-		primaryPointsToAllocate[2] = GameInformation.Dexterity;
-		primaryPointsMinimum[2] = GameInformation.Dexterity;
-		primaryPointsToAllocate[3] = GameInformation.Reflex;
-		primaryPointsMinimum[3] = GameInformation.Reflex;
-		primaryPointsToAllocate[4] = GameInformation.Resilience;
-		primaryPointsMinimum[4] = GameInformation.Resilience;
-		primaryPointsToAllocate[5] = GameInformation.Knowledge;
-		primaryPointsMinimum[5] = GameInformation.Knowledge;
-		primaryPointsToAllocate[6] = GameInformation.Elocution;
-		primaryPointsMinimum[6] = GameInformation.Elocution;
-		primaryPointsToAllocate[7] = GameInformation.Intellect;
-		primaryPointsMinimum[7] = GameInformation.Intellect;
-		primaryPointsToAllocate[8] = GameInformation.Focus;
-		primaryPointsMinimum[8] = GameInformation.Focus;
-		primaryPointsToAllocate[9] = GameInformation.Mockery;
-		primaryPointsMinimum[9] = GameInformation.Mockery;
-		primaryPointsToAllocate[10] = GameInformation.Malevolant;
-		primaryPointsMinimum[10] = GameInformation.Malevolant;
-		primaryPointsToAllocate[11] = GameInformation.Unmerciful;
-		primaryPointsMinimum[11] = GameInformation.Unmerciful;
+		primaryPointsToAllocate[0] = GameInformation.basePlayer.Strength;
+		primaryPointsMinimum[0] = GameInformation.basePlayer.Strength;
+		primaryPointsToAllocate[1] = GameInformation.basePlayer.Speed;
+		primaryPointsMinimum[1] = GameInformation.basePlayer.Speed;
+		primaryPointsToAllocate[2] = GameInformation.basePlayer.Dexterity;
+		primaryPointsMinimum[2] = GameInformation.basePlayer.Dexterity;
+		primaryPointsToAllocate[3] = GameInformation.basePlayer.Reflex;
+		primaryPointsMinimum[3] = GameInformation.basePlayer.Reflex;
+		primaryPointsToAllocate[4] = GameInformation.basePlayer.Resilience;
+		primaryPointsMinimum[4] = GameInformation.basePlayer.Resilience;
+		primaryPointsToAllocate[5] = GameInformation.basePlayer.Knowledge;
+		primaryPointsMinimum[5] = GameInformation.basePlayer.Knowledge;
+		primaryPointsToAllocate[6] = GameInformation.basePlayer.Elocution;
+		primaryPointsMinimum[6] = GameInformation.basePlayer.Elocution;
+		primaryPointsToAllocate[7] = GameInformation.basePlayer.Intellect;
+		primaryPointsMinimum[7] = GameInformation.basePlayer.Intellect;
+		primaryPointsToAllocate[8] = GameInformation.basePlayer.Focus;
+		primaryPointsMinimum[8] = GameInformation.basePlayer.Focus;
+		primaryPointsToAllocate[9] = GameInformation.basePlayer.Mockery;
+		primaryPointsMinimum[9] = GameInformation.basePlayer.Mockery;
+		primaryPointsToAllocate[10] = GameInformation.basePlayer.Malevolant;
+		primaryPointsMinimum[10] = GameInformation.basePlayer.Malevolant;
+		primaryPointsToAllocate[11] = GameInformation.basePlayer.Unmerciful;
+		primaryPointsMinimum[11] = GameInformation.basePlayer.Unmerciful;
 
-		heroicPointsToAllocate[0] = GameInformation.Rage;
-		heroicPointsMinimum[0] = GameInformation.Rage;
-		heroicPointsToAllocate[1] = GameInformation.Phase;
-		heroicPointsMinimum[1] = GameInformation.Phase;
+		heroicPointsToAllocate[0] = GameInformation.basePlayer.Rage;
+		heroicPointsMinimum[0] = GameInformation.basePlayer.Rage;
+		heroicPointsToAllocate[1] = GameInformation.basePlayer.Phase;
+		heroicPointsMinimum[1] = GameInformation.basePlayer.Phase;
 
-		secondaryPointsToAllocate[0] = GameInformation.Momentum;
-		secondaryPointsMinimum[0] = GameInformation.Momentum;
-		secondaryPointsToAllocate[1] = GameInformation.Balance;
-		secondaryPointsMinimum[1] = GameInformation.Balance;
-		secondaryPointsToAllocate[2] = GameInformation.Luck;
-		secondaryPointsMinimum[2] = GameInformation.Luck;
-		secondaryPointsToAllocate[3] = GameInformation.Perception;
-		secondaryPointsMinimum[3] = GameInformation.Perception;
-		secondaryPointsToAllocate[4] = GameInformation.Judgement;
-		secondaryPointsMinimum[4] = GameInformation.Judgement;
-		secondaryPointsToAllocate[5] = GameInformation.Chaos;
-		secondaryPointsMinimum[5] = GameInformation.Chaos;
+		secondaryPointsToAllocate[0] = GameInformation.basePlayer.Momentum;
+		secondaryPointsMinimum[0] = GameInformation.basePlayer.Momentum;
+		secondaryPointsToAllocate[1] = GameInformation.basePlayer.Balance;
+		secondaryPointsMinimum[1] = GameInformation.basePlayer.Balance;
+		secondaryPointsToAllocate[2] = GameInformation.basePlayer.Luck;
+		secondaryPointsMinimum[2] = GameInformation.basePlayer.Luck;
+		secondaryPointsToAllocate[3] = GameInformation.basePlayer.Perception;
+		secondaryPointsMinimum[3] = GameInformation.basePlayer.Perception;
+		secondaryPointsToAllocate[4] = GameInformation.basePlayer.Judgement;
+		secondaryPointsMinimum[4] = GameInformation.basePlayer.Judgement;
+		secondaryPointsToAllocate[5] = GameInformation.basePlayer.Chaos;
+		secondaryPointsMinimum[5] = GameInformation.basePlayer.Chaos;
 
 		}
+
+
+
+	public void StoreStatAllocation(){
+		
+		GameInformation.basePlayer.PrimaryStatPointsToAllocate=	primaryStatPointsToAllocate;
+		GameInformation.basePlayer.HeroicStatPointsToAllocate=		heroicStatPointsToAllocate;
+		GameInformation.basePlayer.SecondaryStatPointsToAllocate=	secondaryStatPointsToAllocate;
+
+
+
+		GameInformation.basePlayer.Strength = 		primaryPointsToAllocate[0];
+		GameInformation.basePlayer.Speed = 		primaryPointsToAllocate[1];
+		GameInformation.basePlayer.Dexterity = 	primaryPointsToAllocate[2];
+		GameInformation.basePlayer.Reflex = 		primaryPointsToAllocate[3];
+		GameInformation.basePlayer.Resilience = 	primaryPointsToAllocate[4];
+		GameInformation.basePlayer.Knowledge = 	primaryPointsToAllocate[5];
+		GameInformation.basePlayer.Elocution = 	primaryPointsToAllocate[6];
+		GameInformation.basePlayer.Intellect = 	primaryPointsToAllocate[7];
+		GameInformation.basePlayer.Focus =			primaryPointsToAllocate[8];
+		GameInformation.basePlayer.Mockery = 		primaryPointsToAllocate[9];
+		GameInformation.basePlayer.Malevolant = 	primaryPointsToAllocate[10];
+		GameInformation.basePlayer.Unmerciful = 	primaryPointsToAllocate[11];
+
+		GameInformation.basePlayer.Rage = 			heroicPointsToAllocate[0];
+		GameInformation.basePlayer.Phase = 		heroicPointsToAllocate[1];
+
+		GameInformation.basePlayer.Momentum = 		secondaryPointsToAllocate[0];
+		GameInformation.basePlayer.Balance = 		secondaryPointsToAllocate[1];
+		GameInformation.basePlayer.Luck = 			secondaryPointsToAllocate[2];
+		GameInformation.basePlayer.Perception = 	secondaryPointsToAllocate[3];
+		GameInformation.basePlayer.Judgement = 	secondaryPointsToAllocate[4];
+		GameInformation.basePlayer.Chaos = 		secondaryPointsToAllocate[5];
+	}
+
+
+
+
 
 
 

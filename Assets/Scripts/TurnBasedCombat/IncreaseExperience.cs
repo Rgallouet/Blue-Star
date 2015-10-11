@@ -8,22 +8,22 @@ public static class IncreaseExperience {
 
 
 	public static void AddExperience () {
-		xpToGive = GameInformation.PlayerLevel * 100;
+		xpToGive = 1;
 		Debug.Log (xpToGive);
-		GameInformation.CurrentXP += xpToGive;
+		GameInformation.basePlayer.CurrentXP += xpToGive;
 		CheckToSeeIfPlayerLeveled ();
 	}
 
 	public static void AddExperienceFromBattleLoss(){
-		xpToGive = GameInformation.PlayerLevel * 10;
+		xpToGive = 0;
 		Debug.Log (xpToGive);
-		GameInformation.CurrentXP += xpToGive;
+		GameInformation.basePlayer.CurrentXP += xpToGive;
 		CheckToSeeIfPlayerLeveled ();	
 	}
 
 
 	private static void CheckToSeeIfPlayerLeveled () {
-		if (GameInformation.CurrentXP >= GameInformation.RequiredXP) {
+		if (GameInformation.basePlayer.CurrentXP >= GameInformation.basePlayer.RequiredXP) {
 			levelUpScript.levelUpCharacter();
 			// Create lvl up script
 		}

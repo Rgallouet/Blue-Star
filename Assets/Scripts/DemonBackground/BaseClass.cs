@@ -7,14 +7,11 @@ public class BaseClass {
 	private string className;
 	private string classDescription;
 
-	//HP are always 100, same for action points
-	private int hp; 		//Health Points are always 100
-	private int ap;			//Action Points are always 100
+	//Embodiment are always 100, same for action points
+	private int embodiment; 		//Health Points are always 100
+	private int influence;			//Action Points are always 100
 
 	//Primary stats for Physical
-
-
-
 	private int strength;
 	private int speed;
 	private int dexterity;
@@ -29,7 +26,6 @@ public class BaseClass {
 
 	private int malevolant;
 	private int unmerciful;
-
 
 	private int rage;
 	private int phase;
@@ -50,8 +46,8 @@ public class BaseClass {
 
 	public string 	ClassName 				{ get; set;}
 	public string 	ClassDescription 		{ get; set;}
-	public int 		HP 						{ get; set;}
-	public int 		AP 						{ get; set;}
+	public int 		Embodiment 				{ get; set;}
+	public int 		Influence 				{ get; set;}
 
 	 public int Strength	{ get; set;}
 	 public int Speed		{ get; set;}
