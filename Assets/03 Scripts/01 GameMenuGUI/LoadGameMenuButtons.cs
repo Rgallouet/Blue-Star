@@ -2,7 +2,16 @@
 using System.Collections;
 
 public class LoadGameMenuButtons : MonoBehaviour {
-	
+
+	public static Canvas LoadGameMenu;
+
+
+	void Awake(){
+		LoadGameMenu = GetComponent<Canvas>();
+		LoadGameMenu.enabled = false;
+	}
+
+
 
 	public void LoadPosition00(){
 		if (PlayerPrefs.GetString ("00_Player") != null) 		{GameInformation.BasePlayer=(BasePlayer)PPSerialization.Load("00_Player");}
