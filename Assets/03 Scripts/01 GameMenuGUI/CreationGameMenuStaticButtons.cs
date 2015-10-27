@@ -17,6 +17,7 @@ public class CreationGameMenuStaticButtons : MonoBehaviour {
 	}
 
 	void Update(){
+
 		if (Left == true) {GameObject.FindGameObjectWithTag ("Player").transform.Rotate(Vector3.up);}
 		if (Right == true) {GameObject.FindGameObjectWithTag ("Player").transform.Rotate(Vector3.down);}
 
@@ -35,8 +36,5 @@ public class CreationGameMenuStaticButtons : MonoBehaviour {
 	public void CreationMenuTurnRight(){Right = true;}
 	public void CreationMenuStopTurnLeft(){Left = false;}
 	public void CreationMenuStopTurnRight(){Right = false;}
-
-
-
 
 }

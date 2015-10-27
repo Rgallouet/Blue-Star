@@ -12,8 +12,8 @@ public class GameMenuButtons : MonoBehaviour {
 	}
 
 
-	public void StartNewGame()	{MenuGUI.currentState = MenuGUI.CreateAPlayerStates.CLASSSELECTION;}
-	public void LoadGame()		{MenuGUI.currentState = MenuGUI.CreateAPlayerStates.LOAD;}
-	public void QuitGame()		{Application.Quit();}
+	public void StartNewGame()	{MenuGUI.MenuGoNext ();}
+	public void QuitGame()		{MenuGUI.MenuGoBack ();}
+	public void LoadGame()		{MenuGUI.MenuLoad ();}
 
 }

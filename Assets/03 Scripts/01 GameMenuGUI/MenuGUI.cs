@@ -14,54 +14,160 @@ public class MenuGUI : MonoBehaviour {
 
 	private static int classSelection;
 
+	public static GameObject Stand;
+	public static GameObject Player;
 
-	
+
+
+
+
+
+
+
+
+
 
 	// Use this for initialization
 	void Start () {
 		currentState = CreateAPlayerStates.MENU;
+		Stand = GameObject.FindGameObjectWithTag ("Stand");
+		Player = GameObject.FindGameObjectWithTag ("Player");
+		Stand.SetActive(false);
+		Player.SetActive(false);
 	}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 	public static void MenuGoBack(){
-		if (currentState == CreateAPlayerStates.STATALLOCATION) {
-			//Go back to ClassSelection
+
+		if (currentState == CreateAPlayerStates.MENU) 
+		
+		{Application.Quit();}
+
+		else if (currentState == CreateAPlayerStates.LOAD) 
+			
+		{	currentState = CreateAPlayerStates.MENU;
+			LoadGameMenuButtons.LoadGameMenu.enabled= false;
+			GameMenuButtons.GameMenu.enabled = true;
+		} 
+
+		else if (currentState == CreateAPlayerStates.CLASSSELECTION) 
+		
+		{	currentState = CreateAPlayerStates.MENU;
+			CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled= false;
+			HistorySelectionButtons.HistorySelection.enabled=false;
+			GameMenuButtons.GameMenu.enabled = true;
+			Stand.SetActive(false);
+			Player.SetActive(false);} 
+
+		else if (currentState == CreateAPlayerStates.STATALLOCATION) 
+		
+		{	//Go back to ClassSelection
 			currentState = CreateAPlayerStates.CLASSSELECTION;
 			//Reset the "get base stat" function
-			statAllocation.didRunOnce=false;	
-		} else if (currentState == CreateAPlayerStates.FINALSETUP) {
-			//Go back to stat allocation
-			currentState = CreateAPlayerStates.STATALLOCATION;
-		}
+			statAllocation.didRunOnce=false;} 
+
+		else if (currentState == CreateAPlayerStates.FINALSETUP) 
+		
+		{currentState = CreateAPlayerStates.STATALLOCATION;}
+
+		else if (currentState == CreateAPlayerStates.SAVE) 
+			
+		{currentState = CreateAPlayerStates.FINALSETUP;}
+
+
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	public static void MenuGoNext(){
 
-		if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.CLASSSELECTION) {
-			// Define the class and base stat
-			historyAllocation.ChooseClass (classSelection);
-			// Then go to user-defined stat allocation 
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;
+		if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.MENU) 
+
+		{	MenuGUI.currentState = MenuGUI.CreateAPlayerStates.CLASSSELECTION;
+			GameMenuButtons.GameMenu.enabled = false;
+			CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = true;
+			HistorySelectionButtons.HistorySelection.enabled=true;
+			Stand.SetActive(true);
+			Player.SetActive(true);}
+
+		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.LOAD) 
 			
-		} else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.STATALLOCATION) {
-			// Apply the current selection of stats
-			statAllocation.StoreStatAllocation ();
-			// Then go to final set up
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.FINALSETUP;
-			
-		} else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.FINALSETUP) {
-			// Save locally Information about name, bio, gender 
-			backgroundAllocation.StoreLastInfo ();
-			// Then go to global save
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.SAVE;
-			
-		} else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.FINALSETUP) {
-			
-			//Save all information
+		{	LoadGameMenuButtons.LoadGameMenu.enabled=false;
+			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.PLAY;} 
+
+		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.CLASSSELECTION) 
+		
+		{	historyAllocation.ChooseClass (classSelection);
+			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;} 
+
+		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.STATALLOCATION) 
+		
+		{	statAllocation.StoreStatAllocation ();
+			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.FINALSETUP;} 
+
+
+		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.FINALSETUP) 
+		
+		{	backgroundAllocation.StoreLastInfo ();
+			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.SAVE;} 
+
+		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.SAVE) 
+		
+		{	//Save all information
 			//go to Play
 			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.PLAY;
-		}}
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+	public static void MenuLoad(){
+		MenuGUI.currentState = MenuGUI.CreateAPlayerStates.LOAD;
+		GameMenuButtons.GameMenu.enabled = false;
+		LoadGameMenuButtons.LoadGameMenu.enabled = true;
+	}
+
+
+
+
+
+
+
+
+
+
 
 
 }
