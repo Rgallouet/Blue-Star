@@ -35,13 +35,6 @@ public class BaseClass {
 	private int perception;
 	private int judgement;
 	private int chaos;
-
-
-
-
-	public int[] primaryClassStat;
-	public int[] heroicClassStat;
-	public int[] secondaryClassStat;
 	
 
 	public string 	ClassName 				{ get; set;}

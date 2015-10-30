@@ -3,16 +3,14 @@ using System.Collections;
 
 public class HistoryAllocation {
 
+
+
+
 	private BasePlayer newPlayer;
 
 
-	public void ChooseClass(int classSelection) {
 
-		CreateNewPlayer(classSelection);
-		StoreNewPlayerInfo();
-	}
-
-	private void CreateNewPlayer( int classSelection){
+	public void CreateNewPlayer(int hellCircleSelection,int genusSelection,int speciesSelection,int classSelection,int originSelection,int temperSelection,int astroSelection,int affinitySelection){
 
 		BasePlayer newPlayer = new BasePlayer ();
 
@@ -38,6 +36,8 @@ public class HistoryAllocation {
 		int Base_sec = 100;
 		
 	
+		// Calculate Base stats
+
 		newPlayer.Embodiment=Base_prim+newPlayer.PlayerClass.Embodiment; 			
 		newPlayer.Strength = Base_prim+newPlayer.PlayerClass.Strength;
 		newPlayer.Speed = Base_prim+newPlayer.PlayerClass.Speed;
@@ -68,7 +68,7 @@ public class HistoryAllocation {
 		newPlayer.CurrentEmbodiment = newPlayer.Embodiment;
 		newPlayer.CurrentInfluence = newPlayer.Influence;
 
-
+		//Storing base stat in environment
 
 		GameInformation.basePlayer.PlayerLevel = newPlayer.PlayerLevel;
 		GameInformation.basePlayer.PlayerClass = newPlayer.PlayerClass;
@@ -112,15 +112,7 @@ public class HistoryAllocation {
 
 		
 	}
-	
-	
-	private void StoreNewPlayerInfo(){
-		
 
-		
-		
-		
-	}
 	
 	
 
