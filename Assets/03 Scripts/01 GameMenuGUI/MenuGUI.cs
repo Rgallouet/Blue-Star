@@ -240,10 +240,11 @@ public class MenuGUI : MonoBehaviour {
 				MenuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;
 				HistorySelectionButtons.HistorySelection.enabled = false;
 				StatAllocationButtons.StatAllocationMenu.enabled = true;
+				StatAllocation.DisplayStatAllocationModule();
 				break;
 			}
 
-			if(HistorySelectionButtons.HistorySelection.enabled==true) {
+			if(!(HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.AFFINITY)) {
 			HistorySelectionButtons.GetHistoryUIButtons ();
 			HistorySelectionButtons.HistoryChoice = 0;
 			}
