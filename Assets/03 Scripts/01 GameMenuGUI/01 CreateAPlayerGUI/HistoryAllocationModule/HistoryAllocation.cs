@@ -15,7 +15,8 @@ public class HistoryAllocation {
 		BasePlayer newPlayer = new BasePlayer ();
 
 		if (classSelection == 0) {newPlayer.PlayerClass = new ButcherClass ();}
-		if (classSelection == 1) {newPlayer.PlayerClass = new LordClass ();}
+		if (classSelection == 1) {newPlayer.PlayerClass = new LordClass ();} 
+		else {newPlayer.PlayerClass = new LordClass ();}
 
 		// Init level
 		newPlayer.PlayerLevel=1;

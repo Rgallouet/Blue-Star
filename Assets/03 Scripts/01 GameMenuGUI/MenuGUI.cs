@@ -29,11 +29,6 @@ public class MenuGUI : MonoBehaviour {
 
 
 
-
-
-
-
-	// Use this for initialization
 	void Start () {
 		currentState = CreateAPlayerStates.MENU;
 		Stand = GameObject.FindGameObjectWithTag ("Stand");
@@ -41,14 +36,14 @@ public class MenuGUI : MonoBehaviour {
 		Stand.SetActive(false);
 		Player.SetActive(false);
 
-		hellCircleSelection=1;
-		genusSelection=1;
-		speciesSelection = 1;
-		classSelection=1;
-		originSelection=1;	
-		temperSelection=1;	
-		astroSelection=1;	
-		affinitySelection=1;
+		hellCircleSelection=0;
+		genusSelection=0;
+		speciesSelection = 0;
+		classSelection=0;
+		originSelection=0;	
+		temperSelection=0;	
+		astroSelection=0;	
+		affinitySelection=0;
 
 		lastActionWasNext = true;
 
@@ -69,39 +64,42 @@ public class MenuGUI : MonoBehaviour {
 
 
 	public static void MenuGoBack(){
+
 		lastActionWasNext = false;
 
-		if (currentState == CreateAPlayerStates.MENU) 
+		switch (currentState) {
 		
-		{Application.Quit();}
+		case CreateAPlayerStates.MENU:
+			Application.Quit ();
+			break;
 
-		else if (currentState == CreateAPlayerStates.LOAD) 
-			
-		{	currentState = CreateAPlayerStates.MENU;
-			LoadGameMenuButtons.LoadGameMenu.enabled= false;
+		case CreateAPlayerStates.LOAD:
+			currentState = CreateAPlayerStates.MENU;
+			LoadGameMenuButtons.LoadGameMenu.enabled = false;
 			GameMenuButtons.GameMenu.enabled = true;
-		} 
+			break;
 
-		else if (currentState == CreateAPlayerStates.HISTORYSELECTION) 
-		
-		{	HistorySelectionBack();} 
+		case CreateAPlayerStates.HISTORYSELECTION:
+			HistorySelectionBack ();
+			break;
 
-		else if (currentState == CreateAPlayerStates.STATALLOCATION) 
-		
-		{	
+		case CreateAPlayerStates.STATALLOCATION:
+			StatAllocationButtons.StatAllocationMenu.enabled = false;
 			currentState = CreateAPlayerStates.HISTORYSELECTION;
-			statAllocation.didRunOnce=false;
-			HistorySelectionButtons.HistorySelection.enabled=true;} 
+			statAllocation.didRunOnce = false;
+			HistorySelectionButtons.HistoryChoice = affinitySelection;
+			HistorySelectionButtons.HistorySelection.enabled = true;
+			break;
 
-		else if (currentState == CreateAPlayerStates.FINALSETUP) 
-		
-		{currentState = CreateAPlayerStates.STATALLOCATION;}
+		case CreateAPlayerStates.FINALSETUP:
+			currentState = CreateAPlayerStates.STATALLOCATION;
+			break;
 
-		else if (currentState == CreateAPlayerStates.SAVE) 
-			
-		{currentState = CreateAPlayerStates.FINALSETUP;}
+		case CreateAPlayerStates.SAVE:
+			currentState = CreateAPlayerStates.FINALSETUP;
+			break;
 
-
+		}
 	}
 
 
@@ -122,44 +120,42 @@ public class MenuGUI : MonoBehaviour {
 
 		lastActionWasNext = true;
 
-		if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.MENU) 
+		switch (MenuGUI.currentState) {
 
-		{	MenuGUI.currentState = MenuGUI.CreateAPlayerStates.HISTORYSELECTION;
+		case MenuGUI.CreateAPlayerStates.MENU:
+			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.HISTORYSELECTION;
 			GameMenuButtons.GameMenu.enabled = false;
 			CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = true;
-			HistorySelectionButtons.HistorySelection.enabled=true;
-			Stand.SetActive(true);
-			Player.SetActive(true);}
+			HistorySelectionButtons.HistorySelection.enabled = true;
+			Stand.SetActive (true);
+			Player.SetActive (true);
+			break;
 
-		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.LOAD) 
-			
-		{	LoadGameMenuButtons.LoadGameMenu.enabled=false;
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.PLAY;} 
-
-		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.HISTORYSELECTION) 
-		
-		{	HistorySelectionNext();} 
-
-		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.STATALLOCATION) 
-		
-		{	statAllocation.StoreStatAllocation ();
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.FINALSETUP;} 
-
-
-		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.FINALSETUP) 
-		
-		{	backgroundAllocation.StoreLastInfo ();
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.SAVE;} 
-
-		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.SAVE) 
-		
-		{	//Save all information
-			//go to Play
+		case MenuGUI.CreateAPlayerStates.LOAD: 
+			LoadGameMenuButtons.LoadGameMenu.enabled = false;
 			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.PLAY;
+			break;
+
+		case MenuGUI.CreateAPlayerStates.HISTORYSELECTION: 
+			HistorySelectionNext ();
+			break;
+
+		case MenuGUI.CreateAPlayerStates.STATALLOCATION: 
+			statAllocation.StoreStatAllocation ();
+			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.FINALSETUP;
+			break;
+
+		case MenuGUI.CreateAPlayerStates.FINALSETUP:
+			backgroundAllocation.StoreLastInfo ();
+			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.SAVE;
+			break;
+
+		case MenuGUI.CreateAPlayerStates.SAVE:
+			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.PLAY;
+			break;
 		}
+
 	}
-
-
 
 
 
@@ -196,57 +192,63 @@ public class MenuGUI : MonoBehaviour {
 
 	
 	public static void HistorySelectionNext(){
-		
-		if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE) {
-			hellCircleSelection=HistorySelectionButtons.HistoryChoice;
-			HistorySelectionButtons.GetGenusButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.GENUS;
-		}
-		
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.GENUS) {
-			genusSelection=HistorySelectionButtons.HistoryChoice;
-			HistorySelectionButtons.GetSpeciesButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.SPECIES;
-		}
-		
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.SPECIES) {
-			speciesSelection=HistorySelectionButtons.HistoryChoice;
-			HistorySelectionButtons.GetClassButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.CLASS;
-		}
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.CLASS) {
-			classSelection=HistorySelectionButtons.HistoryChoice;
-			HistorySelectionButtons.GetOriginButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.ORIGIN;
-		}
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.ORIGIN) {
-			originSelection=HistorySelectionButtons.HistoryChoice;
-			HistorySelectionButtons.GetTemperButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.TEMPER;
-		}
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.TEMPER) {
-			temperSelection=HistorySelectionButtons.HistoryChoice;
-			HistorySelectionButtons.GetAstroButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.ASTRO;
-		}
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.ASTRO) {
-			astroSelection=HistorySelectionButtons.HistoryChoice;
-			HistorySelectionButtons.GetAffinityButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.AFFINITY;
-		}
-		
-		else if (HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.AFFINITY) 
-			
-		{	affinitySelection=HistorySelectionButtons.HistoryChoice;
-			historyAllocation.CreateNewPlayer(hellCircleSelection,genusSelection,speciesSelection,classSelection,originSelection,temperSelection,astroSelection,affinitySelection);
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;
-			HistorySelectionButtons.HistorySelection.enabled=false;
+	
 
+		if (HistorySelectionButtons.HistoryChoice == 0) {
+		} else {
+
+			switch (HistorySelectionButtons.currentStep) {
+
+			case HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE:
+				hellCircleSelection = HistorySelectionButtons.HistoryChoice;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.GENUS;
+				break;
+
+			case HistorySelectionButtons.PlayerHistoryStep.GENUS:
+				genusSelection = HistorySelectionButtons.HistoryChoice;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.SPECIES;
+				break;
+
+			case HistorySelectionButtons.PlayerHistoryStep.SPECIES:
+				speciesSelection = HistorySelectionButtons.HistoryChoice;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.CLASS;
+				break;
+
+			case HistorySelectionButtons.PlayerHistoryStep.CLASS:
+				classSelection = HistorySelectionButtons.HistoryChoice;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ORIGIN;
+				break;
+
+			case HistorySelectionButtons.PlayerHistoryStep.ORIGIN:
+				originSelection = HistorySelectionButtons.HistoryChoice;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.TEMPER;
+				break;
+
+			case HistorySelectionButtons.PlayerHistoryStep.TEMPER: 
+				temperSelection = HistorySelectionButtons.HistoryChoice;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ASTRO;
+				break;
+
+			case HistorySelectionButtons.PlayerHistoryStep.ASTRO:
+				astroSelection = HistorySelectionButtons.HistoryChoice;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.AFFINITY;
+				break;
+
+			case HistorySelectionButtons.PlayerHistoryStep.AFFINITY: 
+				affinitySelection = HistorySelectionButtons.HistoryChoice;
+				historyAllocation.CreateNewPlayer (hellCircleSelection, genusSelection, speciesSelection, classSelection, originSelection, temperSelection, astroSelection, affinitySelection);
+				MenuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;
+				HistorySelectionButtons.HistorySelection.enabled = false;
+				StatAllocationButtons.StatAllocationMenu.enabled = true;
+				break;
+			}
+
+			if(HistorySelectionButtons.HistorySelection.enabled==true) {
+			HistorySelectionButtons.GetHistoryUIButtons ();
+			HistorySelectionButtons.HistoryChoice = 0;
+			}
 		}
-		
-		
 	}
-
 
 
 
@@ -259,51 +261,56 @@ public class MenuGUI : MonoBehaviour {
 	
 	
 	public static void HistorySelectionBack(){
-		
-		if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE) {
+
+		switch (HistorySelectionButtons.currentStep) {
+		case HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE:
 			currentState = CreateAPlayerStates.MENU;
-			CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled= false;
-			HistorySelectionButtons.HistorySelection.enabled=false;
+			CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = false;
+			HistorySelectionButtons.HistorySelection.enabled = false;
 			GameMenuButtons.GameMenu.enabled = true;
-			Stand.SetActive(false);
-			Player.SetActive(false);
-		}
-		
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.GENUS) {
-			HistorySelectionButtons.GetHellCircleButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE;
-		}
-		
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.SPECIES) {
-			HistorySelectionButtons.GetGenusButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.GENUS;
-		}
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.CLASS) {
-			HistorySelectionButtons.GetSpeciesButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.SPECIES;
-		}
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.ORIGIN) {
-			HistorySelectionButtons.GetClassButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.CLASS;
-		}
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.TEMPER) {
-			HistorySelectionButtons.GetOriginButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.ORIGIN;
-		}
-		else if (HistorySelectionButtons.currentStep == HistorySelectionButtons.PlayerHistoryStep.ASTRO) {
-			HistorySelectionButtons.GetTemperButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.TEMPER;
-		}
-		
-		else if (HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.AFFINITY) 
+			Stand.SetActive (false);
+			Player.SetActive (false);
+			break;
 			
-		{	HistorySelectionButtons.GetAstroButtons();
-			HistorySelectionButtons.currentStep=HistorySelectionButtons.PlayerHistoryStep.ASTRO;}
-		
-		
+		case HistorySelectionButtons.PlayerHistoryStep.GENUS:
+			HistorySelectionButtons.HistoryChoice = hellCircleSelection;
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE;
+			break;
+			
+		case HistorySelectionButtons.PlayerHistoryStep.SPECIES:
+			HistorySelectionButtons.HistoryChoice = genusSelection;
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.GENUS;
+			break;
+			
+		case HistorySelectionButtons.PlayerHistoryStep.CLASS:
+			HistorySelectionButtons.HistoryChoice = speciesSelection;
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.SPECIES;
+			break;
+			
+		case HistorySelectionButtons.PlayerHistoryStep.ORIGIN:
+			HistorySelectionButtons.HistoryChoice = classSelection;
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.CLASS;
+			break;
+			
+		case HistorySelectionButtons.PlayerHistoryStep.TEMPER: 
+			HistorySelectionButtons.HistoryChoice = originSelection;
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ORIGIN;
+			break;
+			
+		case HistorySelectionButtons.PlayerHistoryStep.ASTRO:
+			HistorySelectionButtons.HistoryChoice = temperSelection;
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.TEMPER;
+			break;
+			
+		case HistorySelectionButtons.PlayerHistoryStep.AFFINITY: 
+			HistorySelectionButtons.HistoryChoice = astroSelection;
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ASTRO;
+			break;
+		}
+
+		HistorySelectionButtons.GetHistoryUIButtons ();
+
+
 	}
-
-
-
 
 }

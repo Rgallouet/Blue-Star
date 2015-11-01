@@ -6,32 +6,36 @@ public class StatAllocation{
 
 
 	// Primary stats
-	private string[] primaryStatNames = new string[12] 
-		{"Strength","Speed","Dexterity","Reflex","Resilience","Knowledge","Elocution","Intellect","Focus","Mockery ","Malevolant","Unmerciful"};
+	private string[] primaryStatNames = new string[14] 
+		{"Strength","Speed","Dexterity","Embodiment","Reflex","Resilience","Knowledge","Elocution","Intellect","Influence","Focus","Mockery ","Malevolant","Unmerciful"};
 	
-	private string[] primaryStatDescriptions = new string[12] 
-	{"When your battleaxe penetrates your enemy's brestplate, your strength tends to limit the number of rib bones you shatter in your wake. Remember: the more, the merrier!",
+	private string[] primaryStatDescriptions = new string[14] 
+	{	"When your battleaxe penetrates your enemy's brestplate, your strength tends to limit the number of rib bones you shatter in your wake. Remember: the more, the merrier!",
 		"If the first slap on a human doesn't get you where you wanted, try a second. Double tap is the way",
-		"These evasive schieming little humans dancing around can drive any decent demon mad... Just a tip: aim right between the legs, that actually - never - misses!",
+		"These evasive schieming little humans dancing around can drive any decent demon mad... Just a tip: aim right between the legs, that trick actually - never - misses!",
+		"The more tangible in human's mind you can get, the harder it will be for them to cast you out...",
 		"'Stick them with the pointy end!' is what they teach their kids... Yes, seriously, they do... Well, I'd be you, I'd try to make that pointy end pointing at something else than your face...",
 		"Remember that speech about the pointy end? well, your putrefied lungs or your dead hearts ain't the best second choice either.",
 		"Always best to remember the difference between that chicken soup spell and the meteor one, that quite makes the good difference in the battlefield... Well, i guess in the kitchen aswell.",
 		"A good demon wizard never misses on his daily elocution exercices. Try after me as fast as you can: 'Imagine an imaginary menagerie manager imagining managing an imaginary menagerie'!",
 		"For a fireball to accurately blast someone's head, you've got to guess where that head's going in the next 2 seconds... that sadly requires some brain function.",
+		"We're not on this planet for sight-seeing... we've got some havoc to wreck! The more influence on the physical plane you have, the more you'll make things go boom!",
 		"Demons and belief are somewhat connected, and that can have some perks. Did you know that if you concentrate, you can disbelief something enough to make it actually disapear? that works for fireballs and most similar things! P.S: By the way, that works on you too, so try really hard not to loose faith in yourself...",
 		"What would be a good old lost faith without some well placed mockery and cynical attitude? try this next time : if you verbally bully that iceball coming to your head, I'm sure it will shamely run away.",
 		"Remember, being part of the older demons requires some parenthood skills. Try to teach some violence in your angelic spawn for a start.",
 		"If you want your frail and spoiled little spawns to survive in the human wilderness, you've got to teach them the hard way to survive."};
 	
-	private string[] primaryStatEffect = new string[12] 
+	private string[] primaryStatEffect = new string[14] 
 	{"(Physical) Increase critical damage",
 	"(Physical) Increase attack speed",
 	"(Physical) Increase hit rate",
+	"(Physical) Amount of recievable damage before death",
 	"(Physical) Increase deflect rate",
 	"(Physical) Increase deflected damage ratio",
 	"(Non-Physical) Increase critical damage",
 	"(Non-Physical) Increase casting speed",
 	"(Non-Physical) Increase hit rate",
+	"(Non-Physical) Amount of available energy",
 	"(Non-Physical) Increase resist rate",
 	"(Non-Physical) Increase resisted damage ratio",
 	"(Leadership) Increase minions damage",
@@ -71,15 +75,15 @@ public class StatAllocation{
 	"(Secondary) Increase chances of additional random effects on actions"};
 
 
-	public int[] primaryPointsToAllocate = new int[12];
+	public int[] primaryPointsToAllocate = new int[14];
 	public int[] heroicPointsToAllocate = new int[2];
 	public int[] secondaryPointsToAllocate = new int[6];
 
-	private int[] primaryPointsMinimum = new int[12];
+	private int[] primaryPointsMinimum = new int[14];
 	private int[] heroicPointsMinimum = new int[2];
 	private int[] secondaryPointsMinimum = new int[6];
 
-	private bool[] primaryStatSelections = new bool[12];
+	private bool[] primaryStatSelections = new bool[14];
 	private bool[] heroicStatSelections = new bool[2];
 	private bool[] secondaryStatSelections = new bool[6];
 
@@ -91,14 +95,23 @@ public class StatAllocation{
 	public bool didRunOnce=false;
 
 
+
+
+
 	public void DisplayStatAllocationModule(){
+
 		if (!didRunOnce) {
 			RetrieveStatBaseStatPoints ();
 			didRunOnce=true;
 		}
+
 		DisplayStatToggleSwitches();
 		DisplayStatIncreaseDecreaseButtons ();
 	}
+
+
+
+
 
 	private void DisplayStatToggleSwitches(){
 
@@ -263,6 +276,7 @@ public class StatAllocation{
 		secondaryPointsMinimum[5] = GameInformation.basePlayer.Chaos;
 
 		}
+	
 
 
 
