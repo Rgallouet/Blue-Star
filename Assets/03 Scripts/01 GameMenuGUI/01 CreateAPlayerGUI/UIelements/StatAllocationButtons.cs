@@ -11,13 +11,13 @@ public class StatAllocationButtons : MonoBehaviour {
 	public static Text[] SecondaryNumbers = new Text[5];
 	public static Text[] PointsToAlloc = new Text[3];
 
-	public static Button[] PrimaryPlus = new Text[14];
-	public static Button[] HeroicPlus = new Text[2];
-	public static Button[] SecondaryPlus = new Text[5];
+	public static Button[] PrimaryPlus = new Button[14];
+	public static Button[] HeroicPlus = new Button[2];
+	public static Button[] SecondaryPlus = new Button[5];
 
-	public static Button[] PrimaryMinus = new Text[14];
-	public static Button[] HeroicMinus = new Text[2];
-	public static Button[] SecondaryMinus = new Text[5];
+	public static Button[] PrimaryMinus = new Button[14];
+	public static Button[] HeroicMinus = new Button[2];
+	public static Button[] SecondaryMinus = new Button[5];
 
 	public static Text DescriptionHead;
 	public static Text DescriptionBody;
@@ -145,47 +145,12 @@ public class StatAllocationButtons : MonoBehaviour {
 		}
 
 	}
-
-
-	// Interaction with UI Buttons
-	public void IncreaseStat(int WhichButton){
-		
-		if (WhichButton < 14) {
-			DescriptionHead.text = primaryStatNames [WhichButton] + " Description"; 
-			DescriptionBody.text = "<i>" + primaryStatEffect [WhichButton] + "</i> \n" + primaryStatDescriptions [WhichButton];
-		} else if (WhichButton > 13 && WhichButton < 16) {
-			DescriptionHead.text = heroicStatNames[WhichButton-14]+" Description"; 
-			DescriptionBody.text ="<i>"+heroicStatEffect[WhichButton-14]+"</i> \n"+heroicStatDescriptions[WhichButton-14];
-		} else if (WhichButton > 16) {
-			DescriptionHead.text = secondaryStatNames[WhichButton-16]+" Description"; 
-			DescriptionBody.text ="<i>"+secondaryStatEffect[WhichButton-16]+"</i> \n"+secondaryStatDescriptions[WhichButton-16];
-		}
-		
-	}
+	
 
 
 
 
 
-
-	void Update(){
-		if (StatAllocationMenu.enabled == true) {
-		
-			for (int i=0; i<14; i++) 	{PrimaryNumbers [i].text = "" + i;}
-			for (int i=0; i<2; i++) 	{HeroicNumbers [i].text = "" + i;}
-			for (int i=0; i<5; i++) 	{SecondaryNumbers [i].text = "" + i;}
-			for (int i=0; i<3; i++) 	{PointsToAlloc [i].text = "" + i;}
-		
-			if (StatAllocation.primaryStatPointsToAllocate > 0) {
-				for (int i=0; i<14; i++)	{ if(PrimaryPlus [i].enabled==false) {PrimaryPlus [i].gameObject.SetActive(true)}
-
-
-		
-		
-		
-		
-			}
-
-		}
-	}
-	}}
+	
+	
+}

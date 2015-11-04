@@ -240,7 +240,7 @@ public class MenuGUI : MonoBehaviour {
 				MenuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;
 				HistorySelectionButtons.HistorySelection.enabled = false;
 				StatAllocationButtons.StatAllocationMenu.enabled = true;
-				StatAllocation.DisplayStatAllocationModule();
+				statAllocation.DisplayStatAllocationModule();
 				break;
 			}
 
