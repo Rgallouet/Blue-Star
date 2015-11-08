@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+
+
 
 public class StatAllocation{
 
@@ -13,9 +16,14 @@ public class StatAllocation{
 	public int[] heroicPointsMinimum = new int[2];
 	public int[] secondaryPointsMinimum = new int[6];
 
-	private bool[] primaryStatSelections = new bool[14];
-	private bool[] heroicStatSelections = new bool[2];
-	private bool[] secondaryStatSelections = new bool[6];
+	private bool[] primaryStatSelectionsPlus = new bool[14];
+	private bool[] heroicStatSelectionsPlus = new bool[2];
+	private bool[] secondaryStatSelectionsPlus = new bool[6];
+
+	private bool[] primaryStatSelectionsMinus = new bool[14];
+	private bool[] heroicStatSelectionsMinus = new bool[2];
+	private bool[] secondaryStatSelectionsMinus = new bool[6];
+
 
 
 	public int primaryStatPointsToAllocate;
@@ -34,13 +42,20 @@ public class StatAllocation{
 			RetrieveStatBaseStatPoints ();
 			didRunOnce=true;}
 
-		DisplayStatsStatus ();
+	
+
+		for (int i=0; i<14 ; i++) {primaryStatSelectionsMinus[i]=true; primaryStatSelectionsPlus[i]=true;}
+		for (int i=0; i<2 ; i++) {heroicStatSelectionsMinus[i]=true; heroicStatSelectionsPlus[i]=true;}
+		for (int i=0; i<6 ; i++) {secondaryStatSelectionsMinus[i]=true; secondaryStatSelectionsPlus[i]=true;}
+
+
+		RefreshDisplayStatsStatus ();
 		CalculateDisplayPlusMinusButtons ();
 
 	}
 
 
-	private void MoveStat(bool Move,int Stat_ID){
+	public void MoveStat(bool Move,int Stat_ID){
 
 		switch (Move) {
 		case true:
@@ -72,6 +87,8 @@ public class StatAllocation{
 			break;
 
 		}
+
+
 	}
 
 
@@ -88,60 +105,104 @@ public class StatAllocation{
 		//Display the "Plus" buttons
 		if (primaryStatPointsToAllocate > 0) {	
 			for (int i=0; i<14 ; i++)	{ 
-				if(StatAllocationButtons.PrimaryPlus [i].enabled==false) {StatAllocationButtons.PrimaryPlus [i].gameObject.SetActive(true);}}
+				if(primaryStatSelectionsPlus[i]==false) {
+					StatAllocationButtons.PrimaryPlus [i].interactable=true; 
+					StatAllocationButtons.PrimaryPlus [i].GetComponentInChildren<Text>().text="+"; 
+					primaryStatSelectionsPlus[i]=true;}}
 		} 
 		else {			
 			for (int i=0; i<14 ; i++)	{ 
-				if(StatAllocationButtons.PrimaryPlus [i].enabled==true) {StatAllocationButtons.PrimaryPlus [i].gameObject.SetActive(false);}}
+				if(primaryStatSelectionsPlus[i]==true) {
+					StatAllocationButtons.PrimaryPlus [i].GetComponentInChildren<Text>().text=""; 
+					StatAllocationButtons.PrimaryPlus [i].interactable=false; 
+					primaryStatSelectionsPlus[i]=false;}}
 		} 
 		
 		
 		if (heroicStatPointsToAllocate > 0) {
 			for (int i=0; i<2 ; i++)	{ 
-				if(StatAllocationButtons.HeroicPlus [i].enabled==false) {StatAllocationButtons.HeroicPlus [i].gameObject.SetActive(true);}}
+				if(heroicStatSelectionsPlus[i]==false) {
+					StatAllocationButtons.HeroicPlus [i].interactable=true; 
+					StatAllocationButtons.HeroicPlus [i].GetComponentInChildren<Text>().text="+"; 
+					heroicStatSelectionsPlus[i]=true;}}
 		} 
 		else {			
 			for (int i=0; i<2 ; i++)	{ 
-				if(StatAllocationButtons.HeroicPlus [i].enabled==true) {StatAllocationButtons.HeroicPlus [i].gameObject.SetActive(false);}}
+				if(heroicStatSelectionsPlus[i]==true) {
+					StatAllocationButtons.HeroicPlus [i].GetComponentInChildren<Text>().text=""; 
+					StatAllocationButtons.HeroicPlus [i].interactable=false; 
+					heroicStatSelectionsPlus[i]=false;}}
 		} 
 		
 		
 		if (secondaryStatPointsToAllocate > 0) {	
-			for (int i=0; i<5 ; i++)	{ 
-				if(StatAllocationButtons.SecondaryPlus [i].enabled==false) {StatAllocationButtons.SecondaryPlus [i].gameObject.SetActive(true);}}
+			for (int i=0; i<6 ; i++)	{ 
+				if(secondaryStatSelectionsPlus[i]==false) {
+					StatAllocationButtons.SecondaryPlus [i].interactable=true; 
+					StatAllocationButtons.SecondaryPlus [i].GetComponentInChildren<Text>().text="+"; 
+					secondaryStatSelectionsPlus[i]=true;}}
 		} 
 		else {		
-			for (int i=0; i<5 ; i++)	{ 
-				if(StatAllocationButtons.SecondaryPlus [i].enabled==true) {StatAllocationButtons.SecondaryPlus [i].gameObject.SetActive(false);}}
+			for (int i=0; i<6 ; i++)	{ 
+				if(secondaryStatSelectionsPlus[i]==true) {
+					StatAllocationButtons.SecondaryPlus [i].GetComponentInChildren<Text>().text=""; 
+					StatAllocationButtons.SecondaryPlus [i].interactable=false; 
+					secondaryStatSelectionsPlus[i]=false;}}
 		} 
 		
-		
+
+
+
+
+
+
+
+
+
 		
 		//Display the "Minus" buttons
-		
 		for (int i=0; i<14 ; i++) {
+	
 			if (primaryPointsToAllocate[i]-primaryPointsMinimum[i]>0) {
-				if(StatAllocationButtons.PrimaryMinus [i].enabled==false) {StatAllocationButtons.PrimaryMinus [i].gameObject.SetActive(true);}
+				if(primaryStatSelectionsMinus[i]==false) {
+					StatAllocationButtons.PrimaryMinus [i].interactable=true; 
+					StatAllocationButtons.PrimaryMinus [i].GetComponentInChildren<Text>().text="-"; 
+					primaryStatSelectionsMinus[i]=true;}
 			} else {
-				if(StatAllocationButtons.PrimaryMinus [i].enabled==true) {StatAllocationButtons.PrimaryMinus [i].gameObject.SetActive(false);}
+				if(primaryStatSelectionsMinus[i]==true) {
+					StatAllocationButtons.PrimaryMinus [i].GetComponentInChildren<Text>().text=""; 
+					StatAllocationButtons.PrimaryMinus [i].interactable=false; 
+					primaryStatSelectionsMinus[i]=false;}
 			}
 		}
 		
 		
 		for (int i=0; i<2 ; i++) {
 			if (heroicPointsToAllocate[i]-heroicPointsMinimum[i]>0) {
-				if(StatAllocationButtons.HeroicMinus [i].enabled==false) {StatAllocationButtons.HeroicMinus [i].gameObject.SetActive(true);}
+				if(heroicStatSelectionsMinus[i]==false) {
+					StatAllocationButtons.HeroicMinus [i].interactable=true; 
+					StatAllocationButtons.HeroicMinus [i].GetComponentInChildren<Text>().text="-"; 
+					heroicStatSelectionsMinus[i]=true;}
 			} else {
-				if(StatAllocationButtons.HeroicMinus [i].enabled==true) {StatAllocationButtons.HeroicMinus [i].gameObject.SetActive(false);}
+				if(heroicStatSelectionsMinus[i]==true) {
+					StatAllocationButtons.HeroicMinus [i].GetComponentInChildren<Text>().text=""; 
+					StatAllocationButtons.HeroicMinus [i].interactable=false; 
+					heroicStatSelectionsMinus[i]=false;}
 			}
 		}
 		
 		
-		for (int i=0; i<5 ; i++) {
+		for (int i=0; i<6 ; i++) {
 			if (secondaryPointsToAllocate[i]-secondaryPointsMinimum[i]>0) {
-				if(StatAllocationButtons.PrimaryMinus [i].enabled==false) {StatAllocationButtons.PrimaryMinus [i].gameObject.SetActive(true);}
+				if(secondaryStatSelectionsMinus[i]==false) {
+					StatAllocationButtons.SecondaryMinus [i].interactable=true; 
+					StatAllocationButtons.SecondaryMinus [i].GetComponentInChildren<Text>().text="-"; 
+					secondaryStatSelectionsMinus[i]=true;}
 			} else {
-				if(StatAllocationButtons.PrimaryMinus [i].enabled==true) {StatAllocationButtons.PrimaryMinus [i].gameObject.SetActive(false);}
+				if(secondaryStatSelectionsMinus[i]==true) {
+					StatAllocationButtons.SecondaryMinus [i].GetComponentInChildren<Text>().text=""; 
+					StatAllocationButtons.SecondaryMinus [i].interactable=false; 
+					secondaryStatSelectionsMinus[i]=false;}
 			}
 		}
 	}
@@ -151,17 +212,11 @@ public class StatAllocation{
 
 
 
-	public void DisplayStatsStatus(){
+	public void RefreshDisplayStatsStatus(){
 
-			for (int i=0; i<14; i++) {
-			StatAllocationButtons.PrimaryNumbers [i].text = ""+primaryPointsToAllocate [i];
-			}
-			for (int i=0; i<2; i++) {
-			StatAllocationButtons.HeroicNumbers [i].text = ""+heroicPointsToAllocate [i];
-			}
-			for (int i=0; i<5; i++) {
-			StatAllocationButtons.SecondaryNumbers [i].text = ""+secondaryPointsToAllocate [i];
-			}
+			for (int i=0; i<14; i++) {StatAllocationButtons.PrimaryNumbers [i].text = "" + primaryPointsToAllocate [i];}
+			for (int i=0; i<2; i++) {StatAllocationButtons.HeroicNumbers [i].text = "" + heroicPointsToAllocate [i];}
+			for (int i=0; i<6; i++) {StatAllocationButtons.SecondaryNumbers [i].text = "" + secondaryPointsToAllocate [i];}
 			
 		StatAllocationButtons.PointsToAlloc [0].text = "" + primaryStatPointsToAllocate;
 		StatAllocationButtons.PointsToAlloc [1].text = "" + heroicStatPointsToAllocate;
@@ -192,51 +247,35 @@ public class StatAllocation{
 
 		// Initiation des stats allouées
 		primaryPointsToAllocate[0] = GameInformation.basePlayer.Strength;
-		primaryPointsMinimum[0] = GameInformation.basePlayer.Strength;
 		primaryPointsToAllocate[1] = GameInformation.basePlayer.Speed;
-		primaryPointsMinimum[1] = GameInformation.basePlayer.Speed;
 		primaryPointsToAllocate[2] = GameInformation.basePlayer.Dexterity;
-		primaryPointsMinimum[2] = GameInformation.basePlayer.Dexterity;
 		primaryPointsToAllocate[3] = GameInformation.basePlayer.Embodiment;
-		primaryPointsMinimum[3] = GameInformation.basePlayer.Embodiment;
 		primaryPointsToAllocate[4] = GameInformation.basePlayer.Reflex;
-		primaryPointsMinimum[4] = GameInformation.basePlayer.Reflex;
 		primaryPointsToAllocate[5] = GameInformation.basePlayer.Resilience;
-		primaryPointsMinimum[5] = GameInformation.basePlayer.Resilience;
 		primaryPointsToAllocate[6] = GameInformation.basePlayer.Knowledge;
-		primaryPointsMinimum[6] = GameInformation.basePlayer.Knowledge;
 		primaryPointsToAllocate[7] = GameInformation.basePlayer.Elocution;
-		primaryPointsMinimum[7] = GameInformation.basePlayer.Elocution;
 		primaryPointsToAllocate[8] = GameInformation.basePlayer.Intellect;
-		primaryPointsMinimum[8] = GameInformation.basePlayer.Intellect;
 		primaryPointsToAllocate[9] = GameInformation.basePlayer.Influence;
-		primaryPointsMinimum[9] = GameInformation.basePlayer.Influence;
 		primaryPointsToAllocate[10] = GameInformation.basePlayer.Focus;
-		primaryPointsMinimum[10] = GameInformation.basePlayer.Focus;
 		primaryPointsToAllocate[11] = GameInformation.basePlayer.Mockery;
-		primaryPointsMinimum[11] = GameInformation.basePlayer.Mockery;
 		primaryPointsToAllocate[12] = GameInformation.basePlayer.Malevolant;
-		primaryPointsMinimum[12] = GameInformation.basePlayer.Malevolant;
 		primaryPointsToAllocate[13] = GameInformation.basePlayer.Unmerciful;
-		primaryPointsMinimum[13] = GameInformation.basePlayer.Unmerciful;
 
 		heroicPointsToAllocate[0] = GameInformation.basePlayer.Rage;
-		heroicPointsMinimum[0] = GameInformation.basePlayer.Rage-1;
 		heroicPointsToAllocate[1] = GameInformation.basePlayer.Phase;
-		heroicPointsMinimum[1] = GameInformation.basePlayer.Phase-1;
 
 		secondaryPointsToAllocate[0] = GameInformation.basePlayer.Momentum;
-		secondaryPointsMinimum[0] = GameInformation.basePlayer.Momentum-1;
 		secondaryPointsToAllocate[1] = GameInformation.basePlayer.Balance;
-		secondaryPointsMinimum[1] = GameInformation.basePlayer.Balance-1;
 		secondaryPointsToAllocate[2] = GameInformation.basePlayer.Luck;
-		secondaryPointsMinimum[2] = GameInformation.basePlayer.Luck-1;
 		secondaryPointsToAllocate[3] = GameInformation.basePlayer.Perception;
-		secondaryPointsMinimum[3] = GameInformation.basePlayer.Perception-1;
 		secondaryPointsToAllocate[4] = GameInformation.basePlayer.Judgement;
-		secondaryPointsMinimum[4] = GameInformation.basePlayer.Judgement-1;
 		secondaryPointsToAllocate[5] = GameInformation.basePlayer.Chaos;
-		secondaryPointsMinimum[5] = GameInformation.basePlayer.Chaos-1;
+
+
+		for (int i=0; i<14; i++) 	{ primaryPointsMinimum[i]=		primaryPointsToAllocate[i];		}
+		for (int i=0; i<2; i++) 	{ heroicPointsMinimum[i]=		heroicPointsToAllocate[i]-1;	}
+		for (int i=0; i<6; i++) 	{ secondaryPointsMinimum[i]=	secondaryPointsToAllocate[i]-1;	}
+
 
 		}
 	

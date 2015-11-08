@@ -6,8 +6,6 @@ public class MenuGUI : MonoBehaviour {
 	public static CreateAPlayerStates currentState;
 	public enum CreateAPlayerStates{MENU,LOAD,HISTORYSELECTION,STATALLOCATION,FINALSETUP,SAVE,PLAY}
 
-	private DisplayCreatePlayerFunctions displayFunctions = new DisplayCreatePlayerFunctions ();
-
 	private static HistoryAllocation historyAllocation = new HistoryAllocation();
 	private static StatAllocation statAllocation= new StatAllocation();
 	private static BackgroundAllocation backgroundAllocation = new BackgroundAllocation();
@@ -236,6 +234,7 @@ public class MenuGUI : MonoBehaviour {
 
 			case HistorySelectionButtons.PlayerHistoryStep.AFFINITY: 
 				affinitySelection = HistorySelectionButtons.HistoryChoice;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.END;
 				historyAllocation.CreateNewPlayer (hellCircleSelection, genusSelection, speciesSelection, classSelection, originSelection, temperSelection, astroSelection, affinitySelection);
 				MenuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;
 				HistorySelectionButtons.HistorySelection.enabled = false;
@@ -244,7 +243,7 @@ public class MenuGUI : MonoBehaviour {
 				break;
 			}
 
-			if(!(HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.AFFINITY)) {
+			if(!(HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.END)) {
 			HistorySelectionButtons.GetHistoryUIButtons ();
 			HistorySelectionButtons.HistoryChoice = 0;
 			}
@@ -313,5 +312,17 @@ public class MenuGUI : MonoBehaviour {
 
 
 	}
+
+
+
+
+
+
+	public static void CallStatAllocationMoveStat(bool Move,int Stat_ID){
+		statAllocation.MoveStat (Move, Stat_ID);
+		statAllocation.RefreshDisplayStatsStatus ();
+		statAllocation.CalculateDisplayPlusMinusButtons ();
+	}
+
 
 }

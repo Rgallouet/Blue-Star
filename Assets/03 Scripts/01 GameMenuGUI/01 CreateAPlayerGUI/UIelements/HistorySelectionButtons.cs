@@ -7,11 +7,11 @@ public class HistorySelectionButtons : MonoBehaviour {
 	public static Canvas HistorySelection;
 
 	public static PlayerHistoryStep currentStep;
-	public enum PlayerHistoryStep{HELLCIRCLE,GENUS,SPECIES,CLASS,ORIGIN,TEMPER,ASTRO,AFFINITY}
+	public enum PlayerHistoryStep{HELLCIRCLE,GENUS,SPECIES,CLASS,ORIGIN,TEMPER,ASTRO,AFFINITY,END}
 
 	public static int HistoryChoice;
 	public static GridLayoutGroup ChoiceDisplay;
-	public static RectTransform ChoiceDescription;
+	public static RectTransform HistoChoiceDescription;
 
 	public static Button[] Choice = new Button[10];
 
@@ -46,10 +46,13 @@ public class HistorySelectionButtons : MonoBehaviour {
 
 	void Start () {
 
+
+
+
 		currentStep = PlayerHistoryStep.HELLCIRCLE;
 		HistorySelection = GetComponent<Canvas>();
-		ChoiceDescription=HistorySelection.GetComponentInChildren<RectTransform> ();
-		ChoiceDisplay=ChoiceDescription.GetComponentInChildren<GridLayoutGroup> ();
+		HistoChoiceDescription=HistorySelection.GetComponentInChildren<RectTransform> ();
+		ChoiceDisplay=HistoChoiceDescription.GetComponentInChildren<GridLayoutGroup> ();
 		for (int i=0; i<9; i++) { 	Choice[i]=ChoiceDisplay.GetComponentsInChildren<Button> () [i];}
 		GetHistoryUIButtons ();
 		HistorySelection.enabled = false;

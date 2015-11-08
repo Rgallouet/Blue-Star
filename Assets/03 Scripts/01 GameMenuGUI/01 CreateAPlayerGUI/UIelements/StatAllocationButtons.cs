@@ -4,20 +4,22 @@ using System.Collections;
 
 public class StatAllocationButtons : MonoBehaviour {
 
+	public MenuGUI menuGUI;
+
 	public static Canvas StatAllocationMenu;
 
 	public static Text[] PrimaryNumbers = new Text[14];
 	public static Text[] HeroicNumbers = new Text[2];
-	public static Text[] SecondaryNumbers = new Text[5];
+	public static Text[] SecondaryNumbers = new Text[6];
 	public static Text[] PointsToAlloc = new Text[3];
 
 	public static Button[] PrimaryPlus = new Button[14];
 	public static Button[] HeroicPlus = new Button[2];
-	public static Button[] SecondaryPlus = new Button[5];
+	public static Button[] SecondaryPlus = new Button[6];
 
 	public static Button[] PrimaryMinus = new Button[14];
 	public static Button[] HeroicMinus = new Button[2];
-	public static Button[] SecondaryMinus = new Button[5];
+	public static Button[] SecondaryMinus = new Button[6];
 
 	public static Text DescriptionHead;
 	public static Text DescriptionBody;
@@ -101,22 +103,25 @@ public class StatAllocationButtons : MonoBehaviour {
 
 	void Awake(){
 		StatAllocationMenu = GetComponent<Canvas>();
+			
+		for (int i=0; i<6; i++)		{ PrimaryNumbers [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+1];}
+		for (int i=6; i<12; i++)	{ PrimaryNumbers [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+2];}
+		for (int i=12; i<14; i++)	{ PrimaryNumbers [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+3];}
+		for (int i=0; i<2; i++) 	{ HeroicNumbers [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+14+4];}
+		for (int i=0; i<6; i++) 	{ SecondaryNumbers [i] = 	StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+16+5];}
+		for (int i=0; i<3; i++) 	{ PointsToAlloc [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+29];}
 
+		for (int i=0; i<6; i++)		{ PrimaryPlus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [6].GetComponentsInChildren<Button> () [i];}
+		for (int i=6; i<12; i++)	{ PrimaryPlus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [7].GetComponentsInChildren<Button> () [i-6];}
+		for (int i=12; i<14; i++)	{ PrimaryPlus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [8].GetComponentsInChildren<Button> () [i-12];}
+		for (int i=0; i<2; i++) 	{ HeroicPlus [i] = 			StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [9].GetComponentsInChildren<Button> () [i];}
+		for (int i=0; i<6; i++) 	{ SecondaryPlus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [10].GetComponentsInChildren<Button> ()[i];}
 
-		for (int i=0; i<6; i++)		{ PrimaryNumbers [i] = 		StatAllocationMenu.GetComponentsInChildren<Text> () [(i*3)+5];}
-		for (int i=6; i<12; i++)	{ PrimaryNumbers [i] = 		StatAllocationMenu.GetComponentsInChildren<Text> () [(i*3)+5+3];}
-		for (int i=12; i<14; i++)	{ PrimaryNumbers [i] = 		StatAllocationMenu.GetComponentsInChildren<Text> () [(i*3)+5+(14*3)];}
-		for (int i=0; i<2; i++) 	{ HeroicNumbers [i] = 		StatAllocationMenu.GetComponentsInChildren<Text> () [(i*3)+5+(17*3)];}
-		for (int i=0; i<5; i++) 	{ SecondaryNumbers [i] = 	StatAllocationMenu.GetComponentsInChildren<Text> () [(i*3)+5+(20*3)];}
-		for (int i=0; i<3; i++) 	{ PointsToAlloc [i] = 		StatAllocationMenu.GetComponentsInChildren<Text> () [(i*3)+5+(27*3)];}
-
-		for (int i=0; i<14; i++)	{ PrimaryPlus [i] = 		StatAllocationMenu.GetComponentsInChildren<Button> () [(i*2)+1];}
-		for (int i=0; i<2; i++) 	{ HeroicPlus [i] = 			StatAllocationMenu.GetComponentsInChildren<Button> () [(i*2)+1+(14*2)];}
-		for (int i=0; i<5; i++) 	{ SecondaryPlus [i] = 		StatAllocationMenu.GetComponentsInChildren<Button> () [(i*2)+1+(16*2)];}
-
-		for (int i=0; i<14; i++)	{ PrimaryMinus [i] = 		StatAllocationMenu.GetComponentsInChildren<Button> () [(i*2)+0];}
-		for (int i=0; i<2; i++) 	{ HeroicMinus [i] = 		StatAllocationMenu.GetComponentsInChildren<Button> () [(i*2)+0+(14*2)];}
-		for (int i=0; i<5; i++) 	{ SecondaryMinus [i] = 		StatAllocationMenu.GetComponentsInChildren<Button> () [(i*2)+0+(16*2)];}
+		for (int i=0; i<6; i++)		{ PrimaryMinus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [0].GetComponentsInChildren<Button> () [i];}
+		for (int i=6; i<12; i++)	{ PrimaryMinus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [1].GetComponentsInChildren<Button> () [i-6];}
+		for (int i=12; i<14; i++)	{ PrimaryMinus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [2].GetComponentsInChildren<Button> () [i-12];}
+		for (int i=0; i<2; i++) 	{ HeroicMinus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [3].GetComponentsInChildren<Button> () [i];}
+		for (int i=0; i<6; i++) 	{ SecondaryMinus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [4].GetComponentsInChildren<Button> () [i];}
 
 
 		DescriptionHead = GameObject.FindGameObjectWithTag("LoreDisplayHead").GetComponentInChildren<Text> ();
@@ -145,8 +150,16 @@ public class StatAllocationButtons : MonoBehaviour {
 		}
 
 	}
-	
 
+
+
+	public void CallPlusStat(int Stat_ID){
+		MenuGUI.CallStatAllocationMoveStat (true, Stat_ID);
+	}
+
+	public void CallMinusStat(int Stat_ID){
+		MenuGUI.CallStatAllocationMoveStat (false, Stat_ID);
+	}
 
 
 
