@@ -17,7 +17,7 @@ public class HistorySelectionButtons : MonoBehaviour {
 
 
 	public static string[] HellCircles = new string[9] 
-	{"Limbo town","Lust village","Gluttonbourg","Greedpolis","Capanger","Heresynia","Violocanto","Bolgiafraudis","Traitor's hideout"};
+	{"Limbo town","Lust hills","Gluttonbourg","Greedpolis","Capanger","Heresynia","Violocanto","Bolgiafraudis","Traitor's frostgrounds"};
 
 	public static string[] Genuses = new string[6] 
 	{"Demono","Angelum","Celticus","Nordi","Nyla","Homo"};
@@ -45,9 +45,6 @@ public class HistorySelectionButtons : MonoBehaviour {
 	
 
 	void Start () {
-
-
-
 
 		currentStep = PlayerHistoryStep.HELLCIRCLE;
 		HistorySelection = GetComponent<Canvas>();
@@ -167,7 +164,7 @@ public class HistorySelectionButtons : MonoBehaviour {
 
 		case PlayerHistoryStep.AFFINITY:	
 
-			HistorySelection.GetComponentInChildren<Text> ().text = "Right...off you go then, you can meet with your lieutenant on the surface. Choose your channel up.";
+			HistorySelection.GetComponentInChildren<Text> ().text = "Right... and from which channel are you planning on passing to the surface?";
 			HistorySelection.GetComponentsInChildren<Text> () [1].text = "Primordial Affinity";
 			for (int i=0; i<9; i++) { 	Choice[i].GetComponentInChildren<Text> ().text = Affis [i];	}
 			break;

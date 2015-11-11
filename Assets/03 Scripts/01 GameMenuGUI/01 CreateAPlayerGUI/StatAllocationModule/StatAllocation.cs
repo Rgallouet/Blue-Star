@@ -31,6 +31,7 @@ public class StatAllocation{
 	public int secondaryStatPointsToAllocate;
 
 	public bool didRunOnce=false;
+	public bool readyForNext = false;
 
 
 
@@ -88,6 +89,11 @@ public class StatAllocation{
 
 		}
 
+		if (primaryStatPointsToAllocate+heroicStatPointsToAllocate+secondaryStatPointsToAllocate==0) {
+			readyForNext=true;
+		} else {
+			readyForNext=false;
+		}
 
 	}
 

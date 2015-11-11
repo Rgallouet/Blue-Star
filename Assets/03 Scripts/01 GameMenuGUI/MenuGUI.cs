@@ -42,7 +42,6 @@ public class MenuGUI : MonoBehaviour {
 		temperSelection=0;	
 		astroSelection=0;	
 		affinitySelection=0;
-
 		lastActionWasNext = true;
 
 	}
@@ -54,6 +53,90 @@ public class MenuGUI : MonoBehaviour {
 
 
 
+
+
+
+	public static void MenuLoad(){
+		lastActionWasNext = true;
+		currentState = CreateAPlayerStates.LOAD;
+		GameMenuButtons.GameMenu.enabled = false;
+		LoadGameMenuButtons.LoadGameMenu.enabled = true;
+		LoadGameMenuButtons.GetLoadNames();
+	}
+
+
+
+
+
+
+
+
+
+	
+	public static void MenuGoNext(){
+		
+		lastActionWasNext = true;
+		
+		switch (currentState) {
+			
+		case CreateAPlayerStates.MENU:
+			currentState = CreateAPlayerStates.HISTORYSELECTION;
+			GameMenuButtons.GameMenu.enabled = false;
+			CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = true;
+			HistorySelectionButtons.HistorySelection.enabled = true;
+			Stand.SetActive (true);
+			Player.SetActive (true);
+			break;
+			
+		case CreateAPlayerStates.HISTORYSELECTION: 
+			HistorySelectionNext ();
+			if(HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.END){	
+				historyAllocation.CreateNewPlayer (hellCircleSelection, genusSelection, speciesSelection, classSelection, originSelection, temperSelection, astroSelection, affinitySelection);
+				currentState = CreateAPlayerStates.STATALLOCATION;
+				HistorySelectionButtons.HistorySelection.enabled = false;
+				StatAllocationButtons.StatAllocationMenu.enabled = true;
+				statAllocation.DisplayStatAllocationModule();
+			}
+			break;
+			
+		case CreateAPlayerStates.STATALLOCATION: 
+			if (statAllocation.readyForNext==true) {
+				statAllocation.StoreStatAllocation ();
+				currentState = CreateAPlayerStates.FINALSETUP;
+				StatAllocationButtons.StatAllocationMenu.enabled = false;
+				BackgroundSelectionButtons.BackgroundSelection.enabled=true;
+			}
+			break;
+			
+		case CreateAPlayerStates.FINALSETUP:
+			bool ReadyforNext=BackgroundSelectionButtons.TestDetails();
+
+			if (ReadyforNext==true) {
+				BackgroundSelectionButtons.SendDetails();
+				BackgroundSelectionButtons.BackgroundSelection.enabled=false;
+				CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = false;
+				SaveGameMenuButtons.SaveGameMenu.enabled=true;
+				SaveGameMenuButtons.GetSaveNames();
+				currentState = CreateAPlayerStates.SAVE;
+			}
+			break;
+
+		case CreateAPlayerStates.LOAD: 
+			LoadGameMenuButtons.LoadGameMenu.enabled = false;
+			currentState = CreateAPlayerStates.PLAY;
+			Application.LoadLevel("Play");
+			break;
+
+		case CreateAPlayerStates.SAVE:
+			SaveGameMenuButtons.SaveGameMenu.enabled=false;
+			currentState = CreateAPlayerStates.PLAY;
+			Stand.SetActive (false);
+			Player.SetActive (false);
+			Application.LoadLevel("Play");
+			break;
+		}
+		
+	}
 
 
 
@@ -79,21 +162,34 @@ public class MenuGUI : MonoBehaviour {
 
 		case CreateAPlayerStates.HISTORYSELECTION:
 			HistorySelectionBack ();
+			if (HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE) {
+				currentState = CreateAPlayerStates.MENU;
+				CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = false;
+				HistorySelectionButtons.HistorySelection.enabled = false;
+				GameMenuButtons.GameMenu.enabled = true;
+				Stand.SetActive (false);
+				Player.SetActive (false);
+			}
 			break;
 
 		case CreateAPlayerStates.STATALLOCATION:
 			StatAllocationButtons.StatAllocationMenu.enabled = false;
 			currentState = CreateAPlayerStates.HISTORYSELECTION;
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.AFFINITY;
 			statAllocation.didRunOnce = false;
 			HistorySelectionButtons.HistoryChoice = affinitySelection;
 			HistorySelectionButtons.HistorySelection.enabled = true;
 			break;
 
 		case CreateAPlayerStates.FINALSETUP:
+			BackgroundSelectionButtons.BackgroundSelection.enabled=false;
+			StatAllocationButtons.StatAllocationMenu.enabled = true;
 			currentState = CreateAPlayerStates.STATALLOCATION;
 			break;
 
 		case CreateAPlayerStates.SAVE:
+			SaveGameMenuButtons.SaveGameMenu.enabled=false;
+			BackgroundSelectionButtons.BackgroundSelection.enabled=true;
 			currentState = CreateAPlayerStates.FINALSETUP;
 			break;
 
@@ -114,46 +210,6 @@ public class MenuGUI : MonoBehaviour {
 
 
 
-	public static void MenuGoNext(){
-
-		lastActionWasNext = true;
-
-		switch (MenuGUI.currentState) {
-
-		case MenuGUI.CreateAPlayerStates.MENU:
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.HISTORYSELECTION;
-			GameMenuButtons.GameMenu.enabled = false;
-			CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = true;
-			HistorySelectionButtons.HistorySelection.enabled = true;
-			Stand.SetActive (true);
-			Player.SetActive (true);
-			break;
-
-		case MenuGUI.CreateAPlayerStates.LOAD: 
-			LoadGameMenuButtons.LoadGameMenu.enabled = false;
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.PLAY;
-			break;
-
-		case MenuGUI.CreateAPlayerStates.HISTORYSELECTION: 
-			HistorySelectionNext ();
-			break;
-
-		case MenuGUI.CreateAPlayerStates.STATALLOCATION: 
-			statAllocation.StoreStatAllocation ();
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.FINALSETUP;
-			break;
-
-		case MenuGUI.CreateAPlayerStates.FINALSETUP:
-			backgroundAllocation.StoreLastInfo ();
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.SAVE;
-			break;
-
-		case MenuGUI.CreateAPlayerStates.SAVE:
-			MenuGUI.currentState = MenuGUI.CreateAPlayerStates.PLAY;
-			break;
-		}
-
-	}
 
 
 
@@ -162,12 +218,6 @@ public class MenuGUI : MonoBehaviour {
 
 
 
-	public static void MenuLoad(){
-		lastActionWasNext = true;
-		MenuGUI.currentState = MenuGUI.CreateAPlayerStates.LOAD;
-		GameMenuButtons.GameMenu.enabled = false;
-		LoadGameMenuButtons.LoadGameMenu.enabled = true;
-	}
 
 
 
@@ -235,11 +285,6 @@ public class MenuGUI : MonoBehaviour {
 			case HistorySelectionButtons.PlayerHistoryStep.AFFINITY: 
 				affinitySelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.END;
-				historyAllocation.CreateNewPlayer (hellCircleSelection, genusSelection, speciesSelection, classSelection, originSelection, temperSelection, astroSelection, affinitySelection);
-				MenuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;
-				HistorySelectionButtons.HistorySelection.enabled = false;
-				StatAllocationButtons.StatAllocationMenu.enabled = true;
-				statAllocation.DisplayStatAllocationModule();
 				break;
 			}
 
@@ -263,15 +308,7 @@ public class MenuGUI : MonoBehaviour {
 	public static void HistorySelectionBack(){
 
 		switch (HistorySelectionButtons.currentStep) {
-		case HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE:
-			currentState = CreateAPlayerStates.MENU;
-			CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = false;
-			HistorySelectionButtons.HistorySelection.enabled = false;
-			GameMenuButtons.GameMenu.enabled = true;
-			Stand.SetActive (false);
-			Player.SetActive (false);
-			break;
-			
+
 		case HistorySelectionButtons.PlayerHistoryStep.GENUS:
 			HistorySelectionButtons.HistoryChoice = hellCircleSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE;
@@ -315,6 +352,11 @@ public class MenuGUI : MonoBehaviour {
 
 
 
+
+
+	public static void CallSendDetails(string PlayerFirstName,string PlayerLastName,string PlayerBio, int genderSelection){
+		backgroundAllocation.StoreLastInfo (PlayerFirstName,PlayerLastName,PlayerBio,genderSelection);
+	}
 
 
 

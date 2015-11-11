@@ -67,8 +67,8 @@ public class StatAllocationButtons : MonoBehaviour {
 	{"Rage","Phase"};
 	
 	private string[] heroicStatDescriptions = new string[2] 
-	{"Come on, child. You're not making it fun enough... \nGive me a bit of your inner fuel, let the blood bath begin! ",
-		"The mastery of your half-plane existence is simply full of shortcuts. \nGuess what, you can just deny anything bad that happens to you."};
+	{"Come on, child. You're not making it fun enough... \nShow me your teeth, let the blood bath begin! ",
+		"The mastery of your half-plane existence is simply full of shortcuts. \nGuess what, if you're good enough at that, you can just 'deny' anything bad happening to you."};
 	
 	private string[] heroicStatEffect = new string[2] 
 	{"(Heroic) Increase all critical chances",
@@ -140,13 +140,13 @@ public class StatAllocationButtons : MonoBehaviour {
 
 		if (WhichButton < 14) {
 			DescriptionHead.text = primaryStatNames [WhichButton] + " Description"; 
-			DescriptionBody.text = "<i>" + primaryStatEffect [WhichButton] + "</i> \n" + primaryStatDescriptions [WhichButton];
+			DescriptionBody.text = "<i>" + primaryStatEffect [WhichButton] + "</i> \n\n" + primaryStatDescriptions [WhichButton];
 		} else if (WhichButton > 13 && WhichButton < 16) {
 			DescriptionHead.text = heroicStatNames[WhichButton-14]+" Description"; 
-			DescriptionBody.text ="<i>"+heroicStatEffect[WhichButton-14]+"</i> \n"+heroicStatDescriptions[WhichButton-14];
+			DescriptionBody.text ="<i>"+heroicStatEffect[WhichButton-14]+"</i> \n\n"+heroicStatDescriptions[WhichButton-14];
 		} else if (WhichButton > 16) {
 			DescriptionHead.text = secondaryStatNames[WhichButton-16]+" Description"; 
-			DescriptionBody.text ="<i>"+secondaryStatEffect[WhichButton-16]+"</i> \n"+secondaryStatDescriptions[WhichButton-16];
+			DescriptionBody.text ="<i>"+secondaryStatEffect[WhichButton-16]+"</i> \n\n"+secondaryStatDescriptions[WhichButton-16];
 		}
 
 	}
