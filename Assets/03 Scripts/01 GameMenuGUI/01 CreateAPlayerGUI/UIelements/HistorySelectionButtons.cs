@@ -13,8 +13,11 @@ public class HistorySelectionButtons : MonoBehaviour {
 	public static GridLayoutGroup ChoiceDisplay;
 	public static RectTransform HistoChoiceDescription;
 
+
 	public static Button[] Choice = new Button[10];
 	public static Text[] HistoryChoiceDisplay = new Text[8];
+	public static Image[] HistoryChoiceImage = new Image[7];
+
 
 
 	public static string[] HellCircles = new string[9] 
@@ -30,8 +33,9 @@ public class HistorySelectionButtons : MonoBehaviour {
 		"Violocanto, the desolate region dominated by the three concentric volcanos erupting massive flows of alluminium and silver, is but sparsely populated. Violocanto can be found in Violanis, the first hell circle that host no other life than demons due to its proximity to the hell center. Water naturaly exists only as a gaz form which tends to complicate fancy life styles. The land is ruled by the nomadic Ani Tribe, merchant of water. \nPopulation: living in Violocanto requires a few thing: a strong resistence to elements, and a deft hand for 'picking up' unattended vials of water.",
 		"Bolgiafraudis, also called the Red Fan, is an impressive vertical composition of ten vast castles made of copper, gold and red rare stones, dominating a barren desert ground. High gravity, hot and dry winds, barren waste lands and occasional acid lakes are the only features one can expect here outside the city. Ruled over by the rust dragon Maliborg and his family, the stronghold is the official Deministry of War Waging in times of invasions. Many of the highest and strongest house of hell resides in the top layers of the Red Fan. The regional laws follow the strong sense of hierarchy and military disposition put in place by the last dead dragon. \nPopulation: The highdead demons are trained to battle for invasion of physical worlds, by mastering non-physical offence skills and physical defence.",
 		"The frost grounds lost its original name and purpose in times before any current walking species arrived in the hell circles. It is the closest circle, and against all expectation by far the coldest. Not a thing exist here, no wind, no stone, not even a nail dare to challenge the flatness that heavily resides there. The ground is an seamingly endless, waveless pristine mirror, an ice sea with no ripples. There is apparently nothing to do or see there, so actually no demon wants to either own it or come here. No demon is known to actually live here. \nPopulation: N/A"};
+	
 
-
+	public Sprite[] RightArmSprites = new Sprite[9];
 
 
 	public static string[] Genuses = new string[6] 
@@ -44,7 +48,7 @@ public class HistorySelectionButtons : MonoBehaviour {
 		"The Nordi people were a primitive yet highly social, diverse and peaceful civilization before encountering the first angels. Many species of the Nordi are forever lost in what will later be called the Plane War. The invasion highlighted for the first time the major gaps between physical and non-physical entities, and cause inumerable casualties in both sides. Almost entirely obliterated by the zealous angels, surviving Nords became enslaved to mostly angelic families.",
 		"The home of Nylas remain to date a mystery for all other genuses, and it is probably the only reason why demons have not yet openly tried to invade and/or enslave them. They can be seen from time to time passing by in the hell circles and people do not know how they travel. Due to the lack of information on them and the uneasyness it induces, demons tends not to confront or chase them out of their land. They seem to be very few in number and they do not get involved in demon's businesses.",
 		"The Homo Sapiens species is the latest life form that caught the attention of the angels and original demons. Plans for the invasion are setting up, and first intelligence stated that the homo sapiens species rely most uniquely on the physical aspect of their existence, and exhibit strong physical resistence. Through lessons learned from previous war with the Nordi, the demon federation tried to innovate and create their own genetically designed homo species with physical resistent traits to fight on equal terms."};
-
+	
 
 
 
@@ -55,9 +59,10 @@ public class HistorySelectionButtons : MonoBehaviour {
 	{"Hornydi","Succubi","Vampyri","Seraph","Cherubim","Thronoi","Ankou","Cernun","Dagmus","Elfaji","Trolki","Berzica","Hor","Ana","Akep","Spectrum",
 		"The Celtica cerna designed a parasitic worm to take other the homo sapiens nervous system. The celticus plan was to produce spies in enemy territory to greatly fasten the invasion. The infected homo sapiens have enhances physical abilities and lowered non-physical affinities. However, the symbiosis sadly produces greener blood, which doomed to failure the original plan for an intelligence faction. The project was stopped and the infected humans were left to die. Sadly for everyone, not all of them did... And in addition to their genetically designed hate to humans, they developped a very legitimate one to the celticus cernum species.",
 		"Rex"};
+	
+	public Sprite[] HeadSprites = new Sprite[18];
 
-
-
+	
 
 
 	public static string[] Jobs = new string[9] 
@@ -65,6 +70,10 @@ public class HistorySelectionButtons : MonoBehaviour {
 
 	public static string[] JobsDescription = new string[9] 
 	{"Ripper","Butcher","Guardian","Lord","Architect","Judge","Painter","Muse","Baker"};
+
+	public Sprite[] LeftArmSprites = new Sprite[9];
+
+
 
 
 
@@ -75,6 +84,7 @@ public class HistorySelectionButtons : MonoBehaviour {
 	public static string[] OriginsDescription = new string[9] 
 	{"Monkey","Bear","Wolf","Bee","Snail","Ant","Doe","Owl","Turtle"};
 
+	public Sprite[] TorsoSprites = new Sprite[9];
 
 
 
@@ -84,6 +94,7 @@ public class HistorySelectionButtons : MonoBehaviour {
 	public static string[] DeathStatesDescription = new string[9]
 	{"Lashing out","Rebellious","Sleepy","Violent","Powerlessness","Unfairness","At peace","Sleepy","Passive"};
 
+	public Sprite[] LegsSprites = new Sprite[9];
 
 
 
@@ -94,6 +105,9 @@ public class HistorySelectionButtons : MonoBehaviour {
 	public static string[] AstrosDescription = new string[9]
 	{"Canis","Scuti","Cephei","Wester","Betel","Vulpe","Anta","Gemi","Cygni"};
 
+	public Sprite[] RightFootSprites = new Sprite[9];
+
+
 
 
 
@@ -103,7 +117,10 @@ public class HistorySelectionButtons : MonoBehaviour {
 	public static string[] AffisDescription = new string[9]
 	{"Organic","Light","Heat","Nuclear","Magneto","Psychic","Gravity","Cold","Shadow"};
 
-	
+	public Sprite[] LeftFootSprites = new Sprite[9];
+
+
+
 
 	
 
@@ -113,12 +130,14 @@ public class HistorySelectionButtons : MonoBehaviour {
 		HistorySelection = GetComponent<Canvas>();
 		HistoChoiceDescription=HistorySelection.GetComponentInChildren<RectTransform> ();
 		ChoiceDisplay=HistoChoiceDescription.GetComponentInChildren<GridLayoutGroup> ();
+
 		for (int i=0; i<9; i++) { 	Choice[i]=ChoiceDisplay.GetComponentsInChildren<Button> () [i];}
+		for (int i=0; i<8; i++) {	HistoryChoiceDisplay [i] = HistorySelection.GetComponentInChildren<Mask> ().GetComponentsInChildren<Text> () [i];}
+		for (int i=0; i<7; i++) {	HistoryChoiceImage [i] = HistorySelection.GetComponentInChildren<Mask> ().GetComponentsInChildren<Image> () [i+1];}
 
-
-		for (int i=0; i<8; i++) {	HistoryChoiceDisplay [i] = GameObject.FindGameObjectWithTag ("HistoryDisplay").GetComponentsInChildren<Text> () [i];}
 
 		GetHistoryUIButtons ();
+
 		HistorySelection.enabled = false;
 
 	}
@@ -150,11 +169,13 @@ public class HistorySelectionButtons : MonoBehaviour {
 
 
 
-	public static void UpdateDescription() {
+	void UpdateDescription() {
+
 		switch(currentStep){
 		case PlayerHistoryStep.HELLCIRCLE: 	
 			HistorySelection.GetComponentsInChildren<Text> () [2].text =HellCirclesDescription[HistoryChoice-1];
 			HistoryChoiceDisplay [0].text=HellCircles[HistoryChoice-1];
+			HistoryChoiceImage[0].sprite = RightArmSprites[HistoryChoice-1];
 			break;
 		case PlayerHistoryStep.GENUS:		
 			HistorySelection.GetComponentsInChildren<Text> () [2].text =GenusesDescription[HistoryChoice-1];
@@ -163,26 +184,32 @@ public class HistorySelectionButtons : MonoBehaviour {
 		case PlayerHistoryStep.SPECIES:		
 			HistorySelection.GetComponentsInChildren<Text> () [2].text =SpeciesDescription[HistoryChoice-1+3*(MenuGUI.genusSelection-1)];
 			HistoryChoiceDisplay [2].text=Species[HistoryChoice-1+3*(MenuGUI.genusSelection-1)];
+			HistoryChoiceImage[1].sprite = HeadSprites[HistoryChoice-1+3*(MenuGUI.genusSelection-1)];
 			break;
 		case PlayerHistoryStep.CLASS:		
 			HistorySelection.GetComponentsInChildren<Text> () [2].text =JobsDescription[HistoryChoice-1];
 			HistoryChoiceDisplay [3].text=Jobs[HistoryChoice-1];
+			HistoryChoiceImage[2].sprite = LeftArmSprites[HistoryChoice-1];
 			break;
 		case PlayerHistoryStep.ORIGIN:		
 			HistorySelection.GetComponentsInChildren<Text> () [2].text =OriginsDescription[HistoryChoice-1];
 			HistoryChoiceDisplay [4].text=Origins[HistoryChoice-1];
+			HistoryChoiceImage[3].sprite = TorsoSprites[HistoryChoice-1];
 			break;
 		case PlayerHistoryStep.TEMPER:		
 			HistorySelection.GetComponentsInChildren<Text> () [2].text =DeathStatesDescription[HistoryChoice-1];
 			HistoryChoiceDisplay [5].text=DeathStates[HistoryChoice-1];
+			HistoryChoiceImage[4].sprite = LegsSprites[HistoryChoice-1];
 			break;
 		case PlayerHistoryStep.ASTRO:		
 			HistorySelection.GetComponentsInChildren<Text> () [2].text =AstrosDescription[HistoryChoice-1];
 			HistoryChoiceDisplay [6].text=Astros[HistoryChoice-1];
+			HistoryChoiceImage[5].sprite = RightFootSprites[HistoryChoice-1];
 			break;
 		case PlayerHistoryStep.AFFINITY:	
 			HistorySelection.GetComponentsInChildren<Text> () [2].text =AffisDescription[HistoryChoice-1];
 			HistoryChoiceDisplay [7].text=Affis[HistoryChoice-1];
+			HistoryChoiceImage[6].sprite = LeftFootSprites[HistoryChoice-1];
 			break;
 
 		}
@@ -264,7 +291,6 @@ public class HistorySelectionButtons : MonoBehaviour {
 
 
 	}
-
 
 
 
