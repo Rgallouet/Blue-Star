@@ -15,9 +15,11 @@ public class MenuGUI : MonoBehaviour {
 
 
 	public static int hellCircleSelection;
+	public static int allegianceSelection;
 	public static int genusSelection;
 	public static int speciesSelection;
 	public static int classSelection;
+	public static int impSelection;
 	public static int originSelection;	
 	public static int temperSelection;	
 	public static int astroSelection;	
@@ -35,9 +37,11 @@ public class MenuGUI : MonoBehaviour {
 		Player.SetActive(false);
 
 		hellCircleSelection=0;
+		allegianceSelection=0;
 		genusSelection=0;
 		speciesSelection = 0;
 		classSelection=0;
+		impSelection=0;
 		originSelection=0;	
 		temperSelection=0;	
 		astroSelection=0;	
@@ -91,7 +95,7 @@ public class MenuGUI : MonoBehaviour {
 		case CreateAPlayerStates.HISTORYSELECTION: 
 			HistorySelectionNext ();
 			if(HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.END){	
-				historyAllocation.CreateNewPlayer (hellCircleSelection, genusSelection, speciesSelection, classSelection, originSelection, temperSelection, astroSelection, affinitySelection);
+				historyAllocation.CreateNewPlayer (hellCircleSelection, allegianceSelection, genusSelection, speciesSelection, classSelection, impSelection, originSelection, temperSelection, astroSelection, affinitySelection);
 				currentState = CreateAPlayerStates.STATALLOCATION;
 				HistorySelectionButtons.HistorySelection.enabled = false;
 				StatAllocationButtons.StatAllocationMenu.enabled = true;
@@ -162,7 +166,7 @@ public class MenuGUI : MonoBehaviour {
 
 		case CreateAPlayerStates.HISTORYSELECTION:
 			HistorySelectionBack ();
-			if (HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE) {
+			if (HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.START) {
 				currentState = CreateAPlayerStates.MENU;
 				CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = false;
 				HistorySelectionButtons.HistorySelection.enabled = false;
@@ -242,13 +246,17 @@ public class MenuGUI : MonoBehaviour {
 	public static void HistorySelectionNext(){
 	
 
-		if (HistorySelectionButtons.HistoryChoice == 0) {
-		} else {
+		if (!(HistorySelectionButtons.HistoryChoice == 0)) {
 
 			switch (HistorySelectionButtons.currentStep) {
 
 			case HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE:
 				hellCircleSelection = HistorySelectionButtons.HistoryChoice;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ALLEGIANCE;
+				break;
+
+			case HistorySelectionButtons.PlayerHistoryStep.ALLEGIANCE:
+				allegianceSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.GENUS;
 				break;
 
@@ -264,6 +272,11 @@ public class MenuGUI : MonoBehaviour {
 
 			case HistorySelectionButtons.PlayerHistoryStep.CLASS:
 				classSelection = HistorySelectionButtons.HistoryChoice;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.IMP;
+				break;
+
+			case HistorySelectionButtons.PlayerHistoryStep.IMP:
+				impSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ORIGIN;
 				break;
 
@@ -309,9 +322,18 @@ public class MenuGUI : MonoBehaviour {
 
 		switch (HistorySelectionButtons.currentStep) {
 
-		case HistorySelectionButtons.PlayerHistoryStep.GENUS:
+		case HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE:
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.START;
+			break;
+
+		case HistorySelectionButtons.PlayerHistoryStep.ALLEGIANCE:
 			HistorySelectionButtons.HistoryChoice = hellCircleSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE;
+			break;
+
+		case HistorySelectionButtons.PlayerHistoryStep.GENUS:
+			HistorySelectionButtons.HistoryChoice = allegianceSelection;
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ALLEGIANCE;
 			break;
 			
 		case HistorySelectionButtons.PlayerHistoryStep.SPECIES:
@@ -323,10 +345,15 @@ public class MenuGUI : MonoBehaviour {
 			HistorySelectionButtons.HistoryChoice = speciesSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.SPECIES;
 			break;
-			
-		case HistorySelectionButtons.PlayerHistoryStep.ORIGIN:
+	
+		case HistorySelectionButtons.PlayerHistoryStep.IMP:
 			HistorySelectionButtons.HistoryChoice = classSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.CLASS;
+			break;
+
+		case HistorySelectionButtons.PlayerHistoryStep.ORIGIN:
+			HistorySelectionButtons.HistoryChoice = impSelection;
+			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.IMP;
 			break;
 			
 		case HistorySelectionButtons.PlayerHistoryStep.TEMPER: 

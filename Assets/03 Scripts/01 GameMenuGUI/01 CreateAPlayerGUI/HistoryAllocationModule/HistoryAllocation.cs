@@ -10,7 +10,7 @@ public class HistoryAllocation {
 
 
 
-	public void CreateNewPlayer(int hellCircleSelection,int genusSelection,int speciesSelection,int classSelection,int originSelection,int temperSelection,int astroSelection,int affinitySelection){
+	public void CreateNewPlayer(int hellCircleSelection,int allegianceSelection,int genusSelection,int speciesSelection,int classSelection,int impSelection,int originSelection,int temperSelection,int astroSelection,int affinitySelection){
 
 		BasePlayer newPlayer = new BasePlayer ();
 
