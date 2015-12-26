@@ -109,7 +109,7 @@ public class StatAllocationButtons : MonoBehaviour {
 		for (int i=12; i<14; i++)	{ PrimaryNumbers [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+3];}
 		for (int i=0; i<2; i++) 	{ HeroicNumbers [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+14+4];}
 		for (int i=0; i<6; i++) 	{ SecondaryNumbers [i] = 	StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+16+5];}
-		for (int i=0; i<3; i++) 	{ PointsToAlloc [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+29];}
+		for (int i=0; i<3; i++) 	{ PointsToAlloc [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [5].GetComponentsInChildren<Text> () [i+28];}
 
 		for (int i=0; i<6; i++)		{ PrimaryPlus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [6].GetComponentsInChildren<Button> () [i];}
 		for (int i=6; i<12; i++)	{ PrimaryPlus [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup> () [7].GetComponentsInChildren<Button> () [i-6];}
