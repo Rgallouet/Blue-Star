@@ -264,7 +264,7 @@ public class StatAllocation{
 		primaryPointsToAllocate[9] = GameInformation.basePlayer.Influence;
 		primaryPointsToAllocate[10] = GameInformation.basePlayer.Focus;
 		primaryPointsToAllocate[11] = GameInformation.basePlayer.Mockery;
-		primaryPointsToAllocate[12] = GameInformation.basePlayer.Malevolant;
+		primaryPointsToAllocate[12] = GameInformation.basePlayer.Malevolent;
 		primaryPointsToAllocate[13] = GameInformation.basePlayer.Unmerciful;
 
 		heroicPointsToAllocate[0] = GameInformation.basePlayer.Rage;
@@ -308,7 +308,7 @@ public class StatAllocation{
 		GameInformation.basePlayer.Influence =		primaryPointsToAllocate[9];
 		GameInformation.basePlayer.Focus =			primaryPointsToAllocate[10];
 		GameInformation.basePlayer.Mockery = 		primaryPointsToAllocate[11];
-		GameInformation.basePlayer.Malevolant = 	primaryPointsToAllocate[12];
+		GameInformation.basePlayer.Malevolent = 	primaryPointsToAllocate[12];
 		GameInformation.basePlayer.Unmerciful = 	primaryPointsToAllocate[13];
 
 		GameInformation.basePlayer.Rage = 			heroicPointsToAllocate[0];

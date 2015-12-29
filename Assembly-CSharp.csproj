@@ -46,8 +46,17 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\BackgroundAllocationModule\BackgroundAllocation.cs" />
-     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\BaseClass.cs" />
-     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineClass.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\BaseHistory.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineAffi.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineAllegiance.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineAstro.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineDeathState.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineGenus.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineHellCircle.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineImp.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineJob.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineOrigin.cs" />
+     <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\DemonHistory\Classes\DefineSpecies.cs" />
      <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\HistoryAllocation.cs" />
      <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\HistoryAllocationModule\Visualisation\RightArm.cs" />
      <Compile Include="Assets\03 Scripts\01 GameMenuGUI\01 CreateAPlayerGUI\StatAllocationModule\StatAllocation.cs" />
@@ -183,17 +192,11 @@
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>

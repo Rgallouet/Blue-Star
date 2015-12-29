@@ -65,12 +65,12 @@ public class HistorySelectionButtons : MonoBehaviour
 		"None"
 	};
 	public static string[] AllegianceDescription = new string[9]
-	{"House Da'rhas is the perfect exemple of wealth success story, through war and commerce. War intendant Da'Rhas, founder of the wealthiest family and main actor of the rise of Greedopolis, died in battle during the first clashes of the human campaign. The blow was heavy for the demonic community, and even more so on the economy. \n\nHouse Da'rhas has only one motto: Conquer more, to loot more. They will not stop until all discovered species are enslaved and their home world pillaged.",
-		"House O'prescu is a stern and old family from Hornidy origins. Cold and rational, they participate in each war with ruthless and controversial methods, even for demons. \n\nThey do not care about enslavement or spoils of war, they live only for sheer domination and victory. They caused the war on the Navaties species to be particularly relentless and effective, to the extinct that none are alive to date and their civilisation is almost forgotten.",
-		"House Maliborgis is the most politically influential house in the nine circles, and the oldest still living. Ruled by the last dragon, it holds the current war mandate and controls half of the deministries. \n\nManipulation, blackmailing and display of force are the main leverages to ensure no other family rise to the political spheres, especially the Da'Rhas and the O'prescu.",
-		"The doubt is a religious order of demons, doubting about the sense of their existence. The doubt refutes the need for war waging, and acts to uncover pre-demonic artefacts and History. \n\nThe doubt is a very dangerous practise, as faith in its own existence is essential for a demon to stay alive. When the lack of purpose undermines sufficiently the need to exist, then demons may vanish out of existence",
-		"The Free Market Guild is an unorganized and frail association of business demons around the world, trying to set themselves free from the political constraints of war and power. \n\nThey assess any items or actions through the impact it may have on their utility function and they abhor any kind of waste. They remain very weak politically, but their ranks grows every day.",		
-		"The Autonomous Senate is a collective of demons from the 9th circle who is attempting to replicate the human republic structure.  This political style made the buzz, and is the trend in the last thousands of year.\n\nThe senate grew so much in power that it can be said that the whole 9th circle is now ruled over by democratic votes. \n\nThe Senate still records dozens of deaths per day during its decision making sessions.",		
+	{"House Da'rhas is the perfect exemple of wealth success story, through war and commerce. War intendant Da'Rhas, founder of the wealthiest family and main actor of the rise of Greedopolis, died in battle during the first clashes of the human campaign. The blow was heavy for the demonic community, and even more so on the economy. \n\nHouse Da'rhas has only one motto: Conquer more, to loot more. They will not stop until all discovered species are enslaved and their home world pillaged. \n\nSpecificities: Risk averse and good leadership.",
+		"House O'prescu is a stern and old family from Hornidy origins. Cold and rational, they participate in each war with ruthless and controversial methods, even for demons. \n\nThey do not care about enslavement or spoils of war, they live only for sheer domination and victory. They caused the war on the Navaties species to be particularly relentless and effective, to the extinct that none are alive to date and their civilisation is almost forgotten. \n\nSpecificities: Hunger for risk and good leadership.",
+		"House Maliborgis is the most politically influential house in the nine circles, and the oldest still living. Ruled by the last dragon, it holds the current war mandate and controls half of the deministries. \n\nManipulation, blackmailing and display of force are the main leverages to ensure no other family rise to the political spheres, especially the Da'Rhas and the O'prescu. \n\nSpecificities: well-rounded and public speaker.",
+		"The doubt is a religious order of demons, doubting about the sense of their existence. The doubt refutes the need for war waging, and acts to uncover pre-demonic artefacts and History. \n\nThe doubt is a very dangerous practise, as faith in its own existence is essential for a demon to stay alive. When the lack of purpose undermines sufficiently the need to exist, then demons may vanish out of existence. \n\nSpecificities: Analytical mind and instable.",
+		"The Free Market Guild is an unorganized and frail association of business demons around the world, trying to set themselves free from the political constraints of war and power. \n\nThey assess any items or actions through the impact it may have on their utility function and they abhor any kind of waste. They remain very weak politically, but their ranks grows every day. \n\nSpecificities: Friendly and strong physical presence.",		
+		"The Autonomous Senate is a collective of demons from the 9th circle who is attempting to replicate the human republic structure.  This political style made the buzz, and is the trend in the last thousands of year.\n\nThe senate grew so much in power that it can be said that the whole 9th circle is now ruled over by democratic votes. \n\nThe Senate still records dozens of deaths per day during its decision making sessions. \n\nSpecificities: Literate and leadership.",		
 		"The Sheath is a terrorist organization whose claimed objective is to establish a weapon-free culture among demons and to prevent any unnecessary wars. \n\nThey receive a decent amount of support from the low-level demons, whose lifespan is at its lowest in thousands of years of History. \n\nThe Sheath High council members remain unknown, and some rumors state that the true purpose of the Sheath is to undermine military strength of the government and primary houses, in order to take over the deministries in a bloody coup d'état.",		
 		"The deministries are the government organs of the demons. Ranging from the most powerful, the Deministry of War Waging, to the most insignificant such as the Deministry for Demon Social Rights, the Deministries disorganises demons lives and ensures the most chaotic environment which suits bests to demons. \n\nDeministries are the primary source of entropy and absurdity in the demon's world.",		
 		"You swore no allegiance to anything or anyone"};
@@ -113,15 +113,15 @@ public class HistorySelectionButtons : MonoBehaviour
 	
 	public Sprite[] HeadSprites = new Sprite[18];
 	public static string[] Jobs = new string[9] {
-		"Ripper",
+		"Hunter",
 		"Butcher",
 		"Guardian",
 		"Lord",
 		"Architect",
 		"Judge",
-		"Painter",
+		"Warlock",
 		"Muse",
-		"Baker"
+		"Medic"
 	};
 	public static string[] JobsDescription = new string[9] {
 		"Ripper",
@@ -165,7 +165,7 @@ public class HistorySelectionButtons : MonoBehaviour
 	public static string[] DeathStates = new string[9] {
 		"Lashing out",
 		"Rebellious",
-		"Sleepy",
+		"Bored",
 		"Violent",
 		"Powerlessness",
 		"Unfairness",
@@ -186,7 +186,10 @@ public class HistorySelectionButtons : MonoBehaviour
 	};
 	public Sprite[] LegsSprites = new Sprite[9];
 	public static string[] Astros = new string[9]
-	{"Canis","Scuti","Cephei","Wester","Betel","Vulpe","Anta","Gemi","Cygni"};
+	{"Canis",
+		"Scuti",
+		"Cephei",
+		"Wester","Betel","Vulpe","Anta","Gemi","Cygni"};
 	public static string[] AstrosDescription = new string[9]
 	{"Canis","Scuti","Cephei","Wester","Betel","Vulpe","Anta","Gemi","Cygni"};
 	public Sprite[] RightFootSprites = new Sprite[9];

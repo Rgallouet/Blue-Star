@@ -3,9 +3,9 @@ using System.Collections;
 [System.Serializable]
 
 
-public class BaseClass {
+public class BaseHistory {
+
 	private string className;
-	private string classDescription;
 
 	//Embodiment are always 100, same for action points
 	private int embodiment; 		//Health Points are always 100
@@ -24,7 +24,7 @@ public class BaseClass {
 	private int focus;
 	private int mockery;
 
-	private int malevolant;
+	private int malevolent;
 	private int unmerciful;
 
 	private int rage;
@@ -38,7 +38,7 @@ public class BaseClass {
 	
 
 	public string 	ClassName 				{ get; set;}
-	public string 	ClassDescription 		{ get; set;}
+
 	public int 		Embodiment 				{ get; set;}
 	public int 		Influence 				{ get; set;}
 
@@ -54,7 +54,7 @@ public class BaseClass {
 	 public int Focus		{ get; set;}
 	 public int Mockery		{ get; set;}
 	
-	 public int Malevolant	{ get; set;}
+	 public int Malevolent	{ get; set;}
 	 public int Unmerciful	{ get; set;}
 
 	 public int Rage		{ get; set;}

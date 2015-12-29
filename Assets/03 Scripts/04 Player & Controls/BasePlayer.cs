@@ -6,7 +6,17 @@ using System.Collections;
 public class BasePlayer {
 
 	private int playerLevel;
-	private BaseClass playerClass;
+
+	private BaseHistory playerHellCircle;
+	private BaseHistory playerAllegiance;
+	private BaseHistory playerGenus;
+	private BaseHistory playerSpecies;
+	private BaseHistory playerJob;
+	private BaseHistory playerImp;
+	private BaseHistory playerOrigin;
+	private BaseHistory playerDeathState;
+	private BaseHistory playerAstro;
+	private BaseHistory playerAffi;
 
 	private string playerFirstName;
 	private string playerLastName;	
@@ -40,7 +50,7 @@ public class BasePlayer {
 	private int focus;
 	private int mockery;
 	
-	private int malevolant;
+	private int malevolent;
 	private int unmerciful;
 	
 	
@@ -60,8 +70,19 @@ public class BasePlayer {
 	public string 		PlayerBio 					{ get; set;}
 	public string 		PlayerGender 				{ get; set;}
 
-	public BaseClass 	PlayerClass 				{ get; set;}
 
+	public BaseHistory 	PlayerHellCircle			{ get; set;}
+	public BaseHistory 	PlayerAllegiance			{ get; set;}
+	public BaseHistory 	PlayerGenus					{ get; set;}
+	public BaseHistory 	PlayerSpecies				{ get; set;}
+	public BaseHistory 	PlayerJob					{ get; set;}
+	public BaseHistory 	PlayerImp					{ get; set;}
+	public BaseHistory 	PlayerOrigin				{ get; set;}
+	public BaseHistory 	PlayerDeathState			{ get; set;}
+	public BaseHistory 	PlayerAstro					{ get; set;}
+	public BaseHistory 	PlayerAffi					{ get; set;}
+
+	
 	public int 		PlayerLevel 					{ get; set;}
 	public int 		TotalXP 						{ get; set;}
 	public int 		CurrentXP 						{ get; set;}
@@ -89,7 +110,7 @@ public class BasePlayer {
 	public int Focus		{ get; set;}
 	public int Mockery		{ get; set;}
 	
-	public int Malevolant	{ get; set;}
+	public int Malevolent	{ get; set;}
 	public int Unmerciful	{ get; set;}
 	
 	public int Rage			{ get; set;}
