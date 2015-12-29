@@ -24,7 +24,7 @@ public class LoadGameMenuButtons : MonoBehaviour {
 			if (PlayerPrefs.GetString ("00_EquipmentOne") != null) {
 				GameInformation.EquipmentOne = (BaseEquipment)PPSerialization.Load ("00_EquipmentOne");
 			}
-			MenuGUI.MenuGoNext ();
+			MenuGUI.MenuGoNext (0);
 			break;
 		case 1:
 			if (PlayerPrefs.GetString ("01_Player") != null) {
@@ -33,7 +33,7 @@ public class LoadGameMenuButtons : MonoBehaviour {
 			if (PlayerPrefs.GetString ("01_EquipmentOne") != null) {
 				GameInformation.EquipmentOne = (BaseEquipment)PPSerialization.Load ("01_EquipmentOne");
 			}
-			MenuGUI.MenuGoNext ();
+			MenuGUI.MenuGoNext (0);
 			break;		
 		case 2:
 			if (PlayerPrefs.GetString ("02_Player") != null) {
@@ -42,13 +42,13 @@ public class LoadGameMenuButtons : MonoBehaviour {
 			if (PlayerPrefs.GetString ("02_EquipmentOne") != null) {
 				GameInformation.EquipmentOne = (BaseEquipment)PPSerialization.Load ("02_EquipmentOne");
 			}
-			MenuGUI.MenuGoNext ();
+			MenuGUI.MenuGoNext (0);
 			break;
 		}
 	}
 
 	public void BackToGameMenuFromLoadScreen(){
-		MenuGUI.MenuGoBack ();
+		MenuGUI.MenuGoBack (0);
 	}
 
 	public static void GetLoadNames() {

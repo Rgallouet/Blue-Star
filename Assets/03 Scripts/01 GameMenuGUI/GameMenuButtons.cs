@@ -12,8 +12,9 @@ public class GameMenuButtons : MonoBehaviour {
 	}
 
 
-	public void StartNewGame()	{MenuGUI.MenuGoNext ();}
-	public void QuitGame()		{MenuGUI.MenuGoBack ();}
-	public void LoadGame()		{MenuGUI.MenuLoad ();}
+	public void StartNewGame()	{MenuGUI.MenuGoNext (1);}
+	public void LoadGame()		{MenuGUI.MenuGoNext (2);}
+	public void QuitGame()		{MenuGUI.MenuGoBack (0);}
+
 
 }

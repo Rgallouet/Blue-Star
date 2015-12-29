@@ -32,11 +32,11 @@ public class DefineJob : BaseHistory {
 
 			break;
 		case 8: 
-			ClassName="Muse";Embodiment=-7;Reflex=-5;Resilience=-6;Strength=-7;Speed=-9;Dexterity=-8;Influence=12;Focus=12;Mockery=1;Knowledge=0;Elocution=12;Intellect=0;Malevolent=0;Unmerciful=0;Rage=-1;Phase=1;Momentum=2;Balance=-2;Luck=0;Perception=0;Judgement=0;Chaos=0;
+			ClassName="Whisperer";Embodiment=-7;Reflex=-5;Resilience=-6;Strength=-7;Speed=-9;Dexterity=-8;Influence=12;Focus=12;Mockery=1;Knowledge=0;Elocution=12;Intellect=0;Malevolent=0;Unmerciful=0;Rage=-1;Phase=1;Momentum=2;Balance=-2;Luck=0;Perception=0;Judgement=0;Chaos=0;
 
 			break;
 		case 9: 
-			ClassName="Medic";Embodiment=-7;Reflex=-5;Resilience=-8;Strength=-9;Speed=-6;Dexterity=-7;Influence=12;Focus=0;Mockery=12;Knowledge=12;Elocution=0;Intellect=2;Malevolent=-6;Unmerciful=5;Rage=-1;Phase=1;Momentum=2;Balance=-2;Luck=0;Perception=0;Judgement=0;Chaos=0;
+			ClassName="Soul healer";Embodiment=-7;Reflex=-5;Resilience=-8;Strength=-9;Speed=-6;Dexterity=-7;Influence=12;Focus=0;Mockery=12;Knowledge=12;Elocution=0;Intellect=2;Malevolent=-6;Unmerciful=5;Rage=-1;Phase=1;Momentum=2;Balance=-2;Luck=0;Perception=0;Judgement=0;Chaos=0;
 
 			break;	
 	

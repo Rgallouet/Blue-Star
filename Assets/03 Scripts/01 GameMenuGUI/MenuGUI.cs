@@ -4,7 +4,7 @@ using System.Collections;
 public class MenuGUI : MonoBehaviour {
 
 	public static CreateAPlayerStates currentState;
-	public enum CreateAPlayerStates{MENU,LOAD,HISTORYSELECTION,STATALLOCATION,FINALSETUP,SAVE,PLAY}
+	public enum CreateAPlayerStates{MENU,LOAD,MODESELECTION,PREDEFINEDSELECTION,HISTORYSELECTION,STATALLOCATION,FINALSETUP,SAVE,PLAY}
 
 	private static HistoryAllocation historyAllocation = new HistoryAllocation();
 	private static StatAllocation statAllocation= new StatAllocation();
@@ -14,16 +14,29 @@ public class MenuGUI : MonoBehaviour {
 	public static GameObject Player;
 
 
-	public static int hellCircleSelection;
-	public static int allegianceSelection;
-	public static int genusSelection;
-	public static int speciesSelection;
-	public static int classSelection;
-	public static int impSelection;
-	public static int originSelection;	
-	public static int temperSelection;	
-	public static int astroSelection;	
-	public static int affinitySelection;
+	//private int hellCircleSelection;
+	//private int allegianceSelection;
+	//private int genusSelection;
+	//private int speciesSelection;
+	//private int jobSelection;
+	//private int impSelection;
+	//private int originSelection;	
+	//private int temperSelection;	
+	//private int astroSelection;	
+	//private int affinitySelection;
+
+	public static int HellCircleSelection 	{ get; set; }
+	public static int AllegianceSelection 	{ get; set; }
+	public static int GenusSelection 		{ get; set; }
+	public static int SpeciesSelection 		{ get; set; }
+	public static int JobSelection 			{ get; set; }
+	public static int ImpSelection 			{ get; set; }
+	public static int OriginSelection 		{ get; set; }	
+	public static int TemperSelection 		{ get; set; }	
+	public static int AstroSelection 		{ get; set; }	
+	public static int AffinitySelection 	{ get; set; }
+	
+
 
 	public static bool lastActionWasNext;
 
@@ -36,36 +49,19 @@ public class MenuGUI : MonoBehaviour {
 		Stand.SetActive(false);
 		Player.SetActive(false);
 
-		hellCircleSelection=0;
-		allegianceSelection=0;
-		genusSelection=0;
-		speciesSelection = 0;
-		classSelection=0;
-		impSelection=0;
-		originSelection=0;	
-		temperSelection=0;	
-		astroSelection=0;	
-		affinitySelection=0;
+		HellCircleSelection=0;
+		AllegianceSelection=0;
+		GenusSelection=0;
+		SpeciesSelection = 0;
+		JobSelection=0;
+		ImpSelection=0;
+		OriginSelection=0;	
+		TemperSelection=0;	
+		AstroSelection=0;	
+		AffinitySelection=0;
+
 		lastActionWasNext = true;
 
-	}
-
-
-
-
-
-
-
-
-
-
-
-	public static void MenuLoad(){
-		lastActionWasNext = true;
-		currentState = CreateAPlayerStates.LOAD;
-		GameMenuButtons.GameMenu.enabled = false;
-		LoadGameMenuButtons.LoadGameMenu.enabled = true;
-		LoadGameMenuButtons.GetLoadNames();
 	}
 
 
@@ -77,30 +73,74 @@ public class MenuGUI : MonoBehaviour {
 
 
 	
-	public static void MenuGoNext(){
+	public static void MenuGoNext(int Option){
 		
 		lastActionWasNext = true;
 		
 		switch (currentState) {
 			
 		case CreateAPlayerStates.MENU:
-			currentState = CreateAPlayerStates.HISTORYSELECTION;
+
+			switch (Option) {
+			case 1: // I chose "New game"
+			currentState = CreateAPlayerStates.MODESELECTION;
 			GameMenuButtons.GameMenu.enabled = false;
-			CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = true;
-			HistorySelectionButtons.HistorySelection.enabled = true;
-			Stand.SetActive (true);
-			Player.SetActive (true);
+			NewGameMenuButtons.NewGameMenu.enabled = true;
 			break;
+
+			case 2: // I chose "load game"
+			currentState = CreateAPlayerStates.LOAD;
+			GameMenuButtons.GameMenu.enabled = false;
+			LoadGameMenuButtons.LoadGameMenu.enabled = true;
+			LoadGameMenuButtons.GetLoadNames();
+			break;
+			}
+		break;
+
+
+		case CreateAPlayerStates.MODESELECTION:
+
+			switch (Option) {
+			case 1: // I chose "Guided"
+				currentState = CreateAPlayerStates.PREDEFINEDSELECTION;
+				NewGameMenuButtons.NewGameMenu.enabled = false;
+				CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = true;
+				PreDefinedSelectionButtons.PreDefinedSelection.enabled = true;
+				Stand.SetActive (true);
+				Player.SetActive (true);
+				break;
+				
+			case 2: // I chose "Custom"
+				currentState = CreateAPlayerStates.HISTORYSELECTION;
+				NewGameMenuButtons.NewGameMenu.enabled = false;
+				CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = true;
+				HistorySelectionButtons.HistorySelection.enabled = true;
+				Stand.SetActive (true);
+				Player.SetActive (true);
+				break;
+			}
+		break;
+
+		case CreateAPlayerStates.PREDEFINEDSELECTION: 
+			HistorySelectionNext (Option);
+			historyAllocation.CreateNewPlayer (HellCircleSelection, AllegianceSelection, GenusSelection, SpeciesSelection, JobSelection, ImpSelection, OriginSelection, TemperSelection, AstroSelection, AffinitySelection);
+			currentState = CreateAPlayerStates.STATALLOCATION;
+			PreDefinedSelectionButtons.PreDefinedSelection.enabled = false;
+			StatAllocationButtons.StatAllocationMenu.enabled = true;
+			statAllocation.DisplayStatAllocationModule();
+			break;
+
 			
 		case CreateAPlayerStates.HISTORYSELECTION: 
-			HistorySelectionNext ();
+			HistorySelectionNext (Option);
 			if(HistorySelectionButtons.currentStep==HistorySelectionButtons.PlayerHistoryStep.END){	
-				historyAllocation.CreateNewPlayer (hellCircleSelection, allegianceSelection, genusSelection, speciesSelection, classSelection, impSelection, originSelection, temperSelection, astroSelection, affinitySelection);
+				historyAllocation.CreateNewPlayer (HellCircleSelection, AllegianceSelection, GenusSelection, SpeciesSelection, JobSelection, ImpSelection, OriginSelection, TemperSelection, AstroSelection, AffinitySelection);
 				currentState = CreateAPlayerStates.STATALLOCATION;
 				HistorySelectionButtons.HistorySelection.enabled = false;
 				StatAllocationButtons.StatAllocationMenu.enabled = true;
 				statAllocation.DisplayStatAllocationModule();
 			}
+
 			break;
 			
 		case CreateAPlayerStates.STATALLOCATION: 
@@ -148,7 +188,7 @@ public class MenuGUI : MonoBehaviour {
 
 
 
-	public static void MenuGoBack(){
+	public static void MenuGoBack(int option){
 
 		lastActionWasNext = false;
 
@@ -161,6 +201,12 @@ public class MenuGUI : MonoBehaviour {
 		case CreateAPlayerStates.LOAD:
 			currentState = CreateAPlayerStates.MENU;
 			LoadGameMenuButtons.LoadGameMenu.enabled = false;
+			GameMenuButtons.GameMenu.enabled = true;
+			break;
+
+		case CreateAPlayerStates.MODESELECTION:
+			currentState = CreateAPlayerStates.MENU;
+			NewGameMenuButtons.NewGameMenu.enabled = false;
 			GameMenuButtons.GameMenu.enabled = true;
 			break;
 
@@ -177,12 +223,28 @@ public class MenuGUI : MonoBehaviour {
 			break;
 
 		case CreateAPlayerStates.STATALLOCATION:
-			StatAllocationButtons.StatAllocationMenu.enabled = false;
-			currentState = CreateAPlayerStates.HISTORYSELECTION;
-			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.AFFINITY;
-			statAllocation.didRunOnce = false;
-			HistorySelectionButtons.HistoryChoice = affinitySelection;
-			HistorySelectionButtons.HistorySelection.enabled = true;
+
+			switch (option) {
+			case 1:
+
+				StatAllocationButtons.StatAllocationMenu.enabled = false;
+				currentState = CreateAPlayerStates.PREDEFINEDSELECTION;
+				statAllocation.didRunOnce = false;
+				PreDefinedSelectionButtons.PreDefinedSelection.enabled = true;
+				break;
+			case 2:
+			
+				StatAllocationButtons.StatAllocationMenu.enabled = false;
+				currentState = CreateAPlayerStates.HISTORYSELECTION;
+				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.AFFINITY;
+				statAllocation.didRunOnce = false;
+				HistorySelectionButtons.HistoryChoice = AffinitySelection;
+				HistorySelectionButtons.HistorySelection.enabled = true;
+				break;
+
+			}
+
+
 			break;
 
 		case CreateAPlayerStates.FINALSETUP:
@@ -243,60 +305,80 @@ public class MenuGUI : MonoBehaviour {
 
 
 	
-	public static void HistorySelectionNext(){
+	public static void HistorySelectionNext(int mode){
 	
 
-		if (!(HistorySelectionButtons.HistoryChoice == 0)) {
 
+		switch(mode){
+
+		case 1:
+			if (!(PreDefinedSelectionButtons.HistoryChoice == 0)) {
+
+				HellCircleSelection = PreDefinedSelectionButtons.HellCircleChoice;
+				AllegianceSelection = PreDefinedSelectionButtons.AllegianceChoice;
+				GenusSelection = PreDefinedSelectionButtons.GenusChoice;
+				SpeciesSelection = PreDefinedSelectionButtons.SpeciesChoice;
+				JobSelection = PreDefinedSelectionButtons.JobChoice;
+				ImpSelection = PreDefinedSelectionButtons.ImpChoice;
+				OriginSelection = PreDefinedSelectionButtons.OriginChoice;
+				TemperSelection = PreDefinedSelectionButtons.TemperChoice;
+				AstroSelection = PreDefinedSelectionButtons.AstroChoice;
+				AffinitySelection = PreDefinedSelectionButtons.AffinityChoice;
+
+			}
+			break;
+
+		case 2:
+			if (!(HistorySelectionButtons.HistoryChoice == 0)) {
 			switch (HistorySelectionButtons.currentStep) {
 
 			case HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE:
-				hellCircleSelection = HistorySelectionButtons.HistoryChoice;
+				HellCircleSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ALLEGIANCE;
 				break;
 
 			case HistorySelectionButtons.PlayerHistoryStep.ALLEGIANCE:
-				allegianceSelection = HistorySelectionButtons.HistoryChoice;
+				AllegianceSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.GENUS;
 				break;
 
 			case HistorySelectionButtons.PlayerHistoryStep.GENUS:
-				genusSelection = HistorySelectionButtons.HistoryChoice;
+				GenusSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.SPECIES;
 				break;
 
 			case HistorySelectionButtons.PlayerHistoryStep.SPECIES:
-				speciesSelection = HistorySelectionButtons.HistoryChoice;
+				SpeciesSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.CLASS;
 				break;
 
 			case HistorySelectionButtons.PlayerHistoryStep.CLASS:
-				classSelection = HistorySelectionButtons.HistoryChoice;
+				JobSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.IMP;
 				break;
 
 			case HistorySelectionButtons.PlayerHistoryStep.IMP:
-				impSelection = HistorySelectionButtons.HistoryChoice;
+				ImpSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ORIGIN;
 				break;
 
 			case HistorySelectionButtons.PlayerHistoryStep.ORIGIN:
-				originSelection = HistorySelectionButtons.HistoryChoice;
+				OriginSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.TEMPER;
 				break;
 
 			case HistorySelectionButtons.PlayerHistoryStep.TEMPER: 
-				temperSelection = HistorySelectionButtons.HistoryChoice;
+				TemperSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ASTRO;
 				break;
 
 			case HistorySelectionButtons.PlayerHistoryStep.ASTRO:
-				astroSelection = HistorySelectionButtons.HistoryChoice;
+				AstroSelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.AFFINITY;
 				break;
 
 			case HistorySelectionButtons.PlayerHistoryStep.AFFINITY: 
-				affinitySelection = HistorySelectionButtons.HistoryChoice;
+				AffinitySelection = HistorySelectionButtons.HistoryChoice;
 				HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.END;
 				break;
 			}
@@ -306,7 +388,18 @@ public class MenuGUI : MonoBehaviour {
 			HistorySelectionButtons.HistoryChoice = 0;
 			}
 		}
+			break;
+
+
+
+
+
+
+
+
+		}
 	}
+
 
 
 
@@ -327,54 +420,51 @@ public class MenuGUI : MonoBehaviour {
 			break;
 
 		case HistorySelectionButtons.PlayerHistoryStep.ALLEGIANCE:
-			HistorySelectionButtons.HistoryChoice = hellCircleSelection;
+			HistorySelectionButtons.HistoryChoice = HellCircleSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.HELLCIRCLE;
 			break;
 
 		case HistorySelectionButtons.PlayerHistoryStep.GENUS:
-			HistorySelectionButtons.HistoryChoice = allegianceSelection;
+			HistorySelectionButtons.HistoryChoice = AllegianceSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ALLEGIANCE;
 			break;
 			
 		case HistorySelectionButtons.PlayerHistoryStep.SPECIES:
-			HistorySelectionButtons.HistoryChoice = genusSelection;
+			HistorySelectionButtons.HistoryChoice = GenusSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.GENUS;
 			break;
 			
 		case HistorySelectionButtons.PlayerHistoryStep.CLASS:
-			HistorySelectionButtons.HistoryChoice = speciesSelection;
+			HistorySelectionButtons.HistoryChoice = SpeciesSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.SPECIES;
 			break;
 	
 		case HistorySelectionButtons.PlayerHistoryStep.IMP:
-			HistorySelectionButtons.HistoryChoice = classSelection;
+			HistorySelectionButtons.HistoryChoice = JobSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.CLASS;
 			break;
 
 		case HistorySelectionButtons.PlayerHistoryStep.ORIGIN:
-			HistorySelectionButtons.HistoryChoice = impSelection;
+			HistorySelectionButtons.HistoryChoice = ImpSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.IMP;
 			break;
 			
 		case HistorySelectionButtons.PlayerHistoryStep.TEMPER: 
-			HistorySelectionButtons.HistoryChoice = originSelection;
+			HistorySelectionButtons.HistoryChoice = OriginSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ORIGIN;
 			break;
 			
 		case HistorySelectionButtons.PlayerHistoryStep.ASTRO:
-			HistorySelectionButtons.HistoryChoice = temperSelection;
+			HistorySelectionButtons.HistoryChoice = TemperSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.TEMPER;
 			break;
 			
 		case HistorySelectionButtons.PlayerHistoryStep.AFFINITY: 
-			HistorySelectionButtons.HistoryChoice = astroSelection;
+			HistorySelectionButtons.HistoryChoice = AstroSelection;
 			HistorySelectionButtons.currentStep = HistorySelectionButtons.PlayerHistoryStep.ASTRO;
 			break;
 		}
-
 		HistorySelectionButtons.GetHistoryUIButtons ();
-
-
 	}
 
 

@@ -21,19 +21,19 @@ public class SaveGameMenuButtons : MonoBehaviour {
 			PlayerPrefs.SetString ("Pos01", GameInformation.basePlayer.PlayerFirstName);
 			PPSerialization.Save ("00_Player", GameInformation.basePlayer);
 			if (GameInformation.EquipmentOne != null) {PPSerialization.Save ("00_EquipmentOne", GameInformation.EquipmentOne);}
-			MenuGUI.MenuGoNext ();
+			MenuGUI.MenuGoNext (0);
 		break;
 		case 1:
 			PlayerPrefs.SetString ("Pos02", GameInformation.basePlayer.PlayerFirstName);
 			PPSerialization.Save ("01_Player", GameInformation.basePlayer);
 			if (GameInformation.EquipmentOne != null) {PPSerialization.Save ("01_EquipmentOne", GameInformation.EquipmentOne);}
-			MenuGUI.MenuGoNext ();
+			MenuGUI.MenuGoNext (0);
 		break;		
 		case 2:
 			PlayerPrefs.SetString ("Pos03", GameInformation.basePlayer.PlayerFirstName);
 			PPSerialization.Save ("02_Player", GameInformation.basePlayer);
 			if (GameInformation.EquipmentOne != null) {PPSerialization.Save ("02_EquipmentOne", GameInformation.EquipmentOne);}
-			MenuGUI.MenuGoNext ();
+			MenuGUI.MenuGoNext (0);
 		break;
 		}
 
@@ -43,7 +43,7 @@ public class SaveGameMenuButtons : MonoBehaviour {
 	
 
 	public void BackToCreationMenuFromSaveScreen(){
-		MenuGUI.MenuGoBack ();
+		MenuGUI.MenuGoBack (0);
 	}
 	
 

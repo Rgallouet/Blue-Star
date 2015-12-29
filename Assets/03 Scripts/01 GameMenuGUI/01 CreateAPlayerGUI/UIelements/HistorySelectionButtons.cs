@@ -120,19 +120,19 @@ public class HistorySelectionButtons : MonoBehaviour
 		"Architect",
 		"Judge",
 		"Warlock",
-		"Muse",
-		"Medic"
+		"Whisperer",
+		"Soul healer"
 	};
 	public static string[] JobsDescription = new string[9] {
-		"Ripper",
+		"Hunter",
 		"Butcher",
 		"Guardian",
 		"Lord",
 		"Architect",
 		"Judge",
-		"Painter",
-		"Muse",
-		"Baker"
+		"Warlock",
+		"Whisperer",
+		"Soul healer"
 	};
 	public Sprite[] LeftArmSprites = new Sprite[9];
 	public static string[] Imp = new string[9] {
@@ -216,7 +216,17 @@ public class HistorySelectionButtons : MonoBehaviour
 		"Shadow"
 	};
 	public Sprite[] LeftFootSprites = new Sprite[9];
-	
+
+
+
+
+
+
+
+
+
+
+
 	void Start ()
 	{
 		
@@ -249,59 +259,28 @@ public class HistorySelectionButtons : MonoBehaviour
 	
 	
 	// Interaction with UI Buttons
-	public void choice_1 ()
+	public void choice (int choice)
 	{
-		HistoryChoice = 1;
+		HistoryChoice = choice;
 		UpdateDescription ();
 	}
-	
-	public void choice_2 ()
-	{
-		HistoryChoice = 2;
-		UpdateDescription ();
-	}
-	
-	public void choice_3 ()
-	{
-		HistoryChoice = 3;
-		UpdateDescription ();
-	}
-	
-	public void choice_4 ()
-	{
-		HistoryChoice = 4;
-		UpdateDescription ();
-	}
-	
-	public void choice_5 ()
-	{
-		HistoryChoice = 5;
-		UpdateDescription ();
-	}
-	
-	public void choice_6 ()
-	{
-		HistoryChoice = 6;
-		UpdateDescription ();
-	}
-	
-	public void choice_7 ()
-	{
-		HistoryChoice = 7;
-		UpdateDescription ();
-	}
-	
-	public void choice_8 ()
-	{
-		HistoryChoice = 8;
-		UpdateDescription ();
-	}
-	
-	public void choice_9 ()
-	{
-		HistoryChoice = 9;
-		UpdateDescription ();
-	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	void UpdateDescription ()
 	{
@@ -322,9 +301,9 @@ public class HistorySelectionButtons : MonoBehaviour
 			HistoryChoiceDisplay [2].text = Genuses [HistoryChoice - 1];
 			break;
 		case PlayerHistoryStep.SPECIES:		
-			HistorySelection.GetComponentsInChildren<Text> () [2].text = SpeciesDescription [HistoryChoice - 1 + 3 * (MenuGUI.genusSelection - 1)];
-			HistoryChoiceDisplay [3].text = Species [HistoryChoice - 1 + 3 * (MenuGUI.genusSelection - 1)];
-			HistoryChoiceImage [3 - 1].sprite = HeadSprites [HistoryChoice - 1 + 3 * (MenuGUI.genusSelection - 1)];
+			HistorySelection.GetComponentsInChildren<Text> () [2].text = SpeciesDescription [HistoryChoice - 1 + 3 * (MenuGUI.GenusSelection - 1)];
+			HistoryChoiceDisplay [3].text = Species [HistoryChoice - 1 + 3 * (MenuGUI.GenusSelection - 1)];
+			HistoryChoiceImage [3 - 1].sprite = HeadSprites [HistoryChoice - 1 + 3 * (MenuGUI.GenusSelection - 1)];
 			break;
 		case PlayerHistoryStep.CLASS:		
 			HistorySelection.GetComponentsInChildren<Text> () [2].text = JobsDescription [HistoryChoice - 1];
@@ -359,7 +338,26 @@ public class HistorySelectionButtons : MonoBehaviour
 			
 		}
 	}
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public static void GetHistoryUIButtons ()
 	{
 		
@@ -417,7 +415,7 @@ public class HistorySelectionButtons : MonoBehaviour
 			HistorySelection.GetComponentInChildren<Text> ().text = "My eyes are fading... could you whisper me what's in your genes, child?";
 			HistorySelection.GetComponentsInChildren<Text> () [1].text = "Species Lore";
 			for (int i=0; i<3; i++) {
-				Choice [i].GetComponentInChildren<Text> ().text = Species [3 * (MenuGUI.genusSelection - 1) + i];
+				Choice [i].GetComponentInChildren<Text> ().text = Species [3 * (MenuGUI.GenusSelection - 1) + i];
 			}
 			for (int i=3; i<6; i++) {
 				Choice [i].gameObject.SetActive (false);
