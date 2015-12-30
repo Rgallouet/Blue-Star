@@ -109,7 +109,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 			HellCircleChoice=7;AllegianceChoice=1;GenusChoice=1;SpeciesChoice=3;JobChoice=4;ImpChoice=2;OriginChoice=3;TemperChoice=4;AstroChoice=1;AffinityChoice=9;
 			break;
 		case 2:
-			HellCircleChoice=2;AllegianceChoice=3;GenusChoice=1;SpeciesChoice=1;JobChoice=7;ImpChoice=8;OriginChoice=1;TemperChoice=7;AstroChoice=6;AffinityChoice=3;
+			HellCircleChoice=2;AllegianceChoice=3;GenusChoice=1;SpeciesChoice=1;JobChoice=7;ImpChoice=3;OriginChoice=1;TemperChoice=7;AstroChoice=6;AffinityChoice=3;
 			break;
 		case 3:
 			HellCircleChoice=3;AllegianceChoice=4;GenusChoice=6;SpeciesChoice=3;JobChoice=1;ImpChoice=4;OriginChoice=6;TemperChoice=1;AstroChoice=4;AffinityChoice=1;
@@ -118,7 +118,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 			HellCircleChoice=9;AllegianceChoice=9;GenusChoice=5;SpeciesChoice=2;JobChoice=6;ImpChoice=1;OriginChoice=4;TemperChoice=9;AstroChoice=3;AffinityChoice=2;
 			break;
 		case 5:
-			HellCircleChoice=6;AllegianceChoice=8;GenusChoice=2;SpeciesChoice=1;JobChoice=2;ImpChoice=3;OriginChoice=5;TemperChoice=2;AstroChoice=9;AffinityChoice=4;
+			HellCircleChoice=6;AllegianceChoice=8;GenusChoice=2;SpeciesChoice=1;JobChoice=2;ImpChoice=8;OriginChoice=5;TemperChoice=2;AstroChoice=9;AffinityChoice=4;
 			break;
 		case 6:
 			HellCircleChoice=5;AllegianceChoice=7;GenusChoice=6;SpeciesChoice=1;JobChoice=8;ImpChoice=9;OriginChoice=7;TemperChoice=5;AstroChoice=7;AffinityChoice=6;

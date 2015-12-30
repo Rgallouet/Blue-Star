@@ -14,7 +14,7 @@ public class DefineHellCircle : BaseHistory {
 			break;
 		case 2: 
 
-			ClassName="Lust halls";Embodiment=2;Reflex=2;Resilience=2;Strength=2;Speed=2;Dexterity=4;Influence=-4;Focus=-4;Mockery=-3;Knowledge=-3;Elocution=-4;Intellect=-3;Malevolent=3;Unmerciful=4;Rage=1;Phase=-1;Momentum=-1;Balance=4;Luck=-1;Perception=-2;Judgement=1;Chaos=-1;
+			ClassName="Lust halls";Embodiment=-3;Reflex=-3;Resilience=-3;Strength=-3;Speed=-3;Dexterity=-4;Influence=4;Focus=4;Mockery=4;Knowledge=4;Elocution=4;Intellect=4;Malevolent=-3;Unmerciful=-2;Rage=1;Phase=-1;Momentum=-1;Balance=4;Luck=-1;Perception=-2;Judgement=1;Chaos=-1;
 
 			break;
 		case 3: 
@@ -33,7 +33,7 @@ public class DefineHellCircle : BaseHistory {
 			break;
 		case 6: 
 
-			ClassName="Heresynia";Embodiment=-3;Reflex=-3;Resilience=-3;Strength=-3;Speed=-3;Dexterity=-4;Influence=4;Focus=4;Mockery=4;Knowledge=4;Elocution=4;Intellect=4;Malevolent=-3;Unmerciful=-2;Rage=-1;Phase=1;Momentum=-2;Balance=2;Luck=-1;Perception=-2;Judgement=-3;Chaos=6;
+			ClassName="Heresynia";Embodiment=2;Reflex=2;Resilience=2;Strength=2;Speed=2;Dexterity=4;Influence=-4;Focus=-4;Mockery=-3;Knowledge=-3;Elocution=-4;Intellect=-3;Malevolent=3;Unmerciful=4;Rage=-1;Phase=1;Momentum=-2;Balance=2;Luck=-1;Perception=-2;Judgement=-3;Chaos=6;
 
 			break;
 		case 7: 

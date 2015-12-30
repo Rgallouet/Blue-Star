@@ -14,7 +14,7 @@ public class BasePlayer {
 	private BaseHistory playerJob;
 	private BaseHistory playerImp;
 	private BaseHistory playerOrigin;
-	private BaseHistory playerDeathState;
+	private BaseHistory playerTemper;
 	private BaseHistory playerAstro;
 	private BaseHistory playerAffi;
 
@@ -78,7 +78,7 @@ public class BasePlayer {
 	public BaseHistory 	PlayerJob					{ get; set;}
 	public BaseHistory 	PlayerImp					{ get; set;}
 	public BaseHistory 	PlayerOrigin				{ get; set;}
-	public BaseHistory 	PlayerDeathState			{ get; set;}
+	public BaseHistory 	PlayerTemper				{ get; set;}
 	public BaseHistory 	PlayerAstro					{ get; set;}
 	public BaseHistory 	PlayerAffi					{ get; set;}
 
