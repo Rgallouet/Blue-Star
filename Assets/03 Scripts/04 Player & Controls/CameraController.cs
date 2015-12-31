@@ -24,13 +24,17 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
 		if (Input.GetMouseButton (0)) {
-			x+=Input.GetAxis("Mouse X")*mouseXSpeed;
-			y-=Input.GetAxis("Mouse Y")*mouseYSpeed;
+			x += Input.GetAxis ("Mouse X") * mouseXSpeed;
+			y -= Input.GetAxis ("Mouse Y") * mouseYSpeed;
+			y = ClampAngle (y, -50, 90);
+			
+			Quaternion rotation = Quaternion.Euler (y, x, 0);
+			transform.rotation = rotation;
+		} else {
+			Quaternion rotation = Quaternion.Euler (0, 0, 0);
+			transform.rotation = rotation;
 		}
-		y = ClampAngle (y, -50, 90);
 
-		Quaternion rotation = Quaternion.Euler (y, x, 0);
-		transform.rotation = rotation;
 	}
 
 	private static float ClampAngle(float angle, float min, float max) {
