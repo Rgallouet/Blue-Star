@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour {
 	private float x=0.0f;
 	private float y=0.0f;
 
+	private bool Reset=true;
+
 	private float mouseXSpeed =5.0f;
 	private float mouseYSpeed =5.0f;
 
@@ -30,9 +32,13 @@ public class CameraController : MonoBehaviour {
 			
 			Quaternion rotation = Quaternion.Euler (y, x, 0);
 			transform.rotation = rotation;
-		} else {
-			Quaternion rotation = Quaternion.Euler (0, 0, 0);
+			Reset=false;
+		} else if (Reset==false) {
+			x=0.0f;
+			y=0.0f;
+			Quaternion rotation = Quaternion.Euler (y, x, 0);
 			transform.rotation = rotation;
+			Reset=true;
 		}
 
 	}
