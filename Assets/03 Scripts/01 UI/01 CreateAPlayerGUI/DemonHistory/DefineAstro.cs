@@ -4,9 +4,12 @@ using System.Collections;
 
 public class DefineAstro: BaseHistory {
 	
-	public DefineAstro (int Choice){
-		
-		switch (Choice) {
+	public DefineAstro (int i){
+
+		Choice = i;
+
+
+		switch (i) {
 		case 1: 
 			ClassName="Canis";Embodiment=3;Reflex=-3;Resilience=2;Strength=-2;Speed=3;Dexterity=-3;Influence=3;Focus=2;Mockery=3;Knowledge=-3;Elocution=-2;Intellect=-3;Malevolent=-2;Unmerciful=2;Rage=-1;Phase=1;Momentum=3;Balance=0;Luck=-5;Perception=5;Judgement=-3;Chaos=0;
 			break;

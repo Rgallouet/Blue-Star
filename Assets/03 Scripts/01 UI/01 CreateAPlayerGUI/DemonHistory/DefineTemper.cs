@@ -4,9 +4,11 @@ using System.Collections;
 
 public class DefineTemper: BaseHistory {
 	
-	public DefineTemper (int Choice){
-		
-		switch (Choice) {
+	public DefineTemper (int i){
+
+		Choice = i;
+
+		switch (i) {
 		case 1: 
 			ClassName="Lashing out";Embodiment=3;Reflex=6;Resilience=2;Strength=3;Speed=-2;Dexterity=4;Influence=-3;Focus=-6;Mockery=-2;Knowledge=-3;Elocution=2;Intellect=-4;Malevolent=1;Unmerciful=-1;Rage=0;Phase=0;Momentum=2;Balance=-2;Luck=-2;Perception=2;Judgement=2;Chaos=-2;
 			break;

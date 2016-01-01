@@ -4,9 +4,11 @@ using System.Collections;
 
 public class DefineAllegiance: BaseHistory {
 	
-	public DefineAllegiance (int Choice){
-		
-		switch (Choice) {
+	public DefineAllegiance (int i){
+
+		Choice = i;
+
+		switch (i) {
 		case 1: 
 			ClassName="House Da'rhas";Embodiment=-2;Reflex=4;Resilience=-2;Strength=-4;Speed=2;Dexterity=-2;Influence=2;Focus=4;Mockery=-2;Knowledge=-4;Elocution=2;Intellect=-2;Malevolent=2;Unmerciful=2;Rage=0;Phase=0;Momentum=-5;Balance=-5;Luck=5;Perception=5;Judgement=5;Chaos=-5;
 			break;

@@ -1829,8 +1829,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 103.000031, y: -5}
-  m_SizeDelta: {x: 33, y: 33}
+  m_AnchoredPosition: {x: 52.9000015, y: -1.89999998}
+  m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: -4.47034836e-08, y: 1}
 --- !u!114 &555710798
 MonoBehaviour:
@@ -1849,7 +1849,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: .944827616, b: .5, a: 1}
@@ -1859,7 +1859,7 @@ MonoBehaviour:
     m_FadeDuration: .100000001
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 21300000, guid: 9ac648f4750c804468a8e4ab6d71a40b, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3200,7 +3200,7 @@ Transform:
   m_PrefabParentObject: {fileID: 496262, guid: 7737647c22c1fc64a88d5cd030c352ce, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1175515750}
-  m_LocalRotation: {x: .532675147, y: .0703404471, z: .836132646, w: -.110415131}
+  m_LocalRotation: {x: .532675207, y: .0703404546, z: .836132765, w: -.110415146}
   m_LocalPosition: {x: 2.22714643e-05, y: -6.1504652e-05, z: .0260270257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3798,6 +3798,7 @@ GameObject:
   - 223: {fileID: 1420073286}
   - 114: {fileID: 1420073285}
   - 114: {fileID: 1420073284}
+  - 114: {fileID: 1420073287}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -3879,6 +3880,36 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!114 &1420073287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1420073282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639b003d9458a4349a91649f17f05546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeadSprites:
+  - {fileID: 21300000, guid: 4fb322bd823dd444d94b3d64a6e8214f, type: 3}
+  - {fileID: 21300000, guid: 1f67136ef9365194d91e1367fab8c039, type: 3}
+  - {fileID: 21300000, guid: a8434f210e788d14da87cce47c8f19d4, type: 3}
+  - {fileID: 21300000, guid: 5add200ba97e708498d4aac9b308a5d6, type: 3}
+  - {fileID: 21300000, guid: 299c77da28f93d743be66a3b1fe44307, type: 3}
+  - {fileID: 21300000, guid: bdd4bff00e707bf4a9700d1aa6212d24, type: 3}
+  - {fileID: 21300000, guid: a74ee40bf4c25314487e42d4f712bf58, type: 3}
+  - {fileID: 21300000, guid: f47f6a1d4b5de2e4ea73b2ec7bfeb890, type: 3}
+  - {fileID: 21300000, guid: cce7a5ade483aa446841778eac9ee138, type: 3}
+  - {fileID: 21300000, guid: 47a170b59dbddcb4ebb522d085054170, type: 3}
+  - {fileID: 21300000, guid: e0214bba5ddeeed4e8e3c06d7e95797b, type: 3}
+  - {fileID: 21300000, guid: 7cb41d22f12e7554dabe0ca20895e628, type: 3}
+  - {fileID: 21300000, guid: 69b0c732538f36749b074809eab50125, type: 3}
+  - {fileID: 21300000, guid: 6642b290dcb624842997a77a357055a4, type: 3}
+  - {fileID: 21300000, guid: f2d77a5c7422f0e47809b2232dbd5996, type: 3}
+  - {fileID: 21300000, guid: 88682c37d01896841bf4a35b9faada44, type: 3}
+  - {fileID: 21300000, guid: 0af59291e7b8c054b90ec5b7a0263d68, type: 3}
+  - {fileID: 21300000, guid: d092f7d85479b824ba57d5bd4827db48, type: 3}
 --- !u!1 &1434112447
 GameObject:
   m_ObjectHideFlags: 0
@@ -5038,7 +5069,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 186, y: 137}
+  m_SizeDelta: {x: 93.1999969, y: 68.5999985}
   m_Pivot: {x: 1.37835741e-07, y: .99999994}
 --- !u!114 &1840919121
 MonoBehaviour:
@@ -5510,8 +5541,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 4.6000061, y: -3.8999939}
-  m_SizeDelta: {x: 115, y: 115}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 61.7000008, y: 61.7000008}
   m_Pivot: {x: 2.04890966e-08, y: 1}
 --- !u!1 &1990569330
 GameObject:

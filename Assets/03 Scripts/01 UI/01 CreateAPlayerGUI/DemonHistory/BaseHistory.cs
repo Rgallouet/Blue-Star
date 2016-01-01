@@ -5,6 +5,7 @@ using System.Collections;
 
 public class BaseHistory {
 
+	private int choice;
 	private string className;
 
 	//Embodiment are always 100, same for action points
@@ -37,6 +38,14 @@ public class BaseHistory {
 	private int chaos;
 	
 
+
+
+
+
+
+
+
+	public int 		Choice					{ get; set;}
 	public string 	ClassName 				{ get; set;}
 
 	public int 		Embodiment 				{ get; set;}

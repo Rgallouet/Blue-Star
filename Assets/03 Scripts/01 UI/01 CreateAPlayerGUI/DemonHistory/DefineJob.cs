@@ -4,9 +4,11 @@ using System.Collections;
 
 public class DefineJob : BaseHistory {
 	
-	public DefineJob (int Choice){
-		
-		switch (Choice) {
+	public DefineJob (int i){
+
+		Choice = i;
+
+		switch (i) {
 		case 1: 
 			ClassName="Hunter";Embodiment=3;Reflex=12;Resilience=0;Strength=1;Speed=12;Dexterity=12;Influence=-9;Focus=-8;Mockery=-7;Knowledge=-4;Elocution=-9;Intellect=-7;Malevolent=5;Unmerciful=-6;Rage=1;Phase=-1;Momentum=-2;Balance=2;Luck=0;Perception=0;Judgement=0;Chaos=0;
 			break;

@@ -4,9 +4,11 @@ using System.Collections;
 
 public class DefineOrigin : BaseHistory {
 	
-	public DefineOrigin (int Choice){
-		
-		switch (Choice) {
+	public DefineOrigin (int i){
+
+		Choice = i;
+
+		switch (i) {
 		case 1: 
 			
 			ClassName="Monkey";Embodiment=5;Reflex=2;Resilience=2;Strength=5;Speed=2;Dexterity=5;Influence=-3;Focus=-4;Mockery=-3;Knowledge=-4;Elocution=-4;Intellect=-3;Malevolent=2;Unmerciful=-2;Rage=1;Phase=-1;Momentum=-4;Balance=5;Luck=2;Perception=-1;Judgement=-2;Chaos=0;

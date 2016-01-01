@@ -4,9 +4,11 @@ using System.Collections;
 
 public class DefineGenus: BaseHistory {
 	
-	public DefineGenus (int Choice){
-		
-		switch (Choice) {
+	public DefineGenus (int i){
+
+		Choice = i;
+
+		switch (i) {
 		case 1: 
 			ClassName="Demono";Embodiment=0;Reflex=1;Resilience=1;Strength=-2;Speed=-2;Dexterity=-2;Influence=0;Focus=1;Mockery=1;Knowledge=-2;Elocution=-2;Intellect=-2;Malevolent=4;Unmerciful=4;Rage=0;Phase=0;Momentum=-2;Balance=1;Luck=-2;Perception=-1;Judgement=1;Chaos=3;
 			break;

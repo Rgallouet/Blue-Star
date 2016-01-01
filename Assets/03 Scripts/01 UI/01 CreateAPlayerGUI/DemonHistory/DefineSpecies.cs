@@ -4,9 +4,11 @@ using System.Collections;
 
 public class DefineSpecies: BaseHistory {
 	
-	public DefineSpecies (int Choice){
-		
-		switch (Choice) {
+	public DefineSpecies (int i){
+
+		Choice = i;
+
+		switch (i) {
 		case 1: 
 			ClassName="Hornydi";Embodiment=0;Reflex=3;Resilience=-3;Strength=2;Speed=-1;Dexterity=-1;Influence=0;Focus=3;Mockery=-3;Knowledge=4;Elocution=-3;Intellect=-1;Malevolent=1;Unmerciful=-1;Rage=0;Phase=0;Momentum=-3;Balance=2;Luck=-6;Perception=2;Judgement=2;Chaos=3;
 			break;

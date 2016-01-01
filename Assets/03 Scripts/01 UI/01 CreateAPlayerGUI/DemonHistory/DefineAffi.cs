@@ -4,9 +4,11 @@ using System.Collections;
 
 public class DefineAffi: BaseHistory {
 	
-	public DefineAffi (int Choice){
-		
-		switch (Choice) {
+	public DefineAffi (int i){
+
+		Choice = i;
+
+		switch (i) {
 		case 1: 
 			ClassName="Organic";Embodiment=5;Reflex=-3;Resilience=2;Strength=3;Speed=-5;Dexterity=-2;Influence=-1;Focus=-4;Mockery=5;Knowledge=4;Elocution=1;Intellect=-5;Malevolent=-4;Unmerciful=4;Rage=-1;Phase=1;Momentum=3;Balance=-3;Luck=4;Perception=-4;Judgement=-3;Chaos=3;
 			break;

@@ -4,9 +4,11 @@ using System.Collections;
 
 public class DefineImp: BaseHistory {
 	
-	public DefineImp (int Choice){
-		
-		switch (Choice) {
+	public DefineImp (int i){
+
+		Choice = i;
+
+		switch (i) {
 		case 1: 
 			ClassName="Imp Maid";Embodiment=-6;Reflex=5;Resilience=-4;Strength=-7;Speed=-4;Dexterity=-3;Influence=6;Focus=-5;Mockery=4;Knowledge=7;Elocution=4;Intellect=3;Malevolent=3;Unmerciful=-3;Rage=1;Phase=-1;Momentum=-4;Balance=-2;Luck=-2;Perception=2;Judgement=2;Chaos=4;
 			break;
