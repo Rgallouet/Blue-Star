@@ -19,7 +19,7 @@ public class LoadGameMenuButtons : MonoBehaviour {
 		switch (position) {
 		case 0:
 			if (PlayerPrefs.GetString ("00_Player") != null) {
-				GameInformation.basePlayer = (BasePlayer)PPSerialization.Load ("00_Player");
+				GameInformation.BasePlayer = (BasePlayer)PPSerialization.Load ("00_Player");
 			}
 			if (PlayerPrefs.GetString ("00_EquipmentOne") != null) {
 				GameInformation.EquipmentOne = (BaseEquipment)PPSerialization.Load ("00_EquipmentOne");
@@ -28,7 +28,7 @@ public class LoadGameMenuButtons : MonoBehaviour {
 			break;
 		case 1:
 			if (PlayerPrefs.GetString ("01_Player") != null) {
-				GameInformation.basePlayer = (BasePlayer)PPSerialization.Load ("01_Player");
+				GameInformation.BasePlayer = (BasePlayer)PPSerialization.Load ("01_Player");
 			}
 			if (PlayerPrefs.GetString ("01_EquipmentOne") != null) {
 				GameInformation.EquipmentOne = (BaseEquipment)PPSerialization.Load ("01_EquipmentOne");
@@ -37,7 +37,7 @@ public class LoadGameMenuButtons : MonoBehaviour {
 			break;		
 		case 2:
 			if (PlayerPrefs.GetString ("02_Player") != null) {
-				GameInformation.basePlayer = (BasePlayer)PPSerialization.Load ("02_Player");
+				GameInformation.BasePlayer = (BasePlayer)PPSerialization.Load ("02_Player");
 			}
 			if (PlayerPrefs.GetString ("02_EquipmentOne") != null) {
 				GameInformation.EquipmentOne = (BaseEquipment)PPSerialization.Load ("02_EquipmentOne");

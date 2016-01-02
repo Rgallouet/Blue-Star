@@ -6,14 +6,14 @@ public class LevelUp {
 
 	public void levelUpCharacter(){
 		// excess of xp
-		GameInformation.basePlayer.CurrentXP -= GameInformation.basePlayer.RequiredXP;
+		GameInformation.BasePlayer.CurrentXP -= GameInformation.BasePlayer.RequiredXP;
 
 		//save your ass
-		GameInformation.basePlayer.CurrentEmbodiment = GameInformation.basePlayer.Embodiment;
-		GameInformation.basePlayer.CurrentInfluence = GameInformation.basePlayer.Influence;
+		GameInformation.BasePlayer.CurrentEmbodiment = GameInformation.BasePlayer.Embodiment;
+		GameInformation.BasePlayer.CurrentInfluence = GameInformation.BasePlayer.Influence;
 
 		//level up
-		GameInformation.basePlayer.PlayerLevel += 1;
+		GameInformation.BasePlayer.PlayerLevel += 1;
 
 		//give stat points
 
@@ -38,7 +38,7 @@ public class LevelUp {
 	}
 
 	private void DetermineRequiredXp(){
-		GameInformation.basePlayer.RequiredXP = (int)Mathf.Ceil(100f*Mathf.Pow(1.03f,GameInformation.basePlayer.PlayerLevel));
+		GameInformation.BasePlayer.RequiredXP = (int)Mathf.Ceil(100f*Mathf.Pow(1.03f,GameInformation.BasePlayer.PlayerLevel));
 	}
 
 

@@ -176,7 +176,10 @@ public class MenuGUI : MonoBehaviour {
 			currentState = CreateAPlayerStates.PLAY;
 			Stand.SetActive (false);
 			Player.SetActive (false);
+			Debug.Log("Before:" + GameInformation.BasePlayer.PlayerFirstName.ToString());
 			Application.LoadLevel("Play");
+			Debug.Log("After 1:" + GameInformation.BasePlayer.PlayerFirstName.ToString());
+
 			break;
 		}
 		
@@ -479,7 +482,7 @@ public class MenuGUI : MonoBehaviour {
 
 	public static void CallStatAllocationMoveStat(bool Move,int Stat_ID){
 		statAllocation.MoveStat (Move, Stat_ID);
-		statAllocation.RefreshDisplayStatsStatus ();
+		statAllocation.RefreshDisplayStatsNumbers ();
 		statAllocation.CalculateDisplayPlusMinusButtons ();
 	}
 

@@ -11,10 +11,10 @@ public class BackgroundAllocation {
 
 	public void StoreLastInfo(string PlayerFirstName,string PlayerLastName,string PlayerBio, int genderSelection ){
 
-		GameInformation.basePlayer.PlayerFirstName = 				PlayerFirstName;
-		GameInformation.basePlayer.PlayerLastName = 				PlayerLastName;
-		GameInformation.basePlayer.PlayerBio = 						PlayerBio;
-		GameInformation.basePlayer.PlayerGender=					genderSelectionNames[genderSelection-1];
+		GameInformation.BasePlayer.PlayerFirstName = 				PlayerFirstName;
+		GameInformation.BasePlayer.PlayerLastName = 				PlayerLastName;
+		GameInformation.BasePlayer.PlayerBio = 						PlayerBio;
+		GameInformation.BasePlayer.PlayerGender=					genderSelectionNames[genderSelection-1];
 		
 	}
 
