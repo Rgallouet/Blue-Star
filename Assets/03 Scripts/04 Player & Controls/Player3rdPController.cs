@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Player3rdPController : MonoBehaviour {
 
-	private Player3rdPBody m_Character; // A reference to the ThirdPersonCharacter on the object
-	private Transform m_Cam;                  // A reference to the main camera in the scenes transform
+	private Player3rdPBody m_Character; 		// A reference to the ThirdPersonCharacter on the object
+	private Transform m_Cam;                  	// A reference to the main camera in the scenes transform
 	private Vector3 m_Move;
-	private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
+	private bool m_Jump;                      	// the world-relative desired move direction, calculated from the camForward and user input.
 	
 	
 	private void Start()
@@ -48,8 +48,7 @@ public class Player3rdPController : MonoBehaviour {
 		// calculate camera relative direction to move:
 		m_Move = v*m_Cam.forward + h*m_Cam.right;
 
-		// walk speed multiplier
-		if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
+
 		
 		// pass all parameters to the character control script
 		m_Character.Move(m_Move, crouch, m_Jump);

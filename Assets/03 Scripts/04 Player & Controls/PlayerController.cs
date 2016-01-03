@@ -4,9 +4,13 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	public float rotateSpeed;
-	public float forwardSpeed;
-	public float run;
+	public float Speed;
+	public float runMultiplier;
+	public float walkMultiplier;
+	public float backwardMultiplier;
 	private CharacterController playerController;
+
+	private Vector3 move;
 
 
 
@@ -18,39 +22,25 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// transform.Rotate(0,Input.GetAxis("Horizontal")*rotateSpeed,0);
-
-		Vector3 forward = transform.TransformDirection (Vector3.forward);
-		Vector3 right = transform.TransformDirection (Vector3.right);
-
-		if (Input.GetAxis("Run")==1f && playerController.isGrounded){run=1.5f;} else {run=1.0f;}
-
-
-		float speed_f = forwardSpeed * (Input.GetAxis ("Vertical"));
-		float speed_r = forwardSpeed * (Input.GetAxis ("Horizontal"));
-	
 		//Saut
-		if (Input.GetButtonDown("Jump") && playerController.isGrounded){playerController.Move(Vector3.up);}
-		//Run
+		if (Input.GetButtonDown("Jump") && playerController.isGrounded) playerController.Move(Vector3.up);
 
+		//Get movement directions
+		move = (Input.GetAxis ("Vertical")*transform.TransformDirection (Vector3.forward))+(Input.GetAxis ("Horizontal")*transform.TransformDirection (Vector3.right));
 
+		// Normalize vector to prevent speed cheat
+		if (move.magnitude > 1f) move.Normalize();
 
+		// 	Walk 
+		if (Input.GetAxis("Walk")==1f && playerController.isGrounded) 	move *= walkMultiplier;
+		//	Run
+		if (Input.GetAxis("Run")==1f && playerController.isGrounded	)	move *=runMultiplier;
+		// 	Reduce backstepping speed
+		if (move.z < 0f												) 	move.z *=backwardMultiplier;
 
 		//Deplacement
-			   if (Input.GetAxis ("Vertical") != 0 && Input.GetAxis ("Horizontal") < 0) {
-			playerController.SimpleMove (0.4f * speed_f * forward*run);
-			playerController.SimpleMove (0.4f * speed_r * right*run);
-		} else if (Input.GetAxis ("Vertical") == 0 && Input.GetAxis ("Horizontal") < 0) {
-			playerController.SimpleMove (0.8f * speed_f * forward*run);
-			playerController.SimpleMove (0.8f * speed_r * right*run);
-		} else if (Input.GetAxis ("Vertical") != 0 && Input.GetAxis ("Horizontal") > 0) {
-			playerController.SimpleMove (0.5f * speed_f * forward*run);
-			playerController.SimpleMove (0.5f * speed_r * right*run);
-		} else {
-			playerController.SimpleMove (speed_f * forward*run);
-			playerController.SimpleMove (speed_r * right*run);
-		}
-		
+		playerController.SimpleMove(move*Speed);
+	
 	
 }
 }
