@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CreationGameMenuStaticButtons : MonoBehaviour {
 
+	public GameObject menuGUIHolder;
 	public static Canvas CreationGameMenuStatic;
 	public Transform player;
 
@@ -24,16 +25,16 @@ public class CreationGameMenuStaticButtons : MonoBehaviour {
 
 	
 	public void CreationMenuGoNext(){
-		if 		(MenuGUI.currentState == MenuGUI.CreateAPlayerStates.PREDEFINEDSELECTION) 	{MenuGUI.MenuGoNext (1);	WasPredefinedPath=true;} 
-		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.HISTORYSELECTION) 		{MenuGUI.MenuGoNext (2); 	WasPredefinedPath=false;} 
-		else 	{MenuGUI.MenuGoNext (0);}
+		if 		(MenuGUI.currentState == MenuGUI.CreateAPlayerStates.PREDEFINEDSELECTION) 	{menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (1);	WasPredefinedPath=true;} 
+		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.HISTORYSELECTION) 		{menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (2); 	WasPredefinedPath=false;} 
+		else 	{menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (0);}
 	}
 
 
 	public void CreationMenuGoBack(){
-		if 		(MenuGUI.currentState == MenuGUI.CreateAPlayerStates.STATALLOCATION && WasPredefinedPath==true ) {MenuGUI.MenuGoBack (1);} 
-		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.STATALLOCATION && WasPredefinedPath==false ) {MenuGUI.MenuGoBack (2);} 
-		else 	{MenuGUI.MenuGoBack (0);}
+		if 		(MenuGUI.currentState == MenuGUI.CreateAPlayerStates.STATALLOCATION && WasPredefinedPath==true ) {menuGUIHolder.GetComponent<MenuGUI>().MenuGoBack (1);} 
+		else if (MenuGUI.currentState == MenuGUI.CreateAPlayerStates.STATALLOCATION && WasPredefinedPath==false ) {menuGUIHolder.GetComponent<MenuGUI>().MenuGoBack (2);} 
+		else 	{menuGUIHolder.GetComponent<MenuGUI>().MenuGoBack (0);}
 	}
 
 

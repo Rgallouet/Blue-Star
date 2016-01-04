@@ -4,6 +4,7 @@ using System.Collections;
 
 public class NewGameMenuButtons : MonoBehaviour {
 
+	public GameObject menuGUIHolder;
 	public static Canvas NewGameMenu;
 	
 	
@@ -13,11 +14,11 @@ public class NewGameMenuButtons : MonoBehaviour {
 	}
 
 	public void BackToGameMenuFromNewGameScreen(){
-		MenuGUI.MenuGoBack (0);
+		menuGUIHolder.GetComponent<MenuGUI>().MenuGoBack (0);
 	}
 
 	public void NewGame(int mode){
-		MenuGUI.MenuGoNext (mode);
+		menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (mode);
 	}
 
 

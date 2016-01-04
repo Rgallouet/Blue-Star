@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 
 public class MenuGUI : MonoBehaviour {
@@ -10,8 +11,18 @@ public class MenuGUI : MonoBehaviour {
 	private static StatAllocation statAllocation= new StatAllocation();
 	private static BackgroundAllocation backgroundAllocation = new BackgroundAllocation();
 
+
 	public static GameObject Stand;
 	public static GameObject Player;
+
+	// AUDIO
+	public AudioMixerSnapshot GameMenuAudio;
+	public AudioMixerSnapshot CreationMenuAudio;
+	public AudioClip[] TransitionAudio = new AudioClip[2];
+	private AudioSource TransitionAudioSource;
+	private float m_AudioTransitionIn;
+	private float m_AudioTransitionOut;
+	private float m_quarterNote;
 
 
 	//private int hellCircleSelection;
@@ -43,12 +54,15 @@ public class MenuGUI : MonoBehaviour {
 
 
 	void Start () {
+
+		// Get objects
 		currentState = CreateAPlayerStates.MENU;
-		Stand = GameObject.FindGameObjectWithTag ("Stand");
+		Stand= GameObject.FindGameObjectWithTag ("Stand");
 		Player = GameObject.FindGameObjectWithTag ("Player");
 		Stand.SetActive(false);
 		Player.SetActive(false);
 
+		// Initiate selections
 		HellCircleSelection=0;
 		AllegianceSelection=0;
 		GenusSelection=0;
@@ -60,7 +74,10 @@ public class MenuGUI : MonoBehaviour {
 		AstroSelection=0;	
 		AffinitySelection=0;
 
+		// Initiate transition status
 		lastActionWasNext = true;
+
+
 
 	}
 
@@ -73,7 +90,7 @@ public class MenuGUI : MonoBehaviour {
 
 
 	
-	public static void MenuGoNext(int Option){
+public void MenuGoNext(int Option){
 		
 		lastActionWasNext = true;
 		
@@ -99,7 +116,7 @@ public class MenuGUI : MonoBehaviour {
 
 
 		case CreateAPlayerStates.MODESELECTION:
-
+			CreationMenuAudio.TransitionTo (m_AudioTransitionIn);
 			switch (Option) {
 			case 1: // I chose "Guided"
 				currentState = CreateAPlayerStates.PREDEFINEDSELECTION;
@@ -191,7 +208,7 @@ public class MenuGUI : MonoBehaviour {
 
 
 
-	public static void MenuGoBack(int option){
+	public void MenuGoBack(int option){
 
 		lastActionWasNext = false;
 
@@ -222,7 +239,18 @@ public class MenuGUI : MonoBehaviour {
 				GameMenuButtons.GameMenu.enabled = true;
 				Stand.SetActive (false);
 				Player.SetActive (false);
+				GameMenuAudio.TransitionTo (m_AudioTransitionOut);
 			}
+			break;
+
+		case CreateAPlayerStates.PREDEFINEDSELECTION:
+				currentState = CreateAPlayerStates.MENU;
+				CreationGameMenuStaticButtons.CreationGameMenuStatic.enabled = false;
+				PreDefinedSelectionButtons.PreDefinedSelection.enabled = false;
+				GameMenuButtons.GameMenu.enabled = true;
+				Stand.SetActive (false);
+				Player.SetActive (false);
+				GameMenuAudio.TransitionTo (m_AudioTransitionOut);
 			break;
 
 		case CreateAPlayerStates.STATALLOCATION:
@@ -485,6 +513,29 @@ public class MenuGUI : MonoBehaviour {
 		statAllocation.RefreshDisplayStatsNumbers ();
 		statAllocation.CalculateDisplayPlusMinusButtons ();
 	}
+
+
+
+
+	// AUDIO
+
+	void  PlayCreationMenuAudio() {
+		CreationMenuAudio.TransitionTo (m_AudioTransitionIn);
+	}
+	
+	void  PlayGameMenuAudio() {
+		GameMenuAudio.TransitionTo (m_AudioTransitionOut);
+	}
+	
+	
+	void PlayTransition()
+	{
+		int randClip = Random.Range (0, TransitionAudio.Length);
+		TransitionAudioSource.clip = TransitionAudio[randClip];
+		TransitionAudioSource.Play();
+	}
+
+
 
 
 }
