@@ -20,9 +20,10 @@ AudioMixerController:
     - c458b5e29b99f1447b7eab879ffdc5ce
     - b27dc042580d3034080b81dc19a747d3
     - 941c7da02da39f54997fd111dbad7b7c
+    - 397d0f147aac0ae48ada371ca13af980
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 24515300}
+  m_TargetSnapshot: {fileID: 24500003}
 --- !u!243 &24300001
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -34,6 +35,7 @@ AudioMixerGroupController:
   m_Children:
   - {fileID: 24389028}
   - {fileID: 24342260}
+  - {fileID: 24367166}
   m_Volume: d34f1aabcc1c73a4483681be10e13a10
   m_Pitch: 69d65d9ddf9efbd4f8aa3222260d0099
   m_Effects:
@@ -55,6 +57,23 @@ AudioMixerGroupController:
   m_Pitch: 4003ebebabe16a8499ad08512121495e
   m_Effects:
   - {fileID: 24406918}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &24367166
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Door
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 397d0f147aac0ae48ada371ca13af980
+  m_Children: []
+  m_Volume: 3646b61e6ecaa8c439ddc2634ec91162
+  m_Pitch: 6db42be0fd3f73149851c6925afaa5ce
+  m_Effects:
+  - {fileID: 24492058}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -115,6 +134,19 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &24492058
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 92dd4a26b71cb1040a6ce16ce073c9f8
+  m_EffectName: Attenuation
+  m_MixLevel: 3d338c6f371ac084c9cfce721bdeea2e
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!245 &24500003
 AudioMixerSnapshotController:
   m_ObjectHideFlags: 0
@@ -124,6 +156,7 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 5b8675664643bc14dbc1da1427c90f26
   m_FloatValues:
+    3646b61e6ecaa8c439ddc2634ec91162: -4.56034613
     eb03bf0fda50f3a49831a6b5065b0562: -80
   m_TransitionOverrides: {}
 --- !u!245 &24515300
@@ -136,5 +169,6 @@ AudioMixerSnapshotController:
   m_SnapshotID: 6af100a85b0727c489600abf89470ef6
   m_FloatValues:
     e12ec2d5fc726ea4f96db0b87ba3a5fd: -59.6067619
+    3646b61e6ecaa8c439ddc2634ec91162: -4.56034613
     eb03bf0fda50f3a49831a6b5065b0562: .0255785137
   m_TransitionOverrides: {}

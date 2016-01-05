@@ -11,19 +11,12 @@ public class MenuGUI : MonoBehaviour {
 	private static StatAllocation statAllocation= new StatAllocation();
 	private static BackgroundAllocation backgroundAllocation = new BackgroundAllocation();
 
+	public MenuAudio menuAudio;
 
-	public static GameObject Stand;
-	public static GameObject Player;
 
-	// AUDIO
-	public AudioMixerSnapshot GameMenuAudio;
-	public AudioMixerSnapshot CreationMenuAudio;
-	public AudioClip[] TransitionAudio = new AudioClip[2];
-	private AudioSource TransitionAudioSource;
-	private float m_AudioTransitionIn;
-	private float m_AudioTransitionOut;
-	private float m_quarterNote;
-
+	public GameObject Stand;
+	public GameObject Player;
+	
 
 	//private int hellCircleSelection;
 	//private int allegianceSelection;
@@ -57,8 +50,9 @@ public class MenuGUI : MonoBehaviour {
 
 		// Get objects
 		currentState = CreateAPlayerStates.MENU;
-		Stand= GameObject.FindGameObjectWithTag ("Stand");
-		Player = GameObject.FindGameObjectWithTag ("Player");
+		//Stand= GameObject.FindGameObjectWithTag ("Stand");
+		//Player = GameObject.FindGameObjectWithTag ("Player");
+
 		Stand.SetActive(false);
 		Player.SetActive(false);
 
@@ -76,6 +70,7 @@ public class MenuGUI : MonoBehaviour {
 
 		// Initiate transition status
 		lastActionWasNext = true;
+
 
 
 
@@ -116,7 +111,7 @@ public void MenuGoNext(int Option){
 
 
 		case CreateAPlayerStates.MODESELECTION:
-			CreationMenuAudio.TransitionTo (m_AudioTransitionIn);
+			menuAudio.PlayCreationMenuAudio();
 			switch (Option) {
 			case 1: // I chose "Guided"
 				currentState = CreateAPlayerStates.PREDEFINEDSELECTION;
@@ -239,7 +234,7 @@ public void MenuGoNext(int Option){
 				GameMenuButtons.GameMenu.enabled = true;
 				Stand.SetActive (false);
 				Player.SetActive (false);
-				GameMenuAudio.TransitionTo (m_AudioTransitionOut);
+				menuAudio.PlayGameMenuAudio();
 			}
 			break;
 
@@ -250,7 +245,7 @@ public void MenuGoNext(int Option){
 				GameMenuButtons.GameMenu.enabled = true;
 				Stand.SetActive (false);
 				Player.SetActive (false);
-				GameMenuAudio.TransitionTo (m_AudioTransitionOut);
+				menuAudio.PlayGameMenuAudio();
 			break;
 
 		case CreateAPlayerStates.STATALLOCATION:
@@ -519,21 +514,7 @@ public void MenuGoNext(int Option){
 
 	// AUDIO
 
-	void  PlayCreationMenuAudio() {
-		CreationMenuAudio.TransitionTo (m_AudioTransitionIn);
-	}
-	
-	void  PlayGameMenuAudio() {
-		GameMenuAudio.TransitionTo (m_AudioTransitionOut);
-	}
-	
-	
-	void PlayTransition()
-	{
-		int randClip = Random.Range (0, TransitionAudio.Length);
-		TransitionAudioSource.clip = TransitionAudio[randClip];
-		TransitionAudioSource.Play();
-	}
+
 
 
 
