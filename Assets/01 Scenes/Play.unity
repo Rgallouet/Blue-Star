@@ -367,7 +367,7 @@ TerrainCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 144252226}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 67db31eead11e8d6d00011d98d76c639, type: 2}
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: cfb998f4d200ead429c8799ff71059fb, type: 2}
   m_EnableTreeColliders: 1
@@ -810,7 +810,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 235216724}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 23c678c71bd7efa468c0a4f1972ae7a1, type: 3}
@@ -1152,7 +1152,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 412766812}
   - 114: {fileID: 412766813}
-  - 143: {fileID: 412766814}
+  - 114: {fileID: 412766815}
+  - 95: {fileID: 412766817}
+  - 54: {fileID: 412766816}
+  - 136: {fileID: 412766818}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1186,28 +1189,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30283f1bcd55cf4d976d8d37d9425f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 10
-  Speed: 5
+  playerBody: {fileID: 412766815}
   runMultiplier: 1.5
   walkMultiplier: .5
   backwardMultiplier: .5
---- !u!143 &412766814
-CharacterController:
+--- !u!114 &412766815
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 412766811}
-  m_Material: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3954242e536c50408003956aa87a41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpPower: 5
+  gravityMultiplier: 2
+  groundCheckDistance: .100000001
+  animSpeedMultiplier: 1
+  moveSpeedMultiplier: 10
+  bodyStatus: 0
+--- !u!54 &412766816
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 412766811}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .5
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
+--- !u!95 &412766817
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 412766811}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: b235179bd2a63d1468dd430670338c55, type: 3}
+  m_Controller: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!136 &412766818
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 412766811}
+  m_Material: {fileID: 13400000, guid: 59006175edbd8fc499c1d0d94054e6c2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 1.5
-  m_Radius: .100000001
-  m_SlopeLimit: 45
-  m_StepOffset: .100000001
-  m_SkinWidth: .0799999982
-  m_MinMoveDistance: .00100000005
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Radius: .300000012
+  m_Height: 1.60000002
+  m_Direction: 1
+  m_Center: {x: 0, y: .800000012, z: 0}
 --- !u!1 &437538516
 GameObject:
   m_ObjectHideFlags: 0
@@ -5194,7 +5241,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1869798484}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: fa9a139ead11e8d6d00011d98d76c639, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
