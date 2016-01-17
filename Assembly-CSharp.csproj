@@ -72,12 +72,9 @@
      <Compile Include="Assets\03 Scripts\01 UI\02 GamingUI\GameUIButtons.cs" />
      <Compile Include="Assets\03 Scripts\02 GameInformation\GameInformation.cs" />
      <Compile Include="Assets\03 Scripts\03 SavingandLoading\PPSerialization.cs" />
-     <Compile Include="Assets\03 Scripts\04 Player &amp; Controls\BasePlayer.cs" />
-     <Compile Include="Assets\03 Scripts\04 Player &amp; Controls\CameraController.cs" />
-     <Compile Include="Assets\03 Scripts\04 Player &amp; Controls\IncreaseExperience.cs" />
-     <Compile Include="Assets\03 Scripts\04 Player &amp; Controls\LevelUp.cs" />
-     <Compile Include="Assets\03 Scripts\04 Player &amp; Controls\PlayerBody.cs" />
-     <Compile Include="Assets\03 Scripts\04 Player &amp; Controls\PlayerController.cs" />
+     <Compile Include="Assets\03 Scripts\04 Player\BasePlayer.cs" />
+     <Compile Include="Assets\03 Scripts\04 Player\IncreaseExperience.cs" />
+     <Compile Include="Assets\03 Scripts\04 Player\LevelUp.cs" />
      <Compile Include="Assets\03 Scripts\05 Items\BaseEquipement.cs" />
      <Compile Include="Assets\03 Scripts\05 Items\BaseItem.cs" />
      <Compile Include="Assets\03 Scripts\05 Items\BasePotion.cs" />
@@ -88,6 +85,13 @@
      <Compile Include="Assets\03 Scripts\05 Items\CreateNewWeapon.cs" />
      <Compile Include="Assets\03 Scripts\06 Combat\TurnBasedCombatStateMachine.cs" />
      <Compile Include="Assets\03 Scripts\07 Audio\MenuAudio.cs" />
+     <Compile Include="Assets\03 Scripts\08 Controls &amp; Movements\AnimatedProjector.cs" />
+     <Compile Include="Assets\03 Scripts\08 Controls &amp; Movements\CameraController.cs" />
+     <Compile Include="Assets\03 Scripts\08 Controls &amp; Movements\PlayerBody.cs" />
+     <Compile Include="Assets\03 Scripts\08 Controls &amp; Movements\PlayerController.cs" />
+     <Compile Include="Assets\03 Scripts\08 Controls &amp; Movements\Underwater\Underwater.cs" />
+     <Compile Include="Assets\03 Scripts\08 Controls &amp; Movements\Underwater\UnderwaterEffect.cs" />
+     <Compile Include="Assets\03 Scripts\08 Controls &amp; Movements\Underwater\WaterMirrorReflection.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\EventSystemChecker.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
      <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
@@ -98,6 +102,8 @@
      <Compile Include="Assets\SampleScenes\Scripts\ParticleSceneControls.cs" />
      <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
      <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
+     <Compile Include="Assets\UnderWaterAsset\Scripts\FishMovements.cs" />
+     <Compile Include="Assets\UnderWaterAsset\Scripts\SurroundClouds.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
@@ -113,6 +119,7 @@
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\VignetteShader.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+     <None Include="Assets\UnderWaterAsset\Shaders\Underwater.shader" />
      <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularSmooth.shader" />
      <None Include="Assets\Standard Assets\Effects\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\MotionBlur.shader" />
@@ -129,6 +136,7 @@
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
      <None Include="Assets\Standard Assets\Vehicles\Aircraft\AircraftGuidelines.txt" />
+     <None Include="Assets\UnderWaterAsset\Shaders\WaterShader_2.shader" />
      <None Include="Assets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpecTransp.shader" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
@@ -152,6 +160,7 @@
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionSelective.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\Bokeh34.shader" />
+     <None Include="Assets\UnderWaterAsset\Shaders\ProjectorAdd.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\CameraMotionBlurDX11.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
      <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
@@ -197,7 +206,11 @@
      <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
+     <None Include="Assets\UnderWaterAsset\Shaders\alpha_2sided.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>D:/5 - Unity 5/The-Second-Law/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

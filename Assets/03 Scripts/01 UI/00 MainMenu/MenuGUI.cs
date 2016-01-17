@@ -134,12 +134,14 @@ public void MenuGoNext(int Option){
 		break;
 
 		case CreateAPlayerStates.PREDEFINEDSELECTION: 
+			if (!(PreDefinedSelectionButtons.HistoryChoice == 0)) {
 			HistorySelectionNext (Option);
 			historyAllocation.CreateNewPlayer (HellCircleSelection, AllegianceSelection, GenusSelection, SpeciesSelection, JobSelection, ImpSelection, OriginSelection, TemperSelection, AstroSelection, AffinitySelection);
 			currentState = CreateAPlayerStates.STATALLOCATION;
 			PreDefinedSelectionButtons.PreDefinedSelection.enabled = false;
 			StatAllocationButtons.StatAllocationMenu.enabled = true;
-			statAllocation.DisplayStatAllocationModule();
+				statAllocation.DisplayStatAllocationModule();
+			}
 			break;
 
 			
@@ -152,7 +154,6 @@ public void MenuGoNext(int Option){
 				StatAllocationButtons.StatAllocationMenu.enabled = true;
 				statAllocation.DisplayStatAllocationModule();
 			}
-
 			break;
 			
 		case CreateAPlayerStates.STATALLOCATION: 

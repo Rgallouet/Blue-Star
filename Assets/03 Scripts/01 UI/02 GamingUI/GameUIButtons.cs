@@ -15,8 +15,12 @@ public class GameUIButtons : MonoBehaviour {
 
 	
 	void Awake(){
+
+		Debug.Log ("Specie :" + GameInformation.BasePlayer.PlayerSpecies.Choice);
+		Debug.Log ("Genus :" + GameInformation.BasePlayer.PlayerGenus.Choice);
+		Debug.Log ("Balance :" + GameInformation.BasePlayer.Balance);
 		GameUI = GetComponent<Canvas>();
-		GameUI.GetComponentsInChildren<Image> () [0].sprite=HeadSprites [GameInformation.BasePlayer.PlayerSpecies.Choice - 1 + 3 * (GameInformation.BasePlayer.PlayerGenus.Choice - 1)];
+		GameUI.GetComponentsInChildren<Image> () [0].sprite=HeadSprites [GameInformation.BasePlayer.PlayerSpecies.Choice - 1];
 		MenuOpenedOrNot = false;
 	}
 

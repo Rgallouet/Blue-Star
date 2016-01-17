@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
   m_Fog: 0
-  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
+  m_FogColor: {r: 0, g: 0, b: 0, a: 0}
   m_FogMode: 3
-  m_FogDensity: .00999999978
+  m_FogDensity: .00499999989
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: .211999997, g: .226999998, b: .259000003, a: 1}
@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 9695a37e583ecc64babb5bebc45f11a8, type: 2}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -713,6 +713,7 @@ GameObject:
   - 81: {fileID: 235216726}
   - 114: {fileID: 235216730}
   - 82: {fileID: 235216731}
+  - 114: {fileID: 235216732}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -762,7 +763,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: .213235319, g: .706997752, b: 1, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -874,6 +875,20 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &235216732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 235216724}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e24572253963491499b36b122689894b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UnderwaterColorFade: .125
+  m_UnderwaterShader: {fileID: 4800000, guid: af89b6037bc26e543acc085afa7f1add, type: 3}
+  m_BlendColor: {r: .0860000029, g: .216000006, b: .713999987, a: 1}
 --- !u!1 &274461242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1170,7 +1185,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 412766811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 272.828308, y: 15.816, z: 255.548462}
+  m_LocalPosition: {x: 272.828308, y: 16.9449997, z: 255.548462}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 235216725}
@@ -1189,10 +1204,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a30283f1bcd55cf4d976d8d37d9425f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playercamera: {fileID: 235216729}
   playerBody: {fileID: 412766815}
   runMultiplier: 1.5
   walkMultiplier: .5
   backwardMultiplier: .5
+  groundMove: {x: 0, y: 0, z: 0}
+  freeMove: {x: 0, y: 0, z: 0}
+  goFront: 0
+  goRight: 0
 --- !u!114 &412766815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1205,11 +1225,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpPower: 5
-  gravityMultiplier: 2
-  groundCheckDistance: .100000001
-  animSpeedMultiplier: 1
+  waterlevel: {fileID: 1869798484}
   moveSpeedMultiplier: 10
   bodyStatus: 0
+  groundNormal: {x: 0, y: 0, z: 0}
+  PlayerCamera: {fileID: 235216725}
+  DistanceToGround: 0
+  PlayerVelocity: {x: 0, y: 0, z: 0}
+  ReadyToFly: 0
 --- !u!54 &412766816
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1265,7 +1288,6 @@ GameObject:
   - 4: {fileID: 437538520}
   - 114: {fileID: 437538519}
   - 114: {fileID: 437538518}
-  - 114: {fileID: 437538517}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1273,18 +1295,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &437538517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 437538516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1997211142, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ForceModuleActive: 0
 --- !u!114 &437538518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3166,7 +3176,7 @@ Transform:
   m_PrefabParentObject: {fileID: 496262, guid: 7737647c22c1fc64a88d5cd030c352ce, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1175515750}
-  m_LocalRotation: {x: .532675147, y: .0703404471, z: .836132646, w: -.110415131}
+  m_LocalRotation: {x: .532675207, y: .0703404546, z: .836132765, w: -.110415146}
   m_LocalPosition: {x: 2.22714643e-05, y: -6.1504652e-05, z: .0260270257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5204,6 +5214,7 @@ GameObject:
   - 33: {fileID: 1869798487}
   - 64: {fileID: 1869798486}
   - 23: {fileID: 1869798485}
+  - 114: {fileID: 1869798490}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -5243,7 +5254,7 @@ MeshCollider:
   m_GameObject: {fileID: 1869798484}
   m_Material: {fileID: 13400000, guid: fa9a139ead11e8d6d00011d98d76c639, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
@@ -5267,6 +5278,24 @@ Transform:
   - {fileID: 1513383323}
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!114 &1869798490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1869798484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea10f570f016917458a343af86676221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UnderwaterCheckOffset: .00100000005
+  envFogColor: {r: 0, g: 0, b: 0, a: 0}
+  underwaterFogColor: {r: 0, g: 0, b: 1, a: 1}
+  skyFogDensity: .00499999989
+  waterFogDensity: .0500000007
+  mUnderWaterBubblesColor: {r: .270000011, g: .270000011, b: .270000011, a: 1}
+  mUpWaterBubblesColor: {r: .0196078438, g: .0196078438, b: .0196078438, a: 1}
 --- !u!1 &1872035792
 GameObject:
   m_ObjectHideFlags: 0
