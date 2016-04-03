@@ -50,8 +50,6 @@ public class MenuGUI : MonoBehaviour {
 
 		// Get objects
 		currentState = CreateAPlayerStates.MENU;
-		//Stand= GameObject.FindGameObjectWithTag ("Stand");
-		//Player = GameObject.FindGameObjectWithTag ("Player");
 
 		Stand.SetActive(false);
 		Player.SetActive(false);
