@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Audio;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MenuGUI : MonoBehaviour {
 
@@ -179,7 +180,7 @@ public void MenuGoNext(int Option){
 		case CreateAPlayerStates.LOAD: 
 			LoadGameMenuButtons.LoadGameMenu.enabled = false;
 			currentState = CreateAPlayerStates.PLAY;
-			Application.LoadLevel("Play");
+			SceneManager.LoadScene("Play");
 			break;
 
 		case CreateAPlayerStates.SAVE:
@@ -188,7 +189,7 @@ public void MenuGoNext(int Option){
 			Stand.SetActive (false);
 			Player.SetActive (false);
 			Debug.Log("Before:" + GameInformation.BasePlayer.PlayerFirstName.ToString());
-			Application.LoadLevel("Play");
+            SceneManager.LoadScene("Play");
 			Debug.Log("After 1:" + GameInformation.BasePlayer.PlayerFirstName.ToString());
 
 			break;

@@ -29,7 +29,7 @@ public class PlayerBody : MonoBehaviour {
 		bodyStatus = BodyStatus.isOnGround;
 		animator = GetComponent<Animator>();
 		m_Rigidbody = GetComponent<Rigidbody>();
-		moveSpeedMultiplier = GameInformation.BasePlayer.Balance / 20f;
+		//moveSpeedMultiplier = GameInformation.BasePlayer.Balance / 20f;
 		m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 	}
 	
@@ -51,7 +51,7 @@ public class PlayerBody : MonoBehaviour {
 		PlayerVelocity = m_Rigidbody.velocity;
 			
 		// send input and other state parameters to the animator
-		//UpdateAnimator(groundMove);
+		UpdateAnimator(groundMove);
 	}
 	
 	
@@ -60,12 +60,15 @@ public class PlayerBody : MonoBehaviour {
 	
 	void UpdateAnimator(Vector3 move)
 	{
-		// update the animator parameters
-		animator.SetFloat("Forward", move.magnitude, 0.1f, Time.deltaTime);
+
+        Debug.Log( Mathf.Floor(move.magnitude*10)/10);
+
+        // update the animator parameters
+        animator.SetFloat("Forward", move.magnitude);
 		//animator.SetFloat("Right", move.x, 0.1f, Time.deltaTime);
 		animator.SetBool("OnGround", bodyStatus==BodyStatus.isOnGround ? true : false); 
 
-		if (bodyStatus==BodyStatus.isOnGround ? false : true) animator.SetFloat("Jump", m_Rigidbody.velocity.y);
+		//if (bodyStatus==BodyStatus.isOnGround ? false : true) animator.SetFloat("Jump", m_Rigidbody.velocity.y);
 
 
 	}
