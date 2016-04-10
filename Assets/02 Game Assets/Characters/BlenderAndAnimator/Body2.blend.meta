@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 91d2c2bab36cd9f49b0c91a71592b022
-timeCreated: 1459674175
+guid: f5b998ca5f616e443916d9705b4a04c9
+timeCreated: 1460205966
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -93,9 +93,13 @@ ModelImporter:
     7400000: Default Take
     7400002: Idle
     7400004: Run
-    7400006: Run_002
-    7400008: T-Pose
-    7400010: Walk
+    7400006: Run_Left
+    7400008: Run_right
+    7400010: Run_002
+    7400012: T-Pose
+    7400014: Walk
+    7400016: Walk_Left
+    7400018: Walk_Right
     9500000: //RootNode
     13700000: Head
     13700002: Left_Arm
@@ -128,7 +132,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Idle
       takeName: Idle
-      firstFrame: 0
+      firstFrame: 1
       lastFrame: 79
       wrapMode: 0
       orientationOffsetY: 0
@@ -234,7 +238,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Run
       takeName: Run
-      firstFrame: 0
+      firstFrame: 1
       lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
@@ -243,7 +247,219 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Belly
+        weight: 1
+      - path: Armature/Belly/Chest
+        weight: 1
+      - path: Armature/Belly/Chest/Neck
+        weight: 1
+      - path: Armature/Belly/Chest/Neck/Head_0
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/FingerStart_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/FingerStart_L/FingerEnd_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/ThumbStart_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/ThumbStart_L/ThumbEnd_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/FingerStart_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/FingerStart_R/FingerEnd_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/ThumbStart_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/ThumbStart_R/ThumbEnd_R
+        weight: 1
+      - path: Armature/Belly/Leg_L
+        weight: 1
+      - path: Armature/Belly/Leg_L/Tibia_L
+        weight: 1
+      - path: Armature/Belly/Leg_R
+        weight: 1
+      - path: Armature/Belly/Leg_R/Tibia_R
+        weight: 1
+      - path: Armature/LegControl_L
+        weight: 1
+      - path: Armature/LegControl_L/Ankle_L
+        weight: 1
+      - path: Armature/LegControl_L/Ankle_L/Foot_L
+        weight: 1
+      - path: Armature/LegControl_R
+        weight: 1
+      - path: Armature/LegControl_R/Ankle_R
+        weight: 1
+      - path: Armature/LegControl_R/Ankle_R/Foot_R
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Left_Arm
+        weight: 1
+      - path: Left_Foot
+        weight: 1
+      - path: Leg
+        weight: 1
+      - path: Right_Arm
+        weight: 1
+      - path: Right_Foot
+        weight: 1
+      - path: Torso
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Run_Left
+      takeName: Run_Left
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Belly
+        weight: 1
+      - path: Armature/Belly/Chest
+        weight: 1
+      - path: Armature/Belly/Chest/Neck
+        weight: 1
+      - path: Armature/Belly/Chest/Neck/Head_0
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/FingerStart_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/FingerStart_L/FingerEnd_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/ThumbStart_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/ThumbStart_L/ThumbEnd_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/FingerStart_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/FingerStart_R/FingerEnd_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/ThumbStart_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/ThumbStart_R/ThumbEnd_R
+        weight: 1
+      - path: Armature/Belly/Leg_L
+        weight: 1
+      - path: Armature/Belly/Leg_L/Tibia_L
+        weight: 1
+      - path: Armature/Belly/Leg_R
+        weight: 1
+      - path: Armature/Belly/Leg_R/Tibia_R
+        weight: 1
+      - path: Armature/LegControl_L
+        weight: 1
+      - path: Armature/LegControl_L/Ankle_L
+        weight: 1
+      - path: Armature/LegControl_L/Ankle_L/Foot_L
+        weight: 1
+      - path: Armature/LegControl_R
+        weight: 1
+      - path: Armature/LegControl_R/Ankle_R
+        weight: 1
+      - path: Armature/LegControl_R/Ankle_R/Foot_R
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Left_Arm
+        weight: 1
+      - path: Left_Foot
+        weight: 1
+      - path: Leg
+        weight: 1
+      - path: Right_Arm
+        weight: 1
+      - path: Right_Foot
+        weight: 1
+      - path: Torso
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Run_right
+      takeName: Run_right
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -446,7 +662,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Walk
       takeName: Walk
-      firstFrame: 0
+      firstFrame: 1
       lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
@@ -455,7 +671,219 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Belly
+        weight: 1
+      - path: Armature/Belly/Chest
+        weight: 1
+      - path: Armature/Belly/Chest/Neck
+        weight: 1
+      - path: Armature/Belly/Chest/Neck/Head_0
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/FingerStart_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/FingerStart_L/FingerEnd_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/ThumbStart_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/ThumbStart_L/ThumbEnd_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/FingerStart_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/FingerStart_R/FingerEnd_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/ThumbStart_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/ThumbStart_R/ThumbEnd_R
+        weight: 1
+      - path: Armature/Belly/Leg_L
+        weight: 1
+      - path: Armature/Belly/Leg_L/Tibia_L
+        weight: 1
+      - path: Armature/Belly/Leg_R
+        weight: 1
+      - path: Armature/Belly/Leg_R/Tibia_R
+        weight: 1
+      - path: Armature/LegControl_L
+        weight: 1
+      - path: Armature/LegControl_L/Ankle_L
+        weight: 1
+      - path: Armature/LegControl_L/Ankle_L/Foot_L
+        weight: 1
+      - path: Armature/LegControl_R
+        weight: 1
+      - path: Armature/LegControl_R/Ankle_R
+        weight: 1
+      - path: Armature/LegControl_R/Ankle_R/Foot_R
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Left_Arm
+        weight: 1
+      - path: Left_Foot
+        weight: 1
+      - path: Leg
+        weight: 1
+      - path: Right_Arm
+        weight: 1
+      - path: Right_Foot
+        weight: 1
+      - path: Torso
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk_Left
+      takeName: Walk_Left
+      firstFrame: 1
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Belly
+        weight: 1
+      - path: Armature/Belly/Chest
+        weight: 1
+      - path: Armature/Belly/Chest/Neck
+        weight: 1
+      - path: Armature/Belly/Chest/Neck/Head_0
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/FingerStart_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/FingerStart_L/FingerEnd_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/ThumbStart_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_L/Arm_L/Forearm_L/Palm_L/ThumbStart_L/ThumbEnd_L
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/FingerStart_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/FingerStart_R/FingerEnd_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/ThumbStart_R
+        weight: 1
+      - path: Armature/Belly/Chest/Shoulder_R/Arm_R/Forearm_R/Palm_R/ThumbStart_R/ThumbEnd_R
+        weight: 1
+      - path: Armature/Belly/Leg_L
+        weight: 1
+      - path: Armature/Belly/Leg_L/Tibia_L
+        weight: 1
+      - path: Armature/Belly/Leg_R
+        weight: 1
+      - path: Armature/Belly/Leg_R/Tibia_R
+        weight: 1
+      - path: Armature/LegControl_L
+        weight: 1
+      - path: Armature/LegControl_L/Ankle_L
+        weight: 1
+      - path: Armature/LegControl_L/Ankle_L/Foot_L
+        weight: 1
+      - path: Armature/LegControl_R
+        weight: 1
+      - path: Armature/LegControl_R/Ankle_R
+        weight: 1
+      - path: Armature/LegControl_R/Ankle_R/Foot_R
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Left_Arm
+        weight: 1
+      - path: Left_Foot
+        weight: 1
+      - path: Leg
+        weight: 1
+      - path: Right_Arm
+        weight: 1
+      - path: Right_Foot
+        weight: 1
+      - path: Torso
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk_Right
+      takeName: Walk_Right
+      firstFrame: 1
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

@@ -29,12 +29,13 @@ public class PlayerBody : MonoBehaviour {
 		bodyStatus = BodyStatus.isOnGround;
 		animator = GetComponent<Animator>();
 		m_Rigidbody = GetComponent<Rigidbody>();
-		//moveSpeedMultiplier = GameInformation.BasePlayer.Balance / 20f;
+        try { moveSpeedMultiplier = GameInformation.BasePlayer.Balance / 20f; }
+        catch (System.Exception)  {moveSpeedMultiplier = 5f;throw;}
 		m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 	}
 	
 
-	public void MoveBody(Vector3 groundMove,Vector3 freeMove, bool jump)
+	public void MoveBody(float goFront, float goRight, Vector3 groundMove,Vector3 freeMove, bool jump)
 	{
 
 		CheckGroundStatus ();
@@ -51,22 +52,25 @@ public class PlayerBody : MonoBehaviour {
 		PlayerVelocity = m_Rigidbody.velocity;
 			
 		// send input and other state parameters to the animator
-		UpdateAnimator(groundMove);
+		UpdateAnimator(goFront, goRight);
 	}
 	
 	
 
 	
 	
-	void UpdateAnimator(Vector3 move)
+	void UpdateAnimator(float goFront, float goRight)
 	{
 
-        Debug.Log( Mathf.Floor(move.magnitude*10)/10);
+ 
+
+        Debug.Log("Forward =" + goFront);
+        Debug.Log("Rightside =" + goRight);
 
         // update the animator parameters
-        animator.SetFloat("Forward", move.magnitude);
-		//animator.SetFloat("Right", move.x, 0.1f, Time.deltaTime);
-		animator.SetBool("OnGround", bodyStatus==BodyStatus.isOnGround ? true : false); 
+        animator.SetFloat("Forward", goFront , 0.1f, Time.deltaTime);
+		animator.SetFloat("Rightside", goRight, 0.1f, Time.deltaTime);
+        animator.SetBool("OnGround", bodyStatus==BodyStatus.isOnGround ? true : false); 
 
 		//if (bodyStatus==BodyStatus.isOnGround ? false : true) animator.SetFloat("Jump", m_Rigidbody.velocity.y);
 

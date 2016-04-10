@@ -30,50 +30,29 @@ public class PlayerController : MonoBehaviour {
 		goFront = Mathf.Clamp (Input.GetAxis ("Vertical"), -0.5f, 1f);
 		goRight = Input.GetAxis ("Horizontal");
 		
+        // Simulating a circle area for direction vector possible values
 		if (!(goFront == 0) && !(goRight == 0)) {
 			goFront*=1/Mathf.Sqrt(2);
 			goRight*=1/Mathf.Sqrt(2);
 		}
 
-		//Direction
-		GetGroundMoveVector ();
-		GetFreeMoveVector ();
 
-		//Jump or Flying
-		if 	(Input.GetButtonDown ("Jump")) 	playerBody.MoveBody(groundMove,freeMove,true);
-		else playerBody.MoveBody(groundMove,freeMove,false);
+        //Get movement directions on the ground
+        groundMove = (goFront * transform.TransformDirection(Vector3.forward)) + (goRight * transform.TransformDirection(Vector3.right));
+        //Get movement directions in free mode
+        freeMove = (goFront * playercamera.transform.TransformDirection(Vector3.forward)) + (goRight * playercamera.transform.TransformDirection(Vector3.right));
+
+        // 	Walk 
+        if (Input.GetAxis("Walk") == 1f) { goFront *= walkMultiplier; goRight *= walkMultiplier; groundMove *= walkMultiplier; freeMove *= walkMultiplier; }
+        //	Run
+        if (Input.GetAxis("Run") == 1f) { goFront *= runMultiplier; goRight *= runMultiplier;  groundMove *= runMultiplier; freeMove *= runMultiplier; }
+
+        //Jump or Flying
+        if 	(Input.GetButtonDown ("Jump")) 	playerBody.MoveBody(goFront, goRight, groundMove, freeMove,true);
+		else playerBody.MoveBody(goFront, goRight, groundMove, freeMove,false);
 
 	}
 
-
-
-	void GetGroundMoveVector (){
-
-		//Get movement directions
-		groundMove = (goFront*transform.TransformDirection (Vector3.forward))+(goRight*transform.TransformDirection (Vector3.right));
-
-
-		// 	Walk 
-		if (Input.GetAxis("Walk")==1f) 	groundMove *= walkMultiplier;
-		//	Run
-		if (Input.GetAxis("Run")==1f)	groundMove *=runMultiplier;
-
-
-		}
-
-	void GetFreeMoveVector (){
-		
-		//Get movement directions
-		freeMove = (goFront*playercamera.transform.TransformDirection (Vector3.forward))+(goRight*playercamera.transform.TransformDirection (Vector3.right));
-
-		
-		// 	Walk 
-		if (Input.GetAxis("Walk")==1f) 	freeMove *= walkMultiplier;
-		//	Run
-		if (Input.GetAxis("Run")==1f)	freeMove *=runMultiplier;
-
-		
-	}
 
 }
 
