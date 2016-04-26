@@ -21,6 +21,7 @@ public class PlayerBody : MonoBehaviour {
 	public Vector3 PlayerVelocity;
 	public bool ReadyToFly;
 
+    private float PlayerMass;
 
 	
 	void Start()
@@ -32,7 +33,10 @@ public class PlayerBody : MonoBehaviour {
         try { moveSpeedMultiplier = GameInformation.BasePlayer.Balance / 20f; }
         catch (System.Exception)  {moveSpeedMultiplier = 5f;throw;}
 		m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-	}
+        PlayerMass = GameInformation.BasePlayer.Momentum / 100f;
+
+
+    }
 	
 
 	public void MoveBody(float goFront, float goRight, Vector3 groundMove,Vector3 freeMove, bool jump)
@@ -40,13 +44,22 @@ public class PlayerBody : MonoBehaviour {
 
 		CheckGroundStatus ();
 		groundMove = Vector3.ProjectOnPlane(groundMove, groundNormal);
-		// control and velocity handling is different when grounded and airborne:
-		if	(bodyStatus == BodyStatus.isOnGround && jump) 		StartJumping ();
-		else if (bodyStatus == BodyStatus.isJumping && jump) 	StartAscending ();
-		else if (bodyStatus == BodyStatus.isFlying && jump) 	StartFalling ();
-		else if (bodyStatus == BodyStatus.isOnGround) 			m_Rigidbody.velocity = new Vector3 (groundMove.x*moveSpeedMultiplier,m_Rigidbody.velocity.y,groundMove.z*moveSpeedMultiplier) ;
-		else if (bodyStatus == BodyStatus.isFlying) 			m_Rigidbody.velocity = m_Rigidbody.velocity*0.96f+freeMove*moveSpeedMultiplier*0.1f ;
-		else if (bodyStatus == BodyStatus.isSwimming) 			m_Rigidbody.velocity = m_Rigidbody.velocity*0.90f+freeMove*moveSpeedMultiplier*0.1f ;
+        // control and velocity handling is different when grounded and airborne:
+        if (bodyStatus == BodyStatus.isOnGround && jump) StartJumping();
+        else if (bodyStatus == BodyStatus.isJumping && jump) StartAscending();
+        else if (bodyStatus == BodyStatus.isFlying && jump) StartFalling();
+        else if (bodyStatus == BodyStatus.isOnGround)
+            {
+            m_Rigidbody.velocity = new Vector3(groundMove.x * moveSpeedMultiplier, m_Rigidbody.velocity.y, groundMove.z * moveSpeedMultiplier);
+            if (m_Rigidbody.velocity.magnitude < 0.05)
+                {
+                m_Rigidbody.useGravity = false;
+                m_Rigidbody.velocity = new Vector3(0, 0, 0);//frottements statiques
+                }
+            else m_Rigidbody.useGravity = true;
+        }
+        else if (bodyStatus == BodyStatus.isFlying) m_Rigidbody.velocity = m_Rigidbody.velocity + (freeMove * moveSpeedMultiplier  - m_Rigidbody.velocity * 0.4f )* Time.deltaTime / PlayerMass;
+        else if (bodyStatus == BodyStatus.isSwimming) m_Rigidbody.velocity = m_Rigidbody.velocity + (freeMove * moveSpeedMultiplier - m_Rigidbody.velocity )* Time.deltaTime / PlayerMass;
 
 		//Debuging
 		PlayerVelocity = m_Rigidbody.velocity;
@@ -70,8 +83,7 @@ public class PlayerBody : MonoBehaviour {
         // update the animator parameters
         animator.SetFloat("Forward", goFront , 0.1f, Time.deltaTime);
 		animator.SetFloat("Rightside", goRight, 0.1f, Time.deltaTime);
-        animator.SetBool("OnGround", bodyStatus==BodyStatus.isOnGround ? true : false); 
-
+        animator.SetInteger("State", bodyStatus==BodyStatus.isOnGround ? 0 : bodyStatus == BodyStatus.isJumping ? 1 : bodyStatus == BodyStatus.isFlying ? 2 : 3 ); 
 		//if (bodyStatus==BodyStatus.isOnGround ? false : true) animator.SetFloat("Jump", m_Rigidbody.velocity.y);
 
 
