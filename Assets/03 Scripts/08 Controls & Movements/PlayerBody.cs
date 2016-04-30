@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerBody : MonoBehaviour {
 
-	[SerializeField] float jumpPower = 5f;
+	private float jumpPower;
 
 	public GameObject waterlevel;
 
@@ -12,7 +12,7 @@ public class PlayerBody : MonoBehaviour {
 	Animator animator;
 	public enum BodyStatus{isOnGround,isJumping,isSwimming,isFlying};
 	public BodyStatus bodyStatus;
-
+    public bool isUsingGravity;
 	public Vector3 groundNormal;
 
 
@@ -34,7 +34,7 @@ public class PlayerBody : MonoBehaviour {
         catch (System.Exception)  {moveSpeedMultiplier = 5f;throw;}
 		m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
         PlayerMass = GameInformation.BasePlayer.Momentum / 100f;
-
+        jumpPower = 5 * (GameInformation.BasePlayer.Balance / GameInformation.BasePlayer.Momentum);
 
     }
 	
@@ -44,28 +44,22 @@ public class PlayerBody : MonoBehaviour {
 
 		CheckGroundStatus ();
 		groundMove = Vector3.ProjectOnPlane(groundMove, groundNormal);
+
         // control and velocity handling is different when grounded and airborne:
         if (bodyStatus == BodyStatus.isOnGround && jump) StartJumping();
         else if (bodyStatus == BodyStatus.isJumping && jump) StartAscending();
         else if (bodyStatus == BodyStatus.isFlying && jump) StartFalling();
-        else if (bodyStatus == BodyStatus.isOnGround)
-            {
-            m_Rigidbody.velocity = new Vector3(groundMove.x * moveSpeedMultiplier, m_Rigidbody.velocity.y, groundMove.z * moveSpeedMultiplier);
-            if (m_Rigidbody.velocity.magnitude < 0.05)
-                {
-                m_Rigidbody.useGravity = false;
-                m_Rigidbody.velocity = new Vector3(0, 0, 0);//frottements statiques
-                }
-            else m_Rigidbody.useGravity = true;
-        }
+        else if (bodyStatus == BodyStatus.isOnGround) StayOnGround(groundMove);
         else if (bodyStatus == BodyStatus.isFlying) m_Rigidbody.velocity = m_Rigidbody.velocity + (freeMove * moveSpeedMultiplier  - m_Rigidbody.velocity * 0.4f )* Time.deltaTime / PlayerMass;
         else if (bodyStatus == BodyStatus.isSwimming) m_Rigidbody.velocity = m_Rigidbody.velocity + (freeMove * moveSpeedMultiplier - m_Rigidbody.velocity )* Time.deltaTime / PlayerMass;
 
-		//Debuging
+		//Output indicator for debuging
 		PlayerVelocity = m_Rigidbody.velocity;
-			
-		// send input and other state parameters to the animator
-		UpdateAnimator(goFront, goRight);
+        isUsingGravity = m_Rigidbody.useGravity;
+
+
+        // send input and other state parameters to the animator
+        UpdateAnimator(goFront, goRight);
 	}
 	
 	
@@ -84,7 +78,7 @@ public class PlayerBody : MonoBehaviour {
         animator.SetFloat("Forward", goFront , 0.1f, Time.deltaTime);
 		animator.SetFloat("Rightside", goRight, 0.1f, Time.deltaTime);
         animator.SetInteger("State", bodyStatus==BodyStatus.isOnGround ? 0 : bodyStatus == BodyStatus.isJumping ? 1 : bodyStatus == BodyStatus.isFlying ? 2 : 3 ); 
-		//if (bodyStatus==BodyStatus.isOnGround ? false : true) animator.SetFloat("Jump", m_Rigidbody.velocity.y);
+		if (bodyStatus==BodyStatus.isJumping? true : false) animator.SetFloat("JumpingFalling", m_Rigidbody.velocity.y);
 
 
 	}
@@ -93,29 +87,38 @@ public class PlayerBody : MonoBehaviour {
 	
 	void StartJumping()
 	{
-		m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, jumpPower, m_Rigidbody.velocity.z);
+        if(m_Rigidbody.useGravity == false) m_Rigidbody.useGravity = true;
+        m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, jumpPower, m_Rigidbody.velocity.z);
 		bodyStatus = BodyStatus.isJumping;
-
-		//animator.applyRootMotion = false;
 	}
 
 	void StartAscending()
 	{
-		m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, 4*jumpPower, m_Rigidbody.velocity.z);
+        if (m_Rigidbody.useGravity == true) m_Rigidbody.useGravity = false;
+        m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, 4*jumpPower, m_Rigidbody.velocity.z);
 		ReadyToFly = true;
 	}
 
 	void StartFalling()
 	{
-		ReadyToFly = false;
+        if (m_Rigidbody.useGravity == false) m_Rigidbody.useGravity = true;
+        ReadyToFly = false;
 		bodyStatus = BodyStatus.isJumping;
-		m_Rigidbody.mass = 1f;
 	}
 
+    void StayOnGround(Vector3 groundMove)
+    {
+        if (m_Rigidbody.useGravity == false) m_Rigidbody.useGravity = true;
+        m_Rigidbody.velocity = new Vector3(groundMove.x * moveSpeedMultiplier, m_Rigidbody.velocity.y, groundMove.z * moveSpeedMultiplier);
+        if (m_Rigidbody.velocity.magnitude < 0.05)
+        {
+            m_Rigidbody.useGravity = false;
+            m_Rigidbody.velocity = new Vector3(0, 0, 0);//frottements statiques
+        }
+    }
 
 
-	
-	void CheckGroundStatus()
+    void CheckGroundStatus()
 	{
 		RaycastHit hitInfo;
 		// 0.1f is a small offset to start the ray from inside the character

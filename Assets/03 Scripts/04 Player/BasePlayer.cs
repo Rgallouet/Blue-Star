@@ -56,6 +56,7 @@ public class BasePlayer {
 	
 	private int rage;
 	private int phase;
+
 	private int momentum;
 	private int balance;
 	private int luck;

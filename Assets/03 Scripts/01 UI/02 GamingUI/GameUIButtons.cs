@@ -7,16 +7,18 @@ public class GameUIButtons : MonoBehaviour {
 
 	public static Canvas GameUI;
 
+    public GameAudio gameAudio;
 
-	public Sprite[] HeadSprites = new Sprite[18];
+    public Sprite[] HeadSprites = new Sprite[18];
 	public Sprite[] GameMenuButtonSprite = new Sprite[2];
 
 	private bool MenuOpenedOrNot;
 
 	
 	void Awake(){
+        gameAudio.PlayGameAudio();
 
-		Debug.Log ("Specie :" + GameInformation.BasePlayer.PlayerSpecies.Choice);
+        Debug.Log ("Specie :" + GameInformation.BasePlayer.PlayerSpecies.Choice);
 		Debug.Log ("Genus :" + GameInformation.BasePlayer.PlayerGenus.Choice);
 		Debug.Log ("Balance :" + GameInformation.BasePlayer.Balance);
 		GameUI = GetComponent<Canvas>();
@@ -26,12 +28,16 @@ public class GameUIButtons : MonoBehaviour {
 
 	public void OpenGameMenu() {
 
-		if (MenuOpenedOrNot == false) {
+
+        if (MenuOpenedOrNot == false) {
 			MenuOpenedOrNot = true;
-			GameUI.GetComponentsInChildren<Image> () [1].sprite = GameMenuButtonSprite [1];
+            gameAudio.PlayMenuInGameAudio();
+            GameUI.GetComponentsInChildren<Image> () [2].sprite = GameMenuButtonSprite [1];
 		} else if (MenuOpenedOrNot == true) {
 			MenuOpenedOrNot = false;
-			GameUI.GetComponentsInChildren<Image> () [1].sprite = GameMenuButtonSprite [0];
+            gameAudio.PlayGameAudio();
+            GameUI.GetComponentsInChildren<Image> () [2].sprite = GameMenuButtonSprite [0];
+
 		}
 
 
