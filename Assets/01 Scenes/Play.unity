@@ -170,6 +170,7 @@ GameObject:
   - 81: {fileID: 46447201}
   - 114: {fileID: 46447200}
   - 114: {fileID: 46447199}
+  - 114: {fileID: 46447205}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -180,8 +181,7 @@ GameObject:
 --- !u!114 &46447199
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11499526, guid: 5af78423dd28e6549b6a09f1d58f901d,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 46447198}
   m_Enabled: 0
@@ -269,6 +269,24 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
+--- !u!114 &46447205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 46447198}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea10f570f016917458a343af86676221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UnderwaterCheckOffset: 0.001
+  envFogColor: {r: 0, g: 0, b: 0, a: 0}
+  underwaterFogColor: {r: 0, g: 0, b: 1, a: 1}
+  skyFogDensity: 0.005
+  waterFogDensity: 0.05
+  mUnderWaterBubblesColor: {r: 0.27, g: 0.27, b: 0.27, a: 1}
+  mUpWaterBubblesColor: {r: 0.019607844, g: 0.019607844, b: 0.019607844, a: 1}
 --- !u!1 &51294419
 GameObject:
   m_ObjectHideFlags: 0
@@ -5895,52 +5913,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 457466977}
   m_RootOrder: 12
---- !u!1001 &1513383322
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1869798488}
-    m_Modifications:
-    - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &1513383323 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400000, guid: 780611a67e8e941a2b3aa96e5915a793, type: 2}
-  m_PrefabInternal: {fileID: 1513383322}
 --- !u!1 &1540026023
 GameObject:
   m_ObjectHideFlags: 0
@@ -8106,8 +8078,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 245.51, y: 5.4, z: 272.7}
   m_LocalScale: {x: 20, y: 20, z: 20}
-  m_Children:
-  - {fileID: 1513383323}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
 --- !u!114 &1869798490

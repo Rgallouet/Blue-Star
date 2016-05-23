@@ -63,7 +63,7 @@ public class Underwater : MonoBehaviour {
 				}
 
 				//Ok some HACK's here 
-				GetComponent<Renderer>().sharedMaterial.shader.maximumLOD = 100;	
+				//GetComponent<Renderer>().sharedMaterial.shader.maximumLOD = 100;	
 				
 				if(wasUnderwater){
 				
