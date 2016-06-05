@@ -4,43 +4,59 @@ using System.Collections;
 
 public class GameUIButtons : MonoBehaviour {
 
-
-	public static Canvas GameUI;
+    public Image Char_button;
+    public Image Dungeon_button;
+    public Image Settings_button;
 
     public GameAudio gameAudio;
 
-    public Sprite[] HeadSprites = new Sprite[18];
-	public Sprite[] GameMenuButtonSprite = new Sprite[2];
+	private bool CharMenuOpenedOrNot;
+    private bool SettingsMenuOpenedOrNot;
 
-	private bool MenuOpenedOrNot;
+    private Color ActiveMenuColor = new Color(150, 0, 0);
 
-	
-	void Awake(){
+    void Awake(){
         gameAudio.PlayGameAudio();
-
-        Debug.Log ("Specie :" + GameInformation.BasePlayer.PlayerSpecies.Choice);
-		Debug.Log ("Genus :" + GameInformation.BasePlayer.PlayerGenus.Choice);
-		Debug.Log ("Balance :" + GameInformation.BasePlayer.Balance);
-		GameUI = GetComponent<Canvas>();
-		GameUI.GetComponentsInChildren<Image> () [0].sprite=HeadSprites [GameInformation.BasePlayer.PlayerSpecies.Choice - 1];
-		MenuOpenedOrNot = false;
-	}
-
-	public void OpenGameMenu() {
+        CharMenuOpenedOrNot = false;
+        SettingsMenuOpenedOrNot = false;
+    }
 
 
-        if (MenuOpenedOrNot == false) {
-			MenuOpenedOrNot = true;
+    public void ClickCharGameMenu() {
+        if (SettingsMenuOpenedOrNot == true) CloseSettingsGameMenu();
+        if (CharMenuOpenedOrNot == false) OpenCharGameMenu();
+        else if (CharMenuOpenedOrNot == true) CloseCharGameMenu();
+    }
+
+	private void OpenCharGameMenu() {
+        CharMenuOpenedOrNot = true;
+        gameAudio.PlayMenuInGameAudio();
+        Char_button.color = ActiveMenuColor;
+    }
+    private void CloseCharGameMenu()
+    {
+        CharMenuOpenedOrNot = false;
+        gameAudio.PlayGameAudio();
+        Char_button.color = Color.white;
+    }
+
+    public void ClickSettingsGameMenu()
+    {
+        if (CharMenuOpenedOrNot == true) CloseCharGameMenu();
+        if (SettingsMenuOpenedOrNot == false) OpenSettingsGameMenu();
+        else if (SettingsMenuOpenedOrNot == true) CloseSettingsGameMenu();
+
+    }
+    private void OpenSettingsGameMenu()
+    {
+            SettingsMenuOpenedOrNot = true;
             gameAudio.PlayMenuInGameAudio();
-            GameUI.GetComponentsInChildren<Image> () [2].sprite = GameMenuButtonSprite [1];
-		} else if (MenuOpenedOrNot == true) {
-			MenuOpenedOrNot = false;
+            Settings_button.color = ActiveMenuColor;
+    }
+    private void CloseSettingsGameMenu()
+    {
+            SettingsMenuOpenedOrNot = false;
             gameAudio.PlayGameAudio();
-            GameUI.GetComponentsInChildren<Image> () [2].sprite = GameMenuButtonSprite [0];
-
-		}
-
-
-	}
-
+            Settings_button.color = Color.white;
+    }
 }
