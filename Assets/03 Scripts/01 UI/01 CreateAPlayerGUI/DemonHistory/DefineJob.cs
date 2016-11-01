@@ -27,7 +27,6 @@ public class DefineJob : BaseHistory {
 			break;
 		case 6: 
 			ClassName="Judge";Embodiment=-10;Reflex=-9;Resilience=-6;Strength=-5;Speed=-8;Dexterity=-7;Influence=3;Focus=12;Mockery=2;Knowledge=2;Elocution=12;Intellect=12;Malevolent=-1;Unmerciful=-2;Rage=1;Phase=-1;Momentum=-2;Balance=2;Luck=0;Perception=0;Judgement=0;Chaos=0;
-
 			break;
 		case 7: 
 			ClassName="Warlock";Embodiment=-7;Reflex=-10;Resilience=-7;Strength=-7;Speed=-7;Dexterity=-7;Influence=1;Focus=1;Mockery=12;Knowledge=12;Elocution=3;Intellect=12;Malevolent=0;Unmerciful=-1;Rage=1;Phase=-1;Momentum=-2;Balance=2;Luck=0;Perception=0;Judgement=0;Chaos=0;
