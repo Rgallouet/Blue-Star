@@ -9,9 +9,12 @@ public class GameAudio : MonoBehaviour
     // AUDIO
     public AudioMixerSnapshot PlayAudio;
     public AudioMixerSnapshot MenuInGameAudio;
+
     public AudioClip[] TransitionAudio = new AudioClip[2];
     private AudioSource TransitionAudioSource;
-    private AudioSource CreationGameStartMusic;
+
+    private AudioSource PlayInGameMusic;
+    private AudioSource MenuInGameMusic;
     public float bpm = 128;
     private float m_AudioTransitionIn;
     private float m_AudioTransitionOut;
@@ -30,27 +33,21 @@ public class GameAudio : MonoBehaviour
         MenuInGameMusicStarted = false;
 
         TransitionAudioSource = this.gameObject.GetComponents<AudioSource>()[2];
-        CreationGameStartMusic = this.gameObject.GetComponents<AudioSource>()[0];
-
-
+        PlayInGameMusic = this.gameObject.GetComponents<AudioSource>()[0];
+        MenuInGameMusic = this.gameObject.GetComponents<AudioSource>()[1];
     }
 
     public void PlayMenuInGameAudio()
     {
-
-        if (MenuInGameMusicStarted == false)
-        {
-            CreationGameStartMusic.Play();
-            MenuInGameMusicStarted = true;
-        }
+        if (MenuInGameMusicStarted == false) { MenuInGameMusic.Play(); MenuInGameMusicStarted = true;}
         PlayMainTransition(1);
         MenuInGameAudio.TransitionTo(m_AudioTransitionIn);
     }
 
     public void PlayGameAudio()
     {
-        PlayAudio.TransitionTo(m_AudioTransitionOut);
         PlayMainTransition(0);
+        PlayAudio.TransitionTo(m_AudioTransitionOut);
     }
 
 
