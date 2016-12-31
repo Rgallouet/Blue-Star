@@ -61,9 +61,7 @@ void Start () {
 		lastActionWasNext = true;
 
         // Get the questions strings
-        RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc", "BlueStarDataWarehouse.db");
-
-
+        RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc");
 
     }
 
@@ -103,7 +101,8 @@ public void MenuGoNext(int Option){
                 break;
 
             case CreateAPlayerStates.PREDEFINEDSELECTION:
-                historyAllocation.dataBaseManager = dataBaseManager;
+              historyAllocation.dataBaseManager = dataBaseManager;
+
               historyAllocation.CreateNewPlayer(
                         preDefinedSelectionButtons.HellCircleChoice, 
                         preDefinedSelectionButtons.AllegianceChoice, 
@@ -196,9 +195,32 @@ public void MenuGoBack(int option){
 		}
 	}
 
+    void SavePlayerChoicesInDataBase(int Slot)
+    {
+        string[] Values = {
+
+            "FirstName = " + GameInformation.BasePlayer.PlayerFirstName,
+            "LastName = " + GameInformation.BasePlayer.PlayerLastName,
+            "Bio = " + GameInformation.BasePlayer.PlayerBio,
+            "Gender = " + GameInformation.BasePlayer.PlayerGender,
+            "HellCircleChoice = " + GameInformation.BasePlayer.HellCircleChoice,
+            "AllegianceChoice = " + GameInformation.BasePlayer.AllegianceChoice,
+            "GenusChoice = " + GameInformation.BasePlayer.GenusChoice,
+            "SpeciesChoice = " + GameInformation.BasePlayer.SpeciesChoice,
+            "JobChoice = " + GameInformation.BasePlayer.JobChoice,
+            "ImpChoice = " + GameInformation.BasePlayer.ImpChoice,
+            "OriginChoice = "  + GameInformation.BasePlayer.OriginChoice,
+            "TemperChoice = " + GameInformation.BasePlayer.TemperChoice ,
+            "AstroChoice = " + GameInformation.BasePlayer.AstroChoice,
+            "AffinityChoice = " + GameInformation.BasePlayer.AffinityChoice
+
+        };
+
+        dataBaseManager.UpdateData("PlayerStaticChoices", "Slot=" + Slot, Values);
+
+    }
 
 
-       
 
 
 

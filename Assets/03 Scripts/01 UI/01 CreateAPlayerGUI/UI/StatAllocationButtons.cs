@@ -32,8 +32,8 @@ public class StatAllocationButtons : MonoBehaviour {
 
 		StatAllocationMenu = GetComponent<Canvas>();
 
-        refData = dataBaseManager.getArrayData("select * from REF_StatsDescription order by Id asc", "BlueStarDataWarehouse.db");
-        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc", "BlueStarDataWarehouse.db");
+        refData = dataBaseManager.getArrayData("select * from REF_StatsDescription order by Id asc");
+        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
 
         for (int i = 0; i < 22; i++) {
             StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup>()[0].GetComponentsInChildren<Button>()[i].GetComponentInChildren<Text>().text=(string)((ArrayList)refData[i+1])[1]; 
@@ -94,7 +94,6 @@ public class StatAllocationButtons : MonoBehaviour {
 
         if (menuGUI.statAllocation.readyForNext==true)
         {
-            Debug.Log("I was ready for next and i continued!");
             menuGUI.MenuGoNext(0);
             StatAllocationMenu.enabled = false;
 

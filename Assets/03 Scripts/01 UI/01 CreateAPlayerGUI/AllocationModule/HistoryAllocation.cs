@@ -6,32 +6,31 @@ public class HistoryAllocation
     public DataBaseManager dataBaseManager;
     private ArrayList Stats;
 	private BasePlayer newPlayer;
-    private string speciesSelectionStr;
 
-    public string[] GetChoiceArray(int hellCircleSelection, int allegianceSelection, int genusSelection, int speciesSelection, int classSelection, int impSelection, int originSelection, int temperSelection, int astroSelection, int affinitySelection) {
+    public string[] GetChoiceArray(int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int JobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice) {
 
         string[] ReturnArray = new string[10];
-        ReturnArray[0] = "01_0" + hellCircleSelection;
-        ReturnArray[1] = "02_0" + allegianceSelection;
-        ReturnArray[2] = "03_0" + genusSelection + "g";
-        if (speciesSelection <10) ReturnArray[3] = "03_0" + speciesSelection + "s";
-        else ReturnArray[3] = "03_" + speciesSelection + "s";
-        ReturnArray[4] = "04_0" + classSelection;
-        ReturnArray[5] = "05_0" + impSelection;
-        ReturnArray[6] = "06_0" + originSelection;
-        ReturnArray[7] = "07_0" + temperSelection;
-        ReturnArray[8] = "08_0" + astroSelection;
-        ReturnArray[9] = "09_0" + affinitySelection;
+        ReturnArray[0] = "01_0" + hellCircleChoice;
+        ReturnArray[1] = "02_0" + allegianceChoice;
+        ReturnArray[2] = "03_0" + genusChoice + "g";
+        if (speciesChoice <10) ReturnArray[3] = "03_0" + speciesChoice + "s";
+        else ReturnArray[3] = "03_" + speciesChoice + "s";
+        ReturnArray[4] = "04_0" + JobChoice;
+        ReturnArray[5] = "05_0" + impChoice;
+        ReturnArray[6] = "06_0" + originChoice;
+        ReturnArray[7] = "07_0" + temperChoice;
+        ReturnArray[8] = "08_0" + astroChoice;
+        ReturnArray[9] = "09_0" + affinityChoice;
 
         return ReturnArray;
     }
 
 
-    public void CreateNewPlayer (int hellCircleSelection, int allegianceSelection, int genusSelection, int speciesSelection, int classSelection, int impSelection, int originSelection, int temperSelection, int astroSelection, int affinitySelection)
+    public void CreateNewPlayer (int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int JobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice)
 	{
 
         //Get the choices
-        string[] Choices = GetChoiceArray(hellCircleSelection, allegianceSelection, genusSelection, speciesSelection, classSelection, impSelection, originSelection, temperSelection, astroSelection, affinitySelection);
+        string[] Choices = GetChoiceArray(hellCircleChoice, allegianceChoice, genusChoice, speciesChoice, JobChoice, impChoice, originChoice, temperChoice, astroChoice, affinityChoice);
 
         //Get the stats for the choices
         Stats = dataBaseManager.getArrayData(
@@ -50,7 +49,7 @@ public class HistoryAllocation
 		InitiateXPandMoney (newPlayer);
 
         // Reinitialise Stats based on choices
-		HistoryMatrixStats (newPlayer);
+		HistoryMatrixStats (newPlayer, hellCircleChoice, allegianceChoice, genusChoice, speciesChoice, JobChoice, impChoice, originChoice, temperChoice, astroChoice, affinityChoice);
 
         // Store Data
 		StoreDataInGameInformation (newPlayer);
@@ -70,7 +69,7 @@ public class HistoryAllocation
 
 	}
 
-	void HistoryMatrixStats (BasePlayer newPlayer)
+	void HistoryMatrixStats (BasePlayer newPlayer, int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int JobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice)
 	{
 
         int Base_prim = 100;
@@ -108,9 +107,26 @@ public class HistoryAllocation
         newPlayer.Perception =  Base_sec + System.Convert.ToInt32(((ArrayList)Stats[1])[21]);
         newPlayer.Judgement =   Base_sec + System.Convert.ToInt32(((ArrayList)Stats[1])[22]);
 
+        //Choices
+
+        newPlayer.HellCircleChoice =    hellCircleChoice;
+        newPlayer.AllegianceChoice =    allegianceChoice;
+        newPlayer.GenusChoice=          genusChoice;
+        newPlayer.SpeciesChoice=        speciesChoice;
+        newPlayer.JobChoice=            JobChoice;
+        newPlayer.ImpChoice=            impChoice;
+        newPlayer.OriginChoice=         originChoice;
+        newPlayer.TemperChoice=         temperChoice;
+        newPlayer.AstroChoice=          astroChoice;
+        newPlayer.AffinityChoice=       affinityChoice;
+
+
         // Calculate Base stats
         newPlayer.CurrentEmbodiment = newPlayer.Embodiment;
 		newPlayer.CurrentInfluence = newPlayer.Influence;
+
+  
+
 	}
 
 	void StoreDataInGameInformation (BasePlayer newPlayer)

@@ -82,7 +82,6 @@ public class HistorySelectionButtons : MonoBehaviour
 	void Start ()
 	{
         
-
         // Récupérer les référentiels
         RefHellCircles= dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='HellCircles' order by Id asc", "BlueStarDataWarehouse.db");
         RefAllegiance = dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='Allegiance' order by Id asc", "BlueStarDataWarehouse.db");

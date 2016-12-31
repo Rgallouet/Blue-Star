@@ -3,13 +3,12 @@ using System.Collections;
 
 public class GameInformation : MonoBehaviour {
 
-	public static GameInformation instance = null;
+    public static GameInformation instance = null;
 	public BasePlayer basePlayer;
 
 
 	void Start(){
-
-
+        
 
 		//Check if instance already exists : if not, set instance to this
 		if (instance == null) instance = this;
@@ -25,6 +24,7 @@ public class GameInformation : MonoBehaviour {
     }
     
 	
+
 	
 	// Equipment
 	public static BaseEquipment EquipmentOne	{ get; set;}

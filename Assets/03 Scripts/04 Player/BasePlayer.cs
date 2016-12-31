@@ -7,12 +7,24 @@ public class BasePlayer {
 
 	public int PlayerLevel;
     
+    //Statics
     public string PlayerFirstName;
 	public string PlayerLastName;	
 	public string PlayerBio;
 	public string PlayerGender;
-	
-	public int CurrentEmbodiment; 	
+    public int HellCircleChoice;
+    public int AllegianceChoice;
+    public int GenusChoice;
+    public int SpeciesChoice;
+    public int JobChoice;
+    public int ImpChoice;
+    public int OriginChoice;
+    public int TemperChoice;
+    public int AstroChoice;
+    public int AffinityChoice;
+    
+    //Combat
+    public int CurrentEmbodiment; 	
 	public int CurrentInfluence;	
 
 	public int TotalXP;
@@ -25,7 +37,7 @@ public class BasePlayer {
 
 	public int HumanCrap;
 
-	//Primary stats for Physical
+	//Stats
 	public int Embodiment; 
 	public int Strength;
 	public int Speed;
