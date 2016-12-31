@@ -7,7 +7,7 @@ public class GameInformation : MonoBehaviour {
 	public BasePlayer basePlayer;
 
 
-	void Awake(){
+	void Start(){
 
 
 
@@ -20,11 +20,10 @@ public class GameInformation : MonoBehaviour {
 
 		//Sets this to not be destroyed when reloading scene
 		DontDestroyOnLoad(gameObject);
-	}
 
-	void Start(){
-		basePlayer = new BasePlayer ();
-	}
+        basePlayer = new BasePlayer();
+    }
+    
 	
 	
 	// Equipment

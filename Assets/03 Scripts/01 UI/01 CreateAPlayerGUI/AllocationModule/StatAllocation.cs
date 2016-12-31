@@ -6,7 +6,7 @@ using System.Collections;
 
 public class StatAllocation{
 
-
+    public StatAllocationButtons statAllocationButtons;
 
 	public int[] primaryPointsToAllocate = new int[14];
 	public int[] heroicPointsToAllocate = new int[2];
@@ -46,7 +46,6 @@ public class StatAllocation{
 		CalculateDisplayPlusMinusButtons ();
 		RefreshDisplayStatsNumbers ();
 	}
-
 
 	public void MoveStat(bool Move,int Stat_ID){
 
@@ -89,49 +88,39 @@ public class StatAllocation{
 
 	}
 
-
-
-
-
-
-
 	void InitialisePlusMinusButtons(){
 	
 		for (int i=0; i<14 ; i++) {
 			primaryStatSelectionsMinus[i]=true; 
-			StatAllocationButtons.PrimaryMinus [i].interactable=true; 
-			StatAllocationButtons.PrimaryMinus [i].GetComponentInChildren<Text>().text="-"; 
+			statAllocationButtons.PrimaryMinus [i].interactable=true; 
+			statAllocationButtons.PrimaryMinus [i].GetComponentInChildren<Text>().text="-"; 
 			
 			primaryStatSelectionsPlus[i]=true;
-			StatAllocationButtons.PrimaryPlus [i].interactable=true; 
-			StatAllocationButtons.PrimaryPlus [i].GetComponentInChildren<Text>().text="+"; 		
+			statAllocationButtons.PrimaryPlus [i].interactable=true; 
+			statAllocationButtons.PrimaryPlus [i].GetComponentInChildren<Text>().text="+"; 		
 		}
 		
 		for (int i=0; i<2 ; i++) {
 			heroicStatSelectionsMinus[i]=true; 
-			StatAllocationButtons.HeroicMinus [i].interactable=true; 
-			StatAllocationButtons.HeroicMinus [i].GetComponentInChildren<Text>().text="-"; 
+			statAllocationButtons.HeroicMinus [i].interactable=true; 
+			statAllocationButtons.HeroicMinus [i].GetComponentInChildren<Text>().text="-"; 
 			
 			heroicStatSelectionsPlus[i]=true;
-			StatAllocationButtons.HeroicPlus [i].interactable=true; 
-			StatAllocationButtons.HeroicPlus [i].GetComponentInChildren<Text>().text="+"; 
+			statAllocationButtons.HeroicPlus [i].interactable=true; 
+			statAllocationButtons.HeroicPlus [i].GetComponentInChildren<Text>().text="+"; 
 		}
 		
 		for (int i=0; i<6 ; i++) {
 			secondaryStatSelectionsMinus[i]=true; 
-			StatAllocationButtons.SecondaryMinus [i].interactable=true; 
-			StatAllocationButtons.SecondaryMinus [i].GetComponentInChildren<Text>().text="-"; 
+			statAllocationButtons.SecondaryMinus [i].interactable=true; 
+			statAllocationButtons.SecondaryMinus [i].GetComponentInChildren<Text>().text="-"; 
 			
 			secondaryStatSelectionsPlus[i]=true;
-			StatAllocationButtons.SecondaryPlus [i].interactable=true; 
-			StatAllocationButtons.SecondaryPlus [i].GetComponentInChildren<Text>().text="+"; 
+			statAllocationButtons.SecondaryPlus [i].interactable=true; 
+			statAllocationButtons.SecondaryPlus [i].GetComponentInChildren<Text>().text="+"; 
 		}
 
 	}
-
-
-
-
 	
 	public void CalculateDisplayPlusMinusButtons() {
 		
@@ -139,15 +128,15 @@ public class StatAllocation{
 		if (primaryStatPointsToAllocate > 0) {	
 			for (int i=0; i<14 ; i++)	{ 
 				if(primaryStatSelectionsPlus[i]==false) {
-					StatAllocationButtons.PrimaryPlus [i].interactable=true; 
-					StatAllocationButtons.PrimaryPlus [i].GetComponentInChildren<Text>().text="+"; 
+					statAllocationButtons.PrimaryPlus [i].interactable=true; 
+					statAllocationButtons.PrimaryPlus [i].GetComponentInChildren<Text>().text="+"; 
 					primaryStatSelectionsPlus[i]=true;}}
 		} 
 		else {			
 			for (int i=0; i<14 ; i++)	{ 
 				if(primaryStatSelectionsPlus[i]==true) {
-					StatAllocationButtons.PrimaryPlus [i].GetComponentInChildren<Text>().text=""; 
-					StatAllocationButtons.PrimaryPlus [i].interactable=false; 
+					statAllocationButtons.PrimaryPlus [i].GetComponentInChildren<Text>().text=""; 
+					statAllocationButtons.PrimaryPlus [i].interactable=false; 
 					primaryStatSelectionsPlus[i]=false;}}
 		} 
 		
@@ -155,15 +144,15 @@ public class StatAllocation{
 		if (heroicStatPointsToAllocate > 0) {
 			for (int i=0; i<2 ; i++)	{ 
 				if(heroicStatSelectionsPlus[i]==false) {
-					StatAllocationButtons.HeroicPlus [i].interactable=true; 
-					StatAllocationButtons.HeroicPlus [i].GetComponentInChildren<Text>().text="+"; 
+					statAllocationButtons.HeroicPlus [i].interactable=true; 
+					statAllocationButtons.HeroicPlus [i].GetComponentInChildren<Text>().text="+"; 
 					heroicStatSelectionsPlus[i]=true;}}
 		} 
 		else {			
 			for (int i=0; i<2 ; i++)	{ 
 				if(heroicStatSelectionsPlus[i]==true) {
-					StatAllocationButtons.HeroicPlus [i].GetComponentInChildren<Text>().text=""; 
-					StatAllocationButtons.HeroicPlus [i].interactable=false; 
+					statAllocationButtons.HeroicPlus [i].GetComponentInChildren<Text>().text=""; 
+					statAllocationButtons.HeroicPlus [i].interactable=false; 
 					heroicStatSelectionsPlus[i]=false;}}
 		} 
 		
@@ -171,15 +160,15 @@ public class StatAllocation{
 		if (secondaryStatPointsToAllocate > 0) {	
 			for (int i=0; i<6 ; i++)	{ 
 				if(secondaryStatSelectionsPlus[i]==false) {
-					StatAllocationButtons.SecondaryPlus [i].interactable=true; 
-					StatAllocationButtons.SecondaryPlus [i].GetComponentInChildren<Text>().text="+"; 
+					statAllocationButtons.SecondaryPlus [i].interactable=true; 
+					statAllocationButtons.SecondaryPlus [i].GetComponentInChildren<Text>().text="+"; 
 					secondaryStatSelectionsPlus[i]=true;}}
 		} 
 		else {		
 			for (int i=0; i<6 ; i++)	{ 
 				if(secondaryStatSelectionsPlus[i]==true) {
-					StatAllocationButtons.SecondaryPlus [i].GetComponentInChildren<Text>().text=""; 
-					StatAllocationButtons.SecondaryPlus [i].interactable=false; 
+					statAllocationButtons.SecondaryPlus [i].GetComponentInChildren<Text>().text=""; 
+					statAllocationButtons.SecondaryPlus [i].interactable=false; 
 					secondaryStatSelectionsPlus[i]=false;}}
 		} 
 		
@@ -198,13 +187,13 @@ public class StatAllocation{
 	
 			if (primaryPointsToAllocate[i]-primaryPointsMinimum[i]>0) {
 				if(primaryStatSelectionsMinus[i]==false) {
-					StatAllocationButtons.PrimaryMinus [i].interactable=true; 
-					StatAllocationButtons.PrimaryMinus [i].GetComponentInChildren<Text>().text="-"; 
+					statAllocationButtons.PrimaryMinus [i].interactable=true; 
+					statAllocationButtons.PrimaryMinus [i].GetComponentInChildren<Text>().text="-"; 
 					primaryStatSelectionsMinus[i]=true;}
 			} else {
 				if(primaryStatSelectionsMinus[i]==true) {
-					StatAllocationButtons.PrimaryMinus [i].GetComponentInChildren<Text>().text=""; 
-					StatAllocationButtons.PrimaryMinus [i].interactable=false; 
+					statAllocationButtons.PrimaryMinus [i].GetComponentInChildren<Text>().text=""; 
+					statAllocationButtons.PrimaryMinus [i].interactable=false; 
 					primaryStatSelectionsMinus[i]=false;}
 			}
 		}
@@ -213,13 +202,13 @@ public class StatAllocation{
 		for (int i=0; i<2 ; i++) {
 			if (heroicPointsToAllocate[i]-heroicPointsMinimum[i]>0) {
 				if(heroicStatSelectionsMinus[i]==false) {
-					StatAllocationButtons.HeroicMinus [i].interactable=true; 
-					StatAllocationButtons.HeroicMinus [i].GetComponentInChildren<Text>().text="-"; 
+					statAllocationButtons.HeroicMinus [i].interactable=true; 
+					statAllocationButtons.HeroicMinus [i].GetComponentInChildren<Text>().text="-"; 
 					heroicStatSelectionsMinus[i]=true;}
 			} else {
 				if(heroicStatSelectionsMinus[i]==true) {
-					StatAllocationButtons.HeroicMinus [i].GetComponentInChildren<Text>().text=""; 
-					StatAllocationButtons.HeroicMinus [i].interactable=false; 
+					statAllocationButtons.HeroicMinus [i].GetComponentInChildren<Text>().text=""; 
+					statAllocationButtons.HeroicMinus [i].interactable=false; 
 					heroicStatSelectionsMinus[i]=false;}
 			}
 		}
@@ -228,47 +217,30 @@ public class StatAllocation{
 		for (int i=0; i<6 ; i++) {
 			if (secondaryPointsToAllocate[i]-secondaryPointsMinimum[i]>0) {
 				if(secondaryStatSelectionsMinus[i]==false) {
-					StatAllocationButtons.SecondaryMinus [i].interactable=true; 
-					StatAllocationButtons.SecondaryMinus [i].GetComponentInChildren<Text>().text="-"; 
+					statAllocationButtons.SecondaryMinus [i].interactable=true; 
+					statAllocationButtons.SecondaryMinus [i].GetComponentInChildren<Text>().text="-"; 
 					secondaryStatSelectionsMinus[i]=true;}
 			} else {
 				if(secondaryStatSelectionsMinus[i]==true) {
-					StatAllocationButtons.SecondaryMinus [i].GetComponentInChildren<Text>().text=""; 
-					StatAllocationButtons.SecondaryMinus [i].interactable=false; 
+					statAllocationButtons.SecondaryMinus [i].GetComponentInChildren<Text>().text=""; 
+					statAllocationButtons.SecondaryMinus [i].interactable=false; 
 					secondaryStatSelectionsMinus[i]=false;}
 			}
 		}
 	}
 
-
-
-
-
-
 	public void RefreshDisplayStatsNumbers(){
 
-			for (int i=0; i<14; i++) {StatAllocationButtons.PrimaryNumbers [i].text = "" + primaryPointsToAllocate [i];}
-			for (int i=0; i<2; i++) {StatAllocationButtons.HeroicNumbers [i].text = "" + heroicPointsToAllocate [i];}
-			for (int i=0; i<6; i++) {StatAllocationButtons.SecondaryNumbers [i].text = "" + secondaryPointsToAllocate [i];}
+			for (int i=0; i<14; i++) {statAllocationButtons.PrimaryNumbers [i].text = "" + primaryPointsToAllocate [i];}
+			for (int i=0; i<2; i++) {statAllocationButtons.HeroicNumbers [i].text = "" + heroicPointsToAllocate [i];}
+			for (int i=0; i<6; i++) {statAllocationButtons.SecondaryNumbers [i].text = "" + secondaryPointsToAllocate [i];}
 			
-		StatAllocationButtons.PointsToAlloc [0].text = "" + primaryStatPointsToAllocate;
-		StatAllocationButtons.PointsToAlloc [1].text = "" + heroicStatPointsToAllocate;
-		StatAllocationButtons.PointsToAlloc [2].text = "" + secondaryStatPointsToAllocate;
+		statAllocationButtons.PointsToAlloc [0].text = "" + primaryStatPointsToAllocate;
+		statAllocationButtons.PointsToAlloc [1].text = "" + heroicStatPointsToAllocate;
+		statAllocationButtons.PointsToAlloc [2].text = "" + secondaryStatPointsToAllocate;
 
 			
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 	private void RetrieveStatBaseStatPoints(){
 
@@ -299,21 +271,19 @@ public class StatAllocation{
 
 		secondaryPointsToAllocate[0] = GameInformation.BasePlayer.Momentum;
 		secondaryPointsToAllocate[1] = GameInformation.BasePlayer.Balance;
-		secondaryPointsToAllocate[2] = GameInformation.BasePlayer.Luck;
-		secondaryPointsToAllocate[3] = GameInformation.BasePlayer.Perception;
+		secondaryPointsToAllocate[2] = GameInformation.BasePlayer.Chaos;
+        secondaryPointsToAllocate[3] = GameInformation.BasePlayer.Perception;
 		secondaryPointsToAllocate[4] = GameInformation.BasePlayer.Judgement;
-		secondaryPointsToAllocate[5] = GameInformation.BasePlayer.Chaos;
+		secondaryPointsToAllocate[5] = GameInformation.BasePlayer.Luck;
 
 
-		for (int i=0; i<14; i++) 	{ primaryPointsMinimum[i]=		primaryPointsToAllocate[i];		}
+
+        for (int i=0; i<14; i++) 	{ primaryPointsMinimum[i]=		primaryPointsToAllocate[i];		}
 		for (int i=0; i<2; i++) 	{ heroicPointsMinimum[i]=		heroicPointsToAllocate[i]-1;	}
 		for (int i=0; i<6; i++) 	{ secondaryPointsMinimum[i]=	secondaryPointsToAllocate[i]-1;	}
 
 
 		}
-	
-
-
 
 	public void StoreStatAllocation(){
 		
@@ -333,6 +303,7 @@ public class StatAllocation{
 		GameInformation.BasePlayer.Influence =		primaryPointsToAllocate[9];
 		GameInformation.BasePlayer.Focus =			primaryPointsToAllocate[10];
 		GameInformation.BasePlayer.Mockery = 		primaryPointsToAllocate[11];
+
 		GameInformation.BasePlayer.Malevolent = 	primaryPointsToAllocate[12];
 		GameInformation.BasePlayer.Unmerciful = 	primaryPointsToAllocate[13];
 
@@ -341,18 +312,11 @@ public class StatAllocation{
 
 		GameInformation.BasePlayer.Momentum = 		secondaryPointsToAllocate[0];
 		GameInformation.BasePlayer.Balance = 		secondaryPointsToAllocate[1];
-		GameInformation.BasePlayer.Luck = 			secondaryPointsToAllocate[2];
+        GameInformation.BasePlayer.Chaos = 			secondaryPointsToAllocate[2];
 		GameInformation.BasePlayer.Perception = 	secondaryPointsToAllocate[3];
 		GameInformation.BasePlayer.Judgement = 		secondaryPointsToAllocate[4];
-		GameInformation.BasePlayer.Chaos = 			secondaryPointsToAllocate[5];
+        GameInformation.BasePlayer.Luck = 			secondaryPointsToAllocate[5];
 	}
-
-
-
-
-
-
-
 
 	}
 

@@ -4,58 +4,45 @@ using System.Collections;
 
 public class SaveGameMenuButtons : MonoBehaviour {
 
-	public GameObject menuGUIHolder;
-	public static Canvas SaveGameMenu;
-	
-	
-	void Awake(){
-		SaveGameMenu = GetComponent<Canvas>();
+	public MenuGUI menuGUI;
+	private Canvas SaveGameMenu;
+
+    public DataBaseManager dataBaseManager;
+    private ArrayList Names = new ArrayList();
+
+
+    void Start(){
+        
+        SaveGameMenu = GetComponent<Canvas>();
 		SaveGameMenu.enabled = false;
-	}
+
+        Names = dataBaseManager.getArrayData("select Slot, FirstName from PlayerStaticChoices order by Slot asc", "BlueStarDataWarehouse.db");
+        for (int i = 1; i< 4; i++) { SaveGameMenu.GetComponentsInChildren<Text>()[i].text = (string)((ArrayList)Names[i])[1]; }
+
+    }
 	
-	
+	public void Next(int position){
 
-	public void SaveChar(int position){
+        // Save in place (a ajouter)
 
-		switch (position) {
-		case 0:
-			PlayerPrefs.SetString ("Pos01", GameInformation.BasePlayer.PlayerFirstName);
-			PPSerialization.Save ("00_Player", GameInformation.BasePlayer);
-			if (GameInformation.EquipmentOne != null) {PPSerialization.Save ("00_EquipmentOne", GameInformation.EquipmentOne);}
-			menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (0);
-		break;
-		case 1:
-			PlayerPrefs.SetString ("Pos02", GameInformation.BasePlayer.PlayerFirstName);
-			PPSerialization.Save ("01_Player", GameInformation.BasePlayer);
-			if (GameInformation.EquipmentOne != null) {PPSerialization.Save ("01_EquipmentOne", GameInformation.EquipmentOne);}
-			menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (0);
-		break;		
-		case 2:
-			PlayerPrefs.SetString ("Pos03", GameInformation.BasePlayer.PlayerFirstName);
-			PPSerialization.Save ("02_Player", GameInformation.BasePlayer);
-			if (GameInformation.EquipmentOne != null) {PPSerialization.Save ("02_EquipmentOne", GameInformation.EquipmentOne);}
-			menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (0);
-		break;
-		}
+        menuGUI.Slot = position;
+        menuGUI.MenuGoNext(0);
+        SaveGameMenu.enabled = false;
+    }
 
 
+    public void Back(){
+        menuGUI.MenuGoBack (0);
+        SaveGameMenu.enabled = false;
+    }
 
+
+    public void ActivateMenu() {
+        SaveGameMenu.enabled = true;
+        menuGUI.currentState = MenuGUI.CreateAPlayerStates.SAVE;
 	}
-	
-
-	public void BackToCreationMenuFromSaveScreen(){
-		menuGUIHolder.GetComponent<MenuGUI>().MenuGoBack (0);
-	}
-	
-
-	public static void GetSaveNames() {
 
 
-		if (!(PlayerPrefs.GetString ("Pos01") == "")) {SaveGameMenu.GetComponentsInChildren<Text> () [1].text = PlayerPrefs.GetString ("Pos01");}
-		if (!(PlayerPrefs.GetString ("Pos02") == "")) {SaveGameMenu.GetComponentsInChildren<Text> () [2].text = PlayerPrefs.GetString ("Pos02");}
-		if (!(PlayerPrefs.GetString ("Pos03") == "")) {SaveGameMenu.GetComponentsInChildren<Text> () [3].text = PlayerPrefs.GetString ("Pos03");}
-
-	}
 
 
 }

@@ -4,22 +4,34 @@ using System.Collections;
 
 public class NewGameMenuButtons : MonoBehaviour {
 
-	public GameObject menuGUIHolder;
-	public static Canvas NewGameMenu;
+	public MenuGUI menuGUI;
+	private Canvas NewGameMenu;
 	
 	
-	void Awake(){
+	void Start(){
 		NewGameMenu = GetComponent<Canvas>();
 		NewGameMenu.enabled = false;
 	}
 
-	public void BackToGameMenuFromNewGameScreen(){
-		menuGUIHolder.GetComponent<MenuGUI>().MenuGoBack (0);
-	}
+    public void Next(int mode)
+    {
+        menuGUI.MenuGoNext(mode);
+        NewGameMenu.enabled = false;
+    }
 
-	public void NewGame(int mode){
-		menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (mode);
-	}
+    public void Back(){
+        menuGUI.MenuGoBack (0);
+        NewGameMenu.enabled = false;
+
+    }
+
+    public void ActivateMenu()
+    {
+        NewGameMenu.enabled = true;
+        menuGUI.currentState = MenuGUI.CreateAPlayerStates.MODESELECTION;
+    }
+
+
 
 
 

@@ -3,13 +3,22 @@ using System.Collections;
 
 public class HistoryAllocation
 {
-	
+    public DataBaseManager dataBaseManager;
+    private ArrayList Stats;
 	private BasePlayer newPlayer;
+    private string speciesSelectionStr;
 
-	public void CreateNewPlayer (int hellCircleSelection, int allegianceSelection, int genusSelection, int speciesSelection, int classSelection, int impSelection, int originSelection, int temperSelection, int astroSelection, int affinitySelection)
+
+    public void CreateNewPlayer (int hellCircleSelection, int allegianceSelection, int genusSelection, int speciesSelection, int classSelection, int impSelection, int originSelection, int temperSelection, int astroSelection, int affinitySelection)
 	{
+        if (speciesSelection < 10) { speciesSelectionStr = "0" + speciesSelection; } else { speciesSelectionStr = "0" + speciesSelection; }
+        
+        Stats = dataBaseManager.getArrayData("select sum(Strength), sum(Speed), sum(Dexterity), sum(Embodiment), sum(Reflex), sum(Resilience), sum(Knowledge), sum(Elocution), sum(Intellect), sum(Influence), sum(Focus), sum(Mockery), sum(Malevolent), sum(Unmerciful), sum(Rage), sum(Phase), sum(Momentum), sum(Balance), sum(Chaos), sum(Luck), sum(Perception), sum(Judgement)" +
+            "from REF_CustomCharacters" + " where Id in ('01_0"+ hellCircleSelection + "','02_0"+ allegianceSelection + "','03_0"+ genusSelection +"g','03_" + speciesSelectionStr + "s','04_0" + classSelection + "','05_0" + impSelection + "','06_0" + originSelection + "','07_0" + temperSelection + "','08_0" + astroSelection + "','09_0" + affinitySelection + "')", "BlueStarDataWarehouse.db");
 
-		BasePlayer newPlayer = new BasePlayer ();
+        Debug.Log(" where Id in ('01_0" + hellCircleSelection + "','02_0" + allegianceSelection + "','03_0" + genusSelection + "g','03_" + speciesSelectionStr + "s','04_0" + classSelection + "','05_0" + impSelection + "','06_0" + originSelection + "','07_0" + temperSelection + "','08_0" + astroSelection + "','09_0" + affinitySelection + "')");
+
+        BasePlayer newPlayer = new BasePlayer ();
 
 		// Defining the history
 		newPlayer.PlayerHellCircle = new DefineHellCircle (hellCircleSelection);

@@ -4,60 +4,50 @@ using System.Collections;
 
 public class LoadGameMenuButtons : MonoBehaviour {
 
-	public GameObject menuGUIHolder;
-	public static Canvas LoadGameMenu;
+	public MenuGUI menuGUI;
+	private Canvas LoadGameMenu;
+
+    public DataBaseManager dataBaseManager;
+    private ArrayList Names = new ArrayList();
+    private ArrayList RefErrors = new ArrayList();
 
 
-	void Awake(){
+
+    void Start(){
 		LoadGameMenu = GetComponent<Canvas>();
 		LoadGameMenu.enabled = false;
-	}
+
+        Names = dataBaseManager.getArrayData("select Slot, FirstName, LastName from PlayerStaticChoices order by Slot asc", "BlueStarDataWarehouse.db");
+        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc", "BlueStarDataWarehouse.db");
+        for (int i = 1; i < 4; i++) { LoadGameMenu.GetComponentsInChildren<Text>()[i].text = (string)((ArrayList)Names[i])[1]; }
+
+    }
 
 
 
-	public void LoadChar(int position){
+	public void Next(int position){
 
-		switch (position) {
-		case 0:
-			if (PlayerPrefs.GetString ("00_Player") != null) {
-				GameInformation.BasePlayer = (BasePlayer)PPSerialization.Load ("00_Player");
-			}
-			if (PlayerPrefs.GetString ("00_EquipmentOne") != null) {
-				GameInformation.EquipmentOne = (BaseEquipment)PPSerialization.Load ("00_EquipmentOne");
-			}
-			menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (0);
-			break;
-		case 1:
-			if (PlayerPrefs.GetString ("01_Player") != null) {
-				GameInformation.BasePlayer = (BasePlayer)PPSerialization.Load ("01_Player");
-			}
-			if (PlayerPrefs.GetString ("01_EquipmentOne") != null) {
-				GameInformation.EquipmentOne = (BaseEquipment)PPSerialization.Load ("01_EquipmentOne");
-			}
-			menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (0);
-			break;		
-		case 2:
-			if (PlayerPrefs.GetString ("02_Player") != null) {
-				GameInformation.BasePlayer = (BasePlayer)PPSerialization.Load ("02_Player");
-			}
-			if (PlayerPrefs.GetString ("02_EquipmentOne") != null) {
-				GameInformation.EquipmentOne = (BaseEquipment)PPSerialization.Load ("02_EquipmentOne");
-			}
-			menuGUIHolder.GetComponent<MenuGUI>().MenuGoNext (0);
-			break;
-		}
-	}
 
-	public void BackToGameMenuFromLoadScreen(){
-		menuGUIHolder.GetComponent<MenuGUI>().MenuGoBack (0);
-	}
+        //Load à ajouter
+        if (!((string)((ArrayList)Names[position])[2]==null)) {
+            menuGUI.Slot = position;
+            menuGUI.MenuGoNext(0);
+            LoadGameMenu.enabled = false;
+        }
+        else
+        {
+            menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefErrors[5])[2], (string)((ArrayList)RefErrors[5])[3], (string)((ArrayList)RefErrors[5])[4]);
+        }
+    }
 
-	public static void GetLoadNames() {
+    public void Back(){
+        menuGUI.MenuGoBack (0);
+        LoadGameMenu.enabled = false;
+    }
 
-		if (!(PlayerPrefs.GetString ("Pos01") == "")) {LoadGameMenu.GetComponentsInChildren<Text> () [1].text = PlayerPrefs.GetString ("Pos01");}
-		if (!(PlayerPrefs.GetString ("Pos02") == "")) {LoadGameMenu.GetComponentsInChildren<Text> () [2].text = PlayerPrefs.GetString ("Pos02");}
-		if (!(PlayerPrefs.GetString ("Pos03") == "")) {LoadGameMenu.GetComponentsInChildren<Text> () [3].text = PlayerPrefs.GetString ("Pos03");}
-		
+    public void ActivateMenu() {
+        LoadGameMenu.enabled = true;
+        menuGUI.currentState = MenuGUI.CreateAPlayerStates.LOAD;
 	}
 
 

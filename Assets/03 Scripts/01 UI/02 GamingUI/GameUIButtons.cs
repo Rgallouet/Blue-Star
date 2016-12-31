@@ -15,7 +15,7 @@ public class GameUIButtons : MonoBehaviour {
 
     private Color ActiveMenuColor = new Color(150, 0, 0);
 
-    void Awake(){
+    void Start(){
         gameAudio.PlayGameAudio();
         CharMenuOpenedOrNot = false;
         SettingsMenuOpenedOrNot = false;
