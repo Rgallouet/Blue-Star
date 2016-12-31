@@ -101,12 +101,14 @@ public class PreDefinedSelectionButtons : MonoBehaviour
     // Update display of the selected predefined character
 	void UpdateDescription (int HistoryChoice)
 	{
+        Debug.Log((string)((ArrayList)refData[HistoryChoice])[2]);
+        Debug.Log(((string)((ArrayList)refData[HistoryChoice])[2]).Replace("<br>", "\n"));
 
-        PreDefinedSelection.GetComponentsInChildren<Text>()[2].text = ((string)((ArrayList)refData[HistoryChoice])[2]).Replace("<br>", "\n");
+        PreDefinedSelection.GetComponentsInChildren<Text>()[12].text = ((string)((ArrayList)refData[HistoryChoice])[2]).Replace("<br>", "\n");
 
         HistoryChoiceImage[0].sprite = RightArmSprites [HellCircleChoice - 1];
 		HistoryChoiceImage [1].sprite = LeftImpSprites [AllegianceChoice - 1];
-		HistoryChoiceImage [2].sprite = HeadSprites [SpeciesChoice - 1 + 3 * (GenusChoice - 1)];
+		HistoryChoiceImage [2].sprite = HeadSprites [SpeciesChoice - 1];
 		HistoryChoiceImage [3].sprite = LeftArmSprites [JobChoice - 1];
 		HistoryChoiceImage [4].sprite = RightImpSprites [ImpChoice - 1];
 		HistoryChoiceImage [5].sprite = TorsoSprites [OriginChoice - 1];

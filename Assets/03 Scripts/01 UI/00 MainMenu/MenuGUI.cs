@@ -184,9 +184,7 @@ public void MenuGoBack(int option){
 
 			switch (option) {
 			case 1: preDefinedSelectionButtons.ActivateMenu(); break;
-			case 2: historySelectionButtons.ActivateMenu();
-				statAllocation.didRunOnce = false;
-				break;}
+			case 2: historySelectionButtons.ActivateMenu();	break;}
 			break;
 
 		case CreateAPlayerStates.FINALSETUP:
