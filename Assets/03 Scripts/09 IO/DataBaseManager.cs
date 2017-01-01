@@ -57,11 +57,11 @@ public class DataBaseManager : MonoBehaviour
         
         string query;
         query = "UPDATE " + tableName + " SET ";
-        for (int i = 0; i < values.Length; i++)
+        for (int i = 0; i < values.Length - 1; i++)
         {
             query += values[i] + ", " ;
         }
-        query += values[values.Length] + " where " + Where + ";";
+        query += values[values.Length - 1] + " where " + Where + ";";
 
         Debug.Log(query);
 

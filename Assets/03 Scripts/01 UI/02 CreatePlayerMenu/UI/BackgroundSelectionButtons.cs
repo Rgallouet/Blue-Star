@@ -16,6 +16,10 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 	public string PlayerFirstName;
     public string PlayerLastName;
     public string PlayerBio;
+    public string PlayerGender;
+
+    private string[] genderSelectionNames = new string[] { "Male", "Female", "Bigender", "Pangender", "Agender", "Other" };
+
     public int genderSelection=0;
 
 	void Start () {
@@ -36,10 +40,14 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 		PlayerBio=ChoiceDisplay [1].GetComponentsInChildren<Text> () [2].text;
 		
 		for (int i=0; i<6; i++) {
-			if (ChoiceDisplay [2].GetComponentsInChildren<Toggle> () [i].isOn==true) {genderSelection=i+1;}
+			if (ChoiceDisplay [2].GetComponentsInChildren<Toggle> () [i].isOn==true) {
+                genderSelection =i+1;
+                PlayerGender = genderSelectionNames[genderSelection - 1];
+            }
 		}
 
-		if( !(PlayerFirstName=="") && !(PlayerLastName=="") && !(PlayerBio=="") && !(genderSelection==0) ) {return true;} else {return false; }
+
+        if ( !(PlayerFirstName=="") && !(PlayerLastName=="") && !(PlayerBio=="") && !(PlayerGender=="") ) {return true;} else {return false; }
 	}
 	
 

@@ -7,7 +7,20 @@ public class HistoryAllocation
     private ArrayList Stats;
 	private BasePlayer newPlayer;
 
-    public string[] GetChoiceArray(int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int JobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice) {
+    // Selections
+    public int HellCircleChoice;
+    public int AllegianceChoice;
+    public int GenusChoice;
+    public int SpeciesChoice;
+    public int JobChoice;
+    public int ImpChoice;
+    public int OriginChoice;
+    public int TemperChoice;
+    public int AstroChoice;
+    public int AffinityChoice;
+
+    
+    public string[] GetChoiceArray(int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int jobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice) {
 
         string[] ReturnArray = new string[10];
         ReturnArray[0] = "01_0" + hellCircleChoice;
@@ -15,7 +28,7 @@ public class HistoryAllocation
         ReturnArray[2] = "03_0" + genusChoice + "g";
         if (speciesChoice <10) ReturnArray[3] = "03_0" + speciesChoice + "s";
         else ReturnArray[3] = "03_" + speciesChoice + "s";
-        ReturnArray[4] = "04_0" + JobChoice;
+        ReturnArray[4] = "04_0" + jobChoice;
         ReturnArray[5] = "05_0" + impChoice;
         ReturnArray[6] = "06_0" + originChoice;
         ReturnArray[7] = "07_0" + temperChoice;
@@ -26,11 +39,23 @@ public class HistoryAllocation
     }
 
 
-    public void CreateNewPlayer (int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int JobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice)
+    public void CreateNewPlayer (int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int jobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice)
 	{
 
+        HellCircleChoice = hellCircleChoice;
+        AllegianceChoice = allegianceChoice;
+        GenusChoice = genusChoice ;
+        SpeciesChoice =  speciesChoice ;
+        JobChoice =  jobChoice;
+        ImpChoice =  impChoice;
+        OriginChoice =  originChoice;
+        TemperChoice = temperChoice;
+        AstroChoice = astroChoice;
+        AffinityChoice = affinityChoice;
+
+
         //Get the choices
-        string[] Choices = GetChoiceArray(hellCircleChoice, allegianceChoice, genusChoice, speciesChoice, JobChoice, impChoice, originChoice, temperChoice, astroChoice, affinityChoice);
+        string[] Choices = GetChoiceArray(hellCircleChoice, allegianceChoice, genusChoice, speciesChoice, jobChoice, impChoice, originChoice, temperChoice, astroChoice, affinityChoice);
 
         //Get the stats for the choices
         Stats = dataBaseManager.getArrayData(
@@ -49,7 +74,7 @@ public class HistoryAllocation
 		InitiateXPandMoney (newPlayer);
 
         // Reinitialise Stats based on choices
-		HistoryMatrixStats (newPlayer, hellCircleChoice, allegianceChoice, genusChoice, speciesChoice, JobChoice, impChoice, originChoice, temperChoice, astroChoice, affinityChoice);
+		HistoryMatrixStats (newPlayer, hellCircleChoice, allegianceChoice, genusChoice, speciesChoice, jobChoice, impChoice, originChoice, temperChoice, astroChoice, affinityChoice);
 
         // Store Data
 		StoreDataInGameInformation (newPlayer);
@@ -69,7 +94,7 @@ public class HistoryAllocation
 
 	}
 
-	void HistoryMatrixStats (BasePlayer newPlayer, int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int JobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice)
+	void HistoryMatrixStats (BasePlayer newPlayer, int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int jobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice)
 	{
 
         int Base_prim = 100;
@@ -113,7 +138,7 @@ public class HistoryAllocation
         newPlayer.AllegianceChoice =    allegianceChoice;
         newPlayer.GenusChoice=          genusChoice;
         newPlayer.SpeciesChoice=        speciesChoice;
-        newPlayer.JobChoice=            JobChoice;
+        newPlayer.JobChoice=            jobChoice;
         newPlayer.ImpChoice=            impChoice;
         newPlayer.OriginChoice=         originChoice;
         newPlayer.TemperChoice=         temperChoice;

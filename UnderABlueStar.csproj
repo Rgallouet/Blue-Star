@@ -87,20 +87,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\03 Scripts\01 UI\00 MainMenu\GameMenuButtons.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\00 MainMenu\LoadGameMenuButtons.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\00 MainMenu\MenuGUI.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\00 MainMenu\NewGameMenuButtons.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\00 MainMenu\SaveGameMenuButtons.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\01 CreateAPlayerGUI\AllocationModule\BackgroundAllocation.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\01 CreateAPlayerGUI\AllocationModule\HistoryAllocation.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\01 CreateAPlayerGUI\AllocationModule\StatAllocation.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\01 CreateAPlayerGUI\UI\BackgroundSelectionButtons.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\01 CreateAPlayerGUI\UI\Dialogue.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\01 CreateAPlayerGUI\UI\HistorySelectionButtons.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\01 CreateAPlayerGUI\UI\PreDefinedSelectionButtons.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\01 CreateAPlayerGUI\UI\StatAllocationButtons.cs" />
-    <Compile Include="Assets\03 Scripts\01 UI\02 GamingUI\GameUIButtons.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\00 UIManagers\CityGUI.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\00 UIManagers\MenuGUI.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\01 StartingMenu\GameMenuButtons.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\01 StartingMenu\LoadGameMenuButtons.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\01 StartingMenu\NewGameMenuButtons.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\01 StartingMenu\SaveGameMenuButtons.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\02 CreatePlayerMenu\AllocationModule\BackgroundAllocation.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\02 CreatePlayerMenu\AllocationModule\HistoryAllocation.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\02 CreatePlayerMenu\AllocationModule\StatAllocation.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\02 CreatePlayerMenu\UI\BackgroundSelectionButtons.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\02 CreatePlayerMenu\UI\HistorySelectionButtons.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\02 CreatePlayerMenu\UI\PreDefinedSelectionButtons.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\02 CreatePlayerMenu\UI\StatAllocationButtons.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\04 GamingMenu\GameUIButtons.cs" />
+    <Compile Include="Assets\03 Scripts\01 UI\05 InteractionMenu\Dialogue.cs" />
     <Compile Include="Assets\03 Scripts\02 GameInformation\GameInformation.cs" />
     <Compile Include="Assets\03 Scripts\03 SavingandLoading\PPSerialization.cs" />
     <Compile Include="Assets\03 Scripts\04 Player\BasePlayer.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Assets\03 Scripts\07 Audio\GameAudio.cs" />
     <Compile Include="Assets\03 Scripts\07 Audio\MenuAudio.cs" />
     <Compile Include="Assets\03 Scripts\08 Controls %26 Movements\AnimatedProjector.cs" />
+    <Compile Include="Assets\03 Scripts\08 Controls %26 Movements\Camera\TouchCamera.cs" />
     <Compile Include="Assets\03 Scripts\08 Controls %26 Movements\CameraController.cs" />
     <Compile Include="Assets\03 Scripts\08 Controls %26 Movements\Objects\ContinuousSelfRotation.cs" />
     <Compile Include="Assets\03 Scripts\08 Controls %26 Movements\PlayerBody.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Assets\03 Scripts\08 Controls %26 Movements\Underwater\UnderwaterEffect.cs" />
     <Compile Include="Assets\03 Scripts\08 Controls %26 Movements\Underwater\WaterMirrorReflection.cs" />
     <Compile Include="Assets\03 Scripts\09 IO\DataBaseManager.cs" />
+    <Compile Include="Assets\03 Scripts\10 Environment\CubeManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

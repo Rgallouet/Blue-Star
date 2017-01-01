@@ -16,7 +16,7 @@ public class SaveGameMenuButtons : MonoBehaviour {
         SaveGameMenu = GetComponent<Canvas>();
 		SaveGameMenu.enabled = false;
 
-        Names = dataBaseManager.getArrayData("select Slot, FirstName from PlayerStaticChoices order by Slot asc", "BlueStarDataWarehouse.db");
+        Names = dataBaseManager.getArrayData("select Slot, FirstName from PlayerStaticChoices order by Slot asc");
         for (int i = 1; i< 4; i++) { SaveGameMenu.GetComponentsInChildren<Text>()[i].text = (string)((ArrayList)Names[i])[1]; }
 
     }

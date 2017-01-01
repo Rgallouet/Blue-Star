@@ -32,7 +32,6 @@ public class MenuGUI : MonoBehaviour {
 
     // Variables situationnelles
     public bool lastActionWasNext;
-    public bool WasPredefinedPath;
 
 
     // Gestion données référentielles
@@ -43,8 +42,7 @@ public class MenuGUI : MonoBehaviour {
     public MenuAudio menuAudio;
 
     public int Slot;
-
-
+    public bool WasPredefinedPath;
 
 
 
@@ -80,7 +78,7 @@ public void MenuGoNext(int Option){
                 }
                 break;
 
-            case CreateAPlayerStates.LOAD: SceneManager.LoadScene("Play"); break;
+            case CreateAPlayerStates.LOAD: SceneManager.LoadScene("Underground City"); break;
 
             case CreateAPlayerStates.SAVE: newGameMenuButtons.ActivateMenu(); break;
 
@@ -101,9 +99,9 @@ public void MenuGoNext(int Option){
                 break;
 
             case CreateAPlayerStates.PREDEFINEDSELECTION:
-              historyAllocation.dataBaseManager = dataBaseManager;
+                    historyAllocation.dataBaseManager = dataBaseManager;
 
-              historyAllocation.CreateNewPlayer(
+                    historyAllocation.CreateNewPlayer(
                         preDefinedSelectionButtons.HellCircleChoice, 
                         preDefinedSelectionButtons.AllegianceChoice, 
                         preDefinedSelectionButtons.GenusChoice,
@@ -114,14 +112,17 @@ public void MenuGoNext(int Option){
                         preDefinedSelectionButtons.TemperChoice, 
                         preDefinedSelectionButtons.AstroChoice, 
                         preDefinedSelectionButtons.AffinityChoice);
+
                     statAllocationButtons.ActivateMenu();
+
                     dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[2])[2], (string)((ArrayList)RefQuestions[2])[3], (string)((ArrayList)RefQuestions[2])[4]);
+
                 break;
 
 
             case CreateAPlayerStates.HISTORYSELECTION:
 
-               historyAllocation.CreateNewPlayer(
+                    historyAllocation.CreateNewPlayer(
                         historySelectionButtons.HellCircleChoice,
                         historySelectionButtons.AllegianceChoice,
                         historySelectionButtons.GenusChoice,
@@ -132,8 +133,11 @@ public void MenuGoNext(int Option){
                         historySelectionButtons.TemperChoice,
                         historySelectionButtons.AstroChoice,
                         historySelectionButtons.AffinityChoice);
-                statAllocationButtons.ActivateMenu();
-                dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[13])[2], (string)((ArrayList)RefQuestions[13])[3], (string)((ArrayList)RefQuestions[13])[4]);
+
+                    statAllocationButtons.ActivateMenu();
+
+                    dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[13])[2], (string)((ArrayList)RefQuestions[13])[3], (string)((ArrayList)RefQuestions[13])[4]);
+
                 break;
 
             case CreateAPlayerStates.STATALLOCATION:
@@ -145,12 +149,16 @@ public void MenuGoNext(int Option){
                 break;
 
             case CreateAPlayerStates.FINALSETUP:
+
                 backgroundAllocation.StoreLastInfo(
                     backgroundSelectionButtons.PlayerFirstName, 
                     backgroundSelectionButtons.PlayerLastName, 
                     backgroundSelectionButtons.PlayerBio, 
-                    backgroundSelectionButtons.genderSelection);
-                SceneManager.LoadScene("Play");
+                    backgroundSelectionButtons.PlayerGender);
+
+                SavePlayerChoicesInDataBase(Slot);
+
+                SceneManager.LoadScene("Underground City");
                 break;
                 
         }
@@ -197,31 +205,60 @@ public void MenuGoBack(int option){
 
     void SavePlayerChoicesInDataBase(int Slot)
     {
-        string[] Values = {
 
-            "FirstName = " + GameInformation.BasePlayer.PlayerFirstName,
-            "LastName = " + GameInformation.BasePlayer.PlayerLastName,
-            "Bio = " + GameInformation.BasePlayer.PlayerBio,
-            "Gender = " + GameInformation.BasePlayer.PlayerGender,
-            "HellCircleChoice = " + GameInformation.BasePlayer.HellCircleChoice,
-            "AllegianceChoice = " + GameInformation.BasePlayer.AllegianceChoice,
-            "GenusChoice = " + GameInformation.BasePlayer.GenusChoice,
-            "SpeciesChoice = " + GameInformation.BasePlayer.SpeciesChoice,
-            "JobChoice = " + GameInformation.BasePlayer.JobChoice,
-            "ImpChoice = " + GameInformation.BasePlayer.ImpChoice,
-            "OriginChoice = "  + GameInformation.BasePlayer.OriginChoice,
-            "TemperChoice = " + GameInformation.BasePlayer.TemperChoice ,
-            "AstroChoice = " + GameInformation.BasePlayer.AstroChoice,
-            "AffinityChoice = " + GameInformation.BasePlayer.AffinityChoice
+        string[] PlayerStaticChoicesValues = {
+
+            "FirstName = '" +       backgroundAllocation.PlayerFirstName + "'",
+            "LastName = '" +        backgroundAllocation.PlayerLastName + "'",
+            "Bio = '" +             backgroundAllocation.PlayerBio + "'",
+            "Gender = '" +          backgroundAllocation.PlayerGender + "'",
+
+            "HellCircleChoice = " + historyAllocation.HellCircleChoice,
+            "AllegianceChoice = " + historyAllocation.AllegianceChoice,
+            "GenusChoice = " +      historyAllocation.GenusChoice,
+            "SpeciesChoice = " +    historyAllocation.SpeciesChoice,
+            "JobChoice = " +        historyAllocation.JobChoice,
+            "ImpChoice = " +        historyAllocation.ImpChoice,
+            "OriginChoice = "  +    historyAllocation.OriginChoice,
+            "TemperChoice = " +     historyAllocation.TemperChoice ,
+            "AstroChoice = " +      historyAllocation.AstroChoice,
+            "AffinityChoice = " +   historyAllocation.AffinityChoice
 
         };
 
-        dataBaseManager.UpdateData("PlayerStaticChoices", "Slot=" + Slot, Values);
+        dataBaseManager.UpdateData("PlayerStaticChoices", "Slot=" + Slot, PlayerStaticChoicesValues);
+
+        string[] PlayerStatsModifiersValues = {
+
+            "Strength = " +     statAllocation.StatModifier[0]  ,
+            "Speed = " +        statAllocation.StatModifier[1]  ,
+            "Dexterity = " +    statAllocation.StatModifier[2]  ,
+            "Embodiment = " +   statAllocation.StatModifier[3]  ,
+            "Reflex = " +       statAllocation.StatModifier[4]  ,
+            "Resilience = " +   statAllocation.StatModifier[5]  ,
+            "Knowledge = " +    statAllocation.StatModifier[6]  ,
+            "Elocution = " +    statAllocation.StatModifier[7]  ,
+            "Intellect = " +    statAllocation.StatModifier[8]  ,
+            "Influence = " +    statAllocation.StatModifier[9]  ,
+            "Focus = " +        statAllocation.StatModifier[10]  ,
+            "Mockery = " +      statAllocation.StatModifier[11]  ,
+            "Malevolent = " +   statAllocation.StatModifier[12]  ,
+            "Unmerciful = " +   statAllocation.StatModifier[13]  ,
+            "Rage = " +         statAllocation.StatModifier[14]  ,
+            "Phase = " +        statAllocation.StatModifier[15]  ,
+            "Momentum = " +     statAllocation.StatModifier[16]  ,
+            "Balance = " +      statAllocation.StatModifier[17]  ,
+            "Chaos = " +        statAllocation.StatModifier[18]  ,
+            "Luck = " +         statAllocation.StatModifier[19]  ,
+            "Perception = " +   statAllocation.StatModifier[20]  ,
+            "Judgement = " +    statAllocation.StatModifier[21]  ,
+
+        };
+
+        dataBaseManager.UpdateData("PlayerStatsModifiers", "Slot=" + Slot + " and ModifierSource='PlayerCreation' ", PlayerStatsModifiersValues);
+
 
     }
-
-
-
 
 
 }
