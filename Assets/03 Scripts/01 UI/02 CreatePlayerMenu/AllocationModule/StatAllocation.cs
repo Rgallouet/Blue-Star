@@ -28,9 +28,9 @@ public class StatAllocation {
 
 
 
-	public void DisplayStatAllocationModule(bool Reset){
+	public void DisplayStatAllocationModule(bool Reset, BasePlayer newPlayer){
 
-		if (Reset) InitialiseStats();
+		if (Reset) InitialiseStats(newPlayer);
         
 		InitialisePlusMinusButtons ();
 		CalculateDisplayPlusMinusButtons ();
@@ -136,36 +136,36 @@ public class StatAllocation {
 			
 	}
 
-	public void InitialiseStats(){
+	public void InitialiseStats(BasePlayer newPlayer){
 
 
-		primaryStatPointsToAllocate = GameInformation.BasePlayer.PrimaryStatPointsToAllocate;
-		heroicStatPointsToAllocate = GameInformation.BasePlayer.HeroicStatPointsToAllocate;
-		secondaryStatPointsToAllocate = GameInformation.BasePlayer.SecondaryStatPointsToAllocate;
+		primaryStatPointsToAllocate = newPlayer.PrimaryStatPointsToAllocate;
+		heroicStatPointsToAllocate = newPlayer.HeroicStatPointsToAllocate;
+		secondaryStatPointsToAllocate = newPlayer.SecondaryStatPointsToAllocate;
         
 		// Initiation des stats allouées
-		InitialStat[0] = GameInformation.BasePlayer.Strength;
-        InitialStat[1] = GameInformation.BasePlayer.Speed;
-        InitialStat[2] = GameInformation.BasePlayer.Dexterity;
-        InitialStat[3] = GameInformation.BasePlayer.Embodiment;
-        InitialStat[4] = GameInformation.BasePlayer.Reflex;
-        InitialStat[5] = GameInformation.BasePlayer.Resilience;
-        InitialStat[6] = GameInformation.BasePlayer.Knowledge;
-        InitialStat[7] = GameInformation.BasePlayer.Elocution;
-        InitialStat[8] = GameInformation.BasePlayer.Intellect;
-        InitialStat[9] = GameInformation.BasePlayer.Influence;
-        InitialStat[10] = GameInformation.BasePlayer.Focus;
-        InitialStat[11] = GameInformation.BasePlayer.Mockery;
-        InitialStat[12] = GameInformation.BasePlayer.Malevolent;
-        InitialStat[13] = GameInformation.BasePlayer.Unmerciful;
-        InitialStat[14] = GameInformation.BasePlayer.Rage;
-        InitialStat[15] = GameInformation.BasePlayer.Phase;
-        InitialStat[16] = GameInformation.BasePlayer.Momentum;
-        InitialStat[17] = GameInformation.BasePlayer.Balance;
-        InitialStat[18] = GameInformation.BasePlayer.Chaos;
-        InitialStat[19] = GameInformation.BasePlayer.Perception;
-        InitialStat[20] = GameInformation.BasePlayer.Judgement;
-        InitialStat[21] = GameInformation.BasePlayer.Luck;
+		InitialStat[0] = newPlayer.Strength;
+        InitialStat[1] = newPlayer.Speed;
+        InitialStat[2] = newPlayer.Dexterity;
+        InitialStat[3] = newPlayer.Embodiment;
+        InitialStat[4] = newPlayer.Reflex;
+        InitialStat[5] = newPlayer.Resilience;
+        InitialStat[6] = newPlayer.Knowledge;
+        InitialStat[7] = newPlayer.Elocution;
+        InitialStat[8] = newPlayer.Intellect;
+        InitialStat[9] = newPlayer.Influence;
+        InitialStat[10] = newPlayer.Focus;
+        InitialStat[11] = newPlayer.Mockery;
+        InitialStat[12] = newPlayer.Malevolent;
+        InitialStat[13] = newPlayer.Unmerciful;
+        InitialStat[14] = newPlayer.Rage;
+        InitialStat[15] = newPlayer.Phase;
+        InitialStat[16] = newPlayer.Momentum;
+        InitialStat[17] = newPlayer.Balance;
+        InitialStat[18] = newPlayer.Chaos;
+        InitialStat[19] = newPlayer.Perception;
+        InitialStat[20] = newPlayer.Judgement;
+        InitialStat[21] = newPlayer.Luck;
 
 
         // Setting minimum of stats
@@ -178,36 +178,6 @@ public class StatAllocation {
 
 
     }
-
-    public void StoreStatAllocation(){
-		
-		GameInformation.BasePlayer.PrimaryStatPointsToAllocate=		primaryStatPointsToAllocate;
-		GameInformation.BasePlayer.HeroicStatPointsToAllocate=		heroicStatPointsToAllocate;
-		GameInformation.BasePlayer.SecondaryStatPointsToAllocate=	secondaryStatPointsToAllocate;
-
-		GameInformation.BasePlayer.Strength =   InitialStat[0] + StatModifier[0];
-		GameInformation.BasePlayer.Speed =      InitialStat[1] + StatModifier[1];
-        GameInformation.BasePlayer.Dexterity =  InitialStat[2] + StatModifier[2];
-        GameInformation.BasePlayer.Embodiment = InitialStat[3] + StatModifier[3];
-        GameInformation.BasePlayer.Reflex =     InitialStat[4] + StatModifier[4];
-        GameInformation.BasePlayer.Resilience = InitialStat[5] + StatModifier[5];
-        GameInformation.BasePlayer.Knowledge =  InitialStat[6] + StatModifier[6];
-        GameInformation.BasePlayer.Elocution =  InitialStat[7] + StatModifier[7];
-        GameInformation.BasePlayer.Intellect =  InitialStat[8] + StatModifier[8];
-        GameInformation.BasePlayer.Influence =  InitialStat[9] + StatModifier[9];
-        GameInformation.BasePlayer.Focus =      InitialStat[10] + StatModifier[10];
-        GameInformation.BasePlayer.Mockery =    InitialStat[11] + StatModifier[11];
-        GameInformation.BasePlayer.Malevolent = InitialStat[12] + StatModifier[12];
-        GameInformation.BasePlayer.Unmerciful = InitialStat[13] + StatModifier[13];
-        GameInformation.BasePlayer.Rage =       InitialStat[14] + StatModifier[14];
-        GameInformation.BasePlayer.Phase =      InitialStat[15] + StatModifier[15];
-        GameInformation.BasePlayer.Momentum =   InitialStat[16] + StatModifier[16];
-        GameInformation.BasePlayer.Balance =    InitialStat[17] + StatModifier[17];
-        GameInformation.BasePlayer.Chaos =      InitialStat[18] + StatModifier[18];
-        GameInformation.BasePlayer.Perception = InitialStat[19] + StatModifier[19];
-        GameInformation.BasePlayer.Judgement =  InitialStat[20] + StatModifier[20];
-        GameInformation.BasePlayer.Luck =       InitialStat[21] + StatModifier[21];
-    }
-
+    
 	}
 

@@ -25,7 +25,7 @@ public static class IncreaseExperience {
 	private static void CheckToSeeIfPlayerLeveled () {
 		if (GameInformation.BasePlayer.CurrentXP >= GameInformation.BasePlayer.RequiredXP) {
 			levelUpScript.levelUpCharacter();
-			// Create lvl up script
+			 //Create lvl up script
 		}
 	}
 

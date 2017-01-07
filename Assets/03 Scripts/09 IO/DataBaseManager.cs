@@ -63,7 +63,6 @@ public class DataBaseManager : MonoBehaviour
         }
         query += values[values.Length - 1] + " where " + Where + ";";
 
-        Debug.Log(query);
 
         try
         {

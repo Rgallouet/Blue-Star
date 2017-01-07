@@ -9,11 +9,9 @@ public class MenuGUI : MonoBehaviour {
 	public CreateAPlayerStates currentState;
 	public enum CreateAPlayerStates{MENU,LOAD,MODESELECTION,PREDEFINEDSELECTION,HISTORYSELECTION,STATALLOCATION,FINALSETUP,SAVE,PLAY}
 
-
     // Initiatlisation des calculs
 	public HistoryAllocation historyAllocation = new HistoryAllocation();
     public StatAllocation statAllocation= new StatAllocation();
-    public BackgroundAllocation backgroundAllocation = new BackgroundAllocation();
 
     // lien vers les UI de perso
     public BackgroundSelectionButtons backgroundSelectionButtons;
@@ -43,13 +41,14 @@ public class MenuGUI : MonoBehaviour {
 
     public int Slot;
     public bool WasPredefinedPath;
+    public BasePlayer newPlayer = new BasePlayer();
 
 
 
 
 void Start () {
 
-        //linking the local statAllocation to the statAllocationButtons UI
+        //linking the local statAllocation to the statAllocationButtons UI and the historyallocation
         statAllocation.statAllocationButtons = statAllocationButtons;
 
         // Get objects
@@ -78,7 +77,11 @@ public void MenuGoNext(int Option){
                 }
                 break;
 
-            case CreateAPlayerStates.LOAD: SceneManager.LoadScene("Underground City"); break;
+            case CreateAPlayerStates.LOAD:
+
+                GameInformation.Slot = Slot;
+                SceneManager.LoadScene("Underground City");
+                break;
 
             case CreateAPlayerStates.SAVE: newGameMenuButtons.ActivateMenu(); break;
 
@@ -101,7 +104,7 @@ public void MenuGoNext(int Option){
             case CreateAPlayerStates.PREDEFINEDSELECTION:
                     historyAllocation.dataBaseManager = dataBaseManager;
 
-                    historyAllocation.CreateNewPlayer(
+                    newPlayer= historyAllocation.CreateNewPlayer(
                         preDefinedSelectionButtons.HellCircleChoice, 
                         preDefinedSelectionButtons.AllegianceChoice, 
                         preDefinedSelectionButtons.GenusChoice,
@@ -122,7 +125,7 @@ public void MenuGoNext(int Option){
 
             case CreateAPlayerStates.HISTORYSELECTION:
 
-                    historyAllocation.CreateNewPlayer(
+                    newPlayer = historyAllocation.CreateNewPlayer(
                         historySelectionButtons.HellCircleChoice,
                         historySelectionButtons.AllegianceChoice,
                         historySelectionButtons.GenusChoice,
@@ -142,7 +145,6 @@ public void MenuGoNext(int Option){
 
             case CreateAPlayerStates.STATALLOCATION:
 
-                statAllocation.StoreStatAllocation();
                 backgroundSelectionButtons.ActivateMenu();
                 dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[3])[2], (string)((ArrayList)RefQuestions[3])[3], (string)((ArrayList)RefQuestions[3])[4]);
 
@@ -150,14 +152,8 @@ public void MenuGoNext(int Option){
 
             case CreateAPlayerStates.FINALSETUP:
 
-                backgroundAllocation.StoreLastInfo(
-                    backgroundSelectionButtons.PlayerFirstName, 
-                    backgroundSelectionButtons.PlayerLastName, 
-                    backgroundSelectionButtons.PlayerBio, 
-                    backgroundSelectionButtons.PlayerGender);
-
                 SavePlayerChoicesInDataBase(Slot);
-
+                GameInformation.Slot = Slot;
                 SceneManager.LoadScene("Underground City");
                 break;
                 
@@ -208,21 +204,21 @@ public void MenuGoBack(int option){
 
         string[] PlayerStaticChoicesValues = {
 
-            "FirstName = '" +       backgroundAllocation.PlayerFirstName + "'",
-            "LastName = '" +        backgroundAllocation.PlayerLastName + "'",
-            "Bio = '" +             backgroundAllocation.PlayerBio + "'",
-            "Gender = '" +          backgroundAllocation.PlayerGender + "'",
+            "FirstName = '" +       backgroundSelectionButtons.PlayerFirstName + "'",
+            "LastName = '" +        backgroundSelectionButtons.PlayerLastName + "'",
+            "Bio = '" +             backgroundSelectionButtons.PlayerBio + "'",
+            "Gender = '" +          backgroundSelectionButtons.PlayerGender + "'",
 
-            "HellCircleChoice = " + historyAllocation.HellCircleChoice,
-            "AllegianceChoice = " + historyAllocation.AllegianceChoice,
-            "GenusChoice = " +      historyAllocation.GenusChoice,
-            "SpeciesChoice = " +    historyAllocation.SpeciesChoice,
-            "JobChoice = " +        historyAllocation.JobChoice,
-            "ImpChoice = " +        historyAllocation.ImpChoice,
-            "OriginChoice = "  +    historyAllocation.OriginChoice,
-            "TemperChoice = " +     historyAllocation.TemperChoice ,
-            "AstroChoice = " +      historyAllocation.AstroChoice,
-            "AffinityChoice = " +   historyAllocation.AffinityChoice
+            "HellCircleChoice = " + newPlayer.HellCircleChoice,
+            "AllegianceChoice = " + newPlayer.AllegianceChoice,
+            "GenusChoice = " +      newPlayer.GenusChoice,
+            "SpeciesChoice = " +    newPlayer.SpeciesChoice,
+            "JobChoice = " +        newPlayer.JobChoice,
+            "ImpChoice = " +        newPlayer.ImpChoice,
+            "OriginChoice = "  +    newPlayer.OriginChoice,
+            "TemperChoice = " +     newPlayer.TemperChoice ,
+            "AstroChoice = " +      newPlayer.AstroChoice,
+            "AffinityChoice = " +   newPlayer.AffinityChoice
 
         };
 
@@ -257,6 +253,16 @@ public void MenuGoBack(int option){
 
         dataBaseManager.UpdateData("PlayerStatsModifiers", "Slot=" + Slot + " and ModifierSource='PlayerCreation' ", PlayerStatsModifiersValues);
 
+        string[] PlayerProgressValues = {
+
+            "Level = " +        newPlayer.PlayerLevel  ,
+            "CurrentXp = " +    newPlayer.CurrentXP  ,
+            "HumanCrap = " +    newPlayer.HumanCrap ,
+            "Gold = " +         newPlayer.Gold
+           
+        };
+
+        dataBaseManager.UpdateData("PlayerProgress", "Slot=" + Slot, PlayerProgressValues);
 
     }
 

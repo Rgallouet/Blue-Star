@@ -5,21 +5,9 @@ public class HistoryAllocation
 {
     public DataBaseManager dataBaseManager;
     private ArrayList Stats;
-	private BasePlayer newPlayer;
+	public BasePlayer newPlayer;
 
-    // Selections
-    public int HellCircleChoice;
-    public int AllegianceChoice;
-    public int GenusChoice;
-    public int SpeciesChoice;
-    public int JobChoice;
-    public int ImpChoice;
-    public int OriginChoice;
-    public int TemperChoice;
-    public int AstroChoice;
-    public int AffinityChoice;
-
-    
+      
     public string[] GetChoiceArray(int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int jobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice) {
 
         string[] ReturnArray = new string[10];
@@ -39,21 +27,10 @@ public class HistoryAllocation
     }
 
 
-    public void CreateNewPlayer (int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int jobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice)
+    public BasePlayer CreateNewPlayer (int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int jobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice)
 	{
 
-        HellCircleChoice = hellCircleChoice;
-        AllegianceChoice = allegianceChoice;
-        GenusChoice = genusChoice ;
-        SpeciesChoice =  speciesChoice ;
-        JobChoice =  jobChoice;
-        ImpChoice =  impChoice;
-        OriginChoice =  originChoice;
-        TemperChoice = temperChoice;
-        AstroChoice = astroChoice;
-        AffinityChoice = affinityChoice;
-
-
+ 
         //Get the choices
         string[] Choices = GetChoiceArray(hellCircleChoice, allegianceChoice, genusChoice, speciesChoice, jobChoice, impChoice, originChoice, temperChoice, astroChoice, affinityChoice);
 
@@ -67,34 +44,32 @@ public class HistoryAllocation
             "from REF_CustomCharacters " + 
             "where Id in ('" + Choices[0] + "','" + Choices[1] + "','" + Choices[2] + "','" + Choices[3] + "','" + Choices[4] + "','" + Choices[5] + "','" + Choices[6] + "','" + Choices[7] + "','" + Choices[8] + "','" + Choices[9] + "')", "BlueStarDataWarehouse.db");
 
+        
         //Reset or Create new player
         BasePlayer newPlayer = new BasePlayer ();
-
         //Reset Xp & Money
-		InitiateXPandMoney (newPlayer);
+        InitiateXPandMoney (newPlayer);
 
         // Reinitialise Stats based on choices
 		HistoryMatrixStats (newPlayer, hellCircleChoice, allegianceChoice, genusChoice, speciesChoice, jobChoice, impChoice, originChoice, temperChoice, astroChoice, affinityChoice);
 
-        // Store Data
-		StoreDataInGameInformation (newPlayer);
-	
-	}
+        return newPlayer;
+    }
 
 	void InitiateXPandMoney (BasePlayer newPlayer)
 	{
 
 		// Init level
 		newPlayer.PlayerLevel = 1;
-		newPlayer.TotalXP = 0;
 		newPlayer.CurrentXP = 0;
-		newPlayer.RequiredXP = 100;
 		newPlayer.HumanCrap = 0;
-		
+        newPlayer.Gold = 0;
 
-	}
 
-	void HistoryMatrixStats (BasePlayer newPlayer, int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int jobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice)
+
+    }
+
+    void HistoryMatrixStats (BasePlayer newPlayer, int hellCircleChoice, int allegianceChoice, int genusChoice, int speciesChoice, int jobChoice, int impChoice, int originChoice, int temperChoice, int astroChoice, int affinityChoice)
 	{
 
         int Base_prim = 100;
@@ -153,12 +128,7 @@ public class HistoryAllocation
   
 
 	}
-
-	void StoreDataInGameInformation (BasePlayer newPlayer)
-	{
-		//Storing base stat in environment
-		GameInformation.BasePlayer = newPlayer;
-	}
+    
 
 
 

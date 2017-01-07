@@ -118,7 +118,7 @@ public class StatAllocationButtons : MonoBehaviour {
     public void ActivateMenu() {
         StatAllocationMenu.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;
-        menuGUI.statAllocation.DisplayStatAllocationModule(menuGUI.lastActionWasNext);
+        menuGUI.statAllocation.DisplayStatAllocationModule(menuGUI.lastActionWasNext, menuGUI.newPlayer);
     }
 
 

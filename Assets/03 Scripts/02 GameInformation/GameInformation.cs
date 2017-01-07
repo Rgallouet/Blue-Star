@@ -4,8 +4,8 @@ using System.Collections;
 public class GameInformation : MonoBehaviour {
 
     public static GameInformation instance = null;
-	public BasePlayer basePlayer;
-
+	public static int Slot;
+    public static BasePlayer BasePlayer;
 
 	void Start(){
         
@@ -14,23 +14,15 @@ public class GameInformation : MonoBehaviour {
 		if (instance == null) instance = this;
 
 		//If instance already exists and it's not this:
-		else if (instance != this) Destroy(gameObject);    
+		else if (instance != this) Destroy(gameObject);
 
+        BasePlayer = new BasePlayer();
 
 		//Sets this to not be destroyed when reloading scene
 		DontDestroyOnLoad(gameObject);
-
-        basePlayer = new BasePlayer();
     }
     
 	
-
-	
-	// Equipment
-	public static BaseEquipment EquipmentOne	{ get; set;}
-	public static BasePlayer 	BasePlayer		{ get; set;}
-
-
 
 
 }

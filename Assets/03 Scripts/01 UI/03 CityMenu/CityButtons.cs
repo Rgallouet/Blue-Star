@@ -36,7 +36,7 @@ public class CityButtons : MonoBehaviour {
         MenuOpenedOrNot[choice] = true;
         MenuAudio.PlayMenuInGameAudio();
         //UIButtons[choice].color = ActiveMenuColor;
-
+        Debug.Log(GameInformation.Slot);
     }
 
     private void CloseMenu(int choice)

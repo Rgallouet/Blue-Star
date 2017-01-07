@@ -36,9 +36,10 @@ public class BasePlayer {
 	public int SecondaryStatPointsToAllocate;
 
 	public int HumanCrap;
+    public int Gold;
 
-	//Stats
-	public int Embodiment; 
+    //Stats
+    public int Embodiment; 
 	public int Strength;
 	public int Speed;
 	public int Dexterity;
