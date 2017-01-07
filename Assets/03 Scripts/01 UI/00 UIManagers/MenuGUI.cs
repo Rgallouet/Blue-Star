@@ -179,12 +179,12 @@ public void MenuGoBack(int option){
 
 		case CreateAPlayerStates.HISTORYSELECTION:
                 newGameMenuButtons.ActivateMenu();
-				menuAudio.PlayGameMenuAudio();
+				menuAudio.PlayStartGameMenuAudio();
 			break;
 
 		case CreateAPlayerStates.PREDEFINEDSELECTION:
                 newGameMenuButtons.ActivateMenu();
-                menuAudio.PlayGameMenuAudio();
+                menuAudio.PlayStartGameMenuAudio();
                 break;
 
 		case CreateAPlayerStates.STATALLOCATION:

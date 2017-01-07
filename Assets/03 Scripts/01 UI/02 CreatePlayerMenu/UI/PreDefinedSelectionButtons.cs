@@ -101,8 +101,6 @@ public class PreDefinedSelectionButtons : MonoBehaviour
     // Update display of the selected predefined character
 	void UpdateDescription (int HistoryChoice)
 	{
-        Debug.Log((string)((ArrayList)refData[HistoryChoice])[2]);
-        Debug.Log(((string)((ArrayList)refData[HistoryChoice])[2]).Replace("<br>", "\n"));
 
         PreDefinedSelection.GetComponentsInChildren<Text>()[12].text = ((string)((ArrayList)refData[HistoryChoice])[2]).Replace("<br>", "\n");
 
@@ -140,7 +138,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 
 
     public void Back() {
-        menuGUI.MenuGoNext(0);
+        menuGUI.MenuGoBack(0);
         PreDefinedSelection.enabled = false;
     }
 
