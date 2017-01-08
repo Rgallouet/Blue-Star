@@ -3,19 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CubeManager : MonoBehaviour {
-
-    public Transform[] CubePrefabs;
+    public Transform PlayerPrefab;
     public int MapSize;
     public int AggregationFactor;
+
+    public Transform[] CubePrefabs;
     public int[] Probability;
 
-    //private string[] CubeChosen = { "Obsidian", "Gold", "Rock", "Empty", "SolidEarth", "Earth" };
-    private int[] CubeReference = { 0, 1, 2, 3, 4, 5 };
-    private int[] InverseCubeReference = { 0, 1, 2, 3, 4, 5 };
+    private int NumberofPrefabs = 21;
 
-    private int NumberofPrefabs = 6;
     private int ObsidianPrefabRefence = 0;
-    private int StartPrefabRefence = 3;
+    private int StartPrefabRefence = 11;
+    private int EarthCubePrefabRefence = 4;
 
     void Start() {
 
@@ -25,13 +24,11 @@ public class CubeManager : MonoBehaviour {
 
     public void GenerateRandomUnderground() {
 
-        int[][] LowerLevel = CalculateTheLowerMap();
-        int[][] HigherLevel = CalculateTheHigherMap();
+        int[][] Map = CalculateTheMap();
         
         float xOffset = 0.5f;
-        float yOffsetLow = 0.416f;
-        float yOffsetHigh = 2* yOffsetLow;
-        float zOffsetHigh = 0.5f;
+        float yOffset = 0f;
+        float zOffset = 0.5f;
         Quaternion Setup = Quaternion.identity;
 
         //Generating the Cubes
@@ -39,51 +36,22 @@ public class CubeManager : MonoBehaviour {
         {
             for (int z = 0; z < MapSize; z++)
             {
-                Setup = Quaternion.Euler(90, 90 * Random.Range(0, 4), 0);
-                Instantiate(CubePrefabs[LowerLevel[x][z]], new Vector3(xOffset + x, yOffsetLow, 0.5f + z), Setup);
 
-                Setup = Quaternion.Euler(90, 90 * Random.Range(0, 4), 0);
-                if (!(HigherLevel[x][z]==3)) Instantiate(CubePrefabs[HigherLevel[x][z]], new Vector3(xOffset + x, yOffsetHigh, zOffsetHigh + z), Setup);
+                Setup = Quaternion.Euler(-90, 90 * Random.Range(0, 4), 0);
+                Instantiate(CubePrefabs[Map[x][z]], new Vector3(xOffset + x, yOffset, zOffset + z), Setup);
 
             }
         }
-        
+
+
+        Instantiate(PlayerPrefab, new Vector3(xOffset + (MapSize/2) +5, 15f, zOffset + (MapSize / 2) + 5), Quaternion.Euler(0, 0, 0));
 
     }
 
 
-   int[][] CalculateTheLowerMap() {
 
 
-        int[][] MapArray = new int[MapSize][];
-        for (int i = 0; i < MapSize; i++) MapArray[i] = new int[MapSize];
-
-
-        //Starting Ground
-        for (int x = 0; x < MapSize; x++)
-        {
-            for (int z = 0; z < MapSize; z++)
-            {
-                // the Strict Borders
-                if (x > (MapSize / 2) + 3 && x < (MapSize / 2) + 7 && z > (MapSize / 2) + 3 && z < (MapSize / 2) + 7)
-                {
-                    MapArray[x][z] = 2;
-                }
-                else {
-
-                    MapArray[x][z] = 5;
-                }
-            }
-        }
-
-        return MapArray;
-
-    }
-
-    
-
-
-    int[][] CalculateTheHigherMap()
+    int[][] CalculateTheMap()
     {
 
         int[] localProbability = new int[NumberofPrefabs];
@@ -109,13 +77,13 @@ public class CubeManager : MonoBehaviour {
                 else {
                     for (int i=0; i< NumberofPrefabs; i++) localProbability[i] = Probability[i];
                 
-                    localProbability[InverseCubeReference[MapArray[x - 1][z]]] += AggregationFactor;
+                    localProbability[MapArray[x - 1][z]] += AggregationFactor;
 
-                    localProbability[InverseCubeReference[MapArray[x][z-1]]] += AggregationFactor;
-                    localProbability[InverseCubeReference[MapArray[x - 1][z-1]]] += AggregationFactor;
-                    localProbability[InverseCubeReference[MapArray[x + 1][z - 1]]] += AggregationFactor;
+                    localProbability[MapArray[x][z-1]] += AggregationFactor;
+                    localProbability[MapArray[x - 1][z-1]] += AggregationFactor;
+                    localProbability[MapArray[x + 1][z - 1]] += AggregationFactor;
 
-                    localProbability[InverseCubeReference[5]] -= 4*AggregationFactor;
+                    localProbability[EarthCubePrefabRefence] -= 4*AggregationFactor;
 
                     diceRoll = Random.Range(0, 1000);
                     cumulative = 0;
@@ -125,7 +93,7 @@ public class CubeManager : MonoBehaviour {
                         cumulative += localProbability[i];
                         if (diceRoll < cumulative)
                         {
-                            MapArray[x][z] = CubeReference[i];
+                            MapArray[x][z] = i;
                             break;
                         }
                     }

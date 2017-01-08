@@ -10,37 +10,17 @@ public class PreDefinedSelectionButtons : MonoBehaviour
     private ArrayList RefErrors = new ArrayList();
 
     private Canvas PreDefinedSelection;
-
+    public CharacterDisplay characterDisplay;
     //Link to master
     public MenuGUI menuGUI;
 
     // Selections
+    public HistoryChoices historyChoices = new HistoryChoices();
     public int HistoryChoice;
-	public int HellCircleChoice;
-	public int AllegianceChoice;
-	public int GenusChoice;
-	public int SpeciesChoice;
-	public int JobChoice;
-	public int ImpChoice;
-	public int OriginChoice;
-	public int TemperChoice;
-	public int AstroChoice;
-	public int AffinityChoice;
+
 
 	// UI
 	private Button[] Choice = new Button[10];
-    private Image[] HistoryChoiceImage = new Image[9];
-
-	// Spirtes for displaying choices
-	public Sprite[] RightArmSprites = new Sprite[9];
-	public Sprite[] LeftImpSprites = new Sprite[9];
-	public Sprite[] HeadSprites = new Sprite[18];
-	public Sprite[] LeftArmSprites = new Sprite[9];
-	public Sprite[] RightImpSprites = new Sprite[9];
-	public Sprite[] TorsoSprites = new Sprite[9];
-	public Sprite[] LegsSprites = new Sprite[9];
-	public Sprite[] RightFootSprites = new Sprite[9];
-	public Sprite[] LeftFootSprites = new Sprite[9];
 
 	void Start ()
 	{
@@ -55,8 +35,6 @@ public class PreDefinedSelectionButtons : MonoBehaviour
         //Link to left side text box for displaying names
         for (int i=0; i<9; i++) { Choice [i] = PreDefinedSelection.GetComponentInChildren<GridLayoutGroup>().GetComponentsInChildren<Button> () [i]; }
 
-        //Link to right side image box for displaying character
-        for (int i=0; i<9; i++) { HistoryChoiceImage [i] = PreDefinedSelection.GetComponentInChildren<Mask> ().GetComponentsInChildren<Image> () [i + 1]; }
 
         GetPreDefinedUIButtons ();
 		
@@ -84,16 +62,16 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 	void GetSelectionChoices (int HistoryChoice)
 	{
 
-        HellCircleChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[3]);
-        AllegianceChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[4]);
-        GenusChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[5]);
-        SpeciesChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[6]);
-        JobChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[7]);
-        ImpChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[8]);
-        OriginChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[9]);
-        TemperChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[10]);
-        AstroChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[11]);
-        AffinityChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[12]);
+        historyChoices.HellCircleChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[3]);
+        historyChoices.AllegianceChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[4]);
+        historyChoices.GenusChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[5]);
+        historyChoices.SpeciesChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[6]);
+        historyChoices.JobChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[7]);
+        historyChoices.ImpChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[8]);
+        historyChoices.OriginChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[9]);
+        historyChoices.TemperChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[10]);
+        historyChoices.AstroChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[11]);
+        historyChoices.AffinityChoice = System.Convert.ToInt32(((ArrayList)refData[HistoryChoice])[12]);
 
 
     }
@@ -104,17 +82,9 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 
         PreDefinedSelection.GetComponentsInChildren<Text>()[12].text = ((string)((ArrayList)refData[HistoryChoice])[2]).Replace("<br>", "\n");
 
-        HistoryChoiceImage[0].sprite = RightArmSprites [HellCircleChoice - 1];
-		HistoryChoiceImage [1].sprite = LeftImpSprites [AllegianceChoice - 1];
-		HistoryChoiceImage [2].sprite = HeadSprites [SpeciesChoice - 1];
-		HistoryChoiceImage [3].sprite = LeftArmSprites [JobChoice - 1];
-		HistoryChoiceImage [4].sprite = RightImpSprites [ImpChoice - 1];
-		HistoryChoiceImage [5].sprite = TorsoSprites [OriginChoice - 1];
-		HistoryChoiceImage [6].sprite = LegsSprites [TemperChoice - 1];
-		HistoryChoiceImage [7].sprite = RightFootSprites [AstroChoice - 1];
-		HistoryChoiceImage [8].sprite = LeftFootSprites [AffinityChoice - 1];
+        characterDisplay.UpdateCharacterDisplay(historyChoices, false);
 
-	}
+    }
 
 
 

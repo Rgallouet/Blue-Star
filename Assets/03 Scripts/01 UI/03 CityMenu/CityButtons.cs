@@ -6,46 +6,70 @@ public class CityButtons : MonoBehaviour {
 
     public Image[] UIButtons = new Image[3];
 
-    public MenuAudio MenuAudio;
+    public Button ExitMenu;
 
-	private bool[] MenuOpenedOrNot = { false,false,false};
+    public MenuAudio MenuAudio;
+    public CharacterMenu characterMenu;
+    public SettingsMenu settingsMenu;
+
+
+
+	private int MenuOpened;
 
 
     private Color32 ActiveMenuColor = new Color32(180, 0, 0,255);
     private Color32 InactiveMenuColor = new Color32(255, 100, 100,100);
 
     void Start(){
-
+        ExitMenu.interactable = false;
         MenuAudio.PlayCityAudio();
         //for (int i = 0; i < 3; i++) UIButtons[i].color = InactiveMenuColor;
+        
     }
 
 
     public void ClickMenu(int choice) {
 
-        for (int i = 0; i < 3; i++) {
-            if (!(i == choice) && (MenuOpenedOrNot[i] == true)) CloseMenu(i);
+        if (MenuOpened== choice)  CloseMenu();
+        else if (MenuOpened == 0) OpenMenu(choice);
+        else {
+            CloseMenu();
+            OpenMenu(choice);
         }
 
-        if (MenuOpenedOrNot[choice] == true) CloseMenu(choice);
-        else if (MenuOpenedOrNot[choice] == false) OpenMenu(choice);
 
     }
 
-	private void OpenMenu(int choice) {
-        MenuOpenedOrNot[choice] = true;
+	public void OpenMenu(int choice) {
+        MenuOpened = choice;
         MenuAudio.PlayMenuInGameAudio();
-        //UIButtons[choice].color = ActiveMenuColor;
-        Debug.Log(GameInformation.Slot);
+
+        switch (choice) {
+            case 1: settingsMenu.ActivateMenu(); break;
+            case 2: characterMenu.ActivateMenu(); break;
+            case 3: break;
+
+        }
+        ExitMenu.interactable = true;
+
     }
 
-    private void CloseMenu(int choice)
+    public void CloseMenu()
     {
-        MenuOpenedOrNot[choice] = false;
         MenuAudio.PlayCityAudio();
-        //UIButtons[choice].color = InactiveMenuColor;
-        UIButtons[choice].GetComponent<Button>().interactable = false;
-        UIButtons[choice].GetComponent<Button>().interactable = true;
+        UIButtons[MenuOpened-1].GetComponent<Button>().interactable = false;
+        UIButtons[MenuOpened-1].GetComponent<Button>().interactable = true;
+
+        switch (MenuOpened)
+        {
+            case 1: settingsMenu.DesactivateMenu(); break;
+            case 2: characterMenu.DesactivateMenu(); break;
+            case 3: break;
+
+        }
+
+        ExitMenu.interactable = false;
+        MenuOpened = 0;
 
     }
 

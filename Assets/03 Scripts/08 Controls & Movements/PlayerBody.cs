@@ -4,10 +4,10 @@ using System.Collections;
 public class PlayerBody : MonoBehaviour {
 
 	private float jumpPower;
+    
+	//public GameObject waterlevel;
 
-	public GameObject waterlevel;
-
-	public float moveSpeedMultiplier;
+	public float moveSpeedMultiplier = 5f;
 	Rigidbody m_Rigidbody;
 	Animator animator;
 	public enum BodyStatus{isOnGround,isJumping,isSwimming,isFlying};
@@ -16,7 +16,6 @@ public class PlayerBody : MonoBehaviour {
 	public Vector3 groundNormal;
 
 
-	public Transform PlayerCamera;
 	public float DistanceToGround;
 	public Vector3 PlayerVelocity;
 	public bool ReadyToFly;
@@ -30,16 +29,21 @@ public class PlayerBody : MonoBehaviour {
 		bodyStatus = BodyStatus.isOnGround;
 		animator = GetComponent<Animator>();
 		m_Rigidbody = GetComponent<Rigidbody>();
-        try { moveSpeedMultiplier = GameInformation.BasePlayer.Balance / 20f; }
-        catch (System.Exception)  {moveSpeedMultiplier = 5f;throw;}
-		m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-        PlayerMass = GameInformation.BasePlayer.Momentum / 100f;
-        jumpPower = 5 * (GameInformation.BasePlayer.Balance / GameInformation.BasePlayer.Momentum);
+        m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+
+        //try { moveSpeedMultiplier = GameInformation.BasePlayer.Balance / 20f; }
+        //catch (System.Exception)  {moveSpeedMultiplier = 5f;throw;}
+
+        //PlayerMass = GameInformation.BasePlayer.Momentum / 100f;
+        //jumpPower = 5 * (GameInformation.BasePlayer.Balance / GameInformation.BasePlayer.Momentum);
+        jumpPower = 5f;
+        moveSpeedMultiplier = 5f;
+        PlayerMass = 1f;
 
     }
-	
 
-	public void MoveBody(float goFront, float goRight, Vector3 groundMove,Vector3 freeMove, bool jump)
+
+    public void MoveBody(float goFront, float goRight, Vector3 groundMove,Vector3 freeMove, bool jump)
 	{
 
 		CheckGroundStatus ();
@@ -129,12 +133,13 @@ public class PlayerBody : MonoBehaviour {
 		DistanceToGround = hitInfo.distance - 0.1f;
 		groundNormal = hitInfo.normal;
 
-		if (transform.position.y<waterlevel.transform.position.y) {
-			bodyStatus = BodyStatus.isSwimming;
-			m_Rigidbody.mass = 0f;
+		//if (transform.position.y<waterlevel.transform.position.y) {
+			//bodyStatus = BodyStatus.isSwimming;
+			//m_Rigidbody.mass = 0f;
 			//animator.applyRootMotion = false;
 
-		} else if (bodyStatus == BodyStatus.isSwimming || (DistanceToGround < 0.1f && (bodyStatus == BodyStatus.isJumping) && m_Rigidbody.velocity.y <0.01f)) {
+		//} else 
+        if (bodyStatus == BodyStatus.isSwimming || (DistanceToGround < 0.1f && (bodyStatus == BodyStatus.isJumping) && m_Rigidbody.velocity.y <0.01f)) {
 			bodyStatus = BodyStatus.isOnGround;
 			m_Rigidbody.mass = 1f;
 			//animator.applyRootMotion = true;

@@ -3,11 +3,11 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public Camera playercamera;
+	//public Camera playercamera;
 	public PlayerBody playerBody;
-	public float runMultiplier;
-	public float walkMultiplier;
-	public float backwardMultiplier;
+	public float runMultiplier = 1.5f;
+	public float walkMultiplier = 0.5f;
+	public float backwardMultiplier = 0.5f;
 
 	public Vector3 groundMove;
 	public Vector3 freeMove;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
         //Get movement directions on the ground
         groundMove = (goFront * transform.TransformDirection(Vector3.forward)) + (goRight * transform.TransformDirection(Vector3.right));
         //Get movement directions in free mode
-        freeMove = (goFront * playercamera.transform.TransformDirection(Vector3.forward)) + (goRight * playercamera.transform.TransformDirection(Vector3.right));
+        //freeMove = (goFront * playercamera.transform.TransformDirection(Vector3.forward)) + (goRight * playercamera.transform.TransformDirection(Vector3.right));
 
         // 	Walk 
         if (Input.GetAxis("Walk") == 1f) { goFront *= walkMultiplier; goRight *= walkMultiplier; groundMove *= walkMultiplier; freeMove *= walkMultiplier; }

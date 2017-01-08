@@ -24,6 +24,7 @@ public class HistorySelectionButtons : MonoBehaviour
 		END
 	}
 
+
     // Gestion données référentielles
     public DataBaseManager dataBaseManager;
     private ArrayList RefHellCircles = new ArrayList();
@@ -40,18 +41,11 @@ public class HistorySelectionButtons : MonoBehaviour
     private ArrayList RefQuestions = new ArrayList();
     private ArrayList RefErrors = new ArrayList();
 
+    public CharacterDisplay characterDisplay;
 
     //choices
-    public int HellCircleChoice;
-    public int AllegianceChoice;
-    public int GenusChoice;
-    public int SpeciesChoice;
-    public int JobChoice;
-    public int ImpChoice;
-    public int OriginChoice;
-    public int TemperChoice;
-    public int AstroChoice;
-    public int AffinityChoice;
+    public HistoryChoices historyChoices = new HistoryChoices();
+ 
 
     // Connection vers l'UI
     public MenuGUI menuGUI;
@@ -62,19 +56,6 @@ public class HistorySelectionButtons : MonoBehaviour
     public Text CommentHeader;
 
     public static Button[] Choice = new Button[10];
-	public static Text[] HistoryChoiceDisplay = new Text[10];
-	public static Image[] HistoryChoiceImage = new Image[9];
-
-    //Skin des perso
-	public Sprite[] RightArmSprites = new Sprite[9];
-	public Sprite[] LeftImpSprites = new Sprite[9];
-	public Sprite[] HeadSprites = new Sprite[18];
-	public Sprite[] LeftArmSprites = new Sprite[9];
-	public Sprite[] RightImpSprites = new Sprite[9];
-	public Sprite[] TorsoSprites = new Sprite[9];
-	public Sprite[] LegsSprites = new Sprite[9];
-	public Sprite[] RightFootSprites = new Sprite[9];
-	public Sprite[] LeftFootSprites = new Sprite[9];
 
 
     
@@ -100,18 +81,25 @@ public class HistorySelectionButtons : MonoBehaviour
         //Initialiser le cycle
         currentStep = PlayerHistoryStep.HELLCIRCLE;
 
+        //Initialiser les choices à 0
+        historyChoices.HellCircleChoice = 0;
+        historyChoices.AllegianceChoice = 0;
+        historyChoices.GenusChoice = 0;
+        historyChoices.SpeciesChoice = 0;
+        historyChoices.JobChoice = 0;
+        historyChoices.ImpChoice = 0;
+        historyChoices.OriginChoice = 0;
+        historyChoices.TemperChoice = 0;
+        historyChoices.AstroChoice = 0;
+        historyChoices.AffinityChoice = 0;
+
         //Connection vers éléments de l'UI
-		HistorySelection = GetComponent<Canvas> ();
+        HistorySelection = GetComponent<Canvas> ();
 		
 		for (int i=0; i<9; i++) {
 			Choice [i] = ChoiceDisplay.GetComponentsInChildren<Button> () [i];
 		}
-		for (int i=0; i<10; i++) {
-			HistoryChoiceDisplay [i] = HistorySelection.GetComponentInChildren<Mask> ().GetComponentsInChildren<Text> () [i];
-		}
-		for (int i=0; i<9; i++) {
-			HistoryChoiceImage [i] = HistorySelection.GetComponentInChildren<Mask> ().GetComponentsInChildren<Image> () [i + 1];
-		}
+
 		
 		
 		GetHistoryUIButtons ();
@@ -130,82 +118,65 @@ public class HistorySelectionButtons : MonoBehaviour
         {
             case PlayerHistoryStep.HELLCIRCLE:
                 CommentText.text = ((string)((ArrayList)RefHellCircles[HistoryChoice])[3]).Replace("<br>", "\n");
-                HistoryChoiceDisplay[0].text = (string)((ArrayList)RefHellCircles[HistoryChoice])[2];
-                HistoryChoiceImage[0].sprite = RightArmSprites[HistoryChoice - 1];
-                HellCircleChoice = HistoryChoice;
+                historyChoices.HellCircleChoice = HistoryChoice;
                 break;
+
             case PlayerHistoryStep.ALLEGIANCE:
                 CommentText.text = ((string)((ArrayList)RefAllegiance[HistoryChoice])[3]).Replace("<br>", "\n");
-                HistoryChoiceDisplay[1].text = (string)((ArrayList)RefAllegiance[HistoryChoice])[2];
-                HistoryChoiceImage[1].sprite = LeftImpSprites[HistoryChoice - 1];
-                AllegianceChoice = HistoryChoice;
+                historyChoices.AllegianceChoice = HistoryChoice;
                 break;
+
             case PlayerHistoryStep.GENUS:
 
                 if (HistoryChoice >= 7)
                 {
-                    SpeciesChoice = 3 * (GenusChoice - 1) + HistoryChoice-6;
-                    CommentText.text = ((string)((ArrayList)RefSpecies[SpeciesChoice])[3]).Replace("<br>", "\n");
-                    HistoryChoiceDisplay[3].text = (string)((ArrayList)RefSpecies[SpeciesChoice])[2];
-                    HistoryChoiceImage[3 - 1].sprite = HeadSprites[SpeciesChoice-1];
-                    
+                    historyChoices.SpeciesChoice = 3 * (historyChoices.GenusChoice - 1) + HistoryChoice-6;
+                    CommentText.text = ((string)((ArrayList)RefSpecies[historyChoices.SpeciesChoice])[3]).Replace("<br>", "\n");
                 }
                 else
                 {
-                    if (GenusChoice == 0) { DisplayButtonsOnUi(6, 9, true,true); }
-                    GenusChoice = HistoryChoice;
-
-                    if(!(SpeciesChoice==0))
-                    {
-                        SpeciesChoice = 0;
-                        HistoryChoiceDisplay[3].text = "";
-                        HistoryChoiceImage[3 - 1].sprite = HeadSprites[18];
-                    }
-                    
-                    for (int i = 6; i < 9; i++) { Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefSpecies[3 * (GenusChoice - 1) + i -5])[2]; }
-
+                    if (historyChoices.GenusChoice == 0) { DisplayButtonsOnUi(6, 9, true,true); }
+                    historyChoices.GenusChoice = HistoryChoice;
+                    if(!(historyChoices.SpeciesChoice ==0)) historyChoices.SpeciesChoice = 0;
+                    for (int i = 6; i < 9; i++) { Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefSpecies[3 * (historyChoices.GenusChoice - 1) + i -5])[2]; }
                     CommentText.text = ((string)((ArrayList)RefGenus[HistoryChoice])[3]).Replace("<br>", "\n");
-                    HistoryChoiceDisplay[2].text = (string)((ArrayList)RefGenus[HistoryChoice])[2];
                 }
                 break;
+
             case PlayerHistoryStep.CLASS:
                 CommentText.text = ((string)((ArrayList)RefClass[HistoryChoice])[3]).Replace("<br>", "\n");
-                HistoryChoiceDisplay[4].text = (string)((ArrayList)RefClass[HistoryChoice])[2];
-                HistoryChoiceImage[4 - 1].sprite = LeftArmSprites[HistoryChoice - 1];
-                JobChoice = HistoryChoice;
+                historyChoices.JobChoice = HistoryChoice;
                 break;
+
             case PlayerHistoryStep.IMP:
                 CommentText.text = ((string)((ArrayList)RefImp[HistoryChoice])[3]).Replace("<br>", "\n");
-                HistoryChoiceDisplay[5].text = (string)((ArrayList)RefImp[HistoryChoice])[2];
-                HistoryChoiceImage[5 - 1].sprite = RightImpSprites[HistoryChoice - 1];
-                ImpChoice = HistoryChoice;
+                historyChoices.ImpChoice = HistoryChoice;
                 break;
+
             case PlayerHistoryStep.ORIGIN:
                 CommentText.text = ((string)((ArrayList)RefOrigin[HistoryChoice])[3]).Replace("<br>", "\n");
-                HistoryChoiceDisplay[6].text = (string)((ArrayList)RefOrigin[HistoryChoice])[2];
-                HistoryChoiceImage[6 - 1].sprite = TorsoSprites[HistoryChoice - 1];
-                OriginChoice = HistoryChoice;
+                historyChoices.OriginChoice = HistoryChoice;
                 break;
+
             case PlayerHistoryStep.TEMPER:
                 CommentText.text = ((string)((ArrayList)RefTemper[HistoryChoice])[3]).Replace("<br>", "\n");
-                HistoryChoiceDisplay[7].text = (string)((ArrayList)RefTemper[HistoryChoice])[2];
-                HistoryChoiceImage[7 - 1].sprite = LegsSprites[HistoryChoice - 1];
-                TemperChoice = HistoryChoice;
+                historyChoices.TemperChoice = HistoryChoice;
                 break;
+
             case PlayerHistoryStep.ASTRO:
                 CommentText.text = ((string)((ArrayList)RefAstro[HistoryChoice])[3]).Replace("<br>", "\n");
-                HistoryChoiceDisplay[8].text = (string)((ArrayList)RefAstro[HistoryChoice])[2];
-                HistoryChoiceImage[8 - 1].sprite = RightFootSprites[HistoryChoice - 1];
-                AstroChoice = HistoryChoice;
+                historyChoices.AstroChoice = HistoryChoice;
                 break;
+
             case PlayerHistoryStep.AFFINITY:
                 CommentText.text = ((string)((ArrayList)RefAffinity[HistoryChoice])[3]).Replace("<br>", "\n");
-                HistoryChoiceDisplay[9].text = (string)((ArrayList)RefAffinity[HistoryChoice])[2];
-                HistoryChoiceImage[9 - 1].sprite = LeftFootSprites[HistoryChoice - 1];
-                AffinityChoice = HistoryChoice;
+                historyChoices.AffinityChoice = HistoryChoice;
                 break;
 
         }
+
+        characterDisplay.UpdateCharacterDisplay(historyChoices, true);
+
     }
 
 
@@ -232,8 +203,8 @@ public class HistorySelectionButtons : MonoBehaviour
             }
             
         }
-        if (Stage==3 & !(GenusChoice == 0)) {
-            for (int i = Size; i < 9; i++) { Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefSpecies[3 * (GenusChoice - 1) + i + 1])[2];  }
+        if (Stage==3 & !(historyChoices.GenusChoice == 0)) {
+            for (int i = Size; i < 9; i++) { Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefSpecies[3 * (historyChoices.GenusChoice - 1) + i + 1])[2];  }
         } 
 
     }
@@ -254,7 +225,7 @@ public class HistorySelectionButtons : MonoBehaviour
             break;
 
 		case PlayerHistoryStep.GENUS:
-            if (menuGUI.lastActionWasNext == true && GenusChoice==0) { DisplayButtonsOnUi(6, 9, false); }
+            if (menuGUI.lastActionWasNext == true && historyChoices.GenusChoice ==0) { DisplayButtonsOnUi(6, 9, false); }
             if (menuGUI.lastActionWasNext == false ) { DisplayButtonsOnUi(6, 9, true,true); }
             UpdateStageUIButtons((string)((ArrayList)RefQuestions[6])[4], "Genus Lore", 3, 6);
             break;
@@ -344,42 +315,42 @@ public class HistorySelectionButtons : MonoBehaviour
                 break;
 
             case PlayerHistoryStep.ALLEGIANCE:
-                HistoryChoice = HellCircleChoice;
+                HistoryChoice = historyChoices.HellCircleChoice;
                 currentStep = PlayerHistoryStep.HELLCIRCLE;
                 break;
 
             case PlayerHistoryStep.GENUS:
-                HistoryChoice = AllegianceChoice;
+                HistoryChoice = historyChoices.AllegianceChoice;
                 currentStep = PlayerHistoryStep.ALLEGIANCE;
                 break;
 
             case PlayerHistoryStep.CLASS:
-                HistoryChoice = SpeciesChoice;
+                HistoryChoice = historyChoices.SpeciesChoice;
                 currentStep = PlayerHistoryStep.GENUS;
                 break;
 
             case PlayerHistoryStep.IMP:
-                HistoryChoice = JobChoice;
+                HistoryChoice = historyChoices.JobChoice;
                 currentStep = PlayerHistoryStep.CLASS;
                 break;
 
             case PlayerHistoryStep.ORIGIN:
-                HistoryChoice = ImpChoice;
+                HistoryChoice = historyChoices.ImpChoice;
                 currentStep = PlayerHistoryStep.IMP;
                 break;
 
             case PlayerHistoryStep.TEMPER:
-                HistoryChoice = OriginChoice;
+                HistoryChoice = historyChoices.OriginChoice;
                 currentStep = PlayerHistoryStep.ORIGIN;
                 break;
 
             case PlayerHistoryStep.ASTRO:
-                HistoryChoice = TemperChoice;
+                HistoryChoice = historyChoices.TemperChoice;
                 currentStep = PlayerHistoryStep.TEMPER;
                 break;
 
             case PlayerHistoryStep.AFFINITY:
-                HistoryChoice = AstroChoice;
+                HistoryChoice = historyChoices.AstroChoice;
                 currentStep = PlayerHistoryStep.ASTRO;
                 break;
         }
