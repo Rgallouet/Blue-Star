@@ -1,5 +1,6 @@
 ﻿// Just add this script to your camera. It doesn't need any configuration.
 
+using System;
 using UnityEngine;
 
 public class AndroidCamera : MonoBehaviour {
@@ -19,7 +20,7 @@ public class AndroidCamera : MonoBehaviour {
 
 	float oldTouchDistance;
 
-
+    bool AsTheTouchMoved;
 
 
 	void Update() {
@@ -28,10 +29,14 @@ public class AndroidCamera : MonoBehaviour {
         if (Input.touchCount == 0) {
 			oldTouchPositions[0] = null;
 			oldTouchPositions[1] = null;
+            AsTheTouchMoved = false;
         }
 		else if (Input.touchCount == 1) {
 
-			if (oldTouchPositions[0] == null || oldTouchPositions[1] != null) {
+            if (Input.GetTouch(0).phase == TouchPhase.Moved) AsTheTouchMoved=true;
+            if (Input.GetTouch(0).phase == TouchPhase.Ended && AsTheTouchMoved == false) SelectObject();
+
+            if (oldTouchPositions[0] == null || oldTouchPositions[1] != null) {
 				oldTouchPositions[0] = Input.GetTouch(0).position;
 				oldTouchPositions[1] = null;
 			}
@@ -45,6 +50,7 @@ public class AndroidCamera : MonoBehaviour {
 
 				oldTouchPositions[0] = newTouchPosition;
 			}
+
 		}
         else {
 			if (oldTouchPositions[1] == null) {
@@ -68,4 +74,19 @@ public class AndroidCamera : MonoBehaviour {
 			}
 		}
 	}
+
+    void SelectObject() {
+
+        RaycastHit hitInfo = new RaycastHit();
+        bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.GetTouch(0).position), out hitInfo);
+        if (hit)
+        {
+            Debug.Log("Hit " + hitInfo.transform.gameObject.name);
+        }
+        else {
+            Debug.Log("No hit");
+        }
+
+
+    }
 }

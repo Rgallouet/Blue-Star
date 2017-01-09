@@ -47,6 +47,7 @@ public class WindowsCamera : MonoBehaviour
         }
         else if (touch == 1)
         {
+            SelectObject();
 
             if (oldTouchPositions[0] == null || oldTouchPositions[1] != null)
             {
@@ -66,6 +67,21 @@ public class WindowsCamera : MonoBehaviour
             }
         }
 
+    }
+
+
+    void SelectObject()
+    {
+
+        RaycastHit hitInfo = new RaycastHit();
+        bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
+        if (hit)
+        {
+            Debug.Log("Hit " + hitInfo.transform.gameObject.name);
+        }
+        else {
+            Debug.Log("No hit");
+        }
 
 
     }

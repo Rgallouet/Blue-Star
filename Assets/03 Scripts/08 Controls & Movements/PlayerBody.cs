@@ -73,12 +73,7 @@ public class PlayerBody : MonoBehaviour {
 	void UpdateAnimator(float goFront, float goRight)
 	{
 
- 
-
-        Debug.Log("Forward =" + goFront);
-        Debug.Log("Rightside =" + goRight);
-
-        // update the animator parameters
+         // update the animator parameters
         animator.SetFloat("Forward", goFront , 0.1f, Time.deltaTime);
 		animator.SetFloat("Rightside", goRight, 0.1f, Time.deltaTime);
         animator.SetInteger("State", bodyStatus==BodyStatus.isOnGround ? 0 : bodyStatus == BodyStatus.isJumping ? 1 : bodyStatus == BodyStatus.isFlying ? 2 : 3 ); 
