@@ -3,14 +3,14 @@ using System.Collections;
 
 public class CityGUI : MonoBehaviour {
 
-    public SaveAndLoadCharacter saveAndLoadCharacter;
+    public SaveAndLoad saveAndLoad;
     public CubeManager cubeManager;
     private Vector2 worldStartPoint;
     public BasePlayer Player=new BasePlayer();
 
     void Start () {
 
-        Player = saveAndLoadCharacter.LoadPlayerChoicesFromDataBase(GameInformation.Slot);
+        Player = saveAndLoad.LoadPlayerChoicesFromDataBase(GameInformation.Slot);
 
         cubeManager.GenerateRandomUnderground();
 

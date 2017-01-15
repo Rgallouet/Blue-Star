@@ -9,6 +9,7 @@ using Mono.Data.SqliteClient;
 public class DataBaseManager : MonoBehaviour
 {
     private string connection;
+    private string filepath;
     private IDbConnection dbcon;
     private IDbCommand dbcmd;
     private IDataReader reader;
@@ -22,24 +23,35 @@ public class DataBaseManager : MonoBehaviour
 
     public void OpenDB(string p)
     {
-
-        // check if file exists in Application.persistentDataPath
-        string filepath = Application.persistentDataPath + "/" + p;
-        if (!File.Exists(filepath))
+        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {
-            // if it doesn't ->
-            // open StreamingAssets directory and load the db -> 
-            WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/" + p);
-            while (!loadDB.isDone) { }
-            // then save to Application.persistentDataPath
-            File.WriteAllBytes(filepath, loadDB.bytes);
-        }
+
+            // check if file exists in Application.persistentDataPath
+            filepath = Application.persistentDataPath + "/" + p;
+
+            if (!File.Exists(filepath))
+            {
+                // if it doesn't ->
+                // open StreamingAssets directory and load the db -> 
+                WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/" + p);
+                while (!loadDB.isDone) { }
+
+                // then save to Application.persistentDataPath
+                File.WriteAllBytes(filepath, loadDB.bytes);
+            }
+
+            }
+       else {
+
+            filepath = Application.dataPath + "/StreamingAssets/" + p;
+            }
 
         //open db connection
         connection = "URI=file:" + filepath;
 
         dbcon = new SqliteConnection(connection);
         dbcon.Open();
+
     }
 
     public void CloseDB()

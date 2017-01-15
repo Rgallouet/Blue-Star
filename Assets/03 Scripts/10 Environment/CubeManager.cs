@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class CubeManager : MonoBehaviour {
+
+    public SaveAndLoad saveAndLoad;
+
     public Transform PlayerPrefab;
     public int MapSize;
     public int AggregationFactor;
@@ -16,7 +19,7 @@ public class CubeManager : MonoBehaviour {
     private int StartPrefabRefence = 11;
     private int EarthCubePrefabRefence = 4;
     private int OutOfSightPrefabRefence = 19;
-
+    private int[][] Map;
 
     void Start() {
 
@@ -26,7 +29,18 @@ public class CubeManager : MonoBehaviour {
 
     public void GenerateRandomUnderground() {
 
-        int[][] Map = CalculateTheMap();
+        if (GameInformation.IsNewChar == true)
+        {
+            Debug.Log("NewGame!");
+            Map = CalculateTheMap();
+            saveAndLoad.SavePlayerCityInDataBase(GameInformation.Slot, Map);
+        }
+        else {
+            Map = saveAndLoad.LoadPlayerCityFromDataBase(GameInformation.Slot);
+            Debug.Log("LoadGame!");
+        }
+
+
         int[][] Visible = CalculateTheVisibleArea(Map);
 
         Object Cube;

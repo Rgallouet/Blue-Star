@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SaveAndLoadCharacter : MonoBehaviour {
+public class SaveAndLoad: MonoBehaviour {
 
     public DataBaseManager dataBaseManager;
 
     private ArrayList PlayerStaticChoices;
     private ArrayList PlayerStatsModifiers;
     private ArrayList PlayerProgress;
-
+    private ArrayList PlayerCity;
     private HistoryAllocation historyAllocation = new HistoryAllocation();
+
+    private int MapSize = 150;
+
 
     public void SavePlayerChoicesInDataBase(int Slot, BasePlayer Player)
     {
@@ -76,8 +79,7 @@ public class SaveAndLoadCharacter : MonoBehaviour {
         dataBaseManager.UpdateData("PlayerProgress", "Slot=" + Slot, PlayerProgressValues);
 
     }
-
-
+    
     public BasePlayer LoadPlayerChoicesFromDataBase(int Slot)
     {
         BasePlayer Player = new BasePlayer();
@@ -176,6 +178,47 @@ public class SaveAndLoadCharacter : MonoBehaviour {
     }
 
 
+
+    public void SavePlayerCityInDataBase(int Slot, int[][] Map)
+    {
+        int z = 0;
+        int x = 0;
+
+        for (int i = 0; i < MapSize; i++) {
+
+            string[] PlayerCityVector = new string[150];
+
+            for (int j = 0; j < MapSize; j++) {
+                z = j + 1;
+                x = i + 1;
+                
+                PlayerCityVector[j]="Cube" + z + "= " + Map[i][j];
+
+            }
+             
+            dataBaseManager.UpdateData("PlayerCity", "Slot=" + Slot + " and X=" + x, PlayerCityVector);
+        }
+    }
+
+    public int[][] LoadPlayerCityFromDataBase(int Slot)
+    {
+
+        PlayerCity = dataBaseManager.getArrayData("select * from PlayerCity where Slot =" + Slot, "BlueStarDataWarehouse.db");
+
+        int[][] MapArray = new int[MapSize][];
+        for (int i = 0; i < MapSize; i++) MapArray[i] = new int[MapSize];
+                        
+        for (int i = 0; i < 150; i++)
+        {
+            for (int j = 0; j < 150; j++)
+            {
+                MapArray[i][j] = System.Convert.ToInt32(((ArrayList)PlayerCity[i+1])[j+2]);
+            }
+        }
+
+        return MapArray;
+
+    }
 
 
 

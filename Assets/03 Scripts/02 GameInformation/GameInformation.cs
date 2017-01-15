@@ -5,6 +5,7 @@ public class GameInformation : MonoBehaviour {
 
     public static GameInformation instance = null;
 	public static int Slot;
+    public static bool IsNewChar;
     public static BasePlayer BasePlayer;
 
 	void Start(){

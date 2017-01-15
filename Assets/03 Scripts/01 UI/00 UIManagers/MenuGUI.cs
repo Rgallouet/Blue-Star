@@ -36,7 +36,7 @@ public class MenuGUI : MonoBehaviour {
     public DataBaseManager dataBaseManager;
     private ArrayList RefQuestions = new ArrayList();
 
-    public SaveAndLoadCharacter saveAndLoadCharacter;
+    public SaveAndLoad saveAndLoad;
     public MenuAudio menuAudio;
 
     public int Slot;
@@ -89,6 +89,7 @@ public void MenuGoNext(int Option){
             case CreateAPlayerStates.LOAD:
 
                 GameInformation.Slot = Slot;
+                GameInformation.IsNewChar = false;
                 SceneManager.LoadScene("Underground City");
                 break;
 
@@ -147,8 +148,9 @@ public void MenuGoNext(int Option){
                 newPlayer.PlayerGender = backgroundSelectionButtons.PlayerGender;
                 newPlayer.PlayerBio = backgroundSelectionButtons.PlayerBio;
 
-                saveAndLoadCharacter.SavePlayerChoicesInDataBase(Slot, newPlayer);
+                saveAndLoad.SavePlayerChoicesInDataBase(Slot, newPlayer);
                 GameInformation.Slot = Slot;
+                GameInformation.IsNewChar = true;
                 SceneManager.LoadScene("Underground City");
                 break;
                 
