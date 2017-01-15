@@ -20,7 +20,7 @@ public class CubeManager : MonoBehaviour {
 
     void Start() {
 
-
+        
     }
 
 

@@ -15,6 +15,7 @@ public class SettingsMenu : MonoBehaviour {
     {
         SettingsMenuCanvas = GetComponent<Canvas>();
         ChangeCameraPerspectiveMode();
+        mainCamera.orthographicSize = 3;
         SettingsMenuCanvas.enabled = false;
     }
 

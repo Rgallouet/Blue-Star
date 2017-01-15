@@ -5,10 +5,12 @@ using UnityEngine;
 public class WindowsCamera : MonoBehaviour
 {
 
+    public DebugAndroid debugAndroid;
     public CubeManager cubeManager;
+    public SelectionBox selectionBox;
 
     public int touch;
-    public Vector2 touchPosition;
+    public Vector2[] touchPosition;
 
     Vector2?[] oldTouchPositions = { null, null };
 
@@ -20,69 +22,132 @@ public class WindowsCamera : MonoBehaviour
 
     float oldTouchDistance;
 
-
-
+    bool Objectselected;
+    bool AsTheTouchMoved;
+    
 
     void Update()
     {
 
-        if (Input.GetMouseButton(0)) {
-            touch = 1;
-            touchPosition = Input.mousePosition;
+        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) {
+
+            
+
+            touch = Input.touchCount;
+            if (touch == 1) touchPosition[0] = Input.GetTouch(0).position;
+            if (touch > 1)
+            {
+                touchPosition[0] = Input.GetTouch(0).position;
+                touchPosition[1] = Input.GetTouch(1).position;
+            }
+
+            //select only if i touched and didn't move until i lifted my finger
+            if (touch>0 && Input.GetTouch(0).phase == TouchPhase.Ended && AsTheTouchMoved == false) SelectObject(touchPosition[0]); 
+
+
         }
         else {
-            touch = 0;
-            touchPosition = new Vector2(0, 0);
-        }
-        
+
+
+            if (Input.GetMouseButton(0)) { touch = 1; touchPosition[0] = Input.mousePosition; }
+            else touch = 0;
+
+            //right clic to deselect
+            if (Input.GetMouseButtonUp(1) && Objectselected == true) Deselect();
+
+            //use scroll wheel to zoom
+            if (Input.GetAxis("Mouse ScrollWheel") != 0) GetComponent<Camera>().orthographicSize = Mathf.Max(1, Mathf.Min(5, GetComponent<Camera>().orthographicSize - Input.GetAxis("Mouse ScrollWheel")));
+
+            //select only if i clicked and didn't move until i stopped clicking
+            if (Input.GetMouseButtonUp(0) && AsTheTouchMoved == false) SelectObject(touchPosition[0]);
+            
+            }
+
+        debugAndroid.DebugLog("touch = " + Input.touchCount, 0);
+        debugAndroid.DebugLog("touchPosition[0] = " + touchPosition[0].x + ":" + touchPosition[0].y, 1);
+        debugAndroid.DebugLog("touchPosition[1] = " + touchPosition[1].x + ":" + touchPosition[1].y, 2);
+
+
+
+
+        //deselect if I start moving around
+        if (AsTheTouchMoved == true && Objectselected == true) Deselect(); 
+
 
         if (touch == 0)
         {
             oldTouchPositions[0] = null;
             oldTouchPositions[1] = null;
-
-            GetComponent<Camera>().orthographicSize = Mathf.Max(1, Mathf.Min(5, GetComponent<Camera>().orthographicSize - Input.GetAxis("Mouse ScrollWheel")));
-
-
+            AsTheTouchMoved = false;
         }
         else if (touch == 1)
         {
-            SelectObject();
-
+            
             if (oldTouchPositions[0] == null || oldTouchPositions[1] != null)
             {
-                oldTouchPositions[0] = touchPosition;
+                oldTouchPositions[0] = touchPosition[0];
                 oldTouchPositions[1] = null;
             }
             else {
+                Vector2 newTouchPosition = touchPosition[0];
+                float x_translation = (((Vector2)oldTouchPositions[0]).x - newTouchPosition.x) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * HorizontalSpeedRatio;
+                float z_translation = (((Vector2)oldTouchPositions[0]).y - newTouchPosition.y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
 
-                float x_translation = (((Vector2)oldTouchPositions[0]).x - touchPosition.x) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * HorizontalSpeedRatio;
-                float z_translation = (((Vector2)oldTouchPositions[0]).y - touchPosition.y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
+                if (x_translation + z_translation > 0.1) AsTheTouchMoved = true;
 
                 MoveCam = transform.position + transform.TransformDirection(x_translation, 0, z_translation);
-
                 transform.position = new Vector3(Mathf.Min(Mathf.Max(MoveCam.x, 0), cubeManager.MapSize - 5), transform.position.y, Mathf.Min(Mathf.Max(MoveCam.z, 0), cubeManager.MapSize - 5));
 
-                oldTouchPositions[0] = touchPosition;
+                oldTouchPositions[0] = newTouchPosition;
+            }
+
+        }
+        else {
+            if (oldTouchPositions[1] == null)
+            {
+                oldTouchPositions[0] = touchPosition[0];
+                oldTouchPositions[1] = touchPosition[1];
+                oldTouchVector = (Vector2)(oldTouchPositions[0] - oldTouchPositions[1]);
+                oldTouchDistance = oldTouchVector.magnitude;
+            }
+            else {
+                Vector2[] newTouchPositions = { touchPosition[0], touchPosition[1] };
+                Vector2 newTouchVector = newTouchPositions[0] - newTouchPositions[1];
+                float newTouchDistance = newTouchVector.magnitude;
+
+                GetComponent<Camera>().orthographicSize = Mathf.Max(1, Mathf.Min(5, GetComponent<Camera>().orthographicSize * (oldTouchDistance / newTouchDistance)));
+
+
+                oldTouchPositions[0] = newTouchPositions[0];
+                oldTouchPositions[1] = newTouchPositions[1];
+                oldTouchVector = newTouchVector;
+                oldTouchDistance = newTouchDistance;
             }
         }
-
     }
 
 
-    void SelectObject()
+    void SelectObject(Vector2 Target)
     {
 
         RaycastHit hitInfo = new RaycastHit();
-        bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
+
+        bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Target), out hitInfo);
+        
         if (hit)
         {
-            Debug.Log("Hit " + hitInfo.transform.gameObject.name);
+            Objectselected = true;
+            selectionBox.Select(hitInfo.transform);
         }
         else {
-            Debug.Log("No hit");
+            Deselect();
         }
+    }
 
+    void Deselect()
+    {
+        selectionBox.Deselect();
+        Objectselected = false;
 
     }
 }

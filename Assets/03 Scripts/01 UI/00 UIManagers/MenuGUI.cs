@@ -62,8 +62,17 @@ void Start () {
 
     }
 
+    void Update ()
+    {
+        RenderSettings.fogColor = TransformHSV(RenderSettings.fogColor, 0.03f, 1, 1);
+
+    }
+
 public void MenuGoNext(int Option){
 		
+        
+
+
 		lastActionWasNext = true;
         switch (currentState)
         {
@@ -185,7 +194,21 @@ public void MenuGoBack(int option){
 		}
 	}
 
-    
 
+    Color TransformHSV(Color Color, float HueShift, float SaturationMultiplier, float ValueMultiplier)
+{
+    float VSU = ValueMultiplier * SaturationMultiplier * Mathf.Cos(HueShift * Mathf.PI / 180);
+    float VSW = ValueMultiplier * SaturationMultiplier * Mathf.Sin(HueShift * Mathf.PI / 180);
+
+    Color ret = new Color();
+
+    ret.r = (.299f* ValueMultiplier + .701f*VSU+.168f*VSW)* Color.r + (.587f* ValueMultiplier - .587f*VSU+.330f*VSW)* Color.g  + (.114f* ValueMultiplier - .114f*VSU-.497f*VSW)* Color.b;
+
+    ret.g = (.299f* ValueMultiplier - .299f*VSU-.328f*VSW)* Color.r + (.587f* ValueMultiplier + .413f*VSU+.035f*VSW)* Color.g + (.114f* ValueMultiplier - .114f*VSU+.292f*VSW)* Color.b;
+
+    ret.b = (.299f* ValueMultiplier - .3f*VSU+1.25f*VSW)* Color.r + (.587f* ValueMultiplier - .588f*VSU-1.05f*VSW)* Color.g + (.114f* ValueMultiplier + .886f*VSU-.203f*VSW)* Color.b;
+
+    return ret;
+}
 
 }

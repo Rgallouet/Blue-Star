@@ -3,14 +3,15 @@ using System.Collections;
 
 public class SelectionBox : MonoBehaviour {
 
-    private GameObject Selectionbox;
+    private Transform Selectionbox;
+
+    private Vector3 IdlePosition = new Vector3(0, -10, 0);
 
 
-
-	// Use this for initialization
-	void Start () {
-        Selectionbox = GetComponent<GameObject>();
-        Selectionbox.transform.position = new Vector3(0, -10, 0);
+    // Use this for initialization
+    void Start () {
+        Selectionbox = GetComponent<Transform>();
+        Selectionbox.transform.position = IdlePosition;
     }
 	
 	// Update is called once per frame
@@ -18,5 +19,16 @@ public class SelectionBox : MonoBehaviour {
 	
 	}
 
+    public void Select(Transform SelectedObject)
+    {
+        Selectionbox.transform.position = SelectedObject.position;
+        
+    }
+
+    public void Deselect()
+    {
+        Selectionbox.transform.position = IdlePosition;
+
+    }
 
 }
