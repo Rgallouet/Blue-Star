@@ -7,19 +7,10 @@ public class NewGameMenuButtons : MonoBehaviour {
 	public MenuGUI menuGUI;
 	private Canvas NewGameMenu;
 
-    public DataBaseManager dataBaseManager;
-    private ArrayList Names = new ArrayList();
-
-    /* Alternative #1 : hiding the second choice
-    public Button CustomButton;
-    public Text TextCustom;
-    */
-
     void Start(){
 
     NewGameMenu = GetComponent<Canvas>();
     NewGameMenu.enabled = false;
-    Names = dataBaseManager.getArrayData("select Slot, FirstName, LastName from PlayerStaticChoices order by Slot asc");
 
     }
 
@@ -36,29 +27,14 @@ public class NewGameMenuButtons : MonoBehaviour {
 
     public void ActivateMenu()
     {
+
     NewGameMenu.enabled = true;
     menuGUI.currentState = MenuGUI.CreateAPlayerStates.MODESELECTION;
 
-        /* Alternative #1 : hiding the second choice
 
-        if ((string)((ArrayList)Names[menuGUI.Slot])[2] == null)
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) <= 1)
         {
-            CustomButton.GetComponentInChildren<Text>().text = "";
-            CustomButton.interactable = false;
-            TextCustom.text = "";
-        }
-        else {
-            CustomButton.interactable = true;
-            CustomButton.GetComponentInChildren<Text>().text = "Custom mode";
-            TextCustom.text = "For demon rebirths (experienced players)";
-             }
-
-        */
-        
-
-     if ((string)((ArrayList)Names[menuGUI.Slot])[2] == null)
-        {
-        Next(1);
+        Next(3);
         }
 
 }

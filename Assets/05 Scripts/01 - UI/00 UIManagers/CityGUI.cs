@@ -3,6 +3,8 @@ using System.Collections;
 
 public class CityGUI : MonoBehaviour {
 
+
+    public DataBaseManager dataBaseManager;
     public SaveAndLoad saveAndLoad;
     public CubeManager cubeManager;
     private Vector2 worldStartPoint;
@@ -10,7 +12,8 @@ public class CityGUI : MonoBehaviour {
 
     void Start () {
 
-        Player = saveAndLoad.LoadPlayerChoicesFromDataBase(GameInformation.Slot);
+        
+        Player = saveAndLoad.LoadPlayerChoicesFromDataBase();
 
         cubeManager.GenerateRandomUnderground();
 

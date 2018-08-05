@@ -33,12 +33,14 @@ public class MenuGUI : MonoBehaviour {
     public bool lastActionWasNext;
     public bool isThereAnySavedDataOnTheMachine;
     public string PlayerLastName;
+    public string PlayerFirstName;
+
 
     // Gestion données référentielles
     public DataBaseManager dataBaseManager;
     private ArrayList RefQuestions = new ArrayList();
     private ArrayList Names = new ArrayList();
-
+    public ArrayList PlayerAccountStatsBefore;
 
     public SaveAndLoad saveAndLoad;
     public MenuAudio menuAudio;
@@ -71,6 +73,9 @@ void Start () {
         // Get the questions strings
         RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc");
 
+        // Getting the status of each save slots
+        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats", "BlueStarDataWarehouse.db");
+
 
     }
 
@@ -95,12 +100,14 @@ public void MenuGoNext(int Option){
 
             case CreateAPlayerStates.LOAD:
 
-                GameInformation.Slot = Slot;
-                GameInformation.IsNewChar = false;
-                SceneManager.LoadScene("Underground City");
+                saveAndLoad.SettingTheCurrentSaveSlot(Slot);
+                SceneManager.LoadScene("Undercity");
+
                 break;
 
             case CreateAPlayerStates.SAVE:
+
+                saveAndLoad.SettingTheCurrentSaveSlot(Slot);
                 saveGameNameMenuButtons.ActivateMenu();
                 break;
 
@@ -113,12 +120,7 @@ public void MenuGoNext(int Option){
                 switch (Option)
                 {
                     case 1: // I chose "Guided"
-
-                        if (isThereAnySavedDataOnTheMachine == true)
-                        {
-                            dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[1])[2], (string)((ArrayList)RefQuestions[1])[3], (string)((ArrayList)RefQuestions[1])[4]);
-                        }
-                        
+                        dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[1])[2], (string)((ArrayList)RefQuestions[1])[3], (string)((ArrayList)RefQuestions[1])[4]);
                         preDefinedSelectionButtons.ActivateMenu();
                         break;
 
@@ -126,15 +128,17 @@ public void MenuGoNext(int Option){
                         dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[4])[2], (string)((ArrayList)RefQuestions[4])[3], (string)((ArrayList)RefQuestions[4])[4]);
                         historySelectionButtons.ActivateMenu();
                         break;
+
+                    case 3: // The first time on legacy
+                        preDefinedSelectionButtons.ActivateMenu();
+                        break;
                 }
                 break;
 
             case CreateAPlayerStates.PREDEFINEDSELECTION:
 
                 newPlayer = historyAllocation.CreateNewPlayer(preDefinedSelectionButtons.historyChoices, dataBaseManager);
-                
                 statAllocationButtons.ActivateMenu();
-
                 if (isThereAnySavedDataOnTheMachine == true)
                         {
                         dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[2])[2], (string)((ArrayList)RefQuestions[2])[3], (string)((ArrayList)RefQuestions[2])[4]);
@@ -170,19 +174,16 @@ public void MenuGoNext(int Option){
             case CreateAPlayerStates.FINALSETUP:
 
 
-                newPlayer.PlayerFirstName = backgroundSelectionButtons.PlayerFirstName;
+                newPlayer.PlayerFirstName = PlayerFirstName;
                 newPlayer.PlayerLastName = PlayerLastName;
                 newPlayer.PlayerGender = backgroundSelectionButtons.PlayerGender;
                 newPlayer.PlayerBio = backgroundSelectionButtons.PlayerBio;
 
-                saveAndLoad.SavePlayerChoicesInDataBase(Slot, newPlayer);
-                GameInformation.Slot = Slot;
-                GameInformation.IsNewChar = true;
+                saveAndLoad.SavePlayerChoicesInDataBase(newPlayer);
 
 
 
-
-                //SceneManager.LoadScene("Underground City");
+                SceneManager.LoadScene("Undercity");
                 break;
                 
         }

@@ -5,6 +5,7 @@ using System.Collections;
 public class CharacterDisplay : MonoBehaviour {
 
     public DataBaseManager dataBaseManager;
+
     private ArrayList RefHellCircles = new ArrayList();
     private ArrayList RefAllegiance = new ArrayList();
     private ArrayList RefGenus = new ArrayList();

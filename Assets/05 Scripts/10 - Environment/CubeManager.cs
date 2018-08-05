@@ -5,10 +5,10 @@ using System.Collections.Generic;
 public class CubeManager : MonoBehaviour {
 
     public SaveAndLoad saveAndLoad;
-
+    public CityGUI cityGUI;
     public Transform PlayerPrefab;
-    public int MapSize;
-    public int AggregationFactor;
+    public int MapSize = 150;
+    public int AggregationFactor= 100;
 
     public Transform[] CubePrefabs;
     public int[] Probability;
@@ -27,20 +27,38 @@ public class CubeManager : MonoBehaviour {
     }
 
 
-    public void GenerateRandomUnderground() {
 
-        if (GameInformation.IsNewChar == true)
+    public void GettingTheMap() {
+
+        if (cityGUI.Player.NumberOfLegacy==1)
         {
             Debug.Log("NewGame!");
             Map = CalculateTheMap();
-            saveAndLoad.SavePlayerCityInDataBase(GameInformation.Slot, Map);
+            saveAndLoad.SavePlayerCityInDataBase(Map);
         }
-        else {
-            Map = saveAndLoad.LoadPlayerCityFromDataBase(GameInformation.Slot);
+        else
+        {
+            Map = saveAndLoad.LoadPlayerCityFromDataBase();
             Debug.Log("LoadGame!");
         }
 
 
+
+    }
+
+
+
+
+
+
+
+
+    public void GenerateRandomUnderground() {
+
+
+
+        GettingTheMap();
+        
         int[][] Visible = CalculateTheVisibleArea(Map);
 
         Object Cube;

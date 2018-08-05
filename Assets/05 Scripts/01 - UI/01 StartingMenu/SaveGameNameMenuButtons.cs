@@ -10,9 +10,11 @@ public class SaveGameNameMenuButtons : MonoBehaviour {
     private Canvas SaveNameCanvas;
     public MenuGUI menuGUI;
 
-    private Button TextNext;
+    private Button ButtonNext;
+    private Button ButtonBack;
 
-    public string PlayerLastName;
+
+    public string Name;
 
 
 
@@ -21,7 +23,8 @@ public class SaveGameNameMenuButtons : MonoBehaviour {
 
 
         SaveNameCanvas = GetComponent<Canvas>();
-        TextNext = SaveNameCanvas.GetComponentsInChildren<Button>()[0];
+        ButtonNext = SaveNameCanvas.GetComponentsInChildren<Button>()[0];
+        ButtonBack = SaveNameCanvas.GetComponentsInChildren<Button>()[1];
 
         SaveNameCanvas.enabled = false;
 
@@ -31,27 +34,24 @@ public class SaveGameNameMenuButtons : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        PlayerLastName = SaveNameCanvas.GetComponentsInChildren<Text>()[3].text;
+        Name = SaveNameCanvas.GetComponentsInChildren<Text>()[3].text;
 
-        if (!(PlayerLastName == ""))
-        {
-            
-            TextNext.interactable = true;
-
-            if (menuGUI.isThereAnySavedDataOnTheMachine == false)
-            { TextNext.GetComponentsInChildren<Text>()[0].text = "Start"; }
-            else
-            { TextNext.GetComponentsInChildren<Text>()[0].text = "Next"; }
+        if (!(Name == "")) {
+            ButtonNext.interactable = true;
+            ButtonNext.GetComponentsInChildren<Text>()[0].enabled = true;
+            ButtonBack.interactable = true;
+            ButtonBack.GetComponentsInChildren<Text>()[0].enabled = true;
 
         }
         else {
-            TextNext.interactable = false;
-            TextNext.GetComponentsInChildren<Text>()[0].text = "";
+            ButtonNext.interactable = false;
+            ButtonNext.GetComponentsInChildren<Text>()[0].enabled = false;
+            ButtonBack.interactable = false;
+            ButtonBack.GetComponentsInChildren<Text>()[0].enabled = false;
+
+            //ButtonNext.interactable = false;
         }
 
-
-
-        
 
 
     }
@@ -60,7 +60,10 @@ public class SaveGameNameMenuButtons : MonoBehaviour {
 
     public void Next()
     {
-        menuGUI.PlayerLastName = PlayerLastName;
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) == 0)
+        { menuGUI.PlayerLastName = Name; }
+        else { menuGUI.PlayerFirstName = Name; }
+
         menuGUI.MenuGoNext(0);
         SaveNameCanvas.enabled = false;
     }
@@ -68,7 +71,7 @@ public class SaveGameNameMenuButtons : MonoBehaviour {
     public void Back()
     {
 
-        if (menuGUI.isThereAnySavedDataOnTheMachine == false)
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[1])[2]) == 0)
         {
             Application.Quit();
         }
@@ -86,13 +89,22 @@ public class SaveGameNameMenuButtons : MonoBehaviour {
         SaveNameCanvas.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.SAVENAME;
 
-        if (menuGUI.isThereAnySavedDataOnTheMachine == false)
-        {
-            SaveNameCanvas.GetComponentsInChildren<Text>()[1].text = "";
-            SaveNameCanvas.GetComponentsInChildren<Button>()[1].interactable = false;
+
+        // The start versus the legacy
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) == 0) {
+
+            SaveNameCanvas.GetComponentsInChildren<Text>()[0].text = "Start";
+            SaveNameCanvas.GetComponentsInChildren<Text>()[1].text = "Quit";
+            SaveNameCanvas.GetComponentsInChildren<Text>()[2].text = "The family name of your demon ancestors";
+
         }
-
-
+        else {
+            SaveNameCanvas.GetComponentsInChildren<Text>()[0].text = "Next";
+            SaveNameCanvas.GetComponentsInChildren<Text>()[1].text = "Back";
+            SaveNameCanvas.GetComponentsInChildren<Text>()[2].text = "Your first name";
+        }
+        
+        
     }
 
 

@@ -9,14 +9,39 @@ public class SaveAndLoad: MonoBehaviour {
     private ArrayList PlayerStatsModifiers;
     private ArrayList PlayerProgress;
     private ArrayList PlayerCity;
+    private ArrayList PlayerAccountStatsBefore;
+    private ArrayList CurrentSlot;
+
     private HistoryAllocation historyAllocation = new HistoryAllocation();
 
     private int MapSize = 150;
 
+    private int GetSlot() {
 
-    public void SavePlayerChoicesInDataBase(int Slot, BasePlayer Player)
+        //Getting the slot
+        CurrentSlot = dataBaseManager.getArrayData("select * from CrossSceneTemporaryData ", "BlueStarDataWarehouse.db");
+        int Slot = System.Convert.ToInt32(((ArrayList)CurrentSlot[1])[0]);
+        return Slot;
+
+    }
+
+    public void SettingTheCurrentSaveSlot(int Slot) {
+
+        string[] CrossSceneData = {
+            "CurrentSlot = " + Slot
+        };
+
+        // Setting the current game instance to the selected save slot for cross scene management
+        dataBaseManager.UpdateData("CrossSceneTemporaryData", "1=1", CrossSceneData);
+
+    }
+
+    public void SavePlayerChoicesInDataBase(BasePlayer Player)
     {
+        int Slot = GetSlot();
 
+
+        // Saving the detailed choices
         string[] PlayerStaticChoicesValues = {
 
             "FirstName = '" +       Player.PlayerFirstName + "'",
@@ -40,6 +65,8 @@ public class SaveAndLoad: MonoBehaviour {
 
         dataBaseManager.UpdateData("PlayerStaticChoices", "Slot=" + Slot, PlayerStaticChoicesValues);
 
+
+        // Saving the allocated points
         string[] PlayerStatsModifiersValues = {
 
             "Strength = " +         Player.AllocatedStatsModifier.Strength  ,
@@ -69,6 +96,8 @@ public class SaveAndLoad: MonoBehaviour {
 
         dataBaseManager.UpdateData("PlayerStatsModifiers", "Slot=" + Slot + " and ModifierSource='PlayerCreation' ", PlayerStatsModifiersValues);
 
+
+        // Resetting the progress of the hero
         string[] PlayerProgressValues = {
 
             "Level = " +            Player.PlayerLevel  ,
@@ -80,16 +109,36 @@ public class SaveAndLoad: MonoBehaviour {
 
         dataBaseManager.UpdateData("PlayerProgress", "Slot=" + Slot, PlayerProgressValues);
 
+
+        // Updating the account general stat, and increasing by one the number of legacy
+        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats where Slot =" + Slot, "BlueStarDataWarehouse.db");
+
+        string[] PlayerAccountStats = {
+
+            "TotalXp = " +            System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[1])  ,
+            "NumberOfLegacy = " +        (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2])+1)
+
+        };
+
+        dataBaseManager.UpdateData("PlayerAccountStats", "Slot=" + Slot, PlayerAccountStats);
+
+        
     }
     
-    public BasePlayer LoadPlayerChoicesFromDataBase(int Slot)
+
+    public BasePlayer LoadPlayerChoicesFromDataBase()
     {
+
+        int Slot = GetSlot();
+
+
         BasePlayer Player = new BasePlayer();
 
         // DataBase Extract
         PlayerStaticChoices = dataBaseManager.getArrayData("select * from PlayerStaticChoices where Slot =" + Slot, "BlueStarDataWarehouse.db");
         PlayerStatsModifiers = dataBaseManager.getArrayData("select * from PlayerStatsModifiers where ModifierSource='PlayerCreation' and Slot =" + Slot, "BlueStarDataWarehouse.db");
         PlayerProgress = dataBaseManager.getArrayData("select * from PlayerProgress where Slot =" + Slot, "BlueStarDataWarehouse.db");
+        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats where Slot =" + Slot, "BlueStarDataWarehouse.db");
 
         //StaticChoices
         Player.PlayerFirstName =    (string)((ArrayList)PlayerStaticChoices[1])[1];
@@ -175,14 +224,19 @@ public class SaveAndLoad: MonoBehaviour {
         Player.Perception =     Player.HistoryChoicesModifier.Perception + Player.AllocatedStatsModifier.Perception;
         Player.Judgement =      Player.HistoryChoicesModifier.Judgement + Player.AllocatedStatsModifier.Judgement;
 
+        Player.NumberOfLegacy = System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2]);
 
         return Player;
     }
 
 
 
-    public void SavePlayerCityInDataBase(int Slot, int[][] Map)
+    public void SavePlayerCityInDataBase(int[][] Map)
     {
+
+
+        int Slot = GetSlot();
+
         int z = 0;
         int x = 0;
 
@@ -202,8 +256,10 @@ public class SaveAndLoad: MonoBehaviour {
         }
     }
 
-    public int[][] LoadPlayerCityFromDataBase(int Slot)
+    public int[][] LoadPlayerCityFromDataBase()
     {
+
+        int Slot = GetSlot();
 
         PlayerCity = dataBaseManager.getArrayData("select * from PlayerCity where Slot =" + Slot, "BlueStarDataWarehouse.db");
 

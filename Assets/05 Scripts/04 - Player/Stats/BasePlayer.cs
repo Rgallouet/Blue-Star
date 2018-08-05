@@ -59,5 +59,6 @@ public class BasePlayer {
 	public int Perception;
 	public int Judgement;
 	public int Chaos;
-    
+
+    public int NumberOfLegacy;
 }

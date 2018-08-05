@@ -11,9 +11,8 @@ public class BackgroundSelectionButtons : MonoBehaviour {
     private ArrayList RefErrors = new ArrayList();
 
 
-    public GridLayoutGroup[] ChoiceDisplay = new GridLayoutGroup[3]; 
+    private GridLayoutGroup[] ChoiceDisplay = new GridLayoutGroup[2]; 
 
-	public string PlayerFirstName;
     public string PlayerBio;
     public string PlayerGender;
 
@@ -27,18 +26,17 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 
         BackgroundSelection = GetComponent<Canvas>();
 
-		for (int i=0;i<3;i++) {
+		for (int i=0;i<2;i++) {
 			ChoiceDisplay[i]=BackgroundSelection.GetComponentsInChildren<GridLayoutGroup>()[i];
 		}
 		BackgroundSelection.enabled = false;
 	}
 
 	void UpdateDetails () {
-		PlayerFirstName = ChoiceDisplay [0].GetComponentsInChildren<Text> () [2].text;
-		PlayerBio=ChoiceDisplay [1].GetComponentsInChildren<Text> () [2].text;
+		PlayerBio=ChoiceDisplay [0].GetComponentsInChildren<Text> () [2].text;
 		
 		for (int i=0; i<6; i++) {
-			if (ChoiceDisplay [2].GetComponentsInChildren<Toggle> () [i].isOn==true) {
+			if (ChoiceDisplay [1].GetComponentsInChildren<Toggle> () [i].isOn==true) {
                 genderSelection =i+1;
                 PlayerGender = genderSelectionNames[genderSelection - 1];
             }
@@ -49,12 +47,12 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 
     public bool TestDetails()
     {
-        if (!(PlayerFirstName == "") && !(PlayerGender == "") && PlayerBio.IndexOf("'")==-1) { return true; } else { return false; }
+        if (!(PlayerGender == "") && PlayerBio.IndexOf("'")==-1) { return true; } else { return false; }
     }
 
     public void Next (){
 
-        if (menuGUI.isThereAnySavedDataOnTheMachine == false)
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) == 0)
         {
             menuGUI.MenuGoNext(0);
             BackgroundSelection.enabled = false;
@@ -85,9 +83,9 @@ public class BackgroundSelectionButtons : MonoBehaviour {
         BackgroundSelection.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.FINALSETUP;
 
-        if (menuGUI.isThereAnySavedDataOnTheMachine == false) {
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) == 0) {
 
-            PlayerFirstName = "Ephan";
+            menuGUI.PlayerFirstName = "Ephan";
             PlayerBio = "Ephan is the last vampyri lord of his forgotten house, and seeks to restore the glory of his name through military feats. He embarks in a perilous invasion of foreign and unknown lands to build his new legacy.";
             PlayerGender = "Bigender";
 

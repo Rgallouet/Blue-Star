@@ -8,7 +8,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
     public DataBaseManager dataBaseManager;
     private ArrayList refData = new ArrayList();
     private ArrayList RefErrors = new ArrayList();
-    private ArrayList Names = new ArrayList();
+    private ArrayList PlayerAccountStatsBefore;
 
     private Canvas PreDefinedSelection;
     public CharacterDisplay characterDisplay;
@@ -31,7 +31,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 
         refData = dataBaseManager.getArrayData("select * from REF_PredefinedCharacters order by Id asc");
         RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
-        Names = dataBaseManager.getArrayData("select Slot, FirstName, LastName from PlayerStaticChoices order by Slot asc");
+        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats", "BlueStarDataWarehouse.db");
 
         //Link to left side text box for displaying names
         for (int i=0; i<9; i++) { Choice [i] = PreDefinedSelection.GetComponentInChildren<GridLayoutGroup>().GetComponentsInChildren<Button> () [i]; }
@@ -55,8 +55,10 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 	{
         HistoryChoice = choice;
         GetSelectionChoices (choice);
-		UpdateDescription (choice);
-	}
+
+        UpdateDescription(choice);
+        Debug.Log("la cest bien check 2 ");
+    }
 
 
     // Reading the values of sub-choice for a predefined character chosen
@@ -82,7 +84,6 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 	{
 
         PreDefinedSelection.GetComponentsInChildren<Text>()[12].text = ((string)((ArrayList)refData[HistoryChoice])[2]).Replace("<br>", "\n");
-
         characterDisplay.UpdateCharacterDisplay(historyChoices, false);
 
     }
@@ -118,9 +119,12 @@ public class PreDefinedSelectionButtons : MonoBehaviour
         PreDefinedSelection.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.PREDEFINEDSELECTION;
 
-        if ((string)((ArrayList)Names[1])[2] == null)
+
+        if (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[menuGUI.Slot])[2]) == 0)
         {
+
             choice(1);
+            Debug.Log("la cest mieux");
             Next();
         }
 
