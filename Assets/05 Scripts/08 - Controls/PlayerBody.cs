@@ -74,10 +74,10 @@ public class PlayerBody : MonoBehaviour {
 	{
 
          // update the animator parameters
-        animator.SetFloat("Forward", goFront , 0.1f, Time.deltaTime);
-		animator.SetFloat("Rightside", goRight, 0.1f, Time.deltaTime);
-        animator.SetInteger("State", bodyStatus==BodyStatus.isOnGround ? 0 : bodyStatus == BodyStatus.isJumping ? 1 : bodyStatus == BodyStatus.isFlying ? 2 : 3 ); 
-		if (bodyStatus==BodyStatus.isJumping? true : false) animator.SetFloat("JumpingFalling", m_Rigidbody.velocity.y);
+        //animator.SetFloat("Forward", goFront , 0.1f, Time.deltaTime);
+		//animator.SetFloat("Rightside", goRight, 0.1f, Time.deltaTime);
+        //animator.SetInteger("State", bodyStatus==BodyStatus.isOnGround ? 0 : bodyStatus == BodyStatus.isJumping ? 1 : bodyStatus == BodyStatus.isFlying ? 2 : 3 ); 
+		//if (bodyStatus==BodyStatus.isJumping? true : false) animator.SetFloat("JumpingFalling", m_Rigidbody.velocity.y);
 
 
 	}

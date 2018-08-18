@@ -113,12 +113,7 @@ public class SaveAndLoad: MonoBehaviour {
         // Updating the account general stat, and increasing by one the number of legacy
         PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats where Slot =" + Slot, "BlueStarDataWarehouse.db");
 
-        string[] PlayerAccountStats = {
-
-            "TotalXp = " +            System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[1])  ,
-            "NumberOfLegacy = " +        (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2])+1)
-
-        };
+        string[] PlayerAccountStats = { "NumberOfLegacy = " + (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2])+1) };
 
         dataBaseManager.UpdateData("PlayerAccountStats", "Slot=" + Slot, PlayerAccountStats);
 
@@ -225,6 +220,7 @@ public class SaveAndLoad: MonoBehaviour {
         Player.Judgement =      Player.HistoryChoicesModifier.Judgement + Player.AllocatedStatsModifier.Judgement;
 
         Player.NumberOfLegacy = System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2]);
+        Player.UnderCityExist = System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[3]);
 
         return Player;
     }
@@ -254,6 +250,15 @@ public class SaveAndLoad: MonoBehaviour {
              
             dataBaseManager.UpdateData("PlayerCity", "Slot=" + Slot + " and X=" + x, PlayerCityVector);
         }
+
+
+        // Saving the status of the city
+        string[] PlayerAccountStats = { "UnderCityExist = 1" };
+        dataBaseManager.UpdateData("PlayerAccountStats", "Slot=" + Slot, PlayerAccountStats);
+
+
+
+
     }
 
     public int[][] LoadPlayerCityFromDataBase()

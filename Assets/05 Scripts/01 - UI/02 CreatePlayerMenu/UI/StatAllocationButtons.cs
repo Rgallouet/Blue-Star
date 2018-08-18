@@ -98,13 +98,11 @@ public class StatAllocationButtons : MonoBehaviour {
 
     public void Next()
     {
-
-
+        
         if (menuGUI.statAllocation.readyForNext==true)
         {
             menuGUI.MenuGoNext(0);
             StatAllocationMenu.enabled = false;
-
         }
         else
         {
@@ -124,12 +122,13 @@ public class StatAllocationButtons : MonoBehaviour {
     }
 
     public void ActivateMenu() {
+
         StatAllocationMenu.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;
         menuGUI.statAllocation.DisplayStatAllocationModule(menuGUI.lastActionWasNext, menuGUI.newPlayer);
 
         // If first game (i.e. no data), then directly select 5 strengths and 5 luck and pass to the next screen
-        if (menuGUI.isThereAnySavedDataOnTheMachine == false)
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) < 2)
         {
             CallPlusStat(0);
             CallPlusStat(0);
@@ -142,6 +141,11 @@ public class StatAllocationButtons : MonoBehaviour {
             CallPlusStat(19);
             CallPlusStat(19);
             Next();
+        }
+        else
+        {
+            menuGUI.dialogue.UpdateDialogue(false, (string)((ArrayList)menuGUI.RefQuestions[3])[2], (string)((ArrayList)menuGUI.RefQuestions[3])[3], (string)((ArrayList)menuGUI.RefQuestions[3])[4]);
+
         }
 
 

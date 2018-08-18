@@ -49,7 +49,11 @@ public class WindowsCamera : MonoBehaviour
         else {
 
 
-            if (Input.GetMouseButton(0)) { touch = 1; touchPosition[0] = Input.mousePosition; }
+            if (Input.GetMouseButton(0))
+            {
+                touch = 1;
+                touchPosition[0] = Input.mousePosition;
+            }
             else touch = 0;
 
             //right clic to deselect

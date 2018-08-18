@@ -31,14 +31,13 @@ public class MenuGUI : MonoBehaviour {
 
     // Variables situationnelles
     public bool lastActionWasNext;
-    public bool isThereAnySavedDataOnTheMachine;
     public string PlayerLastName;
     public string PlayerFirstName;
 
 
     // Gestion données référentielles
     public DataBaseManager dataBaseManager;
-    private ArrayList RefQuestions = new ArrayList();
+    public ArrayList RefQuestions = new ArrayList();
     private ArrayList Names = new ArrayList();
     public ArrayList PlayerAccountStatsBefore;
 
@@ -62,13 +61,6 @@ void Start () {
 
 		// Initiate transition status
 		lastActionWasNext = true;
-
-        // Checking if there exist a saved game
-        Names = dataBaseManager.getArrayData("select Slot, FirstName, LastName from PlayerStaticChoices order by Slot asc");
-        if ((string)((ArrayList)Names[1])[2] == null)
-        {
-            isThereAnySavedDataOnTheMachine = false;
-        }
 
         // Get the questions strings
         RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc");
@@ -101,6 +93,7 @@ public void MenuGoNext(int Option){
             case CreateAPlayerStates.LOAD:
 
                 saveAndLoad.SettingTheCurrentSaveSlot(Slot);
+
                 SceneManager.LoadScene("Undercity");
 
                 break;
@@ -108,6 +101,7 @@ public void MenuGoNext(int Option){
             case CreateAPlayerStates.SAVE:
 
                 saveAndLoad.SettingTheCurrentSaveSlot(Slot);
+
                 saveGameNameMenuButtons.ActivateMenu();
                 break;
 
@@ -138,8 +132,10 @@ public void MenuGoNext(int Option){
             case CreateAPlayerStates.PREDEFINEDSELECTION:
 
                 newPlayer = historyAllocation.CreateNewPlayer(preDefinedSelectionButtons.historyChoices, dataBaseManager);
+
                 statAllocationButtons.ActivateMenu();
-                if (isThereAnySavedDataOnTheMachine == true)
+
+                if (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[Slot])[2])> 1)
                         {
                         dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[2])[2], (string)((ArrayList)RefQuestions[2])[3], (string)((ArrayList)RefQuestions[2])[4]);
                         }
@@ -164,10 +160,6 @@ public void MenuGoNext(int Option){
 
                 backgroundSelectionButtons.ActivateMenu();
 
-                if (isThereAnySavedDataOnTheMachine == true)
-                {
-                    dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[3])[2], (string)((ArrayList)RefQuestions[3])[3], (string)((ArrayList)RefQuestions[3])[4]);
-                }
 
                 break;
 
@@ -180,15 +172,11 @@ public void MenuGoNext(int Option){
                 newPlayer.PlayerBio = backgroundSelectionButtons.PlayerBio;
 
                 saveAndLoad.SavePlayerChoicesInDataBase(newPlayer);
-
-
-
+                
                 SceneManager.LoadScene("Undercity");
                 break;
                 
         }
-
-		
 	}
 
 public void MenuGoBack(int option){
@@ -202,16 +190,8 @@ public void MenuGoBack(int option){
         case CreateAPlayerStates.SAVE: gameMenuButtons.ActivateMenu(); break;
         case CreateAPlayerStates.SAVENAME: gameMenuButtons.ActivateMenu(); break;
         case CreateAPlayerStates.MODESELECTION: saveGameMenuButtons.ActivateMenu(); break;
-
-		case CreateAPlayerStates.HISTORYSELECTION:
-                newGameMenuButtons.ActivateMenu();
-				//menuAudio.PlayStartGameMenuAudio();
-			break;
-
-		case CreateAPlayerStates.PREDEFINEDSELECTION:
-                newGameMenuButtons.ActivateMenu();
-                //menuAudio.PlayStartGameMenuAudio();
-                break;
+		case CreateAPlayerStates.HISTORYSELECTION: newGameMenuButtons.ActivateMenu(); break;
+		case CreateAPlayerStates.PREDEFINEDSELECTION: newGameMenuButtons.ActivateMenu(); break;
 
 		case CreateAPlayerStates.STATALLOCATION:
 
@@ -220,38 +200,8 @@ public void MenuGoBack(int option){
 			case 2: historySelectionButtons.ActivateMenu();	break;}
 			break;
 
-		case CreateAPlayerStates.FINALSETUP:
-                statAllocationButtons.ActivateMenu();
-			break;
-
-		
+		case CreateAPlayerStates.FINALSETUP: statAllocationButtons.ActivateMenu(); break;
 
 		}
-	}
-
-    /*
-
-    void Update ()
-    {
-        RenderSettings.fogColor = TransformHSV(RenderSettings.fogColor, 0.03f, 1, 1);
-
-    }
-    Color TransformHSV(Color Color, float HueShift, float SaturationMultiplier, float ValueMultiplier)
-{
-    float VSU = ValueMultiplier * SaturationMultiplier * Mathf.Cos(HueShift * Mathf.PI / 180);
-    float VSW = ValueMultiplier * SaturationMultiplier * Mathf.Sin(HueShift * Mathf.PI / 180);
-
-    Color ret = new Color();
-
-    ret.r = (.299f* ValueMultiplier + .701f*VSU+.168f*VSW)* Color.r + (.587f* ValueMultiplier - .587f*VSU+.330f*VSW)* Color.g  + (.114f* ValueMultiplier - .114f*VSU-.497f*VSW)* Color.b;
-
-    ret.g = (.299f* ValueMultiplier - .299f*VSU-.328f*VSW)* Color.r + (.587f* ValueMultiplier + .413f*VSU+.035f*VSW)* Color.g + (.114f* ValueMultiplier - .114f*VSU+.292f*VSW)* Color.b;
-
-    ret.b = (.299f* ValueMultiplier - .3f*VSU+1.25f*VSW)* Color.r + (.587f* ValueMultiplier - .588f*VSU-1.05f*VSW)* Color.g + (.114f* ValueMultiplier + .886f*VSU-.203f*VSW)* Color.b;
-
-    return ret;
-}
-
-
-    */
+	} 
 }

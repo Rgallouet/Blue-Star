@@ -61,4 +61,5 @@ public class BasePlayer {
 	public int Chaos;
 
     public int NumberOfLegacy;
+    public int UnderCityExist;
 }
