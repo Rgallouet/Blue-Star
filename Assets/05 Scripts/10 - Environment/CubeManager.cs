@@ -58,7 +58,7 @@ public class CubeManager : MonoBehaviour {
         Object Cube;
 
         float xOffset = 0.5f;
-        float yOffset = 0.5f;
+        float yOffset = 0.75f;
         float zOffset = 0.5f;
 
         Quaternion Setup = Quaternion.identity;
@@ -74,12 +74,18 @@ public class CubeManager : MonoBehaviour {
                     if (Map[x][z] > 9)
                     {
                         // If ground
-                        Setup = Quaternion.Euler(180 * Random.Range(0, 1), 90 * Random.Range(0, 4), 180 * Random.Range(0, 1));
+                        //Setup = Quaternion.Euler(180 * Random.Range(0, 1), 90 * Random.Range(0, 4), 180 * Random.Range(0, 1));
+
+                        // if 2d Sprite
+                        Setup = Quaternion.Euler(0, 0, 0);
                         cubePosition = new Vector3(xOffset + x, 0, zOffset + z);
                     }
                     else {
                         // if cube
-                        Setup = Quaternion.Euler(90 * Random.Range(0, 4), 90 * Random.Range(0, 4), 90 * Random.Range(0, 4));
+                        //Setup = Quaternion.Euler(90 * Random.Range(0, 4), 90 * Random.Range(0, 4), 90 * Random.Range(0, 4));
+
+                        // if 2d Sprite
+                        Setup= Quaternion.Euler(0, 0, 0);
                         cubePosition = new Vector3(xOffset + x, yOffset, zOffset + z);
                     }
                     Cube = Instantiate(CubePrefabs[Map[x][z]], cubePosition, Setup);

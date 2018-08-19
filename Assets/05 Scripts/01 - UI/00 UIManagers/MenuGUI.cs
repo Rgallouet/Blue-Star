@@ -26,6 +26,9 @@ public class MenuGUI : MonoBehaviour {
     public SaveGameNameMenuButtons saveGameNameMenuButtons;
     public LoadGameMenuButtons loadGameMenuButtons;
 
+    // lien vers le background
+    public Animator StartScreenAnimation;
+
     // lien vers dialogue
     public Dialogue dialogue;
 
@@ -110,7 +113,9 @@ public void MenuGoNext(int Option){
                 break;
 
             case CreateAPlayerStates.MODESELECTION:
-                //menuAudio.PlayCreationMenuAudio();
+                menuAudio.PlayCreationMenuAudio();
+                StartScreenAnimation.SetBool("CharacterCreation", true);
+
                 switch (Option)
                 {
                     case 1: // I chose "Guided"
@@ -190,8 +195,17 @@ public void MenuGoBack(int option){
         case CreateAPlayerStates.SAVE: gameMenuButtons.ActivateMenu(); break;
         case CreateAPlayerStates.SAVENAME: gameMenuButtons.ActivateMenu(); break;
         case CreateAPlayerStates.MODESELECTION: saveGameMenuButtons.ActivateMenu(); break;
-		case CreateAPlayerStates.HISTORYSELECTION: newGameMenuButtons.ActivateMenu(); break;
-		case CreateAPlayerStates.PREDEFINEDSELECTION: newGameMenuButtons.ActivateMenu(); break;
+
+		case CreateAPlayerStates.HISTORYSELECTION:
+                newGameMenuButtons.ActivateMenu();
+                menuAudio.PlayStartGameMenuAudio();
+                StartScreenAnimation.SetBool("CharacterCreation", false);
+                break;
+		case CreateAPlayerStates.PREDEFINEDSELECTION:
+                newGameMenuButtons.ActivateMenu();
+                menuAudio.PlayStartGameMenuAudio();
+                StartScreenAnimation.SetBool("CharacterCreation", false);
+                break;
 
 		case CreateAPlayerStates.STATALLOCATION:
 

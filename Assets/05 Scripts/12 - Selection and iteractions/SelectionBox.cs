@@ -21,8 +21,9 @@ public class SelectionBox : MonoBehaviour {
 
     public void Select(Transform SelectedObject)
     {
-        Selectionbox.transform.position = SelectedObject.position;
-        
+        Selectionbox.transform.position = new Vector3(SelectedObject.position.x, SelectedObject.position.y+0.01f, SelectedObject.position.z);
+
+
     }
 
     public void Deselect()

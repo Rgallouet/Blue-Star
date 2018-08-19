@@ -60,7 +60,7 @@ public class WindowsCamera : MonoBehaviour
             if (Input.GetMouseButtonUp(1) && Objectselected == true) Deselect();
 
             //use scroll wheel to zoom
-            if (Input.GetAxis("Mouse ScrollWheel") != 0) GetComponent<Camera>().orthographicSize = Mathf.Max(1, Mathf.Min(5, GetComponent<Camera>().orthographicSize - Input.GetAxis("Mouse ScrollWheel")));
+            if (Input.GetAxis("Mouse ScrollWheel") != 0) GetComponent<Camera>().orthographicSize = Mathf.Max(1, Mathf.Min(10, GetComponent<Camera>().orthographicSize - Input.GetAxis("Mouse ScrollWheel")));
 
             //select only if i clicked and didn't move until i stopped clicking
             if (Input.GetMouseButtonUp(0) && AsTheTouchMoved == false) SelectObject(touchPosition[0]);
