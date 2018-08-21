@@ -10,6 +10,7 @@ public class Dialogue : MonoBehaviour {
     public Text NameRightUI;
     public Text DialogueTextUI;
 
+    public int fadeInTime;
     public int fadeOutTime;
 
     public Image BackgroundAlpha;
@@ -30,10 +31,13 @@ public class Dialogue : MonoBehaviour {
         NameRightUI.text = NameRight;
         DialogueTextUI.text = DialogueText;
 
+
+        StartCoroutine(DoFadeIn());
+
         //Fade in flash
-        canvasGroup.alpha = 1;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
+        //canvasGroup.alpha = 1;
+        //canvasGroup.interactable = true;
+        //canvasGroup.blocksRaycasts = true;
     }
 
     public void CloseDialogue() {
@@ -50,6 +54,19 @@ public class Dialogue : MonoBehaviour {
         }
        canvasGroup.interactable = false;
        canvasGroup.blocksRaycasts = false;
+        yield return null;
+    }
+
+    IEnumerator DoFadeIn()
+    {
+
+        while (canvasGroup.alpha <1)
+        {
+            canvasGroup.alpha += fadeInTime * Time.deltaTime;
+            yield return null;
+        }
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
         yield return null;
     }
 

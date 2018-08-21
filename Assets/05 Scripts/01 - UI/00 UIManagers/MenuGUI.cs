@@ -36,7 +36,7 @@ public class MenuGUI : MonoBehaviour {
     public bool lastActionWasNext;
     public string PlayerLastName;
     public string PlayerFirstName;
-
+    public string CreationModeSelected;
 
     // Gestion données référentielles
     public DataBaseManager dataBaseManager;
@@ -104,35 +104,57 @@ public void MenuGoNext(int Option){
             case CreateAPlayerStates.SAVE:
 
                 saveAndLoad.SettingTheCurrentSaveSlot(Slot);
-
-                saveGameNameMenuButtons.ActivateMenu();
-                break;
-
-           case CreateAPlayerStates.SAVENAME:
                 newGameMenuButtons.ActivateMenu();
+                
                 break;
+
 
             case CreateAPlayerStates.MODESELECTION:
-                menuAudio.PlayCreationMenuAudio();
-                StartScreenAnimation.SetBool("CharacterCreation", true);
+                saveGameNameMenuButtons.ActivateMenu();
 
                 switch (Option)
                 {
                     case 1: // I chose "Guided"
-                        dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[1])[2], (string)((ArrayList)RefQuestions[1])[3], (string)((ArrayList)RefQuestions[1])[4]);
-                        preDefinedSelectionButtons.ActivateMenu();
+                        CreationModeSelected = "Guided";
                         break;
 
                     case 2: // I chose "Custom"
-                        dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[4])[2], (string)((ArrayList)RefQuestions[4])[3], (string)((ArrayList)RefQuestions[4])[4]);
-                        historySelectionButtons.ActivateMenu();
+                        CreationModeSelected = "Custom";
                         break;
 
                     case 3: // The first time on legacy
+                        CreationModeSelected = "Guided direct";
+                        break;
+                }
+
+                break;
+
+
+            case CreateAPlayerStates.SAVENAME:
+
+                menuAudio.PlayCreationMenuAudio();
+                StartScreenAnimation.SetBool("CharacterCreation", true);
+
+                switch (CreationModeSelected)
+                {
+                    case "Guided": // I chose "Guided"
+                        //dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[1])[2], (string)((ArrayList)RefQuestions[1])[3], (string)((ArrayList)RefQuestions[1])[4]);
+                        preDefinedSelectionButtons.ActivateMenu();
+                        break;
+
+                    case "Custom": // I chose "Custom"
+                        //dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[4])[2], (string)((ArrayList)RefQuestions[4])[3], (string)((ArrayList)RefQuestions[4])[4]);
+                        CreationModeSelected = "Custom";
+                        historySelectionButtons.ActivateMenu();
+                        break;
+
+                    case "Guided direct": // The first time on legacy
+                        CreationModeSelected = "Guided";
                         preDefinedSelectionButtons.ActivateMenu();
                         break;
                 }
                 break;
+
 
             case CreateAPlayerStates.PREDEFINEDSELECTION:
 
@@ -142,7 +164,7 @@ public void MenuGoNext(int Option){
 
                 if (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[Slot])[2])> 1)
                         {
-                        dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[2])[2], (string)((ArrayList)RefQuestions[2])[3], (string)((ArrayList)RefQuestions[2])[4]);
+                        //dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[2])[2], (string)((ArrayList)RefQuestions[2])[3], (string)((ArrayList)RefQuestions[2])[4]);
                         }
                 
 
@@ -155,7 +177,7 @@ public void MenuGoNext(int Option){
 
                     statAllocationButtons.ActivateMenu();
 
-                    dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[13])[2], (string)((ArrayList)RefQuestions[13])[3], (string)((ArrayList)RefQuestions[13])[4]);
+                    //dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[13])[2], (string)((ArrayList)RefQuestions[13])[3], (string)((ArrayList)RefQuestions[13])[4]);
 
                 break;
 

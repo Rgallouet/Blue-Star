@@ -253,42 +253,42 @@ public class HistorySelectionButtons : MonoBehaviour
 
             case PlayerHistoryStep.HELLCIRCLE:
                 currentStep = PlayerHistoryStep.ALLEGIANCE;
-                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[5])[2], (string)((ArrayList)RefQuestions[5])[3], (string)((ArrayList)RefQuestions[5])[4]);
+                //menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[5])[2], (string)((ArrayList)RefQuestions[5])[3], (string)((ArrayList)RefQuestions[5])[4]);
                 break;
 
             case PlayerHistoryStep.ALLEGIANCE:
                 currentStep = PlayerHistoryStep.GENUS;
-                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[6])[2], (string)((ArrayList)RefQuestions[6])[3], (string)((ArrayList)RefQuestions[6])[4]);
+                //menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[6])[2], (string)((ArrayList)RefQuestions[6])[3], (string)((ArrayList)RefQuestions[6])[4]);
                 break;
 
             case PlayerHistoryStep.GENUS:
                 currentStep = PlayerHistoryStep.CLASS;
-                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[7])[2], (string)((ArrayList)RefQuestions[7])[3], (string)((ArrayList)RefQuestions[7])[4]);
+                //menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[7])[2], (string)((ArrayList)RefQuestions[7])[3], (string)((ArrayList)RefQuestions[7])[4]);
                 break;
 
             case PlayerHistoryStep.CLASS:
                 currentStep = PlayerHistoryStep.IMP;
-                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[8])[2], (string)((ArrayList)RefQuestions[8])[3], (string)((ArrayList)RefQuestions[8])[4]);
+                //menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[8])[2], (string)((ArrayList)RefQuestions[8])[3], (string)((ArrayList)RefQuestions[8])[4]);
                 break;
 
             case PlayerHistoryStep.IMP:
                 currentStep = PlayerHistoryStep.ORIGIN;
-                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[9])[2], (string)((ArrayList)RefQuestions[9])[3], (string)((ArrayList)RefQuestions[9])[4]);
+                //menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[9])[2], (string)((ArrayList)RefQuestions[9])[3], (string)((ArrayList)RefQuestions[9])[4]);
                 break;
 
             case PlayerHistoryStep.ORIGIN:
                 currentStep = PlayerHistoryStep.TEMPER;
-                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[10])[2], (string)((ArrayList)RefQuestions[10])[3], (string)((ArrayList)RefQuestions[10])[4]);
+                //menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[10])[2], (string)((ArrayList)RefQuestions[10])[3], (string)((ArrayList)RefQuestions[10])[4]);
                 break;
 
             case PlayerHistoryStep.TEMPER:
                 currentStep = PlayerHistoryStep.ASTRO;
-                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[11])[2], (string)((ArrayList)RefQuestions[11])[3], (string)((ArrayList)RefQuestions[11])[4]);
+                //menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[11])[2], (string)((ArrayList)RefQuestions[11])[3], (string)((ArrayList)RefQuestions[11])[4]);
                 break;
 
             case PlayerHistoryStep.ASTRO:
                 currentStep = PlayerHistoryStep.AFFINITY;
-                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[12])[2], (string)((ArrayList)RefQuestions[12])[3], (string)((ArrayList)RefQuestions[12])[4]);
+                //menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[12])[2], (string)((ArrayList)RefQuestions[12])[3], (string)((ArrayList)RefQuestions[12])[4]);
                 break;
 
             case PlayerHistoryStep.AFFINITY:

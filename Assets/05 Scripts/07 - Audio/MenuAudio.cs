@@ -52,9 +52,11 @@ public class MenuAudio : MonoBehaviour {
 
     public void  PlayCreationMenuAudio() {
 
-		if (CreationMusicStarted == false) {
+		if (CreationMusicStarted == false)
+        {
             CreationGameStartMusic.Play();
-            CreationMusicStarted =true; }
+            CreationMusicStarted =true;
+        }
 			PlayMainTransition (1);
 			CreationMenuAudio.TransitionTo (m_AudioTransitionIn);
 	}
