@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4314872759265730}
   - component: {fileID: 33479451640717498}
   - component: {fileID: 65466927326891286}
+  - component: {fileID: 114817138250922438}
   m_Layer: 0
   m_Name: Ground - Earth
   m_TagString: Untagged
@@ -90,6 +91,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114817138250922438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1205062682181708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5b40b37a3e3d54b97bd0eeb51a6492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectName: Soil
+  objectCategory: 3
+  CanBeDigged: 0
 --- !u!212 &212984160322139758
 SpriteRenderer:
   m_ObjectHideFlags: 1

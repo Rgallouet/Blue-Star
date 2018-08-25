@@ -14,7 +14,6 @@ public class SettingsMenu : MonoBehaviour {
     void Start()
     {
         SettingsMenuCanvas = GetComponent<Canvas>();
-        //ChangeCameraPerspectiveMode();
         mainCamera.orthographicSize = 3;
         SettingsMenuCanvas.enabled = false;
     }
@@ -33,15 +32,5 @@ public class SettingsMenu : MonoBehaviour {
         Application.Quit();
     }
 
-
-    /*
-    public void ChangeCameraPerspectiveMode() {
-
-        if (mainCamera.orthographic == false) mainCamera.orthographic = true;
-        else mainCamera.orthographic = false;
-
-
-    }
-    */
 
 }

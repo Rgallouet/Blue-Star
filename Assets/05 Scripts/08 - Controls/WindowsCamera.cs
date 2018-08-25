@@ -1,6 +1,7 @@
 ﻿// Just add this script to your camera. It doesn't need any configuration.
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WindowsCamera : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class WindowsCamera : MonoBehaviour
 
     public CubeManager cubeManager;
     public SelectionBox selectionBox;
+    public InteractionMenu interactionMenu;
 
     public int touch;
     public Vector2[] touchPosition;
@@ -138,7 +140,9 @@ public class WindowsCamera : MonoBehaviour
         if (hit)
         {
             Objectselected = true;
-            selectionBox.Select(hitInfo.transform);
+            selectionBox.Select(hitInfo.transform.gameObject);
+            interactionMenu.ActivateMenu(hitInfo.transform.gameObject);
+
         }
         else {
             Deselect();
@@ -149,6 +153,6 @@ public class WindowsCamera : MonoBehaviour
     {
         selectionBox.Deselect();
         Objectselected = false;
-
+        interactionMenu.DesactivateMenu();
     }
 }

@@ -47,13 +47,7 @@ public class CameraController : MonoBehaviour {
 	void LateUpdate () {
 
 
-
-
-
-
-
-
-
+        
 
 		//ScrollWheel
 		desiredDistance -= Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime * zoomRate * Mathf.Abs (desiredDistance);
