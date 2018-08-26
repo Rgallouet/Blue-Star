@@ -6,6 +6,8 @@ public class JoystickMenu : MonoBehaviour {
 
 
     private Canvas joystick;
+    public WindowsCamera windowsCamera;
+
 
 
     // Use this for initialization
@@ -17,11 +19,13 @@ public class JoystickMenu : MonoBehaviour {
 
     public void ActivateJoystick()
     {
+        windowsCamera.CharacterViewMode = true;
         joystick.enabled = true;
     }
 
     public void DesactivateJoystick()
     {
+        windowsCamera.CharacterViewMode = false;
         joystick.enabled = false;
     }
 

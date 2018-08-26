@@ -5,6 +5,9 @@ public class SelectionBox : MonoBehaviour {
 
     private Transform Selectionbox;
     public JoystickMenu leftJoystick;
+    public WindowsCamera windowsCamera;
+    public InteractionMenu interactionMenu;
+
     private Vector3 IdlePosition = new Vector3(0, -10, 0);
 
 
@@ -29,21 +32,38 @@ public class SelectionBox : MonoBehaviour {
 
             case GameObjectInformation.ObjectCategory.Player:
                 Selectionbox.transform.position = IdlePosition;
+                windowsCamera.characterSelected = SelectedObject;
                 leftJoystick.ActivateJoystick();
                 break;
 
             default:
                 Selectionbox.transform.position = new Vector3(SelectedObject.transform.position.x, SelectedObject.transform.position.y + 0.01f, SelectedObject.transform.position.z);
                 break;
-
         }
+
+        ActionButtonUpdate(SelectedObject, windowsCamera.characterSelected);
+
     }
 
     public void Deselect()
     {
         Selectionbox.transform.position = IdlePosition;
-        leftJoystick.DesactivateJoystick();
+    }
+
+
+    public void ActionButtonUpdate(GameObject SelectedObject, GameObject Character) {
+
+        // Reset everything
+        interactionMenu.ResetActionButtons();
+
+        // Dig Through
+        if (SelectedObject.GetComponentsInChildren<GameObjectInformation>()[0].CanBeDigged)
+        {
+            interactionMenu.InstantiateDigThrough();
+        }
+
 
     }
+
 
 }
