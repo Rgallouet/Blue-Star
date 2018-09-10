@@ -7,6 +7,7 @@ public class CubeManager : MonoBehaviour {
     public SaveAndLoad saveAndLoad;
     public CityGUI cityGUI;
     public Transform PlayerPrefab;
+    public Transform playerInstantiated;
     public int MapSize = 150;
     public int AggregationFactor= 100;
 
@@ -83,10 +84,10 @@ public class CubeManager : MonoBehaviour {
                 
             }
         }
-        
-        // Generating the hero
-        Instantiate(PlayerPrefab, new Vector3(xOffset + (MapSize/2) +5, 15f, zOffset + (MapSize / 2) + 5), Quaternion.Euler(0, 0, 0));
 
+        // Generating the hero
+        playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + (MapSize/2) +5, 15f, zOffset + (MapSize / 2) + 5), Quaternion.Euler(0, 0, 0));
+        playerInstantiated.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer = saveAndLoad.LoadPlayerChoicesFromDataBase();
     }
 
     int[][] CalculateTheMap()

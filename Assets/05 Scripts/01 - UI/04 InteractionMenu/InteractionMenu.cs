@@ -13,7 +13,7 @@ public class InteractionMenu : MonoBehaviour {
     public CubeManager cubeManager;
 
 
-    public Transform DigThroughButton;
+    public Transform InteractionButton;
     Transform digThrough;
 
     GameObject LastObjectSelected;
@@ -40,6 +40,8 @@ public class InteractionMenu : MonoBehaviour {
         LastObjectSelected_z = gameObject.transform.position.z;
 
         ObjectName.text = gameObject.GetComponentsInChildren <GameObjectInformation>()[0].ObjectName;
+        transform.position = new Vector3(Input.mousePosition.x+150, Input.mousePosition.y, 0);
+        transform.parent.GetComponentsInChildren<Text>()[0].transform.position = new Vector3(Input.mousePosition.x + 150, Input.mousePosition.y+50, 0);
 
     }
 
@@ -51,10 +53,19 @@ public class InteractionMenu : MonoBehaviour {
 
     public void InstantiateDigThrough()
     {
-        digThrough = Instantiate(DigThroughButton);
+        digThrough = Instantiate(InteractionButton);
+        digThrough.GetComponentInChildren<Text>().text = "Dig Throught!";
         digThrough.parent = transform;
         digThrough.GetComponentInChildren<Button>().onClick.AddListener(() => { UseDigThrough(); });
-        Debug.Log("ahah");
+
+    }
+
+    public void InstantiatePaving()
+    {
+        digThrough = Instantiate(InteractionButton);
+        digThrough.GetComponentInChildren<Text>().text = "Pave the ground";
+        digThrough.parent = transform;
+        digThrough.GetComponentInChildren<Button>().onClick.AddListener(() => { UsePaving(); });
 
     }
 
@@ -73,7 +84,18 @@ public class InteractionMenu : MonoBehaviour {
         cubeManager.GenerateUndergroundElement(10, (int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_z));
         cubeManager.Map[(int)Math.Floor(LastObjectSelected_x)][(int)Math.Floor(LastObjectSelected_z)] = 10;
         cubeManager.UpdateTheVisibleArea();
+        cubeManager.saveAndLoad.UpdateCityData(10, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
 
+    }
+
+    public void UsePaving()
+    {
+
+        GameObject.Destroy(LastObjectSelected);
+        cubeManager.GenerateUndergroundElement(11, (int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_z));
+        cubeManager.Map[(int)Math.Floor(LastObjectSelected_x)][(int)Math.Floor(LastObjectSelected_z)] = 11;
+        cubeManager.UpdateTheVisibleArea();
+        cubeManager.saveAndLoad.UpdateCityData(11, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
 
     }
 

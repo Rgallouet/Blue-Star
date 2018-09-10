@@ -56,10 +56,20 @@ public class SelectionBox : MonoBehaviour {
         // Reset everything
         interactionMenu.ResetActionButtons();
 
-        // Dig Through
-        if (SelectedObject.GetComponentsInChildren<GameObjectInformation>()[0].CanBeDigged)
+        // If character exist and is nearby
+        if ( Character != null 
+            &&
+            Mathf.Abs(SelectedObject.transform.position.x- Character.transform.position.x)<=1.5f
+            &&
+            Mathf.Abs(SelectedObject.transform.position.z - Character.transform.position.z) <= 1.5f)
         {
-            interactionMenu.InstantiateDigThrough();
+
+            if (SelectedObject.GetComponentsInChildren<GameObjectInformation>()[0].CanBeDigged <= Character.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer.DiggingLevel)
+            { interactionMenu.InstantiateDigThrough(); }
+
+            if (SelectedObject.GetComponentsInChildren<GameObjectInformation>()[0].CanBeBuilt <= Character.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer.BuildingLevel)
+            { interactionMenu.InstantiatePaving(); }
+
         }
 
 

@@ -207,8 +207,8 @@ public class WindowsCamera : MonoBehaviour
     {
 
 
-        float x_translation = characterSelected.transform.position.x- transform.position.x;
-        float z_translation = characterSelected.transform.position.z- transform.position.z;
+        float x_translation = characterSelected.transform.position.x - transform.position.x - 3.5f;
+        float z_translation = characterSelected.transform.position.z - transform.position.z - 3.5f;
 
         transform.position = new Vector3(transform.position.x + x_translation*Time.deltaTime, transform.position.y, transform.position.z + z_translation * Time.deltaTime);
 

@@ -1045,11 +1045,11 @@ RectTransform:
   m_Father: {fileID: 12124423}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -160, y: -30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1630.3984, y: 960}
   m_SizeDelta: {x: 260, y: 900}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &396005633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,8 +1119,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubeManager: {fileID: 1382347995}
-  DigThroughButton: {fileID: 224150951332921042, guid: ab598769529627f449faed7d10055935,
+  InteractionButton: {fileID: 224150951332921042, guid: ab598769529627f449faed7d10055935,
     type: 2}
+  LastObjectSelected_x: 0
+  LastObjectSelected_z: 0
 --- !u!1001 &478247443
 Prefab:
   m_ObjectHideFlags: 0
@@ -1682,6 +1684,14 @@ Prefab:
       propertyPath: interactionMenu
       value: 
       objectReference: {fileID: 396005636}
+    - target: {fileID: 4000013830189072, guid: a8723ea2a41591d49ad3221957b3b845, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477100157324084, guid: a8723ea2a41591d49ad3221957b3b845, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8723ea2a41591d49ad3221957b3b845, type: 2}
   m_IsPrefabAsset: 0
@@ -1998,6 +2008,8 @@ MonoBehaviour:
     Chaos: 0
     NumberOfLegacy: 0
     UnderCityExist: 0
+    BuildingLevel: 0
+    DiggingLevel: 0
 --- !u!114 &1291555428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2135,6 +2147,7 @@ MonoBehaviour:
   cityGUI: {fileID: 1291555427}
   PlayerPrefab: {fileID: 4825727480881646, guid: 5355d9220a0a06246ba107b37a30bfa9,
     type: 2}
+  playerInstantiated: {fileID: 0}
   MapSize: 150
   AggregationFactor: 100
   CubePrefabs:
@@ -2295,18 +2308,18 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1643089229}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 12124423}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -160, y: 450}
-  m_SizeDelta: {x: 260, y: 60}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1630.3984, y: -120}
+  m_SizeDelta: {x: 260, y: 100}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &1643089231
 MonoBehaviour:
   m_ObjectHideFlags: 0
