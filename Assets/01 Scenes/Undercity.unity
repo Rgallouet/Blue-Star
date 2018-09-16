@@ -337,6 +337,10 @@ Prefab:
       value: 
       objectReference: {fileID: 12800000, guid: f4010c1e5dfbd9346bba609745ce1792,
         type: 3}
+    - target: {fileID: 1913446162608904, guid: 87898850c19b3514f8d3fd25acae4a29, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87898850c19b3514f8d3fd25acae4a29, type: 2}
   m_IsPrefabAsset: 0
@@ -2025,15 +2029,19 @@ MonoBehaviour:
   cubeManager: {fileID: 1382347995}
   selectionBox: {fileID: 980168063}
   interactionMenu: {fileID: 396005636}
+  joystickMenu: {fileID: 1284728985}
+  cityButtons: {fileID: 2020535356}
   touch: 0
   touchPosition:
   - {x: 0, y: 0}
   - {x: 0, y: 0}
-  oldTouchVector: {x: 0, y: 0}
-  newTouchPosition: {x: 0, y: 0}
+  oldTouchPosition_0: {x: 0, y: 0}
+  oldTouchPosition_1: {x: 0, y: 0}
   MoveCam: {x: 0, y: 0, z: 0}
   HorizontalSpeedRatio: 2
   VerticalSpeedRatio: 4.5
+  x_translation: 0
+  z_translation: 0
   CharacterViewMode: 0
   characterSelected: {fileID: 0}
 --- !u!81 &1291555429
