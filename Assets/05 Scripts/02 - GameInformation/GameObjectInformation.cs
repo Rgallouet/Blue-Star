@@ -9,6 +9,12 @@ public class GameObjectInformation : MonoBehaviour {
 
     public string ObjectName;
     public ObjectCategory objectCategory;
-    public bool CanBeDigged;
+    public int CanBeDigged;
+    public int CanBeBuilt;
+
+
+    // Possible object categories
+    public BasePlayer basePlayer;
+
 
 }

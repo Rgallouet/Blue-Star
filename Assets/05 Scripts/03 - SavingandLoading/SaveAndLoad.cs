@@ -222,6 +222,10 @@ public class SaveAndLoad: MonoBehaviour {
         Player.NumberOfLegacy = System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2]);
         Player.UnderCityExist = System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[3]);
 
+        Player.BuildingLevel = 1;
+        Player.DiggingLevel = 1;
+
+
         return Player;
     }
 
@@ -260,6 +264,23 @@ public class SaveAndLoad: MonoBehaviour {
 
 
     }
+
+
+
+    public void UpdateCityData(int Cube,int x, int z)
+    {
+
+        int Slot = GetSlot();
+        string[] PlayerCityVector = new string[1];
+        PlayerCityVector[0] = "Cube" + z + "= " + Cube;
+
+        dataBaseManager.UpdateData("PlayerCity", "Slot=" + Slot + " and X=" + x, PlayerCityVector);
+       
+
+    }
+
+
+
 
     public int[][] LoadPlayerCityFromDataBase()
     {

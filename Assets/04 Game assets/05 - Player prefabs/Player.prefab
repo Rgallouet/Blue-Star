@@ -67,14 +67,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525499173515202}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_Children:
   - {fileID: 4132304965265536}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!33 &33341453017849712
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -109,7 +109,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: You
-  CanBeDigged: 0
+  objectCategory: 0
+  CanBeDigged: 5
+  CanBeBuilt: 5
+  basePlayer:
+    PlayerLevel: 0
+    PlayerFirstName: 
+    PlayerLastName: 
+    PlayerBio: 
+    PlayerGender: 
+    CurrentEmbodiment: 0
+    CurrentInfluence: 0
+    TotalXP: 0
+    CurrentXP: 0
+    RequiredXP: 0
+    HumanCrap: 0
+    Gold: 0
+    Embodiment: 0
+    Strength: 0
+    Speed: 0
+    Dexterity: 0
+    Reflex: 0
+    Resilience: 0
+    Influence: 0
+    Knowledge: 0
+    Elocution: 0
+    Intellect: 0
+    Focus: 0
+    Mockery: 0
+    Malevolent: 0
+    Unmerciful: 0
+    Rage: 0
+    Phase: 0
+    Momentum: 0
+    Balance: 0
+    Luck: 0
+    Perception: 0
+    Judgement: 0
+    Chaos: 0
+    NumberOfLegacy: 0
+    UnderCityExist: 0
+    BuildingLevel: 0
+    DiggingLevel: 0
 --- !u!114 &114446991491477348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,14 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f0611ee4f87c340bd4284f7dc7e678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBody: {fileID: 114577651522064216}
-  runMultiplier: 1.5
-  walkMultiplier: 0.5
-  backwardMultiplier: 0.5
-  groundMove: {x: 0, y: 0, z: 0}
-  freeMove: {x: 0, y: 0, z: 0}
-  goFront: 0
-  goRight: 0
+  leftJoystick: {fileID: 0}
+  moveSpeed: 6
 --- !u!114 &114577651522064216
 MonoBehaviour:
   m_ObjectHideFlags: 1

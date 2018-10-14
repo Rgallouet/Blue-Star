@@ -60,6 +60,14 @@ public class BasePlayer {
 	public int Judgement;
 	public int Chaos;
 
+
+    //Hero stats
     public int NumberOfLegacy;
     public int UnderCityExist;
+
+
+    //InteractionStats
+    public int BuildingLevel;
+    public int DiggingLevel;
+
 }

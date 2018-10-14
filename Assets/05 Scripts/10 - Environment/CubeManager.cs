@@ -7,6 +7,7 @@ public class CubeManager : MonoBehaviour {
     public SaveAndLoad saveAndLoad;
     public CityGUI cityGUI;
     public Transform PlayerPrefab;
+    public Transform playerInstantiated;
     public int MapSize = 150;
     public int AggregationFactor= 100;
 
@@ -18,7 +19,24 @@ public class CubeManager : MonoBehaviour {
     private int ObsidianPrefabRefence = 0;
     private int StartPrefabRefence = 11;
     private int EarthCubePrefabRefence = 4;
-    private int[][] Map;
+
+    public int[][] Map;
+    private int[][] Visible;
+    private int[][] NewVisible;
+
+
+    // Generation offsetting
+    float xOffset = 0.5f;
+    float yOffset = 0.75f;
+    float zOffset = 0.5f;
+
+    //Generation vectors
+    Quaternion Setup = Quaternion.identity;
+    Vector3 cubePosition;
+
+    // Current cube
+    Object Cube;
+
 
     void Start() {
 
@@ -49,21 +67,11 @@ public class CubeManager : MonoBehaviour {
 
     public void GenerateRandomUnderground() {
 
-
-
         GettingTheMap();
         
-        int[][] Visible = CalculateTheVisibleArea(Map);
+        Visible = CalculateTheVisibleArea(Map);
 
-        Object Cube;
-
-        float xOffset = 0.5f;
-        float yOffset = 0.75f;
-        float zOffset = 0.5f;
-
-        Quaternion Setup = Quaternion.identity;
-        Vector3 cubePosition;
-
+        
         //Generating the Cubes
         for (int x = 0; x < MapSize; x++)
         {
@@ -71,38 +79,16 @@ public class CubeManager : MonoBehaviour {
             {
                 if (Visible[x][z] != 3)
                 {
-                    if (Map[x][z] > 9)
-                    {
-                        // If ground
-                        //Setup = Quaternion.Euler(180 * Random.Range(0, 1), 90 * Random.Range(0, 4), 180 * Random.Range(0, 1));
-
-                        // if 2d Sprite
-                        Setup = Quaternion.Euler(0, 0, 0);
-                        cubePosition = new Vector3(xOffset + x, 0, zOffset + z);
-                    }
-                    else {
-                        // if cube
-                        //Setup = Quaternion.Euler(90 * Random.Range(0, 4), 90 * Random.Range(0, 4), 90 * Random.Range(0, 4));
-
-                        // if 2d Sprite
-                        Setup= Quaternion.Euler(0, 0, 0);
-                        cubePosition = new Vector3(xOffset + x, yOffset, zOffset + z);
-                    }
-                    Cube = Instantiate(CubePrefabs[Map[x][z]], cubePosition, Setup);
-                    Cube.name = "Pos_" + x + "_" + z;
+                    GenerateUndergroundElement(Map[x][z], x, z);
                 }
                 
             }
         }
 
-        
         // Generating the hero
-        Instantiate(PlayerPrefab, new Vector3(xOffset + (MapSize/2) +5, 15f, zOffset + (MapSize / 2) + 5), Quaternion.Euler(0, 0, 0));
-
+        playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + (MapSize/2) +5, 15f, zOffset + (MapSize / 2) + 5), Quaternion.Euler(0, 0, 0));
+        playerInstantiated.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer = saveAndLoad.LoadPlayerChoicesFromDataBase();
     }
-
-
-
 
     int[][] CalculateTheMap()
     {
@@ -237,5 +223,53 @@ public class CubeManager : MonoBehaviour {
         return MapArray;
     }
 
+    public void UpdateTheVisibleArea() {
+
+        NewVisible = CalculateTheVisibleArea(Map);
+
+        for (int x = 0; x < MapSize; x++)
+        {
+            for (int z = 0; z < MapSize; z++)
+            {
+                if (Visible[x][z] == 3 && NewVisible[x][z] != 3 )
+                {
+                    GenerateUndergroundElement(Map[x][z], x, z);
+                }
+
+            }
+        }
+
+        Visible = NewVisible;
+
+    }
+
+
+
+
+    public void GenerateUndergroundElement(int CubeReference,int x, int z)
+    {
+
+        if (CubeReference > 9)
+        {
+            // If ground
+            //Setup = Quaternion.Euler(180 * Random.Range(0, 1), 90 * Random.Range(0, 4), 180 * Random.Range(0, 1));
+
+            // if 2d Sprite
+            Setup = Quaternion.Euler(0, 0, 0);
+            cubePosition = new Vector3(xOffset + x, 0, zOffset + z);
+        }
+        else
+        {
+            // if cube
+            //Setup = Quaternion.Euler(90 * Random.Range(0, 4), 90 * Random.Range(0, 4), 90 * Random.Range(0, 4));
+
+            // if 2d Sprite
+            Setup = Quaternion.Euler(0, 0, 0);
+            cubePosition = new Vector3(xOffset + x, yOffset, zOffset + z);
+        }
+        Cube = Instantiate(CubePrefabs[CubeReference], cubePosition, Setup);
+        Cube.name = "Pos_" + x + "_" + z;
+
+    }
 
 }
