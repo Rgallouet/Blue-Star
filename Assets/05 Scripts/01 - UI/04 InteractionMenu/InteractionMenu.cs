@@ -81,10 +81,10 @@ public class InteractionMenu : MonoBehaviour {
     public void UseDigThrough() {
 
         GameObject.Destroy(LastObjectSelected);
-        cubeManager.GenerateUndergroundElement(10, (int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_z));
-        cubeManager.Map[(int)Math.Floor(LastObjectSelected_x)][(int)Math.Floor(LastObjectSelected_z)] = 10;
+        cubeManager.GenerateUndergroundElement(10,0, (int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_z));
+        cubeManager.map[(int)Math.Floor(LastObjectSelected_x)][(int)Math.Floor(LastObjectSelected_z)] = 10;
         cubeManager.UpdateTheVisibleArea();
-        cubeManager.saveAndLoad.UpdateCityData(10, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
+        cubeManager.saveAndLoad.UpdateCityData(10,0, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
 
     }
 
@@ -92,10 +92,10 @@ public class InteractionMenu : MonoBehaviour {
     {
 
         GameObject.Destroy(LastObjectSelected);
-        cubeManager.GenerateUndergroundElement(11, (int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_z));
-        cubeManager.Map[(int)Math.Floor(LastObjectSelected_x)][(int)Math.Floor(LastObjectSelected_z)] = 11;
+        cubeManager.GenerateUndergroundElement(11,0, (int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_z));
+        cubeManager.map[(int)Math.Floor(LastObjectSelected_x)][(int)Math.Floor(LastObjectSelected_z)] = 11;
         cubeManager.UpdateTheVisibleArea();
-        cubeManager.saveAndLoad.UpdateCityData(11, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
+        cubeManager.saveAndLoad.UpdateCityData(11,0, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
 
     }
 

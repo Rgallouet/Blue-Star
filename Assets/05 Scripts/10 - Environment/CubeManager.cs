@@ -10,7 +10,7 @@ public class CubeManager : MonoBehaviour {
     public Transform playerInstantiated;
     public int MapSize = 150;
     public int AggregationFactor= 100;
-
+    public int MaxSpriteLimite;
     public Transform[] CubePrefabs;
     public int[] Probability;
 
@@ -20,7 +20,8 @@ public class CubeManager : MonoBehaviour {
     private int StartPrefabRefence = 11;
     private int EarthCubePrefabRefence = 4;
 
-    public int[][] Map;
+    public int[][] map;
+    public int[][] sprite;
     private int[][] Visible;
     private int[][] NewVisible;
 
@@ -35,7 +36,7 @@ public class CubeManager : MonoBehaviour {
     Vector3 cubePosition;
 
     // Current cube
-    Object Cube;
+    Transform Cube;
 
 
     void Start() {
@@ -50,13 +51,17 @@ public class CubeManager : MonoBehaviour {
         if (cityGUI.Player.UnderCityExist==0)
         {
             Debug.Log("NewGame!");
-            Map = CalculateTheMap();
-            saveAndLoad.SavePlayerCityInDataBase(Map);
+            map = CalculateTheMap();
+            sprite = CalculateTheSprite();
+
+            saveAndLoad.SavePlayerCityInDataBase(map,"Map");
+            saveAndLoad.SavePlayerCityInDataBase(sprite,"Sprite");
         }
         else
         {
-            Map = saveAndLoad.LoadPlayerCityFromDataBase();
             Debug.Log("LoadGame!");
+            map = saveAndLoad.LoadPlayerCityFromDataBase("Map");
+            sprite = saveAndLoad.LoadPlayerCityFromDataBase("Sprite");
         }
 
 
@@ -69,7 +74,7 @@ public class CubeManager : MonoBehaviour {
 
         GettingTheMap();
         
-        Visible = CalculateTheVisibleArea(Map);
+        Visible = CalculateTheVisibleArea(map);
 
         
         //Generating the Cubes
@@ -79,7 +84,7 @@ public class CubeManager : MonoBehaviour {
             {
                 if (Visible[x][z] != 3)
                 {
-                    GenerateUndergroundElement(Map[x][z], x, z);
+                    GenerateUndergroundElement(map[x][z],sprite[x][z], x, z);
                 }
                 
             }
@@ -137,6 +142,51 @@ public class CubeManager : MonoBehaviour {
                         }
                     }
                }
+            }
+        }
+        return MapArray;
+
+
+    }
+    
+    int[][] CalculateTheSprite()
+    {
+
+        int[][] MapArray = new int[MapSize][];
+        for (int i = 0; i < MapSize; i++) MapArray[i] = new int[MapSize];
+
+        //Starting Ground
+        for (int x = 0; x < MapSize; x++)
+        {
+            for (int z = 0; z < MapSize; z++)
+            {
+
+                switch (map[x][z])
+                {
+                    case 0: MaxSpriteLimite = 2; break; //Obsidian
+                    case 1: MaxSpriteLimite = 8; break; //Rock
+                    case 2: MaxSpriteLimite = 8; break; // Gold
+                    case 3: MaxSpriteLimite = 8; break; //SolidEarth
+                    case 4: MaxSpriteLimite = 8; break; //Earth
+                    case 5: MaxSpriteLimite = 6; break; //Cristal
+                    case 6: MaxSpriteLimite = 1; break;
+                    case 7: MaxSpriteLimite = 1; break;
+                    case 8: MaxSpriteLimite = 1; break;
+                    case 9: MaxSpriteLimite = 1; break;
+                    case 10: MaxSpriteLimite = 1; break; //Ground
+                    case 11: MaxSpriteLimite = 1; break; //Paved
+                    case 12: MaxSpriteLimite = 1; break; 
+                    case 13: MaxSpriteLimite = 1; break; 
+                    case 14: MaxSpriteLimite = 1; break; 
+                    case 15: MaxSpriteLimite = 1; break; 
+                    case 16: MaxSpriteLimite = 1; break;
+                    case 17: MaxSpriteLimite = 1; break;
+                    case 18: MaxSpriteLimite = 1; break;
+                    case 19: MaxSpriteLimite = 1; break; 
+                }
+
+                MapArray[x][z] = Random.Range(0, MaxSpriteLimite-1);
+
             }
         }
         return MapArray;
@@ -225,7 +275,7 @@ public class CubeManager : MonoBehaviour {
 
     public void UpdateTheVisibleArea() {
 
-        NewVisible = CalculateTheVisibleArea(Map);
+        NewVisible = CalculateTheVisibleArea(map);
 
         for (int x = 0; x < MapSize; x++)
         {
@@ -233,7 +283,7 @@ public class CubeManager : MonoBehaviour {
             {
                 if (Visible[x][z] == 3 && NewVisible[x][z] != 3 )
                 {
-                    GenerateUndergroundElement(Map[x][z], x, z);
+                    GenerateUndergroundElement(map[x][z], sprite[x][z], x, z);
                 }
 
             }
@@ -243,32 +293,23 @@ public class CubeManager : MonoBehaviour {
 
     }
 
-
-
-
-    public void GenerateUndergroundElement(int CubeReference,int x, int z)
+    public void GenerateUndergroundElement(int CubeReference,int SpriteRef,int x, int z)
     {
 
         if (CubeReference > 9)
         {
-            // If ground
-            //Setup = Quaternion.Euler(180 * Random.Range(0, 1), 90 * Random.Range(0, 4), 180 * Random.Range(0, 1));
-
-            // if 2d Sprite
             Setup = Quaternion.Euler(0, 0, 0);
             cubePosition = new Vector3(xOffset + x, 0, zOffset + z);
         }
         else
         {
-            // if cube
-            //Setup = Quaternion.Euler(90 * Random.Range(0, 4), 90 * Random.Range(0, 4), 90 * Random.Range(0, 4));
-
-            // if 2d Sprite
             Setup = Quaternion.Euler(0, 0, 0);
             cubePosition = new Vector3(xOffset + x, yOffset, zOffset + z);
         }
+
         Cube = Instantiate(CubePrefabs[CubeReference], cubePosition, Setup);
         Cube.name = "Pos_" + x + "_" + z;
+        Cube.GetComponentsInChildren<SpriteSwitcher>()[0].UpdateSprite(SpriteRef);
 
     }
 

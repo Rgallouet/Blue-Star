@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4569317491180360}
   - component: {fileID: 212469230216885124}
+  - component: {fileID: 114040487017018764}
   m_Layer: 0
   m_Name: TileSheet_1
   m_TagString: Untagged
@@ -66,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1229127871884958}
   m_LocalRotation: {x: 0.16042997, y: 0.37686962, z: -0.066452265, w: 0.9098438}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4328922951406750}
@@ -91,6 +92,27 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114040487017018764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229127871884958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74d3226dd3d2df48a0fb81f05fe7233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite: 0
+  SpritesList:
+  - {fileID: 21300020, guid: cd9e53d2ec7b8ad4ba083187a027d439, type: 3}
+  - {fileID: 21300022, guid: cd9e53d2ec7b8ad4ba083187a027d439, type: 3}
+  - {fileID: 21300024, guid: cd9e53d2ec7b8ad4ba083187a027d439, type: 3}
+  - {fileID: 21300026, guid: cd9e53d2ec7b8ad4ba083187a027d439, type: 3}
+  - {fileID: 21300028, guid: cd9e53d2ec7b8ad4ba083187a027d439, type: 3}
+  - {fileID: 21300030, guid: cd9e53d2ec7b8ad4ba083187a027d439, type: 3}
+  - {fileID: 21300032, guid: cd9e53d2ec7b8ad4ba083187a027d439, type: 3}
+  - {fileID: 21300034, guid: cd9e53d2ec7b8ad4ba083187a027d439, type: 3}
 --- !u!114 &114273244286855018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,12 +202,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: d5ede96dd5398954a82e5efe5cdf11e1, type: 3}
+  m_Sprite: {fileID: 21300028, guid: cd9e53d2ec7b8ad4ba083187a027d439, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.4285713, y: 2}
+  m_Size: {x: 1.4285715, y: 2.4071429}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

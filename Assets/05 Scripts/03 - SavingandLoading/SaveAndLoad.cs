@@ -36,7 +36,7 @@ public class SaveAndLoad: MonoBehaviour {
 
     }
 
-    public void SavePlayerChoicesInDataBase(BasePlayer Player)
+    public void SavePlayerChoicesInDataBase(BasePlayer Player, bool IsItARebirth)
     {
         int Slot = GetSlot();
 
@@ -110,17 +110,19 @@ public class SaveAndLoad: MonoBehaviour {
         dataBaseManager.UpdateData("PlayerProgress", "Slot=" + Slot, PlayerProgressValues);
 
 
-        // Updating the account general stat, and increasing by one the number of legacy
-        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats where Slot =" + Slot, "BlueStarDataWarehouse.db");
 
-        string[] PlayerAccountStats = { "NumberOfLegacy = " + (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2])+1) };
 
-        dataBaseManager.UpdateData("PlayerAccountStats", "Slot=" + Slot, PlayerAccountStats);
-
+        //New Character & City
+        if (IsItARebirth==true)
+        {
+            // Updating the account general stat, and increasing by one the number of legacy
+            PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats where Slot =" + Slot, "BlueStarDataWarehouse.db");
+            string[] PlayerAccountStats = { "NumberOfLegacy = " + (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2]) + 1), "UnderCityExist = 0 " };
+            dataBaseManager.UpdateData("PlayerAccountStats", "Slot=" + Slot, PlayerAccountStats);
+        }
         
     }
     
-
     public BasePlayer LoadPlayerChoicesFromDataBase()
     {
 
@@ -231,7 +233,7 @@ public class SaveAndLoad: MonoBehaviour {
 
 
 
-    public void SavePlayerCityInDataBase(int[][] Map)
+    public void SavePlayerCityInDataBase(int[][] Map, string MapOrSprite)
     {
 
 
@@ -251,8 +253,8 @@ public class SaveAndLoad: MonoBehaviour {
                 PlayerCityVector[j]="Cube" + z + "= " + Map[i][j];
 
             }
-             
-            dataBaseManager.UpdateData("PlayerCity", "Slot=" + Slot + " and X=" + x, PlayerCityVector);
+            if (MapOrSprite == "Map") dataBaseManager.UpdateData("PlayerCity", "Slot=" + Slot + " and X=" + x + " and Info='Map'", PlayerCityVector);
+            else dataBaseManager.UpdateData("PlayerCity", "Slot=" + Slot + " and X=" + x + " and Info='Sprite'", PlayerCityVector);
         }
 
 
@@ -267,27 +269,31 @@ public class SaveAndLoad: MonoBehaviour {
 
 
 
-    public void UpdateCityData(int Cube,int x, int z)
+    public void UpdateCityData(int Cube,int Sprite, int x, int z)
     {
 
         int Slot = GetSlot();
         string[] PlayerCityVector = new string[1];
-        PlayerCityVector[0] = "Cube" + z + "= " + Cube;
 
-        dataBaseManager.UpdateData("PlayerCity", "Slot=" + Slot + " and X=" + x, PlayerCityVector);
-       
+        PlayerCityVector[0] = "Cube" + z + "= " + Cube;
+        dataBaseManager.UpdateData("PlayerCity", "Info='Map' and Slot=" + Slot + " and X=" + x, PlayerCityVector);
+
+        PlayerCityVector[0] = "Cube" + z + "= " + Sprite;
+        dataBaseManager.UpdateData("PlayerCity", "Info='Sprite' and Slot=" + Slot + " and X=" + x, PlayerCityVector);
+
 
     }
 
 
 
 
-    public int[][] LoadPlayerCityFromDataBase()
+    public int[][] LoadPlayerCityFromDataBase(string MapOrSprite)
     {
 
         int Slot = GetSlot();
 
-        PlayerCity = dataBaseManager.getArrayData("select * from PlayerCity where Slot =" + Slot, "BlueStarDataWarehouse.db");
+        if (MapOrSprite == "Map") PlayerCity = dataBaseManager.getArrayData("select * from PlayerCity where Info='Map' and Slot =" + Slot, "BlueStarDataWarehouse.db");
+        else PlayerCity = dataBaseManager.getArrayData("select * from PlayerCity where Info='Sprite' and Slot =" + Slot, "BlueStarDataWarehouse.db");
 
         int[][] MapArray = new int[MapSize][];
         for (int i = 0; i < MapSize; i++) MapArray[i] = new int[MapSize];

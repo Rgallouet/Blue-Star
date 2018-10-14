@@ -198,7 +198,7 @@ public void MenuGoNext(int Option){
                 newPlayer.PlayerGender = backgroundSelectionButtons.PlayerGender;
                 newPlayer.PlayerBio = backgroundSelectionButtons.PlayerBio;
 
-                saveAndLoad.SavePlayerChoicesInDataBase(newPlayer);
+                saveAndLoad.SavePlayerChoicesInDataBase(newPlayer, true);
                 
                 SceneManager.LoadScene("Undercity");
                 break;

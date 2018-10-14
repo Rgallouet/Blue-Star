@@ -20,8 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4397064312453784}
   - component: {fileID: 212331943063455130}
+  - component: {fileID: 114729849513111472}
   m_Layer: 0
-  m_Name: TileSheet_1
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,6 +92,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114729849513111472
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1805407652310522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a74d3226dd3d2df48a0fb81f05fe7233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite: 0
+  SpritesList:
+  - {fileID: 21300002, guid: d3eadd9c425ef95469cf8bb8edc9d1ba, type: 3}
 --- !u!114 &114890669977447114
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -2031,6 +2031,8 @@ MonoBehaviour:
   interactionMenu: {fileID: 396005636}
   joystickMenu: {fileID: 1284728985}
   cityButtons: {fileID: 2020535356}
+  CharacterViewMode: 0
+  characterSelected: {fileID: 0}
   touch: 0
   touchPosition:
   - {x: 0, y: 0}
@@ -2040,10 +2042,12 @@ MonoBehaviour:
   MoveCam: {x: 0, y: 0, z: 0}
   HorizontalSpeedRatio: 2
   VerticalSpeedRatio: 4.5
-  x_translation: 0
-  z_translation: 0
-  CharacterViewMode: 0
-  characterSelected: {fileID: 0}
+  x_total_translation: 0
+  z_total_translation: 0
+  HasTheTouchMoved: 0
+  Objectselected: 0
+  LiftingFinger: 0
+  back: 0
 --- !u!81 &1291555429
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2158,13 +2162,14 @@ MonoBehaviour:
   playerInstantiated: {fileID: 0}
   MapSize: 150
   AggregationFactor: 100
+  MaxSpriteLimite: 0
   CubePrefabs:
   - {fileID: 4472777861955046, guid: cf93dc9eb3800a746affa61786bfe100, type: 2}
   - {fileID: 4126616130680622, guid: d4f70df68e0831e4185a3fed3995ddc0, type: 2}
   - {fileID: 4343631729777674, guid: 94f2f3d2fc7c7a644afde61db6e9253b, type: 2}
   - {fileID: 4328922951406750, guid: da9d8bac6b47a3047af5ae076a68d17d, type: 2}
   - {fileID: 4629120441988556, guid: dad4d62bbcd8b0a47a610d84851905ab, type: 2}
-  - {fileID: 0}
+  - {fileID: 4629120441988556, guid: 2348e8b8022691b4e99d5ac0b667722a, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -2180,7 +2185,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 4370438050143032, guid: bb11f828f1ce88a46ac748c15a70beab, type: 2}
   - {fileID: 0}
-  Probability: 050000001900000028000000c80000005802000000000000000000000000000000000000000000008200000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  Probability: 050000001900000028000000c80000005802000002000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!4 &1382347996
 Transform:
   m_ObjectHideFlags: 0
