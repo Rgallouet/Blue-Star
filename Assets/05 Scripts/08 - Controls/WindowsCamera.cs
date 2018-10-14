@@ -166,11 +166,13 @@ public class WindowsCamera : MonoBehaviour
             {
                 oldTouchPosition_0 = touchPosition[0];
                 oldTouchPosition_1 = touchPosition[1];
-                oldTouchDistance = (oldTouchPosition_0 - oldTouchPosition_1).magnitude;
             }
 
+            // je met a jour les distances
+            oldTouchDistance = (oldTouchPosition_0 - oldTouchPosition_1).magnitude;
             newTouchDistance = (touchPosition[0] - touchPosition[1]).magnitude;
 
+            // Je get mon zoom
             zoom = GetComponent<Camera>().orthographicSize * (1 - (oldTouchDistance / newTouchDistance));
 
             // Je reset pour la prochaine fois
