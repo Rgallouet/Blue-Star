@@ -173,8 +173,8 @@ public class CubeManager : MonoBehaviour {
                     case 7: MaxSpriteLimite = 1; break;
                     case 8: MaxSpriteLimite = 1; break;
                     case 9: MaxSpriteLimite = 1; break;
-                    case 10: MaxSpriteLimite = 1; break; //Ground
-                    case 11: MaxSpriteLimite = 1; break; //Paved
+                    case 10: MaxSpriteLimite = 2; break; //Ground
+                    case 11: MaxSpriteLimite = 2; break; //Paved
                     case 12: MaxSpriteLimite = 1; break; 
                     case 13: MaxSpriteLimite = 1; break; 
                     case 14: MaxSpriteLimite = 1; break; 
