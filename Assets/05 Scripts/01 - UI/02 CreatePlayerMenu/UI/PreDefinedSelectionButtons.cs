@@ -57,7 +57,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
         GetSelectionChoices (choice);
 
         UpdateDescription(choice);
-        Debug.Log("la cest bien check 2 ");
+
     }
 
 

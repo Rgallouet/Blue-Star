@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class CubeManager : MonoBehaviour {
 
@@ -9,13 +10,18 @@ public class CubeManager : MonoBehaviour {
     public Transform PlayerPrefab;
     public Transform playerInstantiated;
     public int MapSize = 150;
-    public int AggregationFactor= 100;
-    public int MaxSpriteLimite;
+    
     public Transform[] CubePrefabs;
     public int[] Probability;
+    public int[] MaxSpriteLimite;
 
+    // Density function 
+    public int AdditiveFactor= 50;
+    public int MultiplicativeFactor = 1;
+    public int MaximumExcess = 150;
+
+    // Variety of Cubes
     private int NumberofPrefabs = 21;
-
     private int ObsidianPrefabRefence = 0;
     private int StartPrefabRefence = 11;
     private int EarthCubePrefabRefence = 4;
@@ -24,6 +30,7 @@ public class CubeManager : MonoBehaviour {
     public int[][] sprite;
     private int[][] Visible;
     private int[][] NewVisible;
+
 
 
     // Generation offsetting
@@ -72,6 +79,8 @@ public class CubeManager : MonoBehaviour {
 
     public void GenerateRandomUnderground() {
 
+        System.Diagnostics.Stopwatch timerMacro = System.Diagnostics.Stopwatch.StartNew();
+
         GettingTheMap();
         
         Visible = CalculateTheVisibleArea(map);
@@ -93,10 +102,19 @@ public class CubeManager : MonoBehaviour {
         // Generating the hero
         playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + (MapSize/2) +5, 15f, zOffset + (MapSize / 2) + 5), Quaternion.Euler(0, 0, 0));
         playerInstantiated.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer = saveAndLoad.LoadPlayerChoicesFromDataBase();
+
+        timerMacro.Stop();
+        TimeSpan timespan = timerMacro.Elapsed;
+
+        Debug.Log("Time total de la creation de la carte : " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
     }
 
     int[][] CalculateTheMap()
     {
+        var random = new System.Random();
+        System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
+        
 
         int[] localProbability = new int[NumberofPrefabs];
 
@@ -121,17 +139,21 @@ public class CubeManager : MonoBehaviour {
                 else {
                     for (int i=0; i< NumberofPrefabs; i++) localProbability[i] = Probability[i];
                 
-                    localProbability[MapArray[x - 1][z]] += AggregationFactor;
-                    localProbability[MapArray[x][z-1]] += AggregationFactor;
-                    localProbability[MapArray[x - 1][z-1]] += AggregationFactor;
-                    localProbability[MapArray[x + 1][z - 1]] += AggregationFactor;
-                    localProbability[EarthCubePrefabRefence] -= 4*AggregationFactor;
+                    localProbability[MapArray[x - 1][z]] = Math.Min(localProbability[MapArray[x - 1][z]] + AdditiveFactor + MultiplicativeFactor* Probability[MapArray[x - 1][z]], Probability[MapArray[x - 1][z]]+ MaximumExcess);
+                    localProbability[MapArray[x][z-1]] = Math.Min(localProbability[MapArray[x][z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x][z - 1]], Probability[MapArray[x][z - 1]] + MaximumExcess);
+                    localProbability[MapArray[x - 1][z-1]] = Math.Min(localProbability[MapArray[x - 1][z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x - 1][z - 1]], Probability[MapArray[x - 1][z - 1]] + MaximumExcess);
+                    localProbability[MapArray[x + 1][z - 1]] = Math.Min(localProbability[MapArray[x + 1][z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x + 1][z - 1]], Probability[MapArray[x + 1][z - 1]] + MaximumExcess);
+
+                    int HowMuchDistributionChange = (localProbability[MapArray[x - 1][z]] + localProbability[MapArray[x][z - 1]] + localProbability[MapArray[x - 1][z - 1]] + localProbability[MapArray[x + 1][z - 1]]) - (Probability[MapArray[x - 1][z]] + Probability[MapArray[x][z - 1]] + Probability[MapArray[x - 1][z - 1]] + Probability[MapArray[x + 1][z - 1]]);
+
+                    localProbability[EarthCubePrefabRefence] = localProbability[EarthCubePrefabRefence] - HowMuchDistributionChange;
+
+                    // Debug.Log("How much did the distribution change: " + HowMuchDistributionChange);
+                    // for (int i = 0; i < NumberofPrefabs; i++) Debug.Log ("Prefab "+ i +" - Local prob: "+ localProbability[i] +" , Absolu prob: " + Probability[i]) ;
 
 
-                    for (int i = 0; i < NumberofPrefabs; i++) Debug.Log ("Prefab "+ i +" - Local prob: "+ localProbability[i] +" , Absolu prob: " + Probability[i]) ;
-
-
-                    diceRoll = Random.Range(0, 1000);
+                    diceRoll = Convert.ToInt32(random.NextDouble()*100);
+                    
                     cumulative = 0;
 
                     for (int i = 0; i < NumberofPrefabs; i++)
@@ -140,12 +162,21 @@ public class CubeManager : MonoBehaviour {
                         if (diceRoll < cumulative)
                         {
                             MapArray[x][z] = i;
+                            //Debug.Log("Dice Roll: " + diceRoll + " et la proba obsidienne: " + localProbability[0] + " et le resultat final: " + i);
+                            Debug.Log("Dice Roll by hundred: " + diceRoll/10);
+
                             break;
                         }
                     }
                }
             }
         }
+
+        timer.Stop();
+        TimeSpan timespan = timer.Elapsed;
+
+        Debug.Log("Time de la creation de la carte : "+ String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
         return MapArray;
 
 
@@ -162,32 +193,8 @@ public class CubeManager : MonoBehaviour {
         {
             for (int z = 0; z < MapSize; z++)
             {
-
-                switch (map[x][z])
-                {
-                    case 0: MaxSpriteLimite = 2; break; //Obsidian
-                    case 1: MaxSpriteLimite = 8; break; //Rock
-                    case 2: MaxSpriteLimite = 8; break; // Gold
-                    case 3: MaxSpriteLimite = 8; break; //SolidEarth
-                    case 4: MaxSpriteLimite = 8; break; //Earth
-                    case 5: MaxSpriteLimite = 6; break; //Cristal
-                    case 6: MaxSpriteLimite = 1; break;
-                    case 7: MaxSpriteLimite = 1; break;
-                    case 8: MaxSpriteLimite = 1; break;
-                    case 9: MaxSpriteLimite = 1; break;
-                    case 10: MaxSpriteLimite = 4; break; //Ground
-                    case 11: MaxSpriteLimite = 4; break; //Paved
-                    case 12: MaxSpriteLimite = 1; break; 
-                    case 13: MaxSpriteLimite = 1; break; 
-                    case 14: MaxSpriteLimite = 1; break; 
-                    case 15: MaxSpriteLimite = 1; break; 
-                    case 16: MaxSpriteLimite = 1; break;
-                    case 17: MaxSpriteLimite = 1; break;
-                    case 18: MaxSpriteLimite = 1; break;
-                    case 19: MaxSpriteLimite = 1; break; 
-                }
-
-                MapArray[x][z] = Random.Range(0, MaxSpriteLimite-1);
+                
+                MapArray[x][z] = UnityEngine.Random.Range(0, MaxSpriteLimite[map[x][z]] -1);
 
             }
         }
