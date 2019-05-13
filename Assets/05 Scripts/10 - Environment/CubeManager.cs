@@ -122,12 +122,14 @@ public class CubeManager : MonoBehaviour {
                     for (int i=0; i< NumberofPrefabs; i++) localProbability[i] = Probability[i];
                 
                     localProbability[MapArray[x - 1][z]] += AggregationFactor;
-
                     localProbability[MapArray[x][z-1]] += AggregationFactor;
                     localProbability[MapArray[x - 1][z-1]] += AggregationFactor;
                     localProbability[MapArray[x + 1][z - 1]] += AggregationFactor;
-
                     localProbability[EarthCubePrefabRefence] -= 4*AggregationFactor;
+
+
+                    for (int i = 0; i < NumberofPrefabs; i++) Debug.Log ("Prefab "+ i +" - Local prob: "+ localProbability[i] +" , Absolu prob: " + Probability[i]) ;
+
 
                     diceRoll = Random.Range(0, 1000);
                     cumulative = 0;
@@ -173,8 +175,8 @@ public class CubeManager : MonoBehaviour {
                     case 7: MaxSpriteLimite = 1; break;
                     case 8: MaxSpriteLimite = 1; break;
                     case 9: MaxSpriteLimite = 1; break;
-                    case 10: MaxSpriteLimite = 2; break; //Ground
-                    case 11: MaxSpriteLimite = 2; break; //Paved
+                    case 10: MaxSpriteLimite = 4; break; //Ground
+                    case 11: MaxSpriteLimite = 4; break; //Paved
                     case 12: MaxSpriteLimite = 1; break; 
                     case 13: MaxSpriteLimite = 1; break; 
                     case 14: MaxSpriteLimite = 1; break; 
