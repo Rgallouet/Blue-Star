@@ -152,8 +152,11 @@ public class CubeManager : MonoBehaviour {
                     // for (int i = 0; i < NumberofPrefabs; i++) Debug.Log ("Prefab "+ i +" - Local prob: "+ localProbability[i] +" , Absolu prob: " + Probability[i]) ;
 
 
-                    diceRoll = Convert.ToInt32(random.NextDouble()*100);
-                    
+                    diceRoll = random.Next(0, 1000);
+
+                    //Debug.Log("Dice Roll: " + diceRoll + " et la proba obsidienne: " + localProbability[0] + " et le resultat final: " + i);
+                    //Debug.Log("Dice Roll by hundred: " + diceRoll / 100);
+
                     cumulative = 0;
 
                     for (int i = 0; i < NumberofPrefabs; i++)
@@ -162,9 +165,7 @@ public class CubeManager : MonoBehaviour {
                         if (diceRoll < cumulative)
                         {
                             MapArray[x][z] = i;
-                            //Debug.Log("Dice Roll: " + diceRoll + " et la proba obsidienne: " + localProbability[0] + " et le resultat final: " + i);
-                            Debug.Log("Dice Roll by hundred: " + diceRoll/10);
-
+                            
                             break;
                         }
                     }
