@@ -15,11 +15,11 @@ C:/Repo/Blue-Star
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-63982
+50605
 Successfully changed project path to: C:/Repo/Blue-Star
 C:/Repo/Blue-Star
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 62.34 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 78.96 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.19f1 (68f137dc9bbe)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/Resources/UnitySubsystems
@@ -35,36 +35,36 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56000
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56720
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.19f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001983 seconds.
+Registered in 0.002344 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 44.26 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 55.17 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.532 seconds
+- Completed reload, in  1.932 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1532ms)
-		BeginReloadAssembly (46ms)
+	ReloadAssembly (1932ms)
+		BeginReloadAssembly (53ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (338ms)
-			LoadAssemblies (44ms)
+		EndReloadAssembly (354ms)
+			LoadAssemblies (50ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (116ms)
+			SetupTypeCache (117ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (21ms)
-			SetupLoadedEditorAssemblies (138ms)
+			SetupLoadedEditorAssemblies (150ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (3ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (44ms)
-				BeforeProcessingInitializeOnLoad (6ms)
+				RefreshPlugins (55ms)
+				BeforeProcessingInitializeOnLoad (7ms)
 				ProcessInitializeOnLoadAttributes (62ms)
 				ProcessInitializeOnLoadMethodAttributes (22ms)
 				AfterProcessingInitializeOnLoad (0ms)
@@ -73,252 +73,51 @@ Domain Reload Profiling:
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.009067 seconds.
+Registered in 0.012503 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.69 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 55.22 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.883 seconds
+- Completed reload, in  1.010 seconds
 Domain Reload Profiling:
-	ReloadAssembly (884ms)
-		BeginReloadAssembly (116ms)
+	ReloadAssembly (1011ms)
+		BeginReloadAssembly (125ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (3ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (15ms)
-		EndReloadAssembly (715ms)
-			LoadAssemblies (85ms)
+			CreateAndSetChildDomain (16ms)
+		EndReloadAssembly (829ms)
+			LoadAssemblies (99ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (230ms)
+			SetupTypeCache (248ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (36ms)
-			SetupLoadedEditorAssemblies (290ms)
+			RebuildScriptCaches (39ms)
+			SetupLoadedEditorAssemblies (347ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (4ms)
+				InitializePlatformSupportModulesInManaged (3ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (58ms)
-				ProcessInitializeOnLoadAttributes (190ms)
+				RefreshPlugins (55ms)
+				BeforeProcessingInitializeOnLoad (69ms)
+				ProcessInitializeOnLoadAttributes (181ms)
 				ProcessInitializeOnLoadMethodAttributes (30ms)
-				AfterProcessingInitializeOnLoad (6ms)
+				AfterProcessingInitializeOnLoad (8ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (5ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 0.70 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2155 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 86.8 MB.
-System memory in use after: 86.9 MB.
-
-Unloading 68 unused Assets to reduce memory usage. Loaded Objects now: 2549.
-Total: 4.939800 ms (FindLiveObjects: 0.179500 ms CreateObjectMapping: 0.061400 ms MarkObjects: 4.603500 ms  DeleteObjects: 0.093700 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psd
-  artifactKey: Guid(ec99e11c8026f32498e0ecc2a91b46ca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psd using Guid(ec99e11c8026f32498e0ecc2a91b46ca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e187aba82dcb497c0eae96a21ed809e6') in 0.076308 seconds 
-  Import took 0.079449 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000336 seconds.
-  path: Assets/02 Visual assets/07 Characters/GirlSprite.psd
-  artifactKey: Guid(18ba29205cb1c4f44be5e259a44985f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSprite.psd using Guid(18ba29205cb1c4f44be5e259a44985f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1a92d164327e0f76aef9ab703d91ad3') in 0.033806 seconds 
-  Import took 0.036503 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000206 seconds.
-  path: Assets/02 Visual assets/07 Characters/GolemSprite.psd
-  artifactKey: Guid(efd9065a128199349a28613cb68da6cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GolemSprite.psd using Guid(efd9065a128199349a28613cb68da6cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49cbd8d0e1c90c635627ed1e2b1b3998') in 0.024630 seconds 
-  Import took 0.027642 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000261 seconds.
-  path: Assets/02 Visual assets/07 Characters/VampSprite.psd
-  artifactKey: Guid(55959aedc1f3dc445b0993b6a52f056c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/VampSprite.psd using Guid(55959aedc1f3dc445b0993b6a52f056c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c05edcb6092652ad5cf186971d53c39') in 0.027151 seconds 
-  Import took 0.029906 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.965922 seconds.
-  path: Assets/02 Visual assets/07 Characters/Girl
-  artifactKey: Guid(541eff6ff91980b41a953aedc699a53e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Girl using Guid(541eff6ff91980b41a953aedc699a53e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad223455c51c99d83baf0266d9cf20f1') in 0.002313 seconds 
-  Import took 0.005344 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 119.982866 seconds.
-  path: Assets/02 Visual assets/07 Characters/Girl/TemplateGirl
-  artifactKey: Guid(47610438809cc67428c88adff1f1b545) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Girl/TemplateGirl using Guid(47610438809cc67428c88adff1f1b545) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e87ea331270aeedac8c9a921b53b9377') in 0.002246 seconds 
-  Import took 0.006015 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.871089 seconds.
-  path: Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Body
-  artifactKey: Guid(00bbf3d8b74b9614cb3d0b4e6e239968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Body using Guid(00bbf3d8b74b9614cb3d0b4e6e239968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '875c82b6515f14ebc53041a5bb1bc1f9') in 0.002227 seconds 
-  Import took 0.005197 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.074088 seconds.
-  path: Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Body/Body.asset
-  artifactKey: Guid(54f0c2d5b3ec7054ba149c58a0d97917) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Body/Body.asset using Guid(54f0c2d5b3ec7054ba149c58a0d97917) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e392a74ae8b133ab214c3c9d6f57fa6') in 0.004132 seconds 
-  Import took 0.007151 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000313 seconds.
-  path: Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Body/Body.png
-  artifactKey: Guid(22f241b7cd601fd44ba5a232e025478b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Body/Body.png using Guid(22f241b7cd601fd44ba5a232e025478b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc8be87b4144bf59edb14d572303c112') in 0.026977 seconds 
-  Import took 0.030027 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 10.684759 seconds.
-  path: Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Feet
-  artifactKey: Guid(b354abc37badbb6448c023c1ae743c65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Feet using Guid(b354abc37badbb6448c023c1ae743c65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f17ab1d955342651f6cbc9564e4dd3b') in 0.002211 seconds 
-  Import took 0.005113 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.338949 seconds.
-  path: Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Feet/LeftFoot.asset
-  artifactKey: Guid(983e8a8a311882041b687e573e2c84b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Feet/LeftFoot.asset using Guid(983e8a8a311882041b687e573e2c84b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67f7ced5e83e024d15d3569204207caf') in 0.002950 seconds 
-  Import took 0.005854 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000319 seconds.
-  path: Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Feet/RightFoot.png
-  artifactKey: Guid(d9e25962e399adb4d8e514b56257a241) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Feet/RightFoot.png using Guid(d9e25962e399adb4d8e514b56257a241) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd95daed463f8667885cae4ba2c5a4ee4') in 0.023158 seconds 
-  Import took 0.025995 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000324 seconds.
-  path: Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Feet/LeftFoot.png
-  artifactKey: Guid(f827564e6da6803458960ae60e757afd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Feet/LeftFoot.png using Guid(f827564e6da6803458960ae60e757afd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24c3440874679a2824f2e85fdf4b89ff') in 0.028615 seconds 
-  Import took 0.031369 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000176 seconds.
-  path: Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Feet/RightFoot.asset
-  artifactKey: Guid(6decc50db4e465b4b81e6b4d752e878a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Girl/TemplateGirl/Feet/RightFoot.asset using Guid(6decc50db4e465b4b81e6b4d752e878a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a46c7dd5b913fb56cbfd109240ad171') in 0.002413 seconds 
-  Import took 0.005118 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 53.746084 seconds.
-  path: Assets/02 Visual assets/05 Icons/AndroidIcon.psd
-  artifactKey: Guid(af1265048b4a2524daa284856e1351fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/05 Icons/AndroidIcon.psd using Guid(af1265048b4a2524daa284856e1351fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17d3526e2a91225f1f52518583ac1b7c') in 0.014477 seconds 
-  Import took 0.017460 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.383825 seconds.
-  path: Assets/02 Visual assets/07 Characters
-  artifactKey: Guid(99d7b66ec944ead4f9db48866d562ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters using Guid(99d7b66ec944ead4f9db48866d562ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff90dc8ca0a4a489adca9caf3001186f') in 0.002228 seconds 
-  Import took 0.005181 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 27.771123 seconds.
-  path: Assets/02 Visual assets/07 Characters/Rigs
-  artifactKey: Guid(08a3fc27e63e8374c9dd2e8ea0010acf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/Rigs using Guid(08a3fc27e63e8374c9dd2e8ea0010acf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5292ae961777e8ab83e0fc2ac4981417') in 0.002121 seconds 
-  Import took 0.005073 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 280.738135 seconds.
-  path: Assets/01 Scenes/Undercity.unity
-  artifactKey: Guid(ae107749f1cbbd84d9faf5d1d29a502f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/01 Scenes/Undercity.unity using Guid(ae107749f1cbbd84d9faf5d1d29a502f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a2ceceb26f998fbf94653f2e6030147') in 0.004234 seconds 
-  Import took 0.008039 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.009097 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
 Refreshing native plugins compatible for Editor in 0.84 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.910 seconds
-Domain Reload Profiling:
-	ReloadAssembly (910ms)
-		BeginReloadAssembly (105ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (5ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (32ms)
-		EndReloadAssembly (751ms)
-			LoadAssemblies (93ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (252ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (31ms)
-			SetupLoadedEditorAssemblies (286ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (4ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (55ms)
-				ProcessInitializeOnLoadAttributes (190ms)
-				ProcessInitializeOnLoadMethodAttributes (29ms)
-				AfterProcessingInitializeOnLoad (6ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (6ms)
-Platform modules already initialized, skipping
-Switching build target platform(19) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(589824) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 0.82 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2613 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 110.4 MB.
-System memory in use after: 110.5 MB.
+Unloading 2677 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 109.2 MB.
+System memory in use after: 109.4 MB.
 
-Unloading 66 unused Assets to reduce memory usage. Loaded Objects now: 3019.
-Total: 5.442100 ms (FindLiveObjects: 0.207300 ms CreateObjectMapping: 0.081400 ms MarkObjects: 5.050900 ms  DeleteObjects: 0.101100 ms)
+Unloading 73 unused Assets to reduce memory usage. Loaded Objects now: 3070.
+Total: 5.768600 ms (FindLiveObjects: 0.234200 ms CreateObjectMapping: 0.099400 ms MarkObjects: 5.337100 ms  DeleteObjects: 0.096300 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -329,138 +128,445 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.008692 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 52.39 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.976 seconds
-Domain Reload Profiling:
-	ReloadAssembly (977ms)
-		BeginReloadAssembly (105ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (5ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (34ms)
-		EndReloadAssembly (815ms)
-			LoadAssemblies (94ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (248ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (36ms)
-			SetupLoadedEditorAssemblies (314ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (4ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (52ms)
-				BeforeProcessingInitializeOnLoad (55ms)
-				ProcessInitializeOnLoadAttributes (172ms)
-				ProcessInitializeOnLoadMethodAttributes (25ms)
-				AfterProcessingInitializeOnLoad (6ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (8ms)
-Platform modules already initialized, skipping
-Switching build target platform(19) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(589824) extendedPlatform(0)
-Refreshing native plugins compatible for Editor in 0.84 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2674 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 112.2 MB.
-System memory in use after: 112.3 MB.
-
-Unloading 66 unused Assets to reduce memory usage. Loaded Objects now: 3082.
-Total: 5.179400 ms (FindLiveObjects: 0.206100 ms CreateObjectMapping: 0.080400 ms MarkObjects: 4.795300 ms  DeleteObjects: 0.096300 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 1665.090392 seconds.
-  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
-  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46b98b795c4eed038bd051804757f304') in 0.181501 seconds 
-  Import took 0.186420 seconds .
+  path: Assets/02 Visual assets/08 working files/cubes-r1.psd
+  artifactKey: Guid(a13a322e35c542d40829d6ee4182eccf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/08 working files/cubes-r1.psd using Guid(a13a322e35c542d40829d6ee4182eccf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48db0421d96a5f9def92d955219a9a84') in 0.136584 seconds 
+  Import took 0.140421 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 112.082580 seconds.
-  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
-  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aca87f278bdb38ce8655ec964e86d051') in 0.101701 seconds 
-  Import took 0.105411 seconds .
+  Time since last request: 0.000293 seconds.
+  path: Assets/02 Visual assets/08 working files/CubeSheet_Archive.psd
+  artifactKey: Guid(2a203577bd0400a42921552898f831aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/08 working files/CubeSheet_Archive.psd using Guid(2a203577bd0400a42921552898f831aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ecbf72070659cd57dea0662ac7a7df08') in 0.027679 seconds 
+  Import took 0.031332 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 11.103971 seconds.
-  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
-  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4c2da34efca6b84834686871393dcbb') in 0.106907 seconds 
-  Import took 0.110729 seconds .
+  Time since last request: 0.000333 seconds.
+  path: Assets/02 Visual assets/08 working files/cubes.psd
+  artifactKey: Guid(17bcb90cf4e329b4e998d1a0086f0934) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/08 working files/cubes.psd using Guid(17bcb90cf4e329b4e998d1a0086f0934) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ae54c6e098c95b8c5b0b9e17418e3fb') in 0.049650 seconds 
+  Import took 0.053509 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 38433.865860 seconds.
-  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
-  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f9e34fccff96cb4cfdf7a85b6ce1e06') in 0.108224 seconds 
-  Import took 0.113141 seconds .
+  Time since last request: 0.000283 seconds.
+  path: Assets/02 Visual assets/08 working files/salle-tresor.psd
+  artifactKey: Guid(7e836e09fee3a7f4dbcf0cd4e24638ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/08 working files/salle-tresor.psd using Guid(7e836e09fee3a7f4dbcf0cd4e24638ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36b797f84139a83af8d48a147a0561ec') in 0.084658 seconds 
+  Import took 0.088281 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 463.815020 seconds.
-  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
-  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07dbbc2829d19ed1c2528ae84a9bde7c') in 0.115114 seconds 
-  Import took 0.119724 seconds .
+  Time since last request: 2484.270338 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb40cd4fb033596d8d6279e2565cc227') in 0.042247 seconds 
+  Import took 0.047704 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 137.808213 seconds.
-  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
-  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb65bd86a976be4e6861e74d1a7f433d') in 0.098165 seconds 
-  Import took 0.102029 seconds .
+  Time since last request: 153.616131 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '263a29b4450f549fa0645ea3f45a4039') in 0.019513 seconds 
+  Import took 0.024463 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 70.509163 seconds.
-  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
-  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ee7043cc9f4807c1465ca881a8a8e74') in 0.093551 seconds 
-  Import took 0.097374 seconds .
+  Time since last request: 8.031561 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '271e26eebd385f9100c2f05813bd3ac3') in 0.014871 seconds 
+  Import took 0.020308 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 112.914993 seconds.
-  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
-  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c78e529441467710acd32017e0852174') in 0.142007 seconds 
-  Import took 0.147098 seconds .
+  Time since last request: 8.687262 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '442f4febf1e4b720174a3319fea78404') in 0.011740 seconds 
+  Import took 0.017204 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 78.507490 seconds.
+  Time since last request: 2.410670 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71ac3839cb9f27505a836aff5ce9ffea') in 0.015060 seconds 
+  Import took 0.020417 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.017936 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9150e3b486f7ff50599e710d33d3a0df') in 0.015326 seconds 
+  Import took 0.020535 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.195659 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d453e7c9a0e9227b3da034c8a138f3a') in 0.014219 seconds 
+  Import took 0.018898 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.640369 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0cb44b730c46da9edde601ceeefbc32b') in 0.011648 seconds 
+  Import took 0.016386 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.411856 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fbc1672a842ceab0bb90a6ea9a2cffe2') in 0.016724 seconds 
+  Import took 0.021944 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.813510 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '616d274dc32fa23072f1bf9ae9d923bd') in 0.018499 seconds 
+  Import took 0.024157 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.797000 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab
+  artifactKey: Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/GirlSpriteTrimmed.prefab using Guid(46970b34698efb0418ce66be4a760b29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4cbd5c69f8da65d66218a0b9a7754e6a') in 0.013644 seconds 
+  Import took 0.018517 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 429.195701 seconds.
+  path: Assets/02 Visual assets/02 UI components/Character_Empty.psd
+  artifactKey: Guid(2f5fa35b2adc1794a95b4e986a2a745c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/Character_Empty.psd using Guid(2f5fa35b2adc1794a95b4e986a2a745c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9bf38478cd9f1925d6214b01a3db2a8b') in 0.036122 seconds 
+  Import took 0.041253 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000253 seconds.
+  path: Assets/02 Visual assets/02 UI components/UIPanelBackgroundSimpleTransparent.psd
+  artifactKey: Guid(efdef05b42cfeb64c9cc4d46848b22ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/UIPanelBackgroundSimpleTransparent.psd using Guid(efdef05b42cfeb64c9cc4d46848b22ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2be791526a89dc36bee34a0f455848b0') in 0.032116 seconds 
+  Import took 0.035785 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000196 seconds.
+  path: Assets/02 Visual assets/02 UI components/PortraitMenuButtonActivatedUI.psd
+  artifactKey: Guid(1dc8466b36266204c9df72212af0d1fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/PortraitMenuButtonActivatedUI.psd using Guid(1dc8466b36266204c9df72212af0d1fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ac237b96c0861cb55cbaf7ca6043a85') in 0.039261 seconds 
+  Import took 0.043205 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000226 seconds.
+  path: Assets/02 Visual assets/02 UI components/InGame_SettingsOpen.psd
+  artifactKey: Guid(33c5838e1cfe19c46912938373161d9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/InGame_SettingsOpen.psd using Guid(33c5838e1cfe19c46912938373161d9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b687aa00150fd1d07a5bc46302e28948') in 0.034471 seconds 
+  Import took 0.038708 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000234 seconds.
+  path: Assets/02 Visual assets/02 UI components/UIPanelBackgroundSimpleBlack.psd
+  artifactKey: Guid(215657362f9733641b2a87b56b046645) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/UIPanelBackgroundSimpleBlack.psd using Guid(215657362f9733641b2a87b56b046645) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f9cdd3feaeb1a23b640e0dcd9831a472') in 0.040083 seconds 
+  Import took 0.043985 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000202 seconds.
+  path: Assets/02 Visual assets/02 UI components/InGame_DongeonOpen.psd
+  artifactKey: Guid(45b9dc27cc83b544aaeb8a97d059308d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/InGame_DongeonOpen.psd using Guid(45b9dc27cc83b544aaeb8a97d059308d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af398b6a4bb6984813e2b9ea64e6e805') in 0.030440 seconds 
+  Import took 0.034818 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000221 seconds.
+  path: Assets/02 Visual assets/02 UI components/UI_Circle.psd
+  artifactKey: Guid(fcefc2fe3b9257f4a9522c584d8fd045) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/UI_Circle.psd using Guid(fcefc2fe3b9257f4a9522c584d8fd045) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e56135dbc0b97a3b474cb024cfa5e7b') in 0.050909 seconds 
+  Import took 0.055478 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000227 seconds.
+  path: Assets/02 Visual assets/02 UI components/InGame_UI_Bar.psd
+  artifactKey: Guid(6be4d039596c7e647a51db78b6f22f71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/InGame_UI_Bar.psd using Guid(6be4d039596c7e647a51db78b6f22f71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f0f49dbb090a65e9024d13fbd7845f2e') in 0.039776 seconds 
+  Import took 0.043851 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000225 seconds.
+  path: Assets/02 Visual assets/02 UI components/UI_Knob.psd
+  artifactKey: Guid(ce4705d272a18634396a10ef9c0dc5b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/UI_Knob.psd using Guid(ce4705d272a18634396a10ef9c0dc5b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0bce925ec11b6960ba5ccb919cf3c6d') in 0.024707 seconds 
+  Import took 0.028693 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000216 seconds.
+  path: Assets/02 Visual assets/02 UI components/UIPanelBackgroundBlack.psd
+  artifactKey: Guid(08777b54bef05254a8561f7130ba44b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/UIPanelBackgroundBlack.psd using Guid(08777b54bef05254a8561f7130ba44b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '839a9bdc8f41f71f192a8aa20fbc67ad') in 0.030077 seconds 
+  Import took 0.034747 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000254 seconds.
+  path: Assets/02 Visual assets/02 UI components/Character_HellGeneral.psd
+  artifactKey: Guid(32dd04de33ad78a46a794dd1dd5e1c66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/Character_HellGeneral.psd using Guid(32dd04de33ad78a46a794dd1dd5e1c66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2bbf4ab0db7fa2f44d5cd86da0463187') in 0.034315 seconds 
+  Import took 0.038547 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000275 seconds.
+  path: Assets/02 Visual assets/02 UI components/HellGeneral.psd
+  artifactKey: Guid(32bc7a43abc53dc4bbadd6e6c54e177b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/HellGeneral.psd using Guid(32bc7a43abc53dc4bbadd6e6c54e177b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1653a28fd54fe12069b279bea865ce4d') in 0.046410 seconds 
+  Import took 0.050412 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000215 seconds.
+  path: Assets/02 Visual assets/02 UI components/PortraitMenuButtonUI.psd
+  artifactKey: Guid(1635960f5d8cd1f49a7016a264818863) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/PortraitMenuButtonUI.psd using Guid(1635960f5d8cd1f49a7016a264818863) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f37d92b9a1c873eb45a4b30c72efdf8') in 0.022471 seconds 
+  Import took 0.026609 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000187 seconds.
+  path: Assets/02 Visual assets/02 UI components/InGame_CharMenuOpen.psd
+  artifactKey: Guid(a0053e2e72a50264188e20d5277f5401) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/InGame_CharMenuOpen.psd using Guid(a0053e2e72a50264188e20d5277f5401) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ebed01c6bf4f0c322853e2c600bb53c5') in 0.032577 seconds 
+  Import took 0.036660 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000248 seconds.
+  path: Assets/02 Visual assets/02 UI components/UIPanelBackgroundWhite.psd
+  artifactKey: Guid(f5817244f0ce92843a4cceceece74775) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/UIPanelBackgroundWhite.psd using Guid(f5817244f0ce92843a4cceceece74775) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be7488266aa22b09a92ce4898a9f9210') in 0.045399 seconds 
+  Import took 0.049310 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000240 seconds.
+  path: Assets/02 Visual assets/02 UI components/UIPanelBackgroundTransparent.psd
+  artifactKey: Guid(1ec9f341dd62e384eae8c9c408e1d2d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/UIPanelBackgroundTransparent.psd using Guid(1ec9f341dd62e384eae8c9c408e1d2d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6f7ae53fbca2e9d878c88fd81bcf1d7') in 0.027998 seconds 
+  Import took 0.032543 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000265 seconds.
+  path: Assets/02 Visual assets/02 UI components/CityUIbar.psd
+  artifactKey: Guid(34c8500cb8a79a146ad056076aa4aa4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/CityUIbar.psd using Guid(34c8500cb8a79a146ad056076aa4aa4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f3bc9d53513221c6e537055c564b33f5') in 0.032680 seconds 
+  Import took 0.037063 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000199 seconds.
+  path: Assets/02 Visual assets/02 UI components/PortraitUI.psd
+  artifactKey: Guid(9185fcc3ce9aab645bb811f307183a31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/PortraitUI.psd using Guid(9185fcc3ce9aab645bb811f307183a31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd681a5eefff0ee0f9c4239921df04aa9') in 0.030894 seconds 
+  Import took 0.035075 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.409936 seconds.
   path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
   artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a3677aee383ace80a29fb6b7f18acae5') in 0.091107 seconds 
-  Import took 0.095059 seconds .
+Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3428a3f40c434af303ad48b415818758') in 0.395072 seconds 
+  Import took 0.399784 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 866.122898 seconds.
+  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
+  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1210912ac599d3e5b83679a936b027ea') in 0.145748 seconds 
+  Import took 0.151893 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 42.668873 seconds.
+  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
+  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55c39d73557964f09f3f7f1bbd3c75ef') in 0.441939 seconds 
+  Import took 0.446976 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 453.057989 seconds.
+  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
+  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd0c66cf18ab0e92e0b1f3a0ad1d54c7c') in 0.475733 seconds 
+  Import took 0.481945 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 95.794795 seconds.
+  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
+  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '31b4969459c75756463ebf4d0c8ecb88') in 1.013280 seconds 
+  Import took 1.017680 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 215.143576 seconds.
+  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
+  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff39db0492a02758c56bd692fe87e6ce') in 0.519575 seconds 
+  Import took 0.525669 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 471.442075 seconds.
+  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
+  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03242162bfcac14c7ea67e0ca866d8d5') in 0.513529 seconds 
+  Import took 0.519987 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 199.081263 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/CharacterSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/CharacterSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70096c42c40fe4f5501129ea87d4d15d') in 0.018011 seconds 
+  Import took 0.023807 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 60.980098 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2ad422e5469a7c3b4f543d443f2109e') in 0.014681 seconds 
+  Import took 0.019109 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 42.786820 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17f5139c7d3a31635f0d77f4c61a950a') in 0.032115 seconds 
+  Import took 0.038405 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.189919 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33597e26dc7c649d77f970b29ace20a0') in 0.021391 seconds 
+  Import took 0.026919 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.984653 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '830ba5a82e5248773bd09659b8205c38') in 0.011687 seconds 
+  Import took 0.016402 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 216.852639 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06a94599953ec47b0109801445f8df97') in 0.014675 seconds 
+  Import took 0.020454 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18830.882551 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a14231a2332524cb8f8439e05b7287d') in 0.015249 seconds 
+  Import took 0.020431 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.451982 seconds.
+  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
+  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8eec2759d9149f67a71dbc0642cfe8e2') in 0.047127 seconds 
+  Import took 0.051500 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2936.399133 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11310a18fb09ee6e8ba134543470d9d9') in 0.014556 seconds 
+  Import took 0.020061 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.408007 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f478aebf3d7d1354232e3b73530f4e2b') in 0.012389 seconds 
+  Import took 0.017134 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.385281 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e33f9938190b4fe2326ead3915b41c2c') in 0.011595 seconds 
+  Import took 0.015858 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 53.070173 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f09ce55d9b28230eee2f1c1983abec42') in 0.013308 seconds 
+  Import took 0.018288 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.605447 seconds.
+  path: Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab
+  artifactKey: Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/06 - Character Rig/MediumFemaleCharacterRigSprite.prefab using Guid(7b6b32eb4de9646468adc80ae812d2d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0de89ce8495b3cb522c248950998b887') in 0.013653 seconds 
+  Import took 0.018545 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 99.744991 seconds.
+  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
+  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c84786a20624393f59b4c67aeaf6e843') in 0.149455 seconds 
+  Import took 0.155906 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 91.233435 seconds.
+  path: Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb
+  artifactKey: Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/07 Characters/GirlSpriteTrimmed.psb using Guid(a5a1214d68105334eb6fda8f6ee30df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '312ef2c35aff08dc126b9367e9256ffa') in 0.563921 seconds 
+  Import took 0.568060 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
