@@ -10,37 +10,16 @@ public class SaveAndLoad: MonoBehaviour {
     private ArrayList PlayerProgress;
     private ArrayList PlayerCity;
     private ArrayList PlayerAccountStatsBefore;
-    private ArrayList CurrentSlot;
+    private ArrayList RefCitySize;
 
     private HistoryAllocation historyAllocation = new HistoryAllocation();
 
-    private int MapSize = 150;
-
-    private int GetSlot() {
-
-        //Getting the slot
-        CurrentSlot = dataBaseManager.getArrayData("select * from CrossSceneTemporaryData ", "BlueStarDataWarehouse.db");
-        int Slot = System.Convert.ToInt32(((ArrayList)CurrentSlot[1])[0]);
-        return Slot;
-
-    }
-
-    public void SettingTheCurrentSaveSlot(int Slot) {
-
-        string[] CrossSceneData = {
-            "CurrentSlot = " + Slot
-        };
-
-        // Setting the current game instance to the selected save slot for cross scene management
-        dataBaseManager.UpdateData("CrossSceneTemporaryData", "1=1", CrossSceneData);
-
-    }
+    private int MapSizeOnX;
+    private int MapSizeOnZ;
 
     public void SavePlayerChoicesInDataBase(BasePlayer Player, bool IsItARebirth)
     {
-        int Slot = GetSlot();
-
-
+        
         // Saving the detailed choices
         string[] PlayerStaticChoicesValues = {
 
@@ -63,7 +42,7 @@ public class SaveAndLoad: MonoBehaviour {
         };
 
 
-        dataBaseManager.UpdateData("PlayerStaticChoices", "Slot=" + Slot, PlayerStaticChoicesValues);
+        dataBaseManager.UpdateData("PlayerStaticChoices", "" , PlayerStaticChoicesValues);
 
 
         // Saving the allocated points
@@ -94,7 +73,7 @@ public class SaveAndLoad: MonoBehaviour {
 
         };
 
-        dataBaseManager.UpdateData("PlayerStatsModifiers", "Slot=" + Slot + " and ModifierSource='PlayerCreation' ", PlayerStatsModifiersValues);
+        dataBaseManager.UpdateData("PlayerStatsModifiers", "ModifierSource='PlayerCreation' ", PlayerStatsModifiersValues);
 
 
         // Resetting the progress of the hero
@@ -107,7 +86,7 @@ public class SaveAndLoad: MonoBehaviour {
 
         };
 
-        dataBaseManager.UpdateData("PlayerProgress", "Slot=" + Slot, PlayerProgressValues);
+        dataBaseManager.UpdateData("PlayerProgress", "", PlayerProgressValues);
 
 
 
@@ -116,9 +95,9 @@ public class SaveAndLoad: MonoBehaviour {
         if (IsItARebirth==true)
         {
             // Updating the account general stat, and increasing by one the number of legacy
-            PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats where Slot =" + Slot, "BlueStarDataWarehouse.db");
+            PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats", "BlueStarDataWarehouse.db");
             string[] PlayerAccountStats = { "NumberOfLegacy = " + (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2]) + 1), "UnderCityExist = 0 " };
-            dataBaseManager.UpdateData("PlayerAccountStats", "Slot=" + Slot, PlayerAccountStats);
+            dataBaseManager.UpdateData("PlayerAccountStats", "" , PlayerAccountStats);
         }
         
     }
@@ -126,16 +105,13 @@ public class SaveAndLoad: MonoBehaviour {
     public BasePlayer LoadPlayerChoicesFromDataBase()
     {
 
-        int Slot = GetSlot();
-
-
         BasePlayer Player = new BasePlayer();
 
         // DataBase Extract
-        PlayerStaticChoices = dataBaseManager.getArrayData("select * from PlayerStaticChoices where Slot =" + Slot, "BlueStarDataWarehouse.db");
-        PlayerStatsModifiers = dataBaseManager.getArrayData("select * from PlayerStatsModifiers where ModifierSource='PlayerCreation' and Slot =" + Slot, "BlueStarDataWarehouse.db");
-        PlayerProgress = dataBaseManager.getArrayData("select * from PlayerProgress where Slot =" + Slot, "BlueStarDataWarehouse.db");
-        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats where Slot =" + Slot, "BlueStarDataWarehouse.db");
+        PlayerStaticChoices = dataBaseManager.getArrayData("select * from PlayerStaticChoices" , "BlueStarDataWarehouse.db");
+        PlayerStatsModifiers = dataBaseManager.getArrayData("select * from PlayerStatsModifiers where ModifierSource='PlayerCreation'" , "BlueStarDataWarehouse.db");
+        PlayerProgress = dataBaseManager.getArrayData("select * from PlayerProgress", "BlueStarDataWarehouse.db");
+        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats", "BlueStarDataWarehouse.db");
 
         //StaticChoices
         Player.PlayerFirstName =    (string)((ArrayList)PlayerStaticChoices[1])[1];
@@ -233,80 +209,72 @@ public class SaveAndLoad: MonoBehaviour {
 
 
 
-    public void SavePlayerCityInDataBase(int[][] Map, string MapOrSprite)
+    public void SavePlayerCityInDataBase(int[,] Map, int[,] Sprite)
     {
+        // Getting the dimensions of the map
+        (MapSizeOnX, MapSizeOnZ) = LoadMapDimension("UnderCity");
 
-
-        int Slot = GetSlot();
-
+        // Saving row by row
         int z = 0;
         int x = 0;
 
-        for (int i = 0; i < MapSize; i++) {
-
-            string[] PlayerCityVector = new string[150];
-
-            for (int j = 0; j < MapSize; j++) {
+        for (int i = 0; i < MapSizeOnX; i++) {
+            for (int j = 0; j < MapSizeOnZ; j++) {
                 z = j + 1;
                 x = i + 1;
-                
-                PlayerCityVector[j]="Cube" + z + "= " + Map[i][j];
-
+                UpdateCityData(Map[i,j], Sprite[i,j], x, z);
             }
-            if (MapOrSprite == "Map") dataBaseManager.UpdateData("PlayerCity", "Slot=" + Slot + " and X=" + x + " and Info='Map'", PlayerCityVector);
-            else dataBaseManager.UpdateData("PlayerCity", "Slot=" + Slot + " and X=" + x + " and Info='Sprite'", PlayerCityVector);
+
         }
 
 
         // Saving the status of the city
-        string[] PlayerAccountStats = { "UnderCityExist = 1" };
-        dataBaseManager.UpdateData("PlayerAccountStats", "Slot=" + Slot, PlayerAccountStats);
-
-
-
+        dataBaseManager.UpdateData("PlayerAccountStats", "", new string[1] {"UnderCityExist = 1"});
 
     }
 
 
 
-    public void UpdateCityData(int Cube,int Sprite, int x, int z)
+    public void UpdateCityData(int Tile, int Sprite, int x, int z)
     {
-
-        int Slot = GetSlot();
-        string[] PlayerCityVector = new string[1];
-
-        PlayerCityVector[0] = "Cube" + z + "= " + Cube;
-        dataBaseManager.UpdateData("PlayerCity", "Info='Map' and Slot=" + Slot + " and X=" + x, PlayerCityVector);
-
-        PlayerCityVector[0] = "Cube" + z + "= " + Sprite;
-        dataBaseManager.UpdateData("PlayerCity", "Info='Sprite' and Slot=" + Slot + " and X=" + x, PlayerCityVector);
-
-
+        dataBaseManager.UpdateData("CityMap", "X=" + x + " and Y=" + z , new string[1] { "TileCode= " + Tile + "and SpriteVariation= " + Sprite });
     }
 
 
 
 
-    public int[][] LoadPlayerCityFromDataBase(string MapOrSprite)
+    public (int[,] TileMap, int[,] SpriteMap ) LoadPlayerCityFromDataBase()
     {
+        // Getting the dimensions of the map
+        (MapSizeOnX, MapSizeOnZ) = LoadMapDimension("UnderCity");
 
-        int Slot = GetSlot();
-
-        if (MapOrSprite == "Map") PlayerCity = dataBaseManager.getArrayData("select * from PlayerCity where Info='Map' and Slot =" + Slot, "BlueStarDataWarehouse.db");
-        else PlayerCity = dataBaseManager.getArrayData("select * from PlayerCity where Info='Sprite' and Slot =" + Slot, "BlueStarDataWarehouse.db");
-
-        int[][] MapArray = new int[MapSize][];
-        for (int i = 0; i < MapSize; i++) MapArray[i] = new int[MapSize];
-                        
-        for (int i = 0; i < 150; i++)
+        // Getting the map details
+        PlayerCity = dataBaseManager.getArrayData("select * from CityMap", "BlueStarDataWarehouse.db");
+ 
+        int[,] TileMap = new int[MapSizeOnX, MapSizeOnZ];
+        int[,] SpriteMap = new int[MapSizeOnX, MapSizeOnZ];
+          
+        for (int i = 0; i < MapSizeOnX; i++)
         {
-            for (int j = 0; j < 150; j++)
+            for (int j = 0; j < MapSizeOnZ; j++)
             {
-                MapArray[i][j] = System.Convert.ToInt32(((ArrayList)PlayerCity[i+1])[j+2]);
+                TileMap[i,j] = System.Convert.ToInt32(((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[3]);
+                SpriteMap[i,j] = System.Convert.ToInt32(((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[3]);
             }
         }
 
-        return MapArray;
+        return (TileMap,SpriteMap);
+
+    }
+
+
+    public (int MapSizeOnX, int MapSizeOnZ) LoadMapDimension(string MapName)
+    {
+
+        // Getting the dimensions of the map
+        RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainSpecificities where MapName = '" + MapName  + "'", "BlueStarDataWarehouse.db");
+        MapSizeOnX = System.Convert.ToInt32(((ArrayList)RefCitySize[0])[2]);
+        MapSizeOnZ = System.Convert.ToInt32(((ArrayList)RefCitySize[0])[3]);
 
     }
 

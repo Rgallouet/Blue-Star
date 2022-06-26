@@ -9,8 +9,9 @@ public class CubeManager : MonoBehaviour {
     public CityGUI cityGUI;
     public Transform PlayerPrefab;
     public Transform playerInstantiated;
-    public int MapSize = 150;
-    
+    private int MapSizeOnX;
+    private int MapSizeOnZ;
+
     public Transform[] CubePrefabs;
     public int[] Probability;
     public int[] MaxSpriteLimite;
@@ -26,10 +27,10 @@ public class CubeManager : MonoBehaviour {
     private int StartPrefabRefence = 11;
     private int EarthCubePrefabRefence = 4;
 
-    public int[][] map;
-    public int[][] sprite;
-    private int[][] Visible;
-    private int[][] NewVisible;
+    public int[,] map;
+    public int[,] sprite;
+    private int[,] Visible;
+    private int[,] NewVisible;
 
 
 
@@ -61,14 +62,13 @@ public class CubeManager : MonoBehaviour {
             map = CalculateTheMap();
             sprite = CalculateTheSprite();
 
-            saveAndLoad.SavePlayerCityInDataBase(map,"Map");
-            saveAndLoad.SavePlayerCityInDataBase(sprite,"Sprite");
+            saveAndLoad.SavePlayerCityInDataBase(map, sprite);
+
         }
         else
         {
             Debug.Log("LoadGame!");
-            map = saveAndLoad.LoadPlayerCityFromDataBase("Map");
-            sprite = saveAndLoad.LoadPlayerCityFromDataBase("Sprite");
+            (map, sprite) = saveAndLoad.LoadPlayerCityFromDataBase();
         }
 
 
@@ -91,9 +91,9 @@ public class CubeManager : MonoBehaviour {
         {
             for (int z = 0; z < MapSize; z++)
             {
-                if (Visible[x][z] != 3)
+                if (Visible[x,z] != 3)
                 {
-                    GenerateUndergroundElement(map[x][z],sprite[x][z], x, z);
+                    GenerateUndergroundElement(map[x,z],sprite[x,z], x, z);
                 }
                 
             }
@@ -110,7 +110,7 @@ public class CubeManager : MonoBehaviour {
 
     }
 
-    int[][] CalculateTheMap()
+    int[,] CalculateTheMap()
     {
         var random = new System.Random();
         System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
@@ -118,7 +118,7 @@ public class CubeManager : MonoBehaviour {
 
         int[] localProbability = new int[NumberofPrefabs];
 
-        int[][] MapArray = new int[MapSize][];
+        int[,] MapArray = new int[MapSize,];
         for (int i = 0; i < MapSize; i++) MapArray[i] = new int[MapSize];
 
 
@@ -132,19 +132,19 @@ public class CubeManager : MonoBehaviour {
             for (int z = 0; z < MapSize; z++)
             {
                 // the Strict Borders
-                if (x == 0 || x == MapSize - 1 || z == 0 || z == MapSize - 1)  { MapArray[x][z] = ObsidianPrefabRefence; }
+                if (x == 0 || x == MapSize - 1 || z == 0 || z == MapSize - 1)  { MapArray[x,z] = ObsidianPrefabRefence; }
                 // the starting ground
-                else if (x > (MapSize / 2) + 3 && x < (MapSize / 2) + 7 && z > (MapSize / 2) + 3 && z < (MapSize / 2) + 7)  { MapArray[x][z] = StartPrefabRefence; }
+                else if (x > (MapSize / 2) + 3 && x < (MapSize / 2) + 7 && z > (MapSize / 2) + 3 && z < (MapSize / 2) + 7)  { MapArray[x,z] = StartPrefabRefence; }
                 // the rest
                 else {
                     for (int i=0; i< NumberofPrefabs; i++) localProbability[i] = Probability[i];
                 
-                    localProbability[MapArray[x - 1][z]] = Math.Min(localProbability[MapArray[x - 1][z]] + AdditiveFactor + MultiplicativeFactor* Probability[MapArray[x - 1][z]], Probability[MapArray[x - 1][z]]+ MaximumExcess);
-                    localProbability[MapArray[x][z-1]] = Math.Min(localProbability[MapArray[x][z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x][z - 1]], Probability[MapArray[x][z - 1]] + MaximumExcess);
-                    localProbability[MapArray[x - 1][z-1]] = Math.Min(localProbability[MapArray[x - 1][z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x - 1][z - 1]], Probability[MapArray[x - 1][z - 1]] + MaximumExcess);
-                    localProbability[MapArray[x + 1][z - 1]] = Math.Min(localProbability[MapArray[x + 1][z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x + 1][z - 1]], Probability[MapArray[x + 1][z - 1]] + MaximumExcess);
+                    localProbability[MapArray[x - 1,z]] = Math.Min(localProbability[MapArray[x - 1,z]] + AdditiveFactor + MultiplicativeFactor* Probability[MapArray[x - 1,z]], Probability[MapArray[x - 1,z]]+ MaximumExcess);
+                    localProbability[MapArray[x,z-1]] = Math.Min(localProbability[MapArray[x,z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x,z - 1]], Probability[MapArray[x,z - 1]] + MaximumExcess);
+                    localProbability[MapArray[x - 1,z-1]] = Math.Min(localProbability[MapArray[x - 1,z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x - 1,z - 1]], Probability[MapArray[x - 1,z - 1]] + MaximumExcess);
+                    localProbability[MapArray[x + 1,z - 1]] = Math.Min(localProbability[MapArray[x + 1,z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x + 1,z - 1]], Probability[MapArray[x + 1,z - 1]] + MaximumExcess);
 
-                    int HowMuchDistributionChange = (localProbability[MapArray[x - 1][z]] + localProbability[MapArray[x][z - 1]] + localProbability[MapArray[x - 1][z - 1]] + localProbability[MapArray[x + 1][z - 1]]) - (Probability[MapArray[x - 1][z]] + Probability[MapArray[x][z - 1]] + Probability[MapArray[x - 1][z - 1]] + Probability[MapArray[x + 1][z - 1]]);
+                    int HowMuchDistributionChange = (localProbability[MapArray[x - 1,z]] + localProbability[MapArray[x,z - 1]] + localProbability[MapArray[x - 1,z - 1]] + localProbability[MapArray[x + 1,z - 1]]) - (Probability[MapArray[x - 1,z]] + Probability[MapArray[x,z - 1]] + Probability[MapArray[x - 1,z - 1]] + Probability[MapArray[x + 1,z - 1]]);
 
                     localProbability[EarthCubePrefabRefence] = localProbability[EarthCubePrefabRefence] - HowMuchDistributionChange;
 
@@ -164,7 +164,7 @@ public class CubeManager : MonoBehaviour {
                         cumulative += localProbability[i];
                         if (diceRoll < cumulative)
                         {
-                            MapArray[x][z] = i;
+                            MapArray[x,z] = i;
                             
                             break;
                         }
@@ -183,10 +183,10 @@ public class CubeManager : MonoBehaviour {
 
     }
     
-    int[][] CalculateTheSprite()
+    int[,] CalculateTheSprite()
     {
 
-        int[][] MapArray = new int[MapSize][];
+        int[,] MapArray = new int[MapSize,];
         for (int i = 0; i < MapSize; i++) MapArray[i] = new int[MapSize];
 
         //Starting Ground
@@ -195,7 +195,7 @@ public class CubeManager : MonoBehaviour {
             for (int z = 0; z < MapSize; z++)
             {
                 
-                MapArray[x][z] = UnityEngine.Random.Range(0, MaxSpriteLimite[map[x][z]] -1);
+                MapArray[x,z] = UnityEngine.Random.Range(0, MaxSpriteLimite[map[x,z]] -1);
 
             }
         }
@@ -204,9 +204,9 @@ public class CubeManager : MonoBehaviour {
 
     }
 
-    int[][] CalculateTheVisibleArea(int[][] Map) {
+    int[,] CalculateTheVisibleArea(int[,] Map) {
 
-        int[][] MapArray = new int[MapSize][];
+        int[,] MapArray = new int[MapSize,];
         for (int i = 0; i < MapSize; i++) MapArray[i] = new int[MapSize];
 
         // initialize starting zone
@@ -214,7 +214,7 @@ public class CubeManager : MonoBehaviour {
         {
             for (int z = (MapSize / 2) + 4; z < (MapSize / 2) + 7; z++)
             {
-                MapArray[x][z] = 1;
+                MapArray[x,z] = 1;
             }
         }
 
@@ -227,7 +227,7 @@ public class CubeManager : MonoBehaviour {
         {
             for (int z = (MapSize / 2) + 3; z < (MapSize / 2) + 8; z++)
             {
-                if ( (x== (MapSize / 2) + 3 || x == (MapSize / 2) + 7 || z == (MapSize / 2) + 3 || z == (MapSize / 2) + 7) && ( Map[x][z] > 9 && Map[x][z] < 20 ) ) ToDoList.Add(new int[] {x,z});
+                if ( (x== (MapSize / 2) + 3 || x == (MapSize / 2) + 7 || z == (MapSize / 2) + 3 || z == (MapSize / 2) + 7) && ( Map[x,z] > 9 && Map[x,z] < 20 ) ) ToDoList.Add(new int[] {x,z});
             }
         }
 
@@ -240,14 +240,14 @@ public class CubeManager : MonoBehaviour {
             int x_center = ((int[])ToDoList[0])[0];
             int z_center = ((int[])ToDoList[0])[1];
 
-            MapArray[x_center][z_center] = 1;
+            MapArray[x_center,z_center] = 1;
             ToDoList.RemoveAt(0);
 
             for (int x = x_center-1; x < x_center+2; x++)
             {
                 for (int z = z_center-1; z < z_center+2; z++)
                 {
-                    if ( (z!=z_center || x!=x_center) && Map[x][z] > 9 && Map[x][z] < 20 && MapArray[x][z]!=1) {
+                    if ( (z!=z_center || x!=x_center) && Map[x,z] > 9 && Map[x,z] < 20 && MapArray[x,z]!=1) {
                         ToDoList.Add(new int[] { x, z });
                     }
                 }
@@ -261,7 +261,7 @@ public class CubeManager : MonoBehaviour {
         {
             for (int z_center = 0; z_center < MapSize; z_center++)
             {
-                if (MapArray[x_center][z_center] != 1) {
+                if (MapArray[x_center,z_center] != 1) {
 
                     ShouldIbeSeen = false;
 
@@ -269,11 +269,11 @@ public class CubeManager : MonoBehaviour {
                     {
                         for (int z = Mathf.Max(0, z_center - 1); z < Mathf.Min(MapSize, z_center + 2); z++)
                         {
-                            if ((z != z_center || x != x_center) && MapArray[x][z] == 1)  ShouldIbeSeen = true;
+                            if ((z != z_center || x != x_center) && MapArray[x,z] == 1)  ShouldIbeSeen = true;
                         }
                     }
 
-                    if (ShouldIbeSeen == true) MapArray[x_center][z_center] = 2; else MapArray[x_center][z_center] = 3;
+                    if (ShouldIbeSeen == true) MapArray[x_center,z_center] = 2; else MapArray[x_center,z_center] = 3;
 
                  }
 
@@ -291,9 +291,9 @@ public class CubeManager : MonoBehaviour {
         {
             for (int z = 0; z < MapSize; z++)
             {
-                if (Visible[x][z] == 3 && NewVisible[x][z] != 3 )
+                if (Visible[x,z] == 3 && NewVisible[x,z] != 3 )
                 {
-                    GenerateUndergroundElement(map[x][z], sprite[x][z], x, z);
+                    GenerateUndergroundElement(map[x,z], sprite[x,z], x, z);
                 }
 
             }

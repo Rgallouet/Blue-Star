@@ -32,11 +32,6 @@ public class NewGameMenuButtons : MonoBehaviour {
     menuGUI.currentState = MenuGUI.CreateAPlayerStates.MODESELECTION;
 
 
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) <= 1)
-        {
-        Next(3);
-        }
-
 }
 
 

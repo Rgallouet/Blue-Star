@@ -128,7 +128,7 @@ public class StatAllocationButtons : MonoBehaviour {
         menuGUI.statAllocation.DisplayStatAllocationModule(menuGUI.lastActionWasNext, menuGUI.newPlayer);
 
         // If first game (i.e. no data), then directly select 5 strengths and 5 luck and pass to the next screen
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) < 2)
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[0])[2]) < 2)
         {
             CallPlusStat(0);
             CallPlusStat(0);

@@ -120,7 +120,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.PREDEFINEDSELECTION;
 
 
-        if (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[menuGUI.Slot])[2]) == 0)
+        if (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[0])[2]) == 0)
         {
 
             choice(1);

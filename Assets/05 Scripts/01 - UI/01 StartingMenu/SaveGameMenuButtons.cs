@@ -16,7 +16,7 @@ public class SaveGameMenuButtons : MonoBehaviour {
         SaveGameMenu = GetComponent<Canvas>();
 		SaveGameMenu.enabled = false;
 
-        Names = dataBaseManager.getArrayData("select Slot, FirstName, LastName from PlayerStaticChoices order by Slot asc");
+        Names = dataBaseManager.getArrayData("select FirstName, LastName from PlayerStaticChoices");
         for (int i = 1; i< 4; i++) { SaveGameMenu.GetComponentsInChildren<Text>()[i].text = (string)((ArrayList)Names[i])[1]; }
 
     }
@@ -25,7 +25,6 @@ public class SaveGameMenuButtons : MonoBehaviour {
 
         // Save in place (a ajouter)
 
-        menuGUI.Slot = position;
         menuGUI.MenuGoNext(0);
         SaveGameMenu.enabled = false;
     }
@@ -40,14 +39,6 @@ public class SaveGameMenuButtons : MonoBehaviour {
     public void ActivateMenu() {
         SaveGameMenu.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.SAVE;
-
-
-        //Auto-select first slot for saving if no save information
-        if ((string)((ArrayList)Names[1])[2] == null)
-        {
-            Next(1);
-
-        }
 
 
     }

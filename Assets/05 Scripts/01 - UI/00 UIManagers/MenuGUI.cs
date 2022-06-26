@@ -47,7 +47,6 @@ public class MenuGUI : MonoBehaviour {
     public SaveAndLoad saveAndLoad;
     public MenuAudio menuAudio;
 
-    public int Slot;
     public bool WasPredefinedPath;
     public BasePlayer newPlayer = new BasePlayer();
 
@@ -68,7 +67,7 @@ void Start () {
         // Get the questions strings
         RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc");
 
-        // Getting the status of each save slots
+        // Getting the status
         PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats", "BlueStarDataWarehouse.db");
 
 
@@ -95,15 +94,12 @@ public void MenuGoNext(int Option){
 
             case CreateAPlayerStates.LOAD:
 
-                saveAndLoad.SettingTheCurrentSaveSlot(Slot);
-
                 SceneManager.LoadScene("Undercity");
 
                 break;
 
             case CreateAPlayerStates.SAVE:
 
-                saveAndLoad.SettingTheCurrentSaveSlot(Slot);
                 newGameMenuButtons.ActivateMenu();
                 
                 break;
@@ -161,12 +157,6 @@ public void MenuGoNext(int Option){
                 newPlayer = historyAllocation.CreateNewPlayer(preDefinedSelectionButtons.historyChoices, dataBaseManager);
 
                 statAllocationButtons.ActivateMenu();
-
-                if (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[Slot])[2])> 1)
-                        {
-                        //dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[2])[2], (string)((ArrayList)RefQuestions[2])[3], (string)((ArrayList)RefQuestions[2])[4]);
-                        }
-                
 
                 break;
 

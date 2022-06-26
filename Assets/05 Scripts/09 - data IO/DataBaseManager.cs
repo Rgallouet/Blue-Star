@@ -73,7 +73,7 @@ public class DataBaseManager : MonoBehaviour
     { 
         
         string query;
-        query = "UPDATE " + tableName + " SET ";
+        query = "INSERT OR REPLACE " + tableName + " SET ";
         for (int i = 0; i < values.Length - 1; i++)
         {
             query += values[i] + ", " ;
