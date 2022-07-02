@@ -22,7 +22,7 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 
 	void Start () {
 
-        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc", "BlueStarDataWarehouse.db");
+        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
 
         BackgroundSelection = GetComponent<Canvas>();
 

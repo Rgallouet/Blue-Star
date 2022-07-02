@@ -38,7 +38,10 @@ public void StartNewGame()	{
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.MENU;
 
         // Auto-start if no game save information on first slot
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[1])[2])== 0) {StartNewGame();}
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[1])[1])== 0) 
+        {
+            StartNewGame();
+        }
 
     }
 

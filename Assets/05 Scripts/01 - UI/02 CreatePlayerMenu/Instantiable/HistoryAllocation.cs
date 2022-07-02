@@ -72,7 +72,7 @@ public class HistoryAllocation
             "sum(Rage), sum(Phase), " +
             "sum(Momentum), sum(Balance), sum(Chaos), sum(Luck), sum(Perception), sum(Judgement) " +
             "from REF_CustomCharacters " +
-            "where Id in ('" + Choices[0] + "','" + Choices[1] + "','" + Choices[2] + "','" + Choices[3] + "','" + Choices[4] + "','" + Choices[5] + "','" + Choices[6] + "','" + Choices[7] + "','" + Choices[8] + "','" + Choices[9] + "')", "BlueStarDataWarehouse.db");
+            "where Id in ('" + Choices[0] + "','" + Choices[1] + "','" + Choices[2] + "','" + Choices[3] + "','" + Choices[4] + "','" + Choices[5] + "','" + Choices[6] + "','" + Choices[7] + "','" + Choices[8] + "','" + Choices[9] + "')");
 
         
         int Base_prim = 100;

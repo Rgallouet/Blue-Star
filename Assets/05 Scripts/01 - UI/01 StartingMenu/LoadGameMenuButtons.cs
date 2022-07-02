@@ -19,7 +19,7 @@ public class LoadGameMenuButtons : MonoBehaviour {
 
         Names = dataBaseManager.getArrayData("select FirstName, LastName from PlayerStaticChoices");
         RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
-        for (int i = 1; i < 4; i++) { LoadGameMenu.GetComponentsInChildren<Text>()[i].text = (string)((ArrayList)Names[i])[1]; }
+        for (int i = 1; i < 4; i++) { LoadGameMenu.GetComponentsInChildren<Text>()[i].text = (string)((ArrayList)Names[i])[0]; }
 
     }
 
@@ -29,7 +29,8 @@ public class LoadGameMenuButtons : MonoBehaviour {
 
 
         //Load à ajouter
-        if (!((string)((ArrayList)Names[position])[2]==null)) {
+        if (!((string)((ArrayList)Names[position])[2]==null)) 
+        {
 
             menuGUI.MenuGoNext(0);
             LoadGameMenu.enabled = false;

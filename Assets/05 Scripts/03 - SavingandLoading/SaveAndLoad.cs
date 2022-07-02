@@ -95,7 +95,7 @@ public class SaveAndLoad: MonoBehaviour {
         if (IsItARebirth==true)
         {
             // Updating the account general stat, and increasing by one the number of legacy
-            PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats", "BlueStarDataWarehouse.db");
+            PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats");
             string[] PlayerAccountStats = { "NumberOfLegacy = " + (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2]) + 1), "UnderCityExist = 0 " };
             dataBaseManager.UpdateData("PlayerAccountStats", "" , PlayerAccountStats);
         }
@@ -108,10 +108,10 @@ public class SaveAndLoad: MonoBehaviour {
         BasePlayer Player = new BasePlayer();
 
         // DataBase Extract
-        PlayerStaticChoices = dataBaseManager.getArrayData("select * from PlayerStaticChoices" , "BlueStarDataWarehouse.db");
-        PlayerStatsModifiers = dataBaseManager.getArrayData("select * from PlayerStatsModifiers where ModifierSource='PlayerCreation'" , "BlueStarDataWarehouse.db");
-        PlayerProgress = dataBaseManager.getArrayData("select * from PlayerProgress", "BlueStarDataWarehouse.db");
-        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats", "BlueStarDataWarehouse.db");
+        PlayerStaticChoices = dataBaseManager.getArrayData("select * from PlayerStaticChoices" );
+        PlayerStatsModifiers = dataBaseManager.getArrayData("select * from PlayerStatsModifiers where ModifierSource='PlayerCreation'" );
+        PlayerProgress = dataBaseManager.getArrayData("select * from PlayerProgress");
+        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats");
 
         //StaticChoices
         Player.PlayerFirstName =    (string)((ArrayList)PlayerStaticChoices[1])[1];
@@ -249,7 +249,7 @@ public class SaveAndLoad: MonoBehaviour {
         (MapSizeOnX, MapSizeOnZ) = LoadMapDimension("UnderCity");
 
         // Getting the map details
-        PlayerCity = dataBaseManager.getArrayData("select * from CityMap", "BlueStarDataWarehouse.db");
+        PlayerCity = dataBaseManager.getArrayData("select * from CityMap");
  
         int[,] TileMap = new int[MapSizeOnX, MapSizeOnZ];
         int[,] SpriteMap = new int[MapSizeOnX, MapSizeOnZ];
@@ -272,10 +272,11 @@ public class SaveAndLoad: MonoBehaviour {
     {
 
         // Getting the dimensions of the map
-        RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainSpecificities where MapName = '" + MapName  + "'", "BlueStarDataWarehouse.db");
+        RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainSpecificities where MapName = '" + MapName  + "'");
         MapSizeOnX = System.Convert.ToInt32(((ArrayList)RefCitySize[0])[2]);
         MapSizeOnZ = System.Convert.ToInt32(((ArrayList)RefCitySize[0])[3]);
 
+        return (MapSizeOnX,MapSizeOnZ);
     }
 
 

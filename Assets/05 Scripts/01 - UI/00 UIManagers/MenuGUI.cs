@@ -68,8 +68,7 @@ void Start () {
         RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc");
 
         // Getting the status
-        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats", "BlueStarDataWarehouse.db");
-
+        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats");
 
     }
 

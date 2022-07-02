@@ -31,7 +31,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 
         refData = dataBaseManager.getArrayData("select * from REF_PredefinedCharacters order by Id asc");
         RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
-        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats", "BlueStarDataWarehouse.db");
+        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats");
 
         //Link to left side text box for displaying names
         for (int i=0; i<9; i++) { Choice [i] = PreDefinedSelection.GetComponentInChildren<GridLayoutGroup>().GetComponentsInChildren<Button> () [i]; }

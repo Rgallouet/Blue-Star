@@ -3,8 +3,7 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Data;
-using System.Text;
-using Mono.Data.SqliteClient;
+using Mono.Data.Sqlite;
 
 public class DataBaseManager : MonoBehaviour
 {
@@ -13,46 +12,37 @@ public class DataBaseManager : MonoBehaviour
     private IDbConnection dbcon;
     private IDbCommand dbcmd;
     private IDataReader reader;
-    private StringBuilder builder;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
 
-    }
+        // check if file exists in Application.persistentDataPath;
+        filepath = Path.Combine(Application.persistentDataPath,"DataWarehouse.db");
+        // filepath = Application.persistentDataPath + "/DataWarehouse.db";
+        //filepath = "C:\\Users\\rgall\\AppData\\LocalLow\\TheGeekNextDoor\\Blue Stone\\DataWarehouse.db" ;
 
-    public void OpenDB(string p)
-    {
-        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        if (!File.Exists(filepath))
         {
+            // We have to create a data warehouse
+            Debug.Log("Awaking: No database is available in the persistent data path, hence one will be created using the empty template in : " + filepath);
 
-            // check if file exists in Application.persistentDataPath
-            filepath = Application.persistentDataPath + "/" + p;
+            // Get the template db from Resources
+            TextAsset emptyDataWarehouse = Resources.Load<TextAsset>("DataWarehouse.db");
 
-            if (!File.Exists(filepath))
-            {
-                // if it doesn't ->
-                // open StreamingAssets directory and load the db -> 
-                WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/" + p);
-                while (!loadDB.isDone) { }
+            // then save it in binazy to Application.persistentDataPath
+            File.WriteAllBytes(filepath, emptyDataWarehouse.bytes);
 
-                // then save to Application.persistentDataPath
-                File.WriteAllBytes(filepath, loadDB.bytes);
-            }
 
         }
-       else {
-
-            filepath = Application.streamingAssetsPath + "/" + p;
-            }
-
-        /* testing the path
-        Debug.Log("path is " + filepath);
-        */
-
 
         //open db connection
         connection = "URI=file:" + filepath;
+
+    }
+
+    public void OpenDB()
+    {
 
         dbcon = new SqliteConnection(connection);
         dbcon.Open();
@@ -69,11 +59,26 @@ public class DataBaseManager : MonoBehaviour
         dbcon = null;
     }
 
-    public int UpdateData(string tableName,string Where, string[] values, string p = "BlueStarDataWarehouse.db")
+
+    public void ResetDB()
+    {
+        // CLosing anything open
+        CloseDB();
+
+        // deleting existing database
+        File.Delete(filepath);
+
+
+    }
+
+
+
+
+    public int UpdateData(string tableName,string Where, string[] values)
     { 
         
         string query;
-        query = "INSERT OR REPLACE " + tableName + " SET ";
+        query = "UPSERT " + tableName + " SET ";
         for (int i = 0; i < values.Length - 1; i++)
         {
             query += values[i] + ", " ;
@@ -83,7 +88,7 @@ public class DataBaseManager : MonoBehaviour
 
         try
         {
-            OpenDB(p);
+            OpenDB();
             dbcmd = dbcon.CreateCommand();
             dbcmd.CommandText = query;
             reader = dbcmd.ExecuteReader();
@@ -99,7 +104,7 @@ public class DataBaseManager : MonoBehaviour
     
 
 
-    public ArrayList getArrayData(string sqlQuery, string p = "BlueStarDataWarehouse.db")
+    public ArrayList getArrayData(string sqlQuery)
     {
 
         var ColArray = new ArrayList();
@@ -107,7 +112,7 @@ public class DataBaseManager : MonoBehaviour
 
         try
         {
-            OpenDB(p);
+            OpenDB();
             dbcmd = dbcon.CreateCommand();
             dbcmd.CommandText = sqlQuery;
             reader = dbcmd.ExecuteReader();
