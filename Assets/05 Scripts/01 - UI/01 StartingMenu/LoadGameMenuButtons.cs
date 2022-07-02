@@ -17,9 +17,9 @@ public class LoadGameMenuButtons : MonoBehaviour {
 		LoadGameMenu = GetComponent<Canvas>();
 		LoadGameMenu.enabled = false;
 
-        Names = dataBaseManager.getArrayData("select Slot, FirstName, LastName from PlayerStaticChoices order by Slot asc");
+        Names = dataBaseManager.getArrayData("select FirstName, LastName from PlayerStaticChoices");
         RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
-        for (int i = 1; i < 4; i++) { LoadGameMenu.GetComponentsInChildren<Text>()[i].text = (string)((ArrayList)Names[i])[1]; }
+        for (int i = 1; i < 4; i++) { LoadGameMenu.GetComponentsInChildren<Text>()[i].text = (string)((ArrayList)Names[i])[0]; }
 
     }
 
@@ -29,8 +29,9 @@ public class LoadGameMenuButtons : MonoBehaviour {
 
 
         //Load à ajouter
-        if (!((string)((ArrayList)Names[position])[2]==null)) {
-            menuGUI.Slot = position;
+        if (!((string)((ArrayList)Names[position])[2]==null)) 
+        {
+
             menuGUI.MenuGoNext(0);
             LoadGameMenu.enabled = false;
         }
@@ -49,12 +50,6 @@ public class LoadGameMenuButtons : MonoBehaviour {
         LoadGameMenu.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.LOAD;
 
-        //Auto-select first slot for saving if no save information
-        if ((string)((ArrayList)Names[2])[2] == null && (string)((ArrayList)Names[3])[2] == null)
-        {
-            Next(1);
-
-        }
 
     }
 

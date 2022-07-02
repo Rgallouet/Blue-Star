@@ -60,10 +60,7 @@ public class SaveGameNameMenuButtons : MonoBehaviour {
 
     public void Next()
     {
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) == 0)
-        { menuGUI.PlayerLastName = Name; }
-        else { menuGUI.PlayerFirstName = Name; }
-
+        menuGUI.PlayerLastName = Name; 
         menuGUI.MenuGoNext(0);
         SaveNameCanvas.enabled = false;
     }
@@ -89,21 +86,10 @@ public class SaveGameNameMenuButtons : MonoBehaviour {
         SaveNameCanvas.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.SAVENAME;
 
+        SaveNameCanvas.GetComponentsInChildren<Text>()[0].text = "Start";
+        SaveNameCanvas.GetComponentsInChildren<Text>()[1].text = "Quit";
+        SaveNameCanvas.GetComponentsInChildren<Text>()[2].text = "The family name of your demon ancestors";
 
-        // The start versus the legacy
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) == 0) {
-
-            SaveNameCanvas.GetComponentsInChildren<Text>()[0].text = "Start";
-            SaveNameCanvas.GetComponentsInChildren<Text>()[1].text = "Quit";
-            SaveNameCanvas.GetComponentsInChildren<Text>()[2].text = "The family name of your demon ancestors";
-
-        }
-        else {
-            SaveNameCanvas.GetComponentsInChildren<Text>()[0].text = "Next";
-            SaveNameCanvas.GetComponentsInChildren<Text>()[1].text = "Back";
-            SaveNameCanvas.GetComponentsInChildren<Text>()[2].text = "Your first name";
-        }
-        
         
     }
 

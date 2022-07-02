@@ -97,7 +97,7 @@ public class WindowsCamera : MonoBehaviour
         if (touch == 1)
         {
                 MoveCam = transform.position + transform.TransformDirection(x_delta_translation, 0, z_delta_translation);
-                transform.position = new Vector3(Mathf.Min(Mathf.Max(MoveCam.x, 0), cubeManager.MapSize - 5), transform.position.y, Mathf.Min(Mathf.Max(MoveCam.z, 0), cubeManager.MapSize - 5));
+                transform.position = new Vector3(Mathf.Min(Mathf.Max(MoveCam.x, 0), cubeManager.MapSizeOnX - 5), transform.position.y, Mathf.Min(Mathf.Max(MoveCam.z, 0), cubeManager.MapSizeOnZ - 5));
                 oldTouchPosition_0 = touchPosition[0];
         }
         

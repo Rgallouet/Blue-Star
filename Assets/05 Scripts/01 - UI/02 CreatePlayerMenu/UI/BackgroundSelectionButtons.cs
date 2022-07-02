@@ -22,7 +22,7 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 
 	void Start () {
 
-        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc", "BlueStarDataWarehouse.db");
+        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
 
         BackgroundSelection = GetComponent<Canvas>();
 
@@ -52,7 +52,7 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 
     public void Next (){
 
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) == 0)
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[0])[2]) == 0)
         {
             menuGUI.MenuGoNext(0);
             BackgroundSelection.enabled = false;
@@ -62,12 +62,14 @@ public class BackgroundSelectionButtons : MonoBehaviour {
             UpdateDetails();
 
             if (TestDetails() == true)
-                {
+            {
                 menuGUI.MenuGoNext(0);
                 BackgroundSelection.enabled = false;
             }
             else
-                { menuGUI.dialogue.UpdateDialogue(false, (string)((ArrayList)RefErrors[3])[2], (string)((ArrayList)RefErrors[3])[3], (string)((ArrayList)RefErrors[3])[4]); }
+            { 
+                menuGUI.dialogue.UpdateDialogue(false, (string)((ArrayList)RefErrors[3])[2], (string)((ArrayList)RefErrors[3])[3], (string)((ArrayList)RefErrors[3])[4]);
+            }
         } 
     }
 
@@ -83,7 +85,7 @@ public class BackgroundSelectionButtons : MonoBehaviour {
         BackgroundSelection.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.FINALSETUP;
 
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[menuGUI.Slot])[2]) == 0) {
+        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[0])[2]) == 0) {
 
             menuGUI.PlayerFirstName = "Ephan";
             PlayerBio = "Ephan is the last vampyri lord of his forgotten house, and seeks to restore the glory of his name through military feats. He embarks in a perilous invasion of foreign and unknown lands to build his new legacy.";
