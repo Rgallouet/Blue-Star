@@ -30,7 +30,7 @@ public class StatAllocation {
 
 
 
-	public void DisplayStatAllocationModule(bool Reset, BasePlayer newPlayer){
+	public void DisplayStatAllocationModule(bool Reset, BaseCharacter newPlayer){
 
 		if (Reset) InitialiseStats(newPlayer);
         
@@ -140,7 +140,7 @@ public class StatAllocation {
 			
 	}
 
-	public void InitialiseStats(BasePlayer newPlayer){
+	public void InitialiseStats(BaseCharacter newPlayer){
 
 
 		primaryStatPointsToAllocate = 5;

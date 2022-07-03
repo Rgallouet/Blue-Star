@@ -6,8 +6,8 @@ using System.Collections;
 public class StatAllocationButtons : MonoBehaviour {
 
     public DataBaseManager dataBaseManager;
-    private ArrayList refData = new ArrayList();
-    private ArrayList RefErrors = new ArrayList();
+    private ArrayList refData = new();
+    private ArrayList RefErrors = new();
 
 
     public MenuGUI menuGUI;
@@ -125,10 +125,10 @@ public class StatAllocationButtons : MonoBehaviour {
 
         StatAllocationMenu.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.STATALLOCATION;
-        menuGUI.statAllocation.DisplayStatAllocationModule(menuGUI.lastActionWasNext, menuGUI.newPlayer);
+        menuGUI.statAllocation.DisplayStatAllocationModule(menuGUI.lastActionWasNext, menuGUI.startingCharacter);
 
-        // If first game (i.e. no data), then directly select 5 strengths and 5 luck and pass to the next screen
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[0])[2]) < 2)
+        // If first game (i.e. no data) or if guided mode, then directly select 5 strengths and 5 luck and pass to the next screen
+        if (menuGUI.account.NumberOfDeaths < 2)
         {
             CallPlusStat(0);
             CallPlusStat(0);

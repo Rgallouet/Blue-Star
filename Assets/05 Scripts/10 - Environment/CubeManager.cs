@@ -56,7 +56,7 @@ public class CubeManager : MonoBehaviour {
 
     public void GettingTheMap() {
 
-        if (cityGUI.Player.UnderCityExist==0)
+        if (cityGUI.account.UnderCityExists==0)
         {
             Debug.Log("NewGame!");
             map = CalculateTheMap();
@@ -101,7 +101,7 @@ public class CubeManager : MonoBehaviour {
 
         // Generating the hero
         playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + (MapSizeOnX/2) +5, 15f, zOffset + (MapSizeOnZ / 2) + 5), Quaternion.Euler(0, 0, 0));
-        playerInstantiated.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer = saveAndLoad.LoadPlayerChoicesFromDataBase();
+        playerInstantiated.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer = saveAndLoad.LoadCharacterFromDataBase(1);
 
         timerMacro.Stop();
         TimeSpan timespan = timerMacro.Elapsed;

@@ -52,7 +52,7 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 
     public void Next (){
 
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[0])[2]) == 0)
+        if (menuGUI.account.NumberOfDeaths == 0)
         {
             menuGUI.MenuGoNext(0);
             BackgroundSelection.enabled = false;
@@ -85,10 +85,9 @@ public class BackgroundSelectionButtons : MonoBehaviour {
         BackgroundSelection.enabled = true;
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.FINALSETUP;
 
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[0])[2]) == 0) {
+        if (menuGUI.account.NumberOfDeaths == 0) {
 
-            menuGUI.PlayerFirstName = "Ephan";
-            PlayerBio = "Ephan is the last vampyri lord of his forgotten house, and seeks to restore the glory of his name through military feats. He embarks in a perilous invasion of foreign and unknown lands to build his new legacy.";
+            PlayerBio = "Aephyn is the last vampyri lord of her forgotten house, and seeks to restore the glory of her name through stolen wealth. She embarks in a perilous heist on the family vault of an ancient archdemon, to find an unexpected end.";
             PlayerGender = "Bigender";
 
             Next();

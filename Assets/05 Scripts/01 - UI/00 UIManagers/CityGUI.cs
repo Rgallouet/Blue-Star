@@ -8,12 +8,13 @@ public class CityGUI : MonoBehaviour {
     public SaveAndLoad saveAndLoad;
     public CubeManager cubeManager;
     private Vector2 worldStartPoint;
-    public BasePlayer Player=new BasePlayer();
+    public BaseCharacter baseCharacter=new();
+    public BaseAccount account = new();
 
     void Start () {
 
-        
-        Player = saveAndLoad.LoadPlayerChoicesFromDataBase();
+        account = saveAndLoad.LoadAccountDetails();
+        baseCharacter = saveAndLoad.LoadCharacterFromDataBase(1);
 
         cubeManager.GenerateRandomUnderground();
 

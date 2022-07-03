@@ -7,11 +7,11 @@ public class MenuGUI : MonoBehaviour {
 
     // status
 	public CreateAPlayerStates currentState;
-	public enum CreateAPlayerStates{MENU,LOAD,MODESELECTION,PREDEFINEDSELECTION,HISTORYSELECTION,STATALLOCATION,FINALSETUP,SAVE,SAVENAME,PLAY}
+	public enum CreateAPlayerStates{MENU,RESET,MODESELECTION,PREDEFINEDSELECTION,HISTORYSELECTION,STATALLOCATION,FINALSETUP,PLAY}
 
     // Initiatlisation des calculs
-	public HistoryAllocation historyAllocation = new HistoryAllocation();
-    public StatAllocation statAllocation= new StatAllocation();
+	public HistoryAllocation historyAllocation = new();
+    public StatAllocation statAllocation= new();
 
     // lien vers les UI de perso
     public BackgroundSelectionButtons backgroundSelectionButtons;
@@ -22,9 +22,7 @@ public class MenuGUI : MonoBehaviour {
     // lien vers les UI menus principaux
     public GameMenuButtons gameMenuButtons;
     public NewGameMenuButtons newGameMenuButtons;
-    public SaveGameMenuButtons saveGameMenuButtons;
-    public SaveGameNameMenuButtons saveGameNameMenuButtons;
-    public LoadGameMenuButtons loadGameMenuButtons;
+    public ResetGameMenuButtons resetGameMenuButtons;
 
     // lien vers le background
     public Animator StartScreenAnimation;
@@ -34,21 +32,19 @@ public class MenuGUI : MonoBehaviour {
 
     // Variables situationnelles
     public bool lastActionWasNext;
-    public string PlayerLastName;
-    public string PlayerFirstName;
+
     public string CreationModeSelected;
 
     // Gestion données référentielles
     public DataBaseManager dataBaseManager;
-    public ArrayList RefQuestions = new ArrayList();
-    private ArrayList Names = new ArrayList();
-    public ArrayList PlayerAccountStatsBefore;
+    public ArrayList RefQuestions = new();
 
     public SaveAndLoad saveAndLoad;
     public MenuAudio menuAudio;
 
     public bool WasPredefinedPath;
-    public BasePlayer newPlayer = new BasePlayer();
+    public BaseCharacter startingCharacter = new();
+    public BaseAccount account;
 
 
 
@@ -67,8 +63,8 @@ void Start () {
         // Get the questions strings
         RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc");
 
-        // Getting the status
-        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats");
+        // Converting it into the properties
+        account = saveAndLoad.LoadAccountDetails();
 
     }
 
@@ -86,75 +82,55 @@ public void MenuGoNext(int Option){
 
                 switch (Option)
                 {
-                    case 1: saveGameMenuButtons.ActivateMenu(); break;// I chose "New game"
-                    case 2: loadGameMenuButtons.ActivateMenu(); break; // I chose "load game" 
+                    case 1: newGameMenuButtons.ActivateMenu(); break;// I chose "New game" automatically when there is no saved data
+                    case 2: SceneManager.LoadScene("Undercity"); break; // I chose "load game" when there is already saved data
+                    case 3: resetGameMenuButtons.ActivateMenu(); break; // I chose "New game" when there is already saved data
                 }
                 break;
 
-            case CreateAPlayerStates.LOAD:
+            case CreateAPlayerStates.RESET:
 
-                SceneManager.LoadScene("Undercity");
+                switch (Option)
+                {
+                    case 0: newGameMenuButtons.ActivateMenu(); break;// I chose to restart a game with saved progress
 
+                }
                 break;
-
-            case CreateAPlayerStates.SAVE:
-
-                newGameMenuButtons.ActivateMenu();
-                
-                break;
-
 
             case CreateAPlayerStates.MODESELECTION:
-                saveGameNameMenuButtons.ActivateMenu();
+
+                menuAudio.PlayCreationMenuAudio();
+                StartScreenAnimation.SetBool("CharacterCreation", true);
 
                 switch (Option)
                 {
                     case 1: // I chose "Guided"
                         CreationModeSelected = "Guided";
+                        preDefinedSelectionButtons.ActivateMenu();
+
                         break;
 
                     case 2: // I chose "Custom"
                         CreationModeSelected = "Custom";
+                        historySelectionButtons.ActivateMenu();
                         break;
 
                     case 3: // The first time on legacy
                         CreationModeSelected = "Guided direct";
-                        break;
-                }
-
-                break;
-
-
-            case CreateAPlayerStates.SAVENAME:
-
-                menuAudio.PlayCreationMenuAudio();
-                StartScreenAnimation.SetBool("CharacterCreation", true);
-
-                switch (CreationModeSelected)
-                {
-                    case "Guided": // I chose "Guided"
-                        //dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[1])[2], (string)((ArrayList)RefQuestions[1])[3], (string)((ArrayList)RefQuestions[1])[4]);
-                        preDefinedSelectionButtons.ActivateMenu();
-                        break;
-
-                    case "Custom": // I chose "Custom"
-                        //dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[4])[2], (string)((ArrayList)RefQuestions[4])[3], (string)((ArrayList)RefQuestions[4])[4]);
-                        CreationModeSelected = "Custom";
-                        historySelectionButtons.ActivateMenu();
-                        break;
-
-                    case "Guided direct": // The first time on legacy
-                        CreationModeSelected = "Guided";
                         preDefinedSelectionButtons.ActivateMenu();
                         break;
                 }
+
+
+
                 break;
+
 
 
             case CreateAPlayerStates.PREDEFINEDSELECTION:
 
-                newPlayer = historyAllocation.CreateNewPlayer(preDefinedSelectionButtons.historyChoices, dataBaseManager);
-
+                // Generate the choices based on the choice made
+                startingCharacter.HistoryChoices = preDefinedSelectionButtons.historyChoices;
                 statAllocationButtons.ActivateMenu();
 
                 break;
@@ -162,9 +138,10 @@ public void MenuGoNext(int Option){
 
             case CreateAPlayerStates.HISTORYSELECTION:
 
-                    newPlayer = historyAllocation.CreateNewPlayer(historySelectionButtons.historyChoices, dataBaseManager);
+                // Generate the choices based on the list of int from history selection
+                startingCharacter.HistoryChoices.CreateHistoryChoicesFromInt(historySelectionButtons.historyChoicesInt);
 
-                    statAllocationButtons.ActivateMenu();
+                statAllocationButtons.ActivateMenu();
 
                     //dialogue.UpdateDialogue(false, (string)((ArrayList)RefQuestions[13])[2], (string)((ArrayList)RefQuestions[13])[3], (string)((ArrayList)RefQuestions[13])[4]);
 
@@ -172,7 +149,7 @@ public void MenuGoNext(int Option){
 
             case CreateAPlayerStates.STATALLOCATION:
 
-                newPlayer.AllocatedStatsModifier = statAllocation.AllocatedStatsModifier;
+                startingCharacter.AllocatedStatsModifier = statAllocation.AllocatedStatsModifier;
 
                 backgroundSelectionButtons.ActivateMenu();
 
@@ -181,14 +158,23 @@ public void MenuGoNext(int Option){
 
             case CreateAPlayerStates.FINALSETUP:
 
+                startingCharacter.characterGender = backgroundSelectionButtons.PlayerGender;
+                startingCharacter.characterBio = backgroundSelectionButtons.PlayerBio;
 
-                newPlayer.PlayerFirstName = PlayerFirstName;
-                newPlayer.PlayerLastName = PlayerLastName;
-                newPlayer.PlayerGender = backgroundSelectionButtons.PlayerGender;
-                newPlayer.PlayerBio = backgroundSelectionButtons.PlayerBio;
+                // Doing the cleanup in the previous character data and city data
+                saveAndLoad.ResetAllCharactersInDataBase();
+                saveAndLoad.ResetCityInDataBase();
+                saveAndLoad.ResetResourcesInDataBase();
 
-                saveAndLoad.SavePlayerChoicesInDataBase(newPlayer, true);
-                
+                // Saving updated account records and a new starter demon
+                saveAndLoad.SaveCharacterInDataBase(startingCharacter);
+                saveAndLoad.SaveCharacterCreationChoicesInDataBase(startingCharacter);
+                saveAndLoad.SaveCharacterStatAllocationInDataBase(startingCharacter);
+
+                // Updating account data
+                saveAndLoad.SaveAccountDetails(account);
+
+
                 SceneManager.LoadScene("Undercity");
                 break;
                 
@@ -202,10 +188,8 @@ public void MenuGoBack(int option){
 		switch (currentState) {
 		
 		case CreateAPlayerStates.MENU: Application.Quit (); break;
-		case CreateAPlayerStates.LOAD: gameMenuButtons.ActivateMenu(); break;
-        case CreateAPlayerStates.SAVE: gameMenuButtons.ActivateMenu(); break;
-        case CreateAPlayerStates.SAVENAME: gameMenuButtons.ActivateMenu(); break;
-        case CreateAPlayerStates.MODESELECTION: saveGameMenuButtons.ActivateMenu(); break;
+		case CreateAPlayerStates.RESET: gameMenuButtons.ActivateMenu(); break;
+        case CreateAPlayerStates.MODESELECTION: resetGameMenuButtons.ActivateMenu(); break;
 
 		case CreateAPlayerStates.HISTORYSELECTION:
                 newGameMenuButtons.ActivateMenu();

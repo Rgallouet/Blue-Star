@@ -17,11 +17,11 @@ public class CharacterMenu : MonoBehaviour {
         CharacterMenuCanvas.enabled = false;
     }
 
-    public void ActivateMenu()
+    public void ActivateMenu(BaseCharacter baseCharacter)
     {
         CharacterMenuCanvas.enabled = true;
-        characterDisplay.UpdateCharacterDisplay(cityGUI.Player.HistoryChoices, false);
-        CharacterName.text = cityGUI.Player.PlayerFirstName + " " + cityGUI.Player.PlayerLastName;
+        characterDisplay.UpdateCharacterDisplay(baseCharacter.HistoryChoices.GetIntListFromStoredChoices(), false);
+        CharacterName.text = baseCharacter.characterName;
     }
 
     public void DesactivateMenu()

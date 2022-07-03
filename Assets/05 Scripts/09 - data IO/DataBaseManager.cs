@@ -25,7 +25,7 @@ public class DataBaseManager : MonoBehaviour
         if (!File.Exists(filepath))
         {
             // We have to create a data warehouse
-            Debug.Log("Awaking: No database is available in the persistent data path, hence one will be created using the empty template in : " + filepath);
+            Debug.Log("Awaking - No database is available in the persistent data path, hence one will be created using the empty template in : " + filepath);
 
             // Get the template db from Resources
             TextAsset emptyDataWarehouse = Resources.Load<TextAsset>("DataWarehouse.db");
@@ -34,6 +34,11 @@ public class DataBaseManager : MonoBehaviour
             File.WriteAllBytes(filepath, emptyDataWarehouse.bytes);
 
 
+        }
+        else
+        {
+            // We have to create a data warehouse
+            Debug.Log("Awaking - A database is saved in " + filepath);
         }
 
         //open db connection
@@ -78,7 +83,7 @@ public class DataBaseManager : MonoBehaviour
     { 
         
         string query;
-        query = "UPSERT " + tableName + " SET ";
+        query = "UPDATE " + tableName + " SET ";
         for (int i = 0; i < values.Length - 1; i++)
         {
             query += values[i] + ", " ;
@@ -101,7 +106,65 @@ public class DataBaseManager : MonoBehaviour
         }
         return 1;
     }
-    
+
+
+    public int InsertData(string tableName, string[] values)
+    {
+
+        string query;
+        query = "INSERT INTO " + tableName + " SELECT ";
+        for (int i = 0; i < values.Length - 1; i++)
+        {
+            query += values[i] + ", ";
+        }
+        query += values[values.Length - 1] + ";";
+
+
+        try
+        {
+            OpenDB();
+            dbcmd = dbcon.CreateCommand();
+            dbcmd.CommandText = query;
+            reader = dbcmd.ExecuteReader();
+        }
+        catch (Exception e)
+        {
+
+            Debug.Log(e);
+            return 0;
+        }
+        return 1;
+    }
+
+
+    public int InsertOrUpdateData(string tableName, string PrimaryKey, int PrimaryKeyValue, string[] values)
+    {
+
+        string query;
+        query = "INSERT INTO " + tableName + " SELECT "+ PrimaryKey + "="+ PrimaryKeyValue + ", ";
+        for (int i = 0; i < values.Length - 1; i++)
+        {
+            query += values[i] + ", ";
+        }
+        query += values[values.Length - 1] + " ON CONFLICT("+ PrimaryKey+") DO UPDATE;";
+
+
+        try
+        {
+            OpenDB();
+            dbcmd = dbcon.CreateCommand();
+            dbcmd.CommandText = query;
+            reader = dbcmd.ExecuteReader();
+        }
+        catch (Exception e)
+        {
+
+            Debug.Log(e);
+            return 0;
+        }
+        return 1;
+    }
+
 
 
     public ArrayList getArrayData(string sqlQuery)
@@ -146,6 +209,27 @@ public class DataBaseManager : MonoBehaviour
         //Closing
         CloseDB();
         return (readArray);
+    }
+
+
+
+    public void RunQuery(string sqlQuery)
+    {
+
+        try
+        {
+            OpenDB();
+            dbcmd = dbcon.CreateCommand();
+            dbcmd.CommandText = sqlQuery;
+            reader = dbcmd.ExecuteReader();
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Something Went Wrong..." + e);
+        }
+
+        //Closing
+        CloseDB();
     }
 
 }

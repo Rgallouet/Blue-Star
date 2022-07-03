@@ -6,7 +6,7 @@ public class GameInformation : MonoBehaviour {
     public static GameInformation instance = null;
 	public static int Slot;
     public static bool IsNewChar;
-    public static BasePlayer BasePlayer;
+    public static BaseCharacter basePlayer;
 
 	void Start(){
         
@@ -17,7 +17,7 @@ public class GameInformation : MonoBehaviour {
 		//If instance already exists and it's not this:
 		else if (instance != this) Destroy(gameObject);
 
-        BasePlayer = new BasePlayer();
+        basePlayer = new();
 
 		//Sets this to not be destroyed when reloading scene
 		DontDestroyOnLoad(gameObject);

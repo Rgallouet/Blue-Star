@@ -12,7 +12,7 @@ public class CityButtons : MonoBehaviour {
     public CharacterMenu characterMenu;
     public SettingsMenu settingsMenu;
 
-
+    public BaseCharacter selectedCharacter;
 
 	private int MenuOpened;
 
@@ -46,7 +46,7 @@ public class CityButtons : MonoBehaviour {
 
         switch (choice) {
             case 1: settingsMenu.ActivateMenu(); break;
-            case 2: characterMenu.ActivateMenu(); break;
+            case 2: characterMenu.ActivateMenu(selectedCharacter); break;
             case 3: break;
 
         }

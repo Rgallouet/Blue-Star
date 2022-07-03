@@ -55,37 +55,37 @@ public class CharacterDisplay : MonoBehaviour {
     }
 
 
-    public void UpdateCharacterDisplay(HistoryChoices historyChoices, bool PrintNames) {
+    public void UpdateCharacterDisplay(int[] historyChoices, bool PrintNames) {
 
 
         if (PrintNames == true)
         {
 
-            if (historyChoices.HellCircleChoice != 0)   HistoryChoiceText[0].text = (string)((ArrayList)RefHellCircles[historyChoices.HellCircleChoice])[2];    else HistoryChoiceText[0].text = "";
-            if (historyChoices.AllegianceChoice != 0)   HistoryChoiceText[1].text = (string)((ArrayList)RefAllegiance[historyChoices.AllegianceChoice])[2];     else HistoryChoiceText[1].text = "";
-            if (historyChoices.GenusChoice != 0)        HistoryChoiceText[2].text = (string)((ArrayList)RefGenus[historyChoices.GenusChoice])[2];               else HistoryChoiceText[2].text = "";
-            if (historyChoices.SpeciesChoice != 0)      HistoryChoiceText[3].text = (string)((ArrayList)RefSpecies[historyChoices.SpeciesChoice])[2];           else HistoryChoiceText[3].text = "";
-            if (historyChoices.JobChoice != 0)          HistoryChoiceText[4].text = (string)((ArrayList)RefClass[historyChoices.JobChoice])[2];                 else HistoryChoiceText[4].text = "";
-            if (historyChoices.ImpChoice != 0)          HistoryChoiceText[5].text = (string)((ArrayList)RefImp[historyChoices.ImpChoice])[2];                   else HistoryChoiceText[5].text = "";
-            if (historyChoices.OriginChoice != 0)       HistoryChoiceText[6].text = (string)((ArrayList)RefOrigin[historyChoices.OriginChoice])[2];             else HistoryChoiceText[6].text = "";
-            if (historyChoices.TemperChoice != 0)       HistoryChoiceText[7].text = (string)((ArrayList)RefTemper[historyChoices.TemperChoice])[2];             else HistoryChoiceText[7].text = "";
-            if (historyChoices.AstroChoice != 0)        HistoryChoiceText[8].text = (string)((ArrayList)RefAstro[historyChoices.AstroChoice])[2];               else HistoryChoiceText[8].text = "";
-            if (historyChoices.AffinityChoice != 0)     HistoryChoiceText[9].text = (string)((ArrayList)RefAffinity[historyChoices.AffinityChoice])[2];         else HistoryChoiceText[9].text = "";
+            if (historyChoices[0] != 0)   HistoryChoiceText[0].text = (string)((ArrayList)RefHellCircles[historyChoices[0]])[2];  else HistoryChoiceText[0].text = "";
+            if (historyChoices[1] != 0)   HistoryChoiceText[1].text = (string)((ArrayList)RefAllegiance[historyChoices[1]])[2];   else HistoryChoiceText[1].text = "";
+            if (historyChoices[2] != 0)   HistoryChoiceText[2].text = (string)((ArrayList)RefGenus[historyChoices[2]])[2];        else HistoryChoiceText[2].text = "";
+            if (historyChoices[3] != 0)   HistoryChoiceText[3].text = (string)((ArrayList)RefSpecies[historyChoices[3]])[2];      else HistoryChoiceText[3].text = "";
+            if (historyChoices[4] != 0)   HistoryChoiceText[4].text = (string)((ArrayList)RefClass[historyChoices[4]])[2];        else HistoryChoiceText[4].text = "";
+            if (historyChoices[5] != 0)   HistoryChoiceText[5].text = (string)((ArrayList)RefImp[historyChoices[5]])[2];          else HistoryChoiceText[5].text = "";
+            if (historyChoices[6] != 0)   HistoryChoiceText[6].text = (string)((ArrayList)RefOrigin[historyChoices[6]])[2];       else HistoryChoiceText[6].text = "";
+            if (historyChoices[7] != 0)   HistoryChoiceText[7].text = (string)((ArrayList)RefTemper[historyChoices[7]])[2];       else HistoryChoiceText[7].text = "";
+            if (historyChoices[8] != 0)   HistoryChoiceText[8].text = (string)((ArrayList)RefAstro[historyChoices[8]])[2];        else HistoryChoiceText[8].text = "";
+            if (historyChoices[9] != 0)   HistoryChoiceText[9].text = (string)((ArrayList)RefAffinity[historyChoices[9]])[2];     else HistoryChoiceText[9].text = "";
 
 
         }
         else { for (int i = 0; i < 10; i++) { HistoryChoiceText[i].text = ""; } }
 
 
-        HistoryChoiceImage[0].sprite = RightArmSprites[System.Convert.ToInt32(((ArrayList)RefHellCircles[historyChoices.HellCircleChoice])[26])];
-        HistoryChoiceImage[1].sprite = LeftImpSprites[System.Convert.ToInt32(((ArrayList)RefAllegiance[historyChoices.AllegianceChoice])[26])];
-        HistoryChoiceImage[2].sprite = HeadSprites[System.Convert.ToInt32(((ArrayList)RefSpecies[historyChoices.SpeciesChoice])[26])];
-        HistoryChoiceImage[3].sprite = LeftArmSprites[System.Convert.ToInt32(((ArrayList)RefClass[historyChoices.JobChoice])[26])];
-        HistoryChoiceImage[4].sprite = RightImpSprites[System.Convert.ToInt32(((ArrayList)RefImp[historyChoices.ImpChoice])[26])];
-        HistoryChoiceImage[5].sprite = TorsoSprites[System.Convert.ToInt32(((ArrayList)RefOrigin[historyChoices.OriginChoice])[26])];
-        HistoryChoiceImage[6].sprite = LegsSprites[System.Convert.ToInt32(((ArrayList)RefTemper[historyChoices.TemperChoice])[26])];
-        HistoryChoiceImage[7].sprite = RightFootSprites[System.Convert.ToInt32(((ArrayList)RefAstro[historyChoices.AstroChoice])[26])];
-        HistoryChoiceImage[8].sprite = LeftFootSprites[System.Convert.ToInt32(((ArrayList)RefAffinity[historyChoices.AffinityChoice])[26])];
+        HistoryChoiceImage[0].sprite = RightArmSprites[(int)((ArrayList)RefHellCircles[historyChoices[0]])[26]];
+        HistoryChoiceImage[1].sprite = LeftImpSprites[(int)((ArrayList)RefAllegiance[historyChoices[1]])[26]];
+        HistoryChoiceImage[2].sprite = HeadSprites[(int)((ArrayList)RefSpecies[historyChoices[2]])[26]];
+        HistoryChoiceImage[3].sprite = LeftArmSprites[(int)((ArrayList)RefClass[historyChoices[3]])[26]];
+        HistoryChoiceImage[4].sprite = RightImpSprites[(int)((ArrayList)RefImp[historyChoices[4]])[26]];
+        HistoryChoiceImage[5].sprite = TorsoSprites[(int)((ArrayList)RefOrigin[historyChoices[5]])[26]];
+        HistoryChoiceImage[6].sprite = LegsSprites[(int)((ArrayList)RefTemper[historyChoices[6]])[26]];
+        HistoryChoiceImage[7].sprite = RightFootSprites[(int)((ArrayList)RefAstro[historyChoices[7]])[26]];
+        HistoryChoiceImage[8].sprite = LeftFootSprites[(int)((ArrayList)RefAffinity[historyChoices[8]])[26]];
 
 
     }
