@@ -49,26 +49,39 @@ public class CubeManager : MonoBehaviour {
 
     void Start() {
 
-        
     }
 
 
 
-    public void GettingTheMap() {
+    public void GettingTheMap(string MapName) {
 
-        if (cityGUI.account.UnderCityExists==0)
+        if (cityGUI.account.CurrentCityRegion == 0)
         {
-            Debug.Log("NewGame!");
+            Debug.Log(MapName+" - Starting from scratch and generating a new map");
+
+            System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
+
+            (MapSizeOnX, MapSizeOnZ) = cityGUI.saveAndLoad.LoadMapDimension(MapName);
+
             map = CalculateTheMap();
+            //Debug.Log(MapName + " - Successfully generated a new map");
+
             sprite = CalculateTheSprite();
+            //Debug.Log(MapName + " - Successfully generated the randomised sprites for the map");
 
             saveAndLoad.SavePlayerCityInDataBase(map, sprite);
+            //Debug.Log(MapName + " - Successfully saved the map");
+
+            timer.Stop();
+            TimeSpan timespan = timer.Elapsed;
+
+            Debug.Log(MapName + " - Time to create and save the map : " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
 
         }
         else
         {
-            Debug.Log("LoadGame!");
-            (map, sprite) = saveAndLoad.LoadPlayerCityFromDataBase();
+            Debug.Log(MapName + " - Loading the map saved in database");
+            (MapSizeOnX, MapSizeOnZ, map, sprite) = saveAndLoad.LoadPlayerCityFromDataBase();
         }
 
 
@@ -77,11 +90,9 @@ public class CubeManager : MonoBehaviour {
 
 
 
-    public void GenerateRandomUnderground() {
+    public void GenerateRandomUnderground(string MapName) {
 
-        System.Diagnostics.Stopwatch timerMacro = System.Diagnostics.Stopwatch.StartNew();
-
-        GettingTheMap();
+        GettingTheMap(MapName);
         
         Visible = CalculateTheVisibleArea(map);
 
@@ -101,21 +112,20 @@ public class CubeManager : MonoBehaviour {
 
         // Generating the hero
         playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + (MapSizeOnX/2) +5, 15f, zOffset + (MapSizeOnZ / 2) + 5), Quaternion.Euler(0, 0, 0));
-        playerInstantiated.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer = saveAndLoad.LoadCharacterFromDataBase(1);
+        playerInstantiated.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer = saveAndLoad.LoadCharacterFromDataBase((long)1);
 
-        timerMacro.Stop();
-        TimeSpan timespan = timerMacro.Elapsed;
 
-        Debug.Log("Time total de la creation de la carte : " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
+ 
 
     }
 
-    int[,] CalculateTheMap()
+    public int[,] CalculateTheMap()
     {
-        var random = new System.Random();
-        System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
-        
 
+
+        var random = new System.Random();
+        
         int[] localProbability = new int[NumberofPrefabs];
 
         int[,] MapArray = new int[MapSizeOnX,MapSizeOnZ];
@@ -123,12 +133,15 @@ public class CubeManager : MonoBehaviour {
         int diceRoll = 0;
         int cumulative = 0;
 
+        //Debug.Log("Calculate The Map - prepared for looping on through "+MapSizeOnX+" in X and "+ MapSizeOnZ + " in Z");
         
         //Starting Ground
         for (int x = 0; x < MapSizeOnX; x++)
         {
             for (int z = 0; z < MapSizeOnZ; z++)
             {
+                //Debug.Log("Calculate The Map - Looping on X="+x+" and Z="+z);
+
                 // the Strict Borders
                 if (x == 0 || x == MapSizeOnX - 1 || z == 0 || z == MapSizeOnZ - 1)  { MapArray[x,z] = ObsidianPrefabRefence; }
                 // the starting ground
@@ -171,17 +184,12 @@ public class CubeManager : MonoBehaviour {
             }
         }
 
-        timer.Stop();
-        TimeSpan timespan = timer.Elapsed;
-
-        Debug.Log("Time de la creation de la carte : "+ String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
-
         return MapArray;
 
 
     }
     
-    int[,] CalculateTheSprite()
+    public int[,] CalculateTheSprite()
     {
 
         int[,] MapArray = new int[MapSizeOnX, MapSizeOnZ];
@@ -201,7 +209,7 @@ public class CubeManager : MonoBehaviour {
 
     }
 
-    int[,] CalculateTheVisibleArea(int[,] Map) {
+    public int[,] CalculateTheVisibleArea(int[,] Map) {
 
         int[,] MapArray = new int[MapSizeOnX,MapSizeOnZ];
 

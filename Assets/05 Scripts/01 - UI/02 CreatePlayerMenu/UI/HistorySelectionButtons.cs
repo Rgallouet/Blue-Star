@@ -15,7 +15,7 @@ public class HistorySelectionButtons : MonoBehaviour
 		START,
 		HELLCIRCLE,
 		ALLEGIANCE,
-		GENUS,
+		SOCIAL,
 		CLASS,
 		IMP,
 		ORIGIN,
@@ -30,8 +30,7 @@ public class HistorySelectionButtons : MonoBehaviour
     public DataBaseManager dataBaseManager;
     private ArrayList RefHellCircles = new();
     private ArrayList RefAllegiance = new();
-    private ArrayList RefGenus = new();
-    private ArrayList RefSpecies = new();
+    private ArrayList RefSocial = new();
     private ArrayList RefClass = new();
     private ArrayList RefImp = new();
     private ArrayList RefOrigin = new();
@@ -66,16 +65,15 @@ public class HistorySelectionButtons : MonoBehaviour
 	{
         
         // Récupérer les référentiels
-        RefHellCircles= dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='HellCircles' order by Id asc");
-        RefAllegiance = dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='Allegiance' order by Id asc");
-        RefGenus = dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='Genus' order by Id asc");
-        RefSpecies = dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='Species' order by Id asc");
-        RefClass = dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='Class' order by Id asc");
-        RefImp = dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='Imp' order by Id asc");
-        RefOrigin = dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='Origin' order by Id asc");
-        RefTemper = dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='Temper' order by Id asc");
-        RefAstro = dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='Astro' order by Id asc");
-        RefAffinity = dataBaseManager.getArrayData("select * from REF_CustomCharacters where ChoiceStage='Affinity' order by Id asc");
+        RefHellCircles= dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='HellCircles' order by Id asc");
+        RefAllegiance = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Allegiance' order by Id asc");
+        RefSocial = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Social' order by Id asc");
+        RefClass = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Class' order by Id asc");
+        RefImp = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Imp' order by Id asc");
+        RefOrigin = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Origin' order by Id asc");
+        RefTemper = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Temper' order by Id asc");
+        RefAstro = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Astro' order by Id asc");
+        RefAffinity = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Affinity' order by Id asc");
         RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc");
         RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
 
@@ -93,8 +91,6 @@ public class HistorySelectionButtons : MonoBehaviour
                 // Selecting the button
                 Choice[i] = ChoiceDisplay.GetComponentsInChildren<Button>()[i];
 
-                //initialising a list of choices by default at 0
-                historyChoicesInt[i] = 0;
             }
 
 		
@@ -108,7 +104,7 @@ public class HistorySelectionButtons : MonoBehaviour
 	
 	
 	// Interaction with UI Buttons
-	public void choice (int choice)
+	public void SelectAChoice (int choice)
 	{
 		HistoryChoice = choice;
         switch (currentStep)
@@ -123,67 +119,44 @@ public class HistorySelectionButtons : MonoBehaviour
                 historyChoicesInt[1] = HistoryChoice;
                 break;
 
-            case PlayerHistoryStep.GENUS:
-
-                if (HistoryChoice >= 7)
-                {
-                    historyChoicesInt[3] = 3 * (historyChoicesInt[2] - 1) + HistoryChoice-6;
-                    CommentText.text = ((string)((ArrayList)RefSpecies[historyChoicesInt[3]])[3]).Replace("<br>", "\n");
-                }
-                else
-                {
-                    // if no choices made for the species yet; then show the buttons
-                    if (historyChoicesInt[2] == 0) 
-                    { 
-                        DisplayButtonsOnUi(6, 9, true,true); 
-                    }
-
-                    historyChoicesInt[2] = HistoryChoice;
-
-                    // resetting the Species
-                    if(!(historyChoicesInt[3] == 0)) historyChoicesInt[3] = 0;
-
-                    for (int i = 6; i < 9; i++) 
-                    {
-                        Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefSpecies[3 * (historyChoicesInt[2] - 1) + i -5])[2]; 
-                    }
-                    CommentText.text = ((string)((ArrayList)RefGenus[HistoryChoice])[3]).Replace("<br>", "\n");
-                }
+            case PlayerHistoryStep.SOCIAL:
+                CommentText.text = ((string)((ArrayList)RefAllegiance[HistoryChoice])[3]).Replace("<br>", "\n");
+                historyChoicesInt[2] = HistoryChoice;
                 break;
 
             case PlayerHistoryStep.CLASS:
                 CommentText.text = ((string)((ArrayList)RefClass[HistoryChoice])[3]).Replace("<br>", "\n");
-                historyChoicesInt[4] = HistoryChoice;
+                historyChoicesInt[3] = HistoryChoice;
                 break;
 
             case PlayerHistoryStep.IMP:
                 CommentText.text = ((string)((ArrayList)RefImp[HistoryChoice])[3]).Replace("<br>", "\n");
-                historyChoicesInt[5] = HistoryChoice;
+                historyChoicesInt[4] = HistoryChoice;
                 break;
 
             case PlayerHistoryStep.ORIGIN:
                 CommentText.text = ((string)((ArrayList)RefOrigin[HistoryChoice])[3]).Replace("<br>", "\n");
-                historyChoicesInt[6] = HistoryChoice;
+                historyChoicesInt[5] = HistoryChoice;
                 break;
 
             case PlayerHistoryStep.TEMPER:
                 CommentText.text = ((string)((ArrayList)RefTemper[HistoryChoice])[3]).Replace("<br>", "\n");
-                historyChoicesInt[7] = HistoryChoice;
+                historyChoicesInt[6] = HistoryChoice;
                 break;
 
             case PlayerHistoryStep.ASTRO:
                 CommentText.text = ((string)((ArrayList)RefAstro[HistoryChoice])[3]).Replace("<br>", "\n");
-                historyChoicesInt[8] = HistoryChoice;
+                historyChoicesInt[7] = HistoryChoice;
                 break;
 
             case PlayerHistoryStep.AFFINITY:
                 CommentText.text = ((string)((ArrayList)RefAffinity[HistoryChoice])[3]).Replace("<br>", "\n");
-                historyChoicesInt[9] = HistoryChoice;
+                historyChoicesInt[8] = HistoryChoice;
+
                 break;
 
         }
 
-        characterDisplay.UpdateCharacterDisplay(historyChoicesInt, true);
 
     }
 
@@ -200,7 +173,7 @@ public class HistorySelectionButtons : MonoBehaviour
             {
                 case 1: Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefHellCircles[i + 1])[2]; break;
                 case 2: Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefAllegiance[i + 1])[2]; break;
-                case 3: Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefGenus[i + 1])[2]; break;
+                case 3: Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefSocial[i + 1])[2]; break;
                 case 4: Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefClass[i + 1])[2]; break;
                 case 5: Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefImp[i + 1])[2]; break;
                 case 6: Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefOrigin[i + 1])[2]; break;
@@ -211,9 +184,7 @@ public class HistorySelectionButtons : MonoBehaviour
             }
             
         }
-        if (Stage==3 & !(historyChoicesInt[2] == 0)) {
-            for (int i = Size; i < 9; i++) { Choice[i].GetComponentInChildren<Text>().text = (string)((ArrayList)RefSpecies[3 * (historyChoicesInt[2] - 1) + i + 1])[2];  }
-        } 
+
 
     }
     
@@ -225,23 +196,9 @@ public class HistorySelectionButtons : MonoBehaviour
 		switch (currentStep) {
 			
 		case PlayerHistoryStep.HELLCIRCLE: UpdateStageUIButtons((string)((ArrayList)RefQuestions[4])[4], "Hell Circle Lore", 1, 9); break;
-			
-		case PlayerHistoryStep.ALLEGIANCE: 	
-			
-			if (menuGUI.lastActionWasNext == false) { DisplayButtonsOnUi(6, 9, true); }
-            UpdateStageUIButtons((string)((ArrayList)RefQuestions[5])[4], "House Lore", 2, 9);
-            break;
-
-		case PlayerHistoryStep.GENUS:
-            if (menuGUI.lastActionWasNext == true && historyChoicesInt[2] == 0) { DisplayButtonsOnUi(6, 9, false); }
-            if (menuGUI.lastActionWasNext == false ) { DisplayButtonsOnUi(6, 9, true,true); }
-            UpdateStageUIButtons((string)((ArrayList)RefQuestions[6])[4], "Genus Lore", 3, 6);
-            break;
-
-        case PlayerHistoryStep.CLASS:
-            if (menuGUI.lastActionWasNext == true ) { DisplayButtonsOnUi(6, 9, true); }
-            UpdateStageUIButtons((string)((ArrayList)RefQuestions[7])[4], "Job Description", 4, 9);
-            break;
+		case PlayerHistoryStep.ALLEGIANCE: UpdateStageUIButtons((string)((ArrayList)RefQuestions[5])[4], "House Lore", 2, 9); break;
+		case PlayerHistoryStep.SOCIAL: UpdateStageUIButtons((string)((ArrayList)RefQuestions[6])[4], "Social Lore", 3, 6); break;
+        case PlayerHistoryStep.CLASS: UpdateStageUIButtons((string)((ArrayList)RefQuestions[7])[4], "Job Description", 4, 9);  break;
 		case PlayerHistoryStep.IMP: UpdateStageUIButtons((string)((ArrayList)RefQuestions[8])[4], "Imp Lore", 5, 9); break;
 		case PlayerHistoryStep.ORIGIN: UpdateStageUIButtons((string)((ArrayList)RefQuestions[9])[4], "Origin Influence", 6, 9); break;
 		case PlayerHistoryStep.TEMPER: UpdateStageUIButtons((string)((ArrayList)RefQuestions[10])[4], "Psychologic State", 7, 9); break;
@@ -265,11 +222,11 @@ public class HistorySelectionButtons : MonoBehaviour
                 break;
 
             case PlayerHistoryStep.ALLEGIANCE:
-                currentStep = PlayerHistoryStep.GENUS;
+                currentStep = PlayerHistoryStep.SOCIAL;
                 //menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[6])[2], (string)((ArrayList)RefQuestions[6])[3], (string)((ArrayList)RefQuestions[6])[4]);
                 break;
 
-            case PlayerHistoryStep.GENUS:
+            case PlayerHistoryStep.SOCIAL:
                 currentStep = PlayerHistoryStep.CLASS;
                 //menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefQuestions[7])[2], (string)((ArrayList)RefQuestions[7])[3], (string)((ArrayList)RefQuestions[7])[4]);
                 break;
@@ -327,38 +284,38 @@ public class HistorySelectionButtons : MonoBehaviour
                 currentStep = PlayerHistoryStep.HELLCIRCLE;
                 break;
 
-            case PlayerHistoryStep.GENUS:
+            case PlayerHistoryStep.SOCIAL:
                 HistoryChoice = historyChoicesInt[1];
                 currentStep = PlayerHistoryStep.ALLEGIANCE;
                 break;
 
             case PlayerHistoryStep.CLASS:
-                HistoryChoice = historyChoicesInt[3];
-                currentStep = PlayerHistoryStep.GENUS;
+                HistoryChoice = historyChoicesInt[2];
+                currentStep = PlayerHistoryStep.SOCIAL;
                 break;
 
             case PlayerHistoryStep.IMP:
-                HistoryChoice = historyChoicesInt[4];
+                HistoryChoice = historyChoicesInt[3];
                 currentStep = PlayerHistoryStep.CLASS;
                 break;
 
             case PlayerHistoryStep.ORIGIN:
-                HistoryChoice = historyChoicesInt[5];
+                HistoryChoice = historyChoicesInt[4];
                 currentStep = PlayerHistoryStep.IMP;
                 break;
 
             case PlayerHistoryStep.TEMPER:
-                HistoryChoice = historyChoicesInt[6];
+                HistoryChoice = historyChoicesInt[5];
                 currentStep = PlayerHistoryStep.ORIGIN;
                 break;
 
             case PlayerHistoryStep.ASTRO:
-                HistoryChoice = historyChoicesInt[7];
+                HistoryChoice = historyChoicesInt[6];
                 currentStep = PlayerHistoryStep.TEMPER;
                 break;
 
             case PlayerHistoryStep.AFFINITY:
-                HistoryChoice = historyChoicesInt[8];
+                HistoryChoice = historyChoicesInt[7];
                 currentStep = PlayerHistoryStep.ASTRO;
                 break;
         }
@@ -371,7 +328,7 @@ public class HistorySelectionButtons : MonoBehaviour
 
         menuGUI.lastActionWasNext = true;
 
-        if ( (!(HistoryChoice == 0) && !(currentStep==PlayerHistoryStep.GENUS)) || ((HistoryChoice >= 7) && (currentStep == PlayerHistoryStep.GENUS)))
+        if (!(HistoryChoice == 0))
         {
             HistorySelectionNext();
             if(currentStep == PlayerHistoryStep.END) {

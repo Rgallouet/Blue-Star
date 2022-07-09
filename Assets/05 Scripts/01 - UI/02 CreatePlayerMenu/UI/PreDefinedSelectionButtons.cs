@@ -8,7 +8,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
     public DataBaseManager dataBaseManager;
     private ArrayList refData = new ArrayList();
     private ArrayList RefErrors = new ArrayList();
-    private ArrayList PlayerAccountStatsBefore;
+
 
     private Canvas PreDefinedSelection;
     public CharacterDisplay characterDisplay;
@@ -17,6 +17,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 
     // Selections
     public HistoryChoices historyChoices = new();
+    public DemonPartChoices demonPartsChoices = new();
     public int HistoryChoice;
 
 
@@ -31,7 +32,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
 
         refData = dataBaseManager.getArrayData("select * from REF_PredefinedCharacters order by Id asc");
         RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
-        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats");
+  
 
         //Link to left side text box for displaying names
         for (int i = 0; i < 9; i++)
@@ -58,38 +59,69 @@ public class PreDefinedSelectionButtons : MonoBehaviour
     public void MakeChoice(int choice)
     {
         HistoryChoice = choice;
-        GetSelectionChoices(choice);
+        GetHistorySelectionChoices(choice);
+        GetDemonPartsSelectionChoices(choice);
         UpdateDescription(choice);
 
     }
 
 
     // Reading the values of sub-choice for a predefined character chosen
-    void GetSelectionChoices(int HistoryChoice)
+    void GetHistorySelectionChoices(int HistoryChoice)
     {
 
         historyChoices.HellCircleChoice = (string)((ArrayList)refData[HistoryChoice])[3];
         historyChoices.AllegianceChoice = (string)((ArrayList)refData[HistoryChoice])[4];
-        historyChoices.GenusChoice = (string)((ArrayList)refData[HistoryChoice])[5];
-        historyChoices.SpeciesChoice = (string)((ArrayList)refData[HistoryChoice])[6];
-        historyChoices.JobChoice = (string)((ArrayList)refData[HistoryChoice])[7];
-        historyChoices.ImpChoice = (string)((ArrayList)refData[HistoryChoice])[8];
-        historyChoices.OriginChoice = (string)((ArrayList)refData[HistoryChoice])[9];
-        historyChoices.TemperChoice = (string)((ArrayList)refData[HistoryChoice])[10];
-        historyChoices.AstroChoice = (string)((ArrayList)refData[HistoryChoice])[11];
-        historyChoices.AffinityChoice = (string)((ArrayList)refData[HistoryChoice])[12];
+        historyChoices.SocialChoice = (string)((ArrayList)refData[HistoryChoice])[5];
+        historyChoices.JobChoice = (string)((ArrayList)refData[HistoryChoice])[6];
+        historyChoices.ImpChoice = (string)((ArrayList)refData[HistoryChoice])[7];
+        historyChoices.OriginChoice = (string)((ArrayList)refData[HistoryChoice])[8];
+        historyChoices.TemperChoice = (string)((ArrayList)refData[HistoryChoice])[9];
+        historyChoices.AstroChoice = (string)((ArrayList)refData[HistoryChoice])[10];
+        historyChoices.AffinityChoice = (string)((ArrayList)refData[HistoryChoice])[11];
 
         historyChoices.LeadershipCost = 2;
 
 
     }
 
+    // Reading the values of sub-choice for a predefined character chosen
+    void GetDemonPartsSelectionChoices(int HistoryChoice)
+    {
+
+        demonPartsChoices.HeadChoiceID= (int)((ArrayList)refData[HistoryChoice])[12];
+        demonPartsChoices.HeadQuality = (int)((ArrayList)refData[HistoryChoice])[13];
+        demonPartsChoices.BodyChoiceID = (int)((ArrayList)refData[HistoryChoice])[14];
+        demonPartsChoices.BodyQuality = (int)((ArrayList)refData[HistoryChoice])[15];
+        demonPartsChoices.RightUpperArmChoiceID = (int)((ArrayList)refData[HistoryChoice])[16];
+        demonPartsChoices.RightUpperArmQuality = (int)((ArrayList)refData[HistoryChoice])[17];
+        demonPartsChoices.RightLowerArmChoiceID = (int)((ArrayList)refData[HistoryChoice])[18];
+        demonPartsChoices.RightLowerArmQuality = (int)((ArrayList)refData[HistoryChoice])[19];
+        demonPartsChoices.RightFistChoiceID = (int)((ArrayList)refData[HistoryChoice])[20];
+        demonPartsChoices.RightFistQuality = (int)((ArrayList)refData[HistoryChoice])[21];
+        demonPartsChoices.RightLegChoiceID = (int)((ArrayList)refData[HistoryChoice])[22];
+        demonPartsChoices.RightLegQuality = (int)((ArrayList)refData[HistoryChoice])[23];
+        demonPartsChoices.RightFootChoiceID = (int)((ArrayList)refData[HistoryChoice])[24];
+        demonPartsChoices.RightFootQuality = (int)((ArrayList)refData[HistoryChoice])[25];
+        demonPartsChoices.LeftUpperArmChoiceID = (int)((ArrayList)refData[HistoryChoice])[26];
+        demonPartsChoices.LeftUpperArmQuality = (int)((ArrayList)refData[HistoryChoice])[27];
+        demonPartsChoices.LeftLowerArmChoiceID = (int)((ArrayList)refData[HistoryChoice])[28];
+        demonPartsChoices.LeftLowerArmQuality = (int)((ArrayList)refData[HistoryChoice])[29];
+        demonPartsChoices.LeftFistChoiceID = (int)((ArrayList)refData[HistoryChoice])[30];
+        demonPartsChoices.LeftFistQuality = (int)((ArrayList)refData[HistoryChoice])[31];
+        demonPartsChoices.LeftLegChoiceID = (int)((ArrayList)refData[HistoryChoice])[32];
+        demonPartsChoices.LeftLegQuality = (int)((ArrayList)refData[HistoryChoice])[33];
+        demonPartsChoices.LeftFootChoiceID = (int)((ArrayList)refData[HistoryChoice])[34];
+        demonPartsChoices.LeftFootQuality = (int)((ArrayList)refData[HistoryChoice])[35];
+
+}
+
     // Update display of the selected predefined character
     void UpdateDescription(int HistoryChoice)
     {
 
         PreDefinedSelection.GetComponentsInChildren<Text>()[12].text = ((string)((ArrayList)refData[HistoryChoice])[2]).Replace("<br>", "\n");
-        characterDisplay.UpdateCharacterDisplay(historyChoices.GetIntListFromStoredChoices(), false);
+        characterDisplay.UpdateCharacterDisplay(demonPartsChoices);
 
     }
 

@@ -11,10 +11,11 @@ public class BackgroundSelectionButtons : MonoBehaviour {
     private ArrayList RefErrors = new ArrayList();
 
 
-    private GridLayoutGroup[] ChoiceDisplay = new GridLayoutGroup[2]; 
+    private GridLayoutGroup[] ChoiceDisplay = new GridLayoutGroup[2];
 
-    public string PlayerBio;
-    public string PlayerGender;
+    public string CharacterName;
+    public string CharacterBio;
+    public string CharacterGender;
 
     private string[] genderSelectionNames = new string[] { "Male", "Female", "Bigender", "Pangender", "Agender", "Other" };
 
@@ -33,12 +34,12 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 	}
 
 	void UpdateDetails () {
-		PlayerBio=ChoiceDisplay [0].GetComponentsInChildren<Text> () [2].text;
+		CharacterBio=ChoiceDisplay [0].GetComponentsInChildren<Text> () [2].text;
 		
 		for (int i=0; i<6; i++) {
 			if (ChoiceDisplay [1].GetComponentsInChildren<Toggle> () [i].isOn==true) {
                 genderSelection =i+1;
-                PlayerGender = genderSelectionNames[genderSelection - 1];
+                CharacterGender = genderSelectionNames[genderSelection - 1];
             }
 		}
         
@@ -47,7 +48,7 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 
     public bool TestDetails()
     {
-        if (!(PlayerGender == "") && PlayerBio.IndexOf("'")==-1) { return true; } else { return false; }
+        if (!(CharacterGender == "") && CharacterBio.IndexOf("'")==-1) { return true; } else { return false; }
     }
 
     public void Next (){
@@ -87,8 +88,9 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 
         if (menuGUI.account.NumberOfDeaths == 0) {
 
-            PlayerBio = "Aephyn is the last vampyri lord of her forgotten house, and seeks to restore the glory of her name through stolen wealth. She embarks in a perilous heist on the family vault of an ancient archdemon, to find an unexpected end.";
-            PlayerGender = "Bigender";
+            CharacterName = "Aephyn";
+            CharacterBio = "Aephyn is the last vampyri lord of her forgotten house, and seeks to restore the glory of her name through stolen wealth. She embarks in a perilous heist on the family vault of an ancient archdemon, to find an unexpected end.";
+            CharacterGender = "Bigender";
 
             Next();
         }

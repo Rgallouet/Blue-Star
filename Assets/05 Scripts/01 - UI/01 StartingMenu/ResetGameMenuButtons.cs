@@ -28,7 +28,7 @@ public class ResetGameMenuButtons : MonoBehaviour
         // Wants to reset account; but not yet warned
         if (mode==1 && !(menuGUI.account.AccountName == " ") && havebeenwarned == false)
         {
-            RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' and Trigger='WarningResetAccount'");
+            RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' and Trigger='WarningResetAccount'");
             menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
             havebeenwarned = true;
         }
@@ -36,13 +36,27 @@ public class ResetGameMenuButtons : MonoBehaviour
         else if (mode == 1 && !(menuGUI.account.AccountName == " ") && !(havebeenwarned == false))
 
         {
-            // Explaining what will happen
-            RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' and Trigger='WarningResetAccountConfirm'");
-            menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
+
 
             // reset the database
-            dataBaseManager.ResetDB();
-            Application.Quit();
+            bool success= dataBaseManager.ResetDB();
+
+            if (success == true)
+            {
+                // Explaining what will happen
+                RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' and Trigger='WarningResetAccountConfirm'");
+                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
+                Application.Quit();
+            }
+            else
+            {
+
+                // Explaining what will happen
+                RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' and Trigger='WarningResetAccountFail'");
+                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
+
+            }
+
         }
         else if (mode == 0)
         {

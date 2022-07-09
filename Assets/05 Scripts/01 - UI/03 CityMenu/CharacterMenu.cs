@@ -20,7 +20,7 @@ public class CharacterMenu : MonoBehaviour {
     public void ActivateMenu(BaseCharacter baseCharacter)
     {
         CharacterMenuCanvas.enabled = true;
-        characterDisplay.UpdateCharacterDisplay(baseCharacter.HistoryChoices.GetIntListFromStoredChoices(), false);
+        characterDisplay.UpdateCharacterDisplay(baseCharacter.DemonPartChoices);
         CharacterName.text = baseCharacter.characterName;
     }
 

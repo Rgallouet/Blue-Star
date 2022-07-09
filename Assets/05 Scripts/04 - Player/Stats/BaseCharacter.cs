@@ -6,18 +6,19 @@ using System.Collections;
 public class BaseCharacter {
 
 	//Statics
-	public int characterID;
+	public long characterID;
 
 	//Statics
 	public string characterName;
 	public string characterBio;
 	public string characterGender;
 
-    //History
+    //Choices
     public HistoryChoices HistoryChoices = new();
+	public DemonPartChoices DemonPartChoices = new();
 
-    //Modifiers
-    public StatModifier HistoryChoicesModifier = new();
+	//Modifiers
+	public StatModifier HistoryChoicesModifier = new();
     public StatModifier AllocatedStatsModifier = new();
 
     //Combat
@@ -25,7 +26,7 @@ public class BaseCharacter {
 	public int CurrentShield;
 	public int CurrentEnergy;	
 
-	public int Experience;
+	public long Experience;
 
 	public int HumanCrap;
     public int Gold;
@@ -69,8 +70,8 @@ public class BaseCharacter {
 
 		Debug.Log("Character " + characterName + " receives " + xpToGive + " experience.");
 
-		int levelBefore = Experience / 1000;
-		int levelAfter = (Experience + xpToGive) / 1000;
+		int levelBefore = (int)(Experience / 1000);
+		int levelAfter = (int)((Experience + xpToGive) / 1000);
 
 		if (levelAfter > levelBefore)
 		{

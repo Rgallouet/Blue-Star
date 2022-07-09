@@ -64,7 +64,9 @@ void Start () {
         RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc");
 
         // Converting it into the properties
-        account = saveAndLoad.LoadAccountDetails();
+        saveAndLoad.LoadAccountDetails(account);
+
+        dialogue.LoadingScreen(true);
 
     }
 
@@ -83,7 +85,10 @@ public void MenuGoNext(int Option){
                 switch (Option)
                 {
                     case 1: newGameMenuButtons.ActivateMenu(); break;// I chose "New game" automatically when there is no saved data
-                    case 2: SceneManager.LoadScene("Undercity"); break; // I chose "load game" when there is already saved data
+                    case 2:
+                        dialogue.LoadingScreen(false); 
+                        SceneManager.LoadSceneAsync("Undercity"); 
+                        break; // I chose "load game" when there is already saved data
                     case 3: resetGameMenuButtons.ActivateMenu(); break; // I chose "New game" when there is already saved data
                 }
                 break;
@@ -131,6 +136,7 @@ public void MenuGoNext(int Option){
 
                 // Generate the choices based on the choice made
                 startingCharacter.HistoryChoices = preDefinedSelectionButtons.historyChoices;
+                startingCharacter.DemonPartChoices = preDefinedSelectionButtons.demonPartsChoices;
                 statAllocationButtons.ActivateMenu();
 
                 break;
@@ -140,6 +146,7 @@ public void MenuGoNext(int Option){
 
                 // Generate the choices based on the list of int from history selection
                 startingCharacter.HistoryChoices.CreateHistoryChoicesFromInt(historySelectionButtons.historyChoicesInt);
+                startingCharacter.DemonPartChoices.DefaultingChoice();
 
                 statAllocationButtons.ActivateMenu();
 
@@ -158,8 +165,13 @@ public void MenuGoNext(int Option){
 
             case CreateAPlayerStates.FINALSETUP:
 
-                startingCharacter.characterGender = backgroundSelectionButtons.PlayerGender;
-                startingCharacter.characterBio = backgroundSelectionButtons.PlayerBio;
+                dialogue.LoadingScreen(false);
+
+                startingCharacter.characterName = backgroundSelectionButtons.CharacterName; 
+                startingCharacter.characterGender = backgroundSelectionButtons.CharacterGender;
+                startingCharacter.characterBio = backgroundSelectionButtons.CharacterBio;
+                startingCharacter.Experience = 0;
+                startingCharacter.characterID = 1;
 
                 // Doing the cleanup in the previous character data and city data
                 saveAndLoad.ResetAllCharactersInDataBase();
@@ -175,7 +187,7 @@ public void MenuGoNext(int Option){
                 saveAndLoad.SaveAccountDetails(account);
 
 
-                SceneManager.LoadScene("Undercity");
+                SceneManager.LoadSceneAsync("Undercity");
                 break;
                 
         }

@@ -9,14 +9,13 @@ public class CityGUI : MonoBehaviour {
     public CubeManager cubeManager;
     private Vector2 worldStartPoint;
     public BaseCharacter baseCharacter=new();
-    public BaseAccount account = new();
+    public BaseAccount account;
 
     void Start () {
 
-        account = saveAndLoad.LoadAccountDetails();
-        baseCharacter = saveAndLoad.LoadCharacterFromDataBase(1);
-
-        cubeManager.GenerateRandomUnderground();
+        saveAndLoad.LoadAccountDetails(account);
+        baseCharacter = saveAndLoad.LoadCharacterFromDataBase((long)1);
+        cubeManager.GenerateRandomUnderground("UnderCity");
 
 
     }

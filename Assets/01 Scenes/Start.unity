@@ -4012,6 +4012,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &288285544 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4032123608625712538, guid: cfe990f1178d39d46b742afc6a2b11d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 204337854}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51a7fd8b804bdd4a8c581bb827789fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &295010511 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114567957363486696, guid: aa57ee436ff4cc24796d9fca55a9e73b,
@@ -4117,7 +4129,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 653704500}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1162888732}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a2ff93d529389243af0cbe94250602a, type: 3}
@@ -5473,6 +5485,11 @@ PrefabInstance:
       objectReference: {fileID: 656826091}
     - target: {fileID: 114874707280802068, guid: 97d6c33194c8ade42b75d01cc21ee49b,
         type: 3}
+      propertyPath: account
+      value: 
+      objectReference: {fileID: 1162888736}
+    - target: {fileID: 114874707280802068, guid: 97d6c33194c8ade42b75d01cc21ee49b,
+        type: 3}
       propertyPath: dialogue
       value: 
       objectReference: {fileID: 295010511}
@@ -5501,6 +5518,11 @@ PrefabInstance:
       propertyPath: StartScreenAnimation
       value: 
       objectReference: {fileID: 1851319664}
+    - target: {fileID: 114874707280802068, guid: 97d6c33194c8ade42b75d01cc21ee49b,
+        type: 3}
+      propertyPath: resetGameMenuButtons
+      value: 
+      objectReference: {fileID: 288285544}
     - target: {fileID: 114874707280802068, guid: 97d6c33194c8ade42b75d01cc21ee49b,
         type: 3}
       propertyPath: statAllocationButtons
@@ -6065,6 +6087,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1162888732 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1389896897806262, guid: 97d6c33194c8ade42b75d01cc21ee49b,
+    type: 3}
+  m_PrefabInstance: {fileID: 653704500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1162888736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162888732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737cedfb4a724f347b41722ae80cd46a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AccountName: 
+  MaximumLevelReached: 0
+  NumberOfDeaths: 0
+  CurrentCityRegion: 0
+  CumulativeExperience: 0
 --- !u!1 &1289627716
 GameObject:
   m_ObjectHideFlags: 0
@@ -6829,12 +6874,12 @@ PrefabInstance:
     - target: {fileID: 114567957363486696, guid: aa57ee436ff4cc24796d9fca55a9e73b,
         type: 3}
       propertyPath: fadeInTime
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114567957363486696, guid: aa57ee436ff4cc24796d9fca55a9e73b,
         type: 3}
       propertyPath: fadeOutTime
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114706162943166962, guid: aa57ee436ff4cc24796d9fca55a9e73b,
         type: 3}

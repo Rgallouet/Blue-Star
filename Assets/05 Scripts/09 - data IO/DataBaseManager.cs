@@ -65,14 +65,54 @@ public class DataBaseManager : MonoBehaviour
     }
 
 
-    public void ResetDB()
+    public bool ResetDB()
     {
-        // CLosing anything open
-        CloseDB();
+
+        // Disposing the connection if any existed
+        SqliteConnection.ClearAllPools();
 
         // deleting existing database
-        File.Delete(filepath);
+        try {
+            File.Delete(filepath);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            
+            // We have to create a data warehouse
+            Debug.Log("Reset request - Could not delete the file...");
 
+            return false;
+        }
+
+
+        // Checking results
+        if (!File.Exists(filepath))
+        {
+            // Success
+            Debug.Log("Reset request - Successfully deleted the existing database.");
+
+            // Get the template db from Resources
+            TextAsset emptyDataWarehouse = Resources.Load<TextAsset>("DataWarehouse.db");
+
+            // then save it in binazy to Application.persistentDataPath
+            File.WriteAllBytes(filepath, emptyDataWarehouse.bytes);
+
+            if (File.Exists(filepath))
+            {
+
+                // Success
+                Debug.Log("Reset request - Successfully recreated an empty database.");
+            }
+
+        }
+        else {
+
+            Debug.Log("Reset request - Oh something fishy just happened here");
+
+        }
+
+        return true;
 
     }
 
@@ -137,24 +177,18 @@ public class DataBaseManager : MonoBehaviour
     }
 
 
-    public int InsertOrUpdateData(string tableName, string PrimaryKey, int PrimaryKeyValue, string[] values)
+    public int InsertOrUpdateFullData(string tableName, string PrimaryKey, long PrimaryKeyValue, string[] values)
     {
-
-        string query;
-        query = "INSERT INTO " + tableName + " SELECT "+ PrimaryKey + "="+ PrimaryKeyValue + ", ";
-        for (int i = 0; i < values.Length - 1; i++)
-        {
-            query += values[i] + ", ";
-        }
-        query += values[values.Length - 1] + " ON CONFLICT("+ PrimaryKey+") DO UPDATE;";
+        string queryClean = "DELETE FROM "+ tableName + " WHERE "+ PrimaryKey+"="+ PrimaryKeyValue+";";
 
 
         try
         {
             OpenDB();
             dbcmd = dbcon.CreateCommand();
-            dbcmd.CommandText = query;
+            dbcmd.CommandText = queryClean;
             reader = dbcmd.ExecuteReader();
+
         }
         catch (Exception e)
         {
@@ -162,6 +196,32 @@ public class DataBaseManager : MonoBehaviour
             Debug.Log(e);
             return 0;
         }
+
+
+        string query;
+        query = "INSERT INTO " + tableName + " SELECT " + PrimaryKeyValue + " as " + PrimaryKey + ", ";
+        for (int i = 0; i < values.Length - 1; i++)
+        {
+            query += values[i] + ", ";
+        }
+        query += values[values.Length - 1] + ";";
+
+        try
+        {
+            OpenDB();
+            dbcmd = dbcon.CreateCommand();
+            dbcmd.CommandText = query;
+            reader = dbcmd.ExecuteReader();
+
+        }
+        catch (Exception e)
+        {
+
+            Debug.Log(e);
+            return 0;
+        }
+
+
         return 1;
     }
 
