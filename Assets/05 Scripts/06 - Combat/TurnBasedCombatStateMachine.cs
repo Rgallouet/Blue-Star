@@ -34,7 +34,7 @@ public class TurnBasedCombatStateMachine : MonoBehaviour {
 			break;
 		case (BattleStates.WIN):
 			if(!hasAddedXP) {
-			IncreaseExperience.AddExperience();
+			//IncreaseExperience.AddExperience();
 				hasAddedXP=true;
 			}
 			break;

@@ -6,14 +6,12 @@ public class GameMenuButtons : MonoBehaviour {
 	public MenuGUI menuGUI;
 	private Canvas GameMenu;
 
-    private string description;
-
 
 
     void Start(){
 
 		GameMenu = GetComponent<Canvas>();
-        ActivateMenu();
+        GameMenu.enabled = false;
 
     }
 
@@ -28,7 +26,14 @@ public void StartNewGame()	{
         GameMenu.enabled = false;
     }
 
-    public void QuitGame()		{
+    public void ResetGame()
+    {
+        menuGUI.MenuGoNext(3);
+        GameMenu.enabled = false;
+    }
+
+    public void QuitGame()		
+    {
         menuGUI.MenuGoBack (0);
     }
 
@@ -38,7 +43,7 @@ public void StartNewGame()	{
         menuGUI.currentState = MenuGUI.CreateAPlayerStates.MENU;
 
         // Auto-start if no game save information on first slot
-        if (System.Convert.ToInt32(((ArrayList)menuGUI.PlayerAccountStatsBefore[1])[1])== 0) 
+        if (menuGUI.account.AccountName == " ") 
         {
             StartNewGame();
         }

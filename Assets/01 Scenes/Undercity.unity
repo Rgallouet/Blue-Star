@@ -214,6 +214,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1643089230}
   - {fileID: 396005632}
@@ -394,6 +395,7 @@ Transform:
   m_LocalRotation: {x: -0.46193978, y: -0.33141357, z: 0.19134171, w: 0.8001032}
   m_LocalPosition: {x: 7.071068, y: -102.9796, z: -47.90829}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1291555432}
   m_RootOrder: 0
@@ -1215,6 +1217,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 12124423}
   m_RootOrder: 1
@@ -1476,6 +1479,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 532313670}
   m_Father: {fileID: 1284728984}
@@ -1608,6 +1612,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 488529192}
   m_RootOrder: 0
@@ -1700,6 +1705,7 @@ Transform:
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
   m_LocalPosition: {x: -0, y: 7.37, z: 4.02}
   m_LocalScale: {x: 0.8513867, y: 0.9290509, z: 0.8593691}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1291555432}
   m_RootOrder: 1
@@ -1874,6 +1880,7 @@ Transform:
   m_LocalRotation: {x: -0.23911765, y: -0.3696438, z: 0.09904577, w: 0.89239913}
   m_LocalPosition: {x: 6.786375, y: -3.3556907, z: -5.7767}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1291555432}
   m_RootOrder: 6
@@ -1956,6 +1963,7 @@ Transform:
   m_LocalRotation: {x: -0.23911765, y: -0.3696438, z: 0.09904577, w: 0.89239913}
   m_LocalPosition: {x: 7.071068, y: -3.5355349, z: -6.123724}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1291555432}
   m_RootOrder: 5
@@ -2080,6 +2088,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 488529192}
   - {fileID: 217806737}
@@ -2119,6 +2128,7 @@ GameObject:
   - component: {fileID: 1291555429}
   - component: {fileID: 1291555428}
   - component: {fileID: 1291555427}
+  - component: {fileID: 1291555433}
   m_Layer: 0
   m_Name: CityMainCamera
   m_TagString: MainCamera
@@ -2141,45 +2151,7 @@ MonoBehaviour:
   dataBaseManager: {fileID: 1632171878}
   saveAndLoad: {fileID: 952772916}
   cubeManager: {fileID: 1382347995}
-  Player:
-    PlayerLevel: 0
-    PlayerFirstName: 
-    PlayerLastName: 
-    PlayerBio: 
-    PlayerGender: 
-    CurrentEmbodiment: 0
-    CurrentInfluence: 0
-    TotalXP: 0
-    CurrentXP: 0
-    RequiredXP: 0
-    HumanCrap: 0
-    Gold: 0
-    Embodiment: 0
-    Strength: 0
-    Speed: 0
-    Dexterity: 0
-    Reflex: 0
-    Resilience: 0
-    Influence: 0
-    Knowledge: 0
-    Elocution: 0
-    Intellect: 0
-    Focus: 0
-    Mockery: 0
-    Malevolent: 0
-    Unmerciful: 0
-    Rage: 0
-    Phase: 0
-    Momentum: 0
-    Balance: 0
-    Luck: 0
-    Perception: 0
-    Judgement: 0
-    Chaos: 0
-    NumberOfLegacy: 0
-    UnderCityExist: 0
-    BuildingLevel: 0
-    DiggingLevel: 0
+  account: {fileID: 1291555433}
 --- !u!114 &1291555428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2288,6 +2260,7 @@ Transform:
   m_LocalRotation: {x: 0.46193978, y: 0.33141357, z: -0.19134171, w: 0.8001032}
   m_LocalPosition: {x: 75, y: 10, z: 75}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 84851848}
   - {fileID: 778751101}
@@ -2299,6 +2272,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 60, y: 45, z: 0}
+--- !u!114 &1291555433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291555426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737cedfb4a724f347b41722ae80cd46a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AccountName: 
+  MaximumLevelReached: 0
+  NumberOfDeaths: 0
+  UnderCityExists: 0
+  CumulativeExperience: 0
 --- !u!1 &1382347994
 GameObject:
   m_ObjectHideFlags: 0
@@ -2335,7 +2325,8 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 4825727480881646, guid: 5355d9220a0a06246ba107b37a30bfa9,
     type: 3}
   playerInstantiated: {fileID: 0}
-  MapSize: 150
+  MapSizeOnX: 0
+  MapSizeOnZ: 0
   CubePrefabs:
   - {fileID: 4629120441988556, guid: dad4d62bbcd8b0a47a610d84851905ab, type: 3}
   - {fileID: 4126616130680622, guid: d4f70df68e0831e4185a3fed3995ddc0, type: 3}
@@ -2374,6 +2365,7 @@ Transform:
   m_LocalRotation: {x: -0.23911765, y: -0.3696438, z: 0.09904577, w: 0.89239913}
   m_LocalPosition: {x: 7.071068, y: -3.5355349, z: -6.123724}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1291555432}
   m_RootOrder: 4
@@ -2439,6 +2431,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50, y: 0, z: 50}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -2485,6 +2478,7 @@ Transform:
   m_LocalRotation: {x: -0.23911765, y: -0.3696438, z: 0.09904577, w: 0.89239913}
   m_LocalPosition: {x: 7.071068, y: -3.5355349, z: -6.123724}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1291555432}
   m_RootOrder: 3
@@ -2517,6 +2511,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 12124423}
   m_RootOrder: 0
@@ -2597,6 +2592,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1291555432}
   m_RootOrder: 2

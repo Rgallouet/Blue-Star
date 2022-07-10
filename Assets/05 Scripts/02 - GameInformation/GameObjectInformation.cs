@@ -14,7 +14,7 @@ public class GameObjectInformation : MonoBehaviour {
 
 
     // Possible object categories
-    public BasePlayer basePlayer;
+    public BaseCharacter basePlayer;
 
 
 }

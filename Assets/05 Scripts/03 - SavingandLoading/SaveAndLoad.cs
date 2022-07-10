@@ -1,285 +1,494 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SaveAndLoad: MonoBehaviour {
+public class SaveAndLoad : MonoBehaviour
+{
 
     public DataBaseManager dataBaseManager;
 
-    private ArrayList PlayerStaticChoices;
-    private ArrayList PlayerStatsModifiers;
-    private ArrayList PlayerProgress;
-    private ArrayList PlayerCity;
-    private ArrayList PlayerAccountStatsBefore;
-    private ArrayList RefCitySize;
 
-    private HistoryAllocation historyAllocation = new HistoryAllocation();
-
-    private int MapSizeOnX;
-    private int MapSizeOnZ;
-
-    public void SavePlayerChoicesInDataBase(BasePlayer Player, bool IsItARebirth)
+    public void ResetAllCharactersInDataBase()
     {
-        
+
+        dataBaseManager.RunQuery("DELETE FROM CharacterStatsModifiers;");
+        dataBaseManager.RunQuery("DELETE FROM CharacterStaticChoices;");
+        dataBaseManager.RunQuery("DELETE FROM CharacterProgress;");
+
+    }
+
+    public void ResetCityInDataBase()
+    {
+
+        dataBaseManager.RunQuery("DELETE FROM CityMap;");
+
+    }
+
+    public void ResetResourcesInDataBase()
+    {
+
+        dataBaseManager.RunQuery("UPDATE PlayerRessources SET Quantity=0;");
+
+    }
+
+    public void SaveCharacterCreationChoicesInDataBase(BaseCharacter character)
+    {
+
         // Saving the detailed choices
-        string[] PlayerStaticChoicesValues = {
+        string[] CharacterStaticChoicesValues = {
 
-            "FirstName = '" +       Player.PlayerFirstName + "'",
-            "LastName = '" +        Player.PlayerLastName + "'",
-            "Bio = '" +             Player.PlayerBio + "'",
-            "Gender = '" +          Player.PlayerGender + "'",
+            "'" + character.characterName + "' as Name",
+            "'" + character.characterBio + "' as Bio",
+            "'" + character.characterGender + "' as Gender",
 
-            "HellCircleChoice = " + Player.HistoryChoices.HellCircleChoice,
-            "AllegianceChoice = " + Player.HistoryChoices.AllegianceChoice,
-            "GenusChoice = " +      Player.HistoryChoices.GenusChoice,
-            "SpeciesChoice = " +    Player.HistoryChoices.SpeciesChoice,
-            "JobChoice = " +        Player.HistoryChoices.JobChoice,
-            "ImpChoice = " +        Player.HistoryChoices.ImpChoice,
-            "OriginChoice = "  +    Player.HistoryChoices.OriginChoice,
-            "TemperChoice = " +     Player.HistoryChoices.TemperChoice ,
-            "AstroChoice = " +      Player.HistoryChoices.AstroChoice,
-            "AffinityChoice = " +   Player.HistoryChoices.AffinityChoice
+            "'" + character.HistoryChoices.HellCircleChoice + "' as HellCircleChoice",
+            "'" + character.HistoryChoices.AllegianceChoice + "' as AllegianceChoice",
+            "'" + character.HistoryChoices.SocialChoice + "' as SocialChoice",
+            "'" + character.HistoryChoices.JobChoice + "' as JobChoice",
+            "'" + character.HistoryChoices.ImpChoice + "' as ImpChoice",
+            "'" + character.HistoryChoices.OriginChoice + "' as OriginChoice",
+            "'" + character.HistoryChoices.TemperChoice + "' as TemperChoice",
+            "'" + character.HistoryChoices.AstroChoice + "' as AstroChoice",
+            "'" + character.HistoryChoices.AffinityChoice + "' as AffinityChoice",
 
-        };
+            character.HistoryChoices.LeadershipCost + " as LeadershipCost" ,
+
+            character.DemonPartChoices.HeadChoiceID + " as HeadChoiceID" ,
+            character.DemonPartChoices.HeadQuality + " as HeadQuality" ,
+            character.DemonPartChoices.BodyChoiceID + " as BodyChoiceID" ,
+            character.DemonPartChoices.BodyQuality + " as BodyQuality" ,
+            character.DemonPartChoices.RightUpperArmChoiceID + " as RightUpperArmChoiceID" ,
+            character.DemonPartChoices.RightUpperArmQuality + " as RightUpperArmQuality" ,
+            character.DemonPartChoices.RightLowerArmChoiceID + " as RightLowerArmChoiceID" ,
+            character.DemonPartChoices.RightLowerArmQuality + " as RightLowerArmQuality" ,
+            character.DemonPartChoices.RightFistChoiceID + " as RightFistChoiceID" ,
+            character.DemonPartChoices.RightFistQuality + " as RightFistQuality" ,
+            character.DemonPartChoices.RightLegChoiceID + " as RightLegChoiceID" ,
+            character.DemonPartChoices.RightLegQuality + " as RightLegQuality" ,
+            character.DemonPartChoices.RightFootChoiceID + " as RightFootChoiceID" ,
+            character.DemonPartChoices.RightFootQuality + " as RightFootQuality" ,
+            character.DemonPartChoices.LeftUpperArmChoiceID + " as LeftUpperArmChoiceID" ,
+            character.DemonPartChoices.LeftUpperArmQuality + " as LeftUpperArmQuality" ,
+            character.DemonPartChoices.LeftLowerArmChoiceID + " as LeftLowerArmChoiceID" ,
+            character.DemonPartChoices.LeftLowerArmQuality + " as LeftLowerArmQuality" ,
+            character.DemonPartChoices.LeftFistChoiceID + " as LeftFistChoiceID" ,
+            character.DemonPartChoices.LeftFistQuality + " as LeftFistQuality" ,
+            character.DemonPartChoices.LeftLegChoiceID + " as LeftLegChoiceID" ,
+            character.DemonPartChoices.LeftLegQuality + " as LeftLegQuality" ,
+            character.DemonPartChoices.LeftFootChoiceID + " as LeftFootChoiceID" ,
+            character.DemonPartChoices.LeftFootQuality+ " as LeftFootQuality" ,
+
+    };
+
+        // updating the static choices
+        dataBaseManager.InsertOrUpdateFullData("CharacterStaticChoices", "CharacterID", character.characterID, CharacterStaticChoicesValues);
 
 
-        dataBaseManager.UpdateData("PlayerStaticChoices", "" , PlayerStaticChoicesValues);
+        // Cleaning the records
+        dataBaseManager.RunQuery(
+            "DELETE FROM CharacterStatsModifiers where CharacterID=" + character.characterID + " and ModifierSource in ('Baseline','HistoryChoices','DemonPartsChoices') ;");
 
+        // generating the baseline related stat modifier line
+        dataBaseManager.RunQuery(
+            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'Baseline' as ModifierSource," +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Strength, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Speed, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Dexterity, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Embodiment, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Reflex, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Resilience, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Knowledge, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Elocution, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Intellect, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Influence, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Focus, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Mockery, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Malevolent, " +
+            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Unmerciful, " +
+
+            10 + " as Rage, " +
+            10 + " as Phase, " +
+
+            100 + " as Momentum, " +
+            100 + " as Balance, " +
+            100 + " as Chaos, " +
+            100 + " as Luck, " +
+            100 + " as Perception, " +
+            100 + " as Judgement, " +
+
+            0 + " as PrimaryStatsToAllocate, " +
+            0 + " as SecondaryStatsToAllocate, " +
+            0 + " as HeroicStatsToAllocate;");
+
+
+
+        // generating the choices related stat modifier line
+        dataBaseManager.RunQuery(
+            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'HistoryChoices' as ModifierSource, sum(Strength) as Strength, sum(Speed) as Speed, sum(Dexterity) as Dexterity, sum(Embodiment) as Embodiment, sum(Reflex) as Reflex, sum(Resilience) as Resilience, " +
+            "sum(Knowledge) as Knowledge, sum(Elocution) as Elocution, sum(Intellect) as Intellect, sum(Influence) as Influence, sum(Focus) as Focus, sum(Mockery) as Mockery, " +
+            "sum(Malevolent) as Malevolent, sum(Unmerciful) as Unmerciful, " +
+            "sum(Rage) as Rage, sum(Phase) as Phase, " +
+            "sum(Momentum) as Momentum, sum(Balance) as Balance, sum(Chaos) as Chaos, sum(Luck) as Luck, sum(Perception) as Perception, sum(Judgement) as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
+            "from REF_HistoryChoicesStatistics " +
+            "where Id in ('"
+            + character.HistoryChoices.HellCircleChoice + "','"
+            + character.HistoryChoices.AllegianceChoice + "','"
+            + character.HistoryChoices.SocialChoice + "','"
+            + character.HistoryChoices.JobChoice + "','"
+            + character.HistoryChoices.ImpChoice + "','"
+            + character.HistoryChoices.OriginChoice + "','"
+            + character.HistoryChoices.TemperChoice + "','"
+            + character.HistoryChoices.AstroChoice + "','"
+            + character.HistoryChoices.AffinityChoice
+            + "');");
+
+        // generating the demon parts related stat modifier line
+        dataBaseManager.RunQuery(
+            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'DemonPartsChoices' as ModifierSource, sum(Strength) as Strength, sum(Speed) as Speed, sum(Dexterity) as Dexterity, sum(Embodiment) as Embodiment, sum(Reflex) as Reflex, sum(Resilience) as Resilience, " +
+            "sum(Knowledge) as Knowledge, sum(Elocution) as Elocution, sum(Intellect) as Intellect, sum(Influence) as Influence, sum(Focus) as Focus, sum(Mockery) as Mockery, " +
+            "sum(Malevolent) as Malevolent, sum(Unmerciful) as Unmerciful, " +
+            "sum(Rage) as Rage, sum(Phase) as Phase, " +
+            "sum(Momentum) as Momentum, sum(Balance) as Balance, sum(Chaos) as Chaos, sum(Luck) as Luck, sum(Perception) as Perception, sum(Judgement) as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
+            "from REF_DemonPartsStatistics where " +
+            " (BodyPart='Head' and Id= " +          character.DemonPartChoices.HeadChoiceID + " and Quality=" +             character.DemonPartChoices.HeadQuality + ") or " +
+            " (BodyPart='Body' and Id= " +          character.DemonPartChoices.BodyChoiceID + " and Quality=" +             character.DemonPartChoices.BodyQuality + ") or " +
+            " (BodyPart='RightUpperArm' and Id= " + character.DemonPartChoices.RightUpperArmChoiceID + " and Quality=" +    character.DemonPartChoices.RightUpperArmQuality + ") or " +
+            " (BodyPart='RightLowerArm' and Id= " + character.DemonPartChoices.RightLowerArmChoiceID + " and Quality=" +    character.DemonPartChoices.RightLowerArmQuality + ") or " +
+            " (BodyPart='RightFist' and Id= " +     character.DemonPartChoices.RightFistChoiceID + " and Quality=" +        character.DemonPartChoices.RightFistQuality + ") or " +
+            " (BodyPart='RightLeg' and Id= " +      character.DemonPartChoices.RightLegChoiceID + " and Quality=" +         character.DemonPartChoices.RightLegQuality + ") or " +
+            " (BodyPart='RightFoot' and Id= " +     character.DemonPartChoices.RightFootChoiceID + " and Quality=" +        character.DemonPartChoices.RightFootQuality + ") or " +
+            " (BodyPart='LeftUpperArm' and Id= " +  character.DemonPartChoices.LeftUpperArmChoiceID + " and Quality=" +     character.DemonPartChoices.LeftUpperArmQuality + ") or " +
+            " (BodyPart='LeftLowerArm' and Id= " +  character.DemonPartChoices.LeftLowerArmChoiceID + " and Quality=" +     character.DemonPartChoices.LeftLowerArmQuality + ") or " +
+            " (BodyPart='LeftFist' and Id= " +      character.DemonPartChoices.LeftFistChoiceID + " and Quality=" +         character.DemonPartChoices.LeftFistQuality + ") or " +
+            " (BodyPart='LeftLeg' and Id= " +       character.DemonPartChoices.LeftLegChoiceID + " and Quality=" +          character.DemonPartChoices.LeftLegQuality + ") or " +
+            " (BodyPart='LeftFoot' and Id= " +      character.DemonPartChoices.LeftFootChoiceID + " and Quality=" +         character.DemonPartChoices.LeftFootQuality + "); " );
+
+    }
+
+    public void SaveCharacterStatAllocationInDataBase(BaseCharacter character)
+    {
+
+        // Cleaning the previous stat allocation
+        dataBaseManager.RunQuery(
+            "DELETE FROM CharacterStatsModifiers where CharacterID=" + character.characterID + " and ModifierSource in ('AllocatedStats') ;");
+
+
+        // generating the baseline related stat modifier line
+        dataBaseManager.RunQuery(
+            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'AllocatedStats' as ModifierSource," +
+
+            character.AllocatedStatsModifier.Strength + " as Strength," +
+            character.AllocatedStatsModifier.Speed + " as Speed," +
+            character.AllocatedStatsModifier.Dexterity + " as Dexterity," +
+            character.AllocatedStatsModifier.Embodiment + " as Embodiment," +
+            character.AllocatedStatsModifier.Reflex + " as Reflex," +
+            character.AllocatedStatsModifier.Resilience + " as Resilience," +
+            character.AllocatedStatsModifier.Knowledge + " as Knowledge," +
+            character.AllocatedStatsModifier.Elocution + " as Elocution," +
+            character.AllocatedStatsModifier.Intellect + " as Intellect," +
+            character.AllocatedStatsModifier.Influence + " as Influence," +
+            character.AllocatedStatsModifier.Focus + " as Focus," +
+            character.AllocatedStatsModifier.Mockery + " as Mockery," +
+            character.AllocatedStatsModifier.Malevolent + " as Malevolent," +
+            character.AllocatedStatsModifier.Unmerciful + " as Unmerciful," +
+            character.AllocatedStatsModifier.Rage + " as Rage," +
+            character.AllocatedStatsModifier.Phase + " as Phase," +
+            character.AllocatedStatsModifier.Momentum + " as Momentum," +
+            character.AllocatedStatsModifier.Balance + " as Balance," +
+            character.AllocatedStatsModifier.Chaos + " as Chaos," +
+            character.AllocatedStatsModifier.Luck + " as Luck," +
+            character.AllocatedStatsModifier.Perception + " as Perception," +
+            character.AllocatedStatsModifier.Judgement + " as Judgement," +
+            character.AllocatedStatsModifier.primaryStatPointsToAllocate + " as PrimaryStatsToAllocate," +
+            character.AllocatedStatsModifier.heroicStatPointsToAllocate + " as SecondaryStatsToAllocate," +
+            character.AllocatedStatsModifier.secondaryStatPointsToAllocate + " as HeroicStatsToAllocate;");
+
+
+    }
+
+    public void SaveCharacterInDataBase(BaseCharacter character)
+    {
 
         // Saving the allocated points
-        string[] PlayerStatsModifiersValues = {
+        string[] CharacterValues = { character.Experience + " as Experience" };
 
-            "Strength = " +         Player.AllocatedStatsModifier.Strength  ,
-            "Speed = " +            Player.AllocatedStatsModifier.Speed  ,
-            "Dexterity = " +        Player.AllocatedStatsModifier.Dexterity  ,
-            "Embodiment = " +       Player.AllocatedStatsModifier.Embodiment  ,
-            "Reflex = " +           Player.AllocatedStatsModifier.Reflex ,
-            "Resilience = " +       Player.AllocatedStatsModifier.Resilience ,
-            "Knowledge = " +        Player.AllocatedStatsModifier.Knowledge  ,
-            "Elocution = " +        Player.AllocatedStatsModifier.Elocution  ,
-            "Intellect = " +        Player.AllocatedStatsModifier.Intellect  ,
-            "Influence = " +        Player.AllocatedStatsModifier.Influence  ,
-            "Focus = " +            Player.AllocatedStatsModifier.Focus  ,
-            "Mockery = " +          Player.AllocatedStatsModifier.Mockery  ,
-            "Malevolent = " +       Player.AllocatedStatsModifier.Malevolent  ,
-            "Unmerciful = " +       Player.AllocatedStatsModifier.Unmerciful  ,
-            "Rage = " +             Player.AllocatedStatsModifier.Rage  ,
-            "Phase = " +            Player.AllocatedStatsModifier.Phase  ,
-            "Momentum = " +         Player.AllocatedStatsModifier.Momentum ,
-            "Balance = " +          Player.AllocatedStatsModifier.Balance ,
-            "Chaos = " +            Player.AllocatedStatsModifier.Chaos  ,
-            "Luck = " +             Player.AllocatedStatsModifier.Luck ,
-            "Perception = " +       Player.AllocatedStatsModifier.Perception ,
-            "Judgement = " +        Player.AllocatedStatsModifier.Judgement ,
+        dataBaseManager.InsertOrUpdateFullData("CharacterProgress", "CharacterID" , character.characterID, CharacterValues);
 
-        };
+    }
 
-        dataBaseManager.UpdateData("PlayerStatsModifiers", "ModifierSource='PlayerCreation' ", PlayerStatsModifiersValues);
+    public void SaveAccountDetails(BaseAccount baseAccount)
+
+    {
+
+        // Cleaning the previous account stats
+        dataBaseManager.RunQuery(
+            "DELETE FROM PlayerAccountStats;");
 
 
         // Resetting the progress of the hero
-        string[] PlayerProgressValues = {
+        dataBaseManager.RunQuery(
+            "INSERT into PlayerAccountStats Select '" +
+            baseAccount.AccountName + "' as AccountName, " +
+            baseAccount.MaximumLevelReached + " as MaximumLevelReached, " +
+            baseAccount.NumberOfDeaths + " as NumberOfDeaths, " +
+            baseAccount.CurrentCityRegion + " as CurrentCityTier, " +
+            baseAccount.CumulativeExperience + " as CumulativeExperience ;");
 
-            "Level = " +            Player.PlayerLevel  ,
-            "CurrentXp = " +        Player.CurrentXP  ,
-            "HumanCrap = " +        Player.HumanCrap ,
-            "Gold = " +             Player.Gold
-
-        };
-
-        dataBaseManager.UpdateData("PlayerProgress", "", PlayerProgressValues);
-
-
-
-
-        //New Character & City
-        if (IsItARebirth==true)
-        {
-            // Updating the account general stat, and increasing by one the number of legacy
-            PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats");
-            string[] PlayerAccountStats = { "NumberOfLegacy = " + (System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2]) + 1), "UnderCityExist = 0 " };
-            dataBaseManager.UpdateData("PlayerAccountStats", "" , PlayerAccountStats);
-        }
-        
     }
-    
-    public BasePlayer LoadPlayerChoicesFromDataBase()
+
+    public void LoadAccountDetails(BaseAccount baseAccount)
+
     {
 
-        BasePlayer Player = new BasePlayer();
+        // Getting the status
+        ArrayList PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats");
 
-        // DataBase Extract
-        PlayerStaticChoices = dataBaseManager.getArrayData("select * from PlayerStaticChoices" );
-        PlayerStatsModifiers = dataBaseManager.getArrayData("select * from PlayerStatsModifiers where ModifierSource='PlayerCreation'" );
-        PlayerProgress = dataBaseManager.getArrayData("select * from PlayerProgress");
-        PlayerAccountStatsBefore = dataBaseManager.getArrayData("select * from PlayerAccountStats");
+        // Getting the latest max experience
+        long CurrentHighestExperience = (long)((ArrayList)dataBaseManager.getArrayData("select max(Experience) from CharacterProgress")[1])[0];
 
-        //StaticChoices
-        Player.PlayerFirstName =    (string)((ArrayList)PlayerStaticChoices[1])[1];
-        Player.PlayerLastName =     (string)((ArrayList)PlayerStaticChoices[1])[2];
-        Player.PlayerBio =          (string)((ArrayList)PlayerStaticChoices[1])[3];
-        Player.PlayerGender =       (string)((ArrayList)PlayerStaticChoices[1])[4];
+        // Converting it into the properties
+        baseAccount.AccountName = (string)((ArrayList)PlayerAccountStatsBefore[1])[0];
 
-        Player.HistoryChoices.HellCircleChoice =    System.Convert.ToInt32(((ArrayList)PlayerStaticChoices[1])[5]);
-        Player.HistoryChoices.AllegianceChoice =    System.Convert.ToInt32(((ArrayList)PlayerStaticChoices[1])[6]);
-        Player.HistoryChoices.GenusChoice =         System.Convert.ToInt32(((ArrayList)PlayerStaticChoices[1])[7]);
-        Player.HistoryChoices.SpeciesChoice =       System.Convert.ToInt32(((ArrayList)PlayerStaticChoices[1])[8]);
-        Player.HistoryChoices.JobChoice =           System.Convert.ToInt32(((ArrayList)PlayerStaticChoices[1])[9]);
-        Player.HistoryChoices.ImpChoice =           System.Convert.ToInt32(((ArrayList)PlayerStaticChoices[1])[10]);
-        Player.HistoryChoices.OriginChoice =        System.Convert.ToInt32(((ArrayList)PlayerStaticChoices[1])[11]);
-        Player.HistoryChoices.TemperChoice =        System.Convert.ToInt32(((ArrayList)PlayerStaticChoices[1])[12]);
-        Player.HistoryChoices.AstroChoice =         System.Convert.ToInt32(((ArrayList)PlayerStaticChoices[1])[13]);
-        Player.HistoryChoices.AffinityChoice =      System.Convert.ToInt32(((ArrayList)PlayerStaticChoices[1])[14]);
+        if (CurrentHighestExperience > 1)
+        {
+            baseAccount.NumberOfDeaths = 1 + (int)((ArrayList)PlayerAccountStatsBefore[1])[1];
+            baseAccount.CumulativeExperience = CurrentHighestExperience + (long)((ArrayList)PlayerAccountStatsBefore[1])[4];
 
-        Player.HistoryChoicesModifier = historyAllocation.HistoryMatrixStats(Player.HistoryChoices, dataBaseManager);
+            if (CurrentHighestExperience / 1000 > (int)((ArrayList)PlayerAccountStatsBefore[1])[2])
+            {
+                baseAccount.MaximumLevelReached = (int)(CurrentHighestExperience / 1000);
+            }
+            else
+            {
+                baseAccount.MaximumLevelReached = (int)((ArrayList)PlayerAccountStatsBefore[1])[2];
+            }
+        }
+        else
+        {
+            baseAccount.NumberOfDeaths = (int)((ArrayList)PlayerAccountStatsBefore[1])[1];
+            baseAccount.CumulativeExperience = (long)((ArrayList)PlayerAccountStatsBefore[1])[4];
+            baseAccount.MaximumLevelReached = (int)((ArrayList)PlayerAccountStatsBefore[1])[2];
+        }
 
+        baseAccount.CurrentCityRegion = (int)((ArrayList)PlayerAccountStatsBefore[1])[3];
 
-        // StatsModifiers
-        Player.AllocatedStatsModifier.Strength =           System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[2]);
-        Player.AllocatedStatsModifier.Speed =              System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[3]);
-        Player.AllocatedStatsModifier.Dexterity =          System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[4]);
-        Player.AllocatedStatsModifier.Embodiment =         System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[5]);
-        Player.AllocatedStatsModifier.Reflex =             System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[6]);
-        Player.AllocatedStatsModifier.Resilience =         System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[7]);
+        Debug.Log("Loading account - playerName:'" + baseAccount.AccountName + "'; playerDeaths: " + baseAccount.NumberOfDeaths + "; playerMaximumLevel: " + baseAccount.MaximumLevelReached + "; playerCityExistence: " + baseAccount.CurrentCityRegion + "; playerCumulativeExperience: " + baseAccount.CumulativeExperience);
 
-        Player.AllocatedStatsModifier.Knowledge =          System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[8]);
-        Player.AllocatedStatsModifier.Elocution =          System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[9]);
-        Player.AllocatedStatsModifier.Intellect =          System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[10]);
-        Player.AllocatedStatsModifier.Influence =          System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[11]);
-        Player.AllocatedStatsModifier.Focus =              System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[12]);
-        Player.AllocatedStatsModifier.Mockery =            System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[13]);
-
-        Player.AllocatedStatsModifier.Malevolent =         System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[14]);
-        Player.AllocatedStatsModifier.Unmerciful =         System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[15]);
-
-        Player.AllocatedStatsModifier.Rage =               System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[16]);
-        Player.AllocatedStatsModifier.Phase =              System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[17]);
-
-        Player.AllocatedStatsModifier.Momentum =           System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[18]);
-        Player.AllocatedStatsModifier.Balance =            System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[19]);
-        Player.AllocatedStatsModifier.Chaos =              System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[20]);
-        Player.AllocatedStatsModifier.Luck =               System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[21]);
-        Player.AllocatedStatsModifier.Perception =         System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[22]);
-        Player.AllocatedStatsModifier.Judgement =          System.Convert.ToInt32(((ArrayList)PlayerStatsModifiers[1])[23]);
-
-
-        // Progress
-        Player.PlayerLevel =                               System.Convert.ToInt32(((ArrayList)PlayerProgress[1])[1]);
-        Player.CurrentXP =                                 System.Convert.ToInt32(((ArrayList)PlayerProgress[1])[2]);
-        Player.HumanCrap =                                 System.Convert.ToInt32(((ArrayList)PlayerProgress[1])[3]);
-        Player.Gold =                                      System.Convert.ToInt32(((ArrayList)PlayerProgress[1])[4]);
-
-        
-        //MakeTheSum
-        Player.Strength =       Player.HistoryChoicesModifier.Strength + Player.AllocatedStatsModifier.Strength;
-        Player.Speed =          Player.HistoryChoicesModifier.Speed + Player.AllocatedStatsModifier.Speed;
-        Player.Dexterity =      Player.HistoryChoicesModifier.Dexterity + Player.AllocatedStatsModifier.Dexterity;
-        Player.Embodiment =     Player.HistoryChoicesModifier.Embodiment + Player.AllocatedStatsModifier.Embodiment;
-        Player.Reflex =         Player.HistoryChoicesModifier.Reflex + Player.AllocatedStatsModifier.Reflex;
-        Player.Resilience =     Player.HistoryChoicesModifier.Resilience + Player.AllocatedStatsModifier.Resilience;
-
-        Player.Knowledge =      Player.HistoryChoicesModifier.Knowledge + Player.AllocatedStatsModifier.Knowledge;
-        Player.Elocution =      Player.HistoryChoicesModifier.Elocution + Player.AllocatedStatsModifier.Elocution;
-        Player.Intellect =      Player.HistoryChoicesModifier.Intellect + Player.AllocatedStatsModifier.Intellect;
-        Player.Influence =      Player.HistoryChoicesModifier.Influence + Player.AllocatedStatsModifier.Influence;
-        Player.Focus =          Player.HistoryChoicesModifier.Focus + Player.AllocatedStatsModifier.Focus;
-        Player.Mockery =        Player.HistoryChoicesModifier.Mockery + Player.AllocatedStatsModifier.Mockery;
-
-        Player.Malevolent =     Player.HistoryChoicesModifier.Malevolent + Player.AllocatedStatsModifier.Malevolent;
-        Player.Unmerciful =     Player.HistoryChoicesModifier.Unmerciful + Player.AllocatedStatsModifier.Unmerciful;
-
-        Player.Rage =           Player.HistoryChoicesModifier.Rage + Player.AllocatedStatsModifier.Rage;
-        Player.Phase =          Player.HistoryChoicesModifier.Phase + Player.AllocatedStatsModifier.Phase;
-
-        Player.Momentum =       Player.HistoryChoicesModifier.Momentum + Player.AllocatedStatsModifier.Momentum;
-        Player.Balance =        Player.HistoryChoicesModifier.Balance + Player.AllocatedStatsModifier.Balance;
-        Player.Chaos =          Player.HistoryChoicesModifier.Chaos + Player.AllocatedStatsModifier.Chaos;
-        Player.Luck =           Player.HistoryChoicesModifier.Luck + Player.AllocatedStatsModifier.Luck;
-        Player.Perception =     Player.HistoryChoicesModifier.Perception + Player.AllocatedStatsModifier.Perception;
-        Player.Judgement =      Player.HistoryChoicesModifier.Judgement + Player.AllocatedStatsModifier.Judgement;
-
-        Player.NumberOfLegacy = System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[2]);
-        Player.UnderCityExist = System.Convert.ToInt32(((ArrayList)PlayerAccountStatsBefore[1])[3]);
-
-        Player.BuildingLevel = 1;
-        Player.DiggingLevel = 1;
-
-
-        return Player;
     }
 
+    public BaseCharacter LoadCharacterFromDataBase(long CharacterID)
+    {
+        //Debug.Log("Starting to load Character " + CharacterID);
+        BaseCharacter Character = new();
 
+        Character.characterID = CharacterID;
+
+        // DataBase Extract
+        ArrayList CharacterStaticChoices = dataBaseManager.getArrayData("select * from CharacterStaticChoices where CharacterID=" + CharacterID);
+        ArrayList CharacterStatsModifiers = dataBaseManager.getArrayData("select * from CharacterStatsModifiers where ModifierSource='AllocatedStats' and CharacterID=" + CharacterID);
+        ArrayList CharacterStats = dataBaseManager.getArrayData("select * from VIEW_CharacterStats where CharacterID=" + CharacterID);
+        ArrayList CharacterProgress = dataBaseManager.getArrayData("select * from CharacterProgress where CharacterID=" + CharacterID);
+
+        //Debug.Log("Loaded tables");
+
+
+        //StaticChoices
+        Character.characterName = (string)((ArrayList)CharacterStaticChoices[1])[1];
+        Character.characterBio = (string)((ArrayList)CharacterStaticChoices[1])[2];
+        Character.characterGender = (string)((ArrayList)CharacterStaticChoices[1])[3];
+
+        //Debug.Log("Names and Gender are ok instanciated");
+
+        Character.HistoryChoices.HellCircleChoice = (string)((ArrayList)CharacterStaticChoices[1])[4];
+        Character.HistoryChoices.AllegianceChoice = (string)((ArrayList)CharacterStaticChoices[1])[5];
+        Character.HistoryChoices.SocialChoice = (string)((ArrayList)CharacterStaticChoices[1])[6];
+        Character.HistoryChoices.JobChoice = (string)((ArrayList)CharacterStaticChoices[1])[7];
+        Character.HistoryChoices.ImpChoice = (string)((ArrayList)CharacterStaticChoices[1])[8];
+        Character.HistoryChoices.OriginChoice = (string)((ArrayList)CharacterStaticChoices[1])[9];
+        Character.HistoryChoices.TemperChoice = (string)((ArrayList)CharacterStaticChoices[1])[10];
+        Character.HistoryChoices.AstroChoice = (string)((ArrayList)CharacterStaticChoices[1])[11];
+        Character.HistoryChoices.AffinityChoice = (string)((ArrayList)CharacterStaticChoices[1])[12];
+        Character.HistoryChoices.LeadershipCost = (int)((ArrayList)CharacterStaticChoices[1])[13];
+
+        //Debug.Log("History choices are instanciated");
+
+        Character.DemonPartChoices.HeadChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[14];
+        Character.DemonPartChoices.HeadQuality = (int)((ArrayList)CharacterStaticChoices[1])[15];
+        Character.DemonPartChoices.BodyChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[16];
+        Character.DemonPartChoices.BodyQuality = (int)((ArrayList)CharacterStaticChoices[1])[17];
+        Character.DemonPartChoices.RightUpperArmChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[18];
+        Character.DemonPartChoices.RightUpperArmQuality = (int)((ArrayList)CharacterStaticChoices[1])[19];
+        Character.DemonPartChoices.RightLowerArmChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[20];
+        Character.DemonPartChoices.RightLowerArmQuality = (int)((ArrayList)CharacterStaticChoices[1])[21];
+        Character.DemonPartChoices.RightFistChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[22];
+        Character.DemonPartChoices.RightFistQuality = (int)((ArrayList)CharacterStaticChoices[1])[23];
+        Character.DemonPartChoices.RightLegChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[24];
+        Character.DemonPartChoices.RightLegQuality = (int)((ArrayList)CharacterStaticChoices[1])[25];
+        Character.DemonPartChoices.RightFootChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[26];
+        Character.DemonPartChoices.RightFootQuality = (int)((ArrayList)CharacterStaticChoices[1])[27];
+        Character.DemonPartChoices.LeftUpperArmChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[28];
+        Character.DemonPartChoices.LeftUpperArmQuality = (int)((ArrayList)CharacterStaticChoices[1])[29];
+        Character.DemonPartChoices.LeftLowerArmChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[30];
+        Character.DemonPartChoices.LeftLowerArmQuality = (int)((ArrayList)CharacterStaticChoices[1])[31];
+        Character.DemonPartChoices.LeftFistChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[32];
+        Character.DemonPartChoices.LeftFistQuality = (int)((ArrayList)CharacterStaticChoices[1])[33];
+        Character.DemonPartChoices.LeftLegChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[34];
+        Character.DemonPartChoices.LeftLegQuality = (int)((ArrayList)CharacterStaticChoices[1])[35];
+        Character.DemonPartChoices.LeftFootChoiceID = (int)((ArrayList)CharacterStaticChoices[1])[36];
+        Character.DemonPartChoices.LeftFootQuality = (int)((ArrayList)CharacterStaticChoices[1])[37];
+
+        //Debug.Log("Demon Part Choices are instanciated");
+
+        // StatsModifiers
+        Character.AllocatedStatsModifier.Strength = (int)((ArrayList)CharacterStatsModifiers[1])[2];
+        Character.AllocatedStatsModifier.Speed = (int)((ArrayList)CharacterStatsModifiers[1])[3];
+        Character.AllocatedStatsModifier.Dexterity = (int)((ArrayList)CharacterStatsModifiers[1])[4];
+        Character.AllocatedStatsModifier.Embodiment = (int)((ArrayList)CharacterStatsModifiers[1])[5];
+        Character.AllocatedStatsModifier.Reflex = (int)((ArrayList)CharacterStatsModifiers[1])[6];
+        Character.AllocatedStatsModifier.Resilience = (int)((ArrayList)CharacterStatsModifiers[1])[7];
+
+        Character.AllocatedStatsModifier.Knowledge = (int)((ArrayList)CharacterStatsModifiers[1])[8];
+        Character.AllocatedStatsModifier.Elocution = (int)((ArrayList)CharacterStatsModifiers[1])[9];
+        Character.AllocatedStatsModifier.Intellect = (int)((ArrayList)CharacterStatsModifiers[1])[10];
+        Character.AllocatedStatsModifier.Influence = (int)((ArrayList)CharacterStatsModifiers[1])[11];
+        Character.AllocatedStatsModifier.Focus = (int)((ArrayList)CharacterStatsModifiers[1])[12];
+        Character.AllocatedStatsModifier.Mockery = (int)((ArrayList)CharacterStatsModifiers[1])[13];
+
+        Character.AllocatedStatsModifier.Malevolent = (int)((ArrayList)CharacterStatsModifiers[1])[14];
+        Character.AllocatedStatsModifier.Unmerciful = (int)((ArrayList)CharacterStatsModifiers[1])[15];
+
+        Character.AllocatedStatsModifier.Rage = (int)((ArrayList)CharacterStatsModifiers[1])[16];
+        Character.AllocatedStatsModifier.Phase = (int)((ArrayList)CharacterStatsModifiers[1])[17];
+
+        Character.AllocatedStatsModifier.Momentum = (int)((ArrayList)CharacterStatsModifiers[1])[18];
+        Character.AllocatedStatsModifier.Balance = (int)((ArrayList)CharacterStatsModifiers[1])[19];
+        Character.AllocatedStatsModifier.Chaos = (int)((ArrayList)CharacterStatsModifiers[1])[20];
+        Character.AllocatedStatsModifier.Luck = (int)((ArrayList)CharacterStatsModifiers[1])[21];
+        Character.AllocatedStatsModifier.Perception = (int)((ArrayList)CharacterStatsModifiers[1])[22];
+        Character.AllocatedStatsModifier.Judgement = (int)((ArrayList)CharacterStatsModifiers[1])[23];
+
+        Character.AllocatedStatsModifier.primaryStatPointsToAllocate = (int)((ArrayList)CharacterStatsModifiers[1])[24];
+        Character.AllocatedStatsModifier.heroicStatPointsToAllocate = (int)((ArrayList)CharacterStatsModifiers[1])[25];
+        Character.AllocatedStatsModifier.secondaryStatPointsToAllocate = (int)((ArrayList)CharacterStatsModifiers[1])[26];
+
+        //Debug.Log("Allocated Stats Modifiers are instanciated");
+
+
+
+        // Getting the sum
+        Character.Strength = (int)(long)((ArrayList)CharacterStats[1])[1];
+        Character.Speed = (int)(long)((ArrayList)CharacterStats[1])[2];
+        Character.Dexterity = (int)(long)((ArrayList)CharacterStats[1])[3];
+        Character.Embodiment = (int)(long)((ArrayList)CharacterStats[1])[4];
+        Character.Reflex = (int)(long)((ArrayList)CharacterStats[1])[5];
+        Character.Resilience = (int)(long)((ArrayList)CharacterStats[1])[6];
+
+        Character.Knowledge = (int)(long)((ArrayList)CharacterStats[1])[7];
+        Character.Elocution = (int)(long)((ArrayList)CharacterStats[1])[8];
+        Character.Intellect = (int)(long)((ArrayList)CharacterStats[1])[9];
+        Character.Influence = (int)(long)((ArrayList)CharacterStats[1])[10];
+        Character.Focus = (int)(long)((ArrayList)CharacterStats[1])[11];
+        Character.Mockery = (int)(long)((ArrayList)CharacterStats[1])[12];
+
+        Character.Malevolent = (int)(long)((ArrayList)CharacterStats[1])[13];
+        Character.Unmerciful = (int)(long)((ArrayList)CharacterStats[1])[14];
+
+        Character.Rage = (int)(long)((ArrayList)CharacterStats[1])[15];
+        Character.Phase = (int)(long)((ArrayList)CharacterStats[1])[16];
+
+        Character.Momentum = (int)(long)((ArrayList)CharacterStats[1])[17];
+        Character.Balance = (int)(long)((ArrayList)CharacterStats[1])[18];
+        Character.Chaos = (int)(long)((ArrayList)CharacterStats[1])[19];
+        Character.Luck = (int)(long)((ArrayList)CharacterStats[1])[20];
+        Character.Perception = (int)(long)((ArrayList)CharacterStats[1])[21];
+        Character.Judgement = (int)(long)((ArrayList)CharacterStats[1])[22];
+
+        //Debug.Log("Total Stats are instanciated");
+
+        Character.BuildingLevel = 1;
+        Character.DiggingLevel = 1;
+
+        Character.Experience = (long)((ArrayList)CharacterProgress[1])[1];
+
+        //Debug.Log("Experience is instanciated");
+
+        //Debug.Log("Finish");
+
+        return Character;
+    }
 
     public void SavePlayerCityInDataBase(int[,] Map, int[,] Sprite)
     {
+        
+                
         // Getting the dimensions of the map
-        (MapSizeOnX, MapSizeOnZ) = LoadMapDimension("UnderCity");
+        (int MapSizeOnX, int MapSizeOnZ) = LoadMapDimension("UnderCity");
 
         // Saving row by row
-        int z = 0;
-        int x = 0;
+        for (int i = 0; i < MapSizeOnX; i++)
+        {
+            string query = "INSERT into CityMap VALUES ";
 
-        for (int i = 0; i < MapSizeOnX; i++) {
-            for (int j = 0; j < MapSizeOnZ; j++) {
-                z = j + 1;
-                x = i + 1;
-                UpdateCityData(Map[i,j], Sprite[i,j], x, z);
+            for (int j = 0; j < MapSizeOnZ-1; j++)
+            {
+                query += "(" + (i + 1) + "," + (j + 1) + "," + Map[i, j] + "," + Sprite[i, j] + "),";
             }
+
+            // Saving the status of the city by batch of X size dimension
+            dataBaseManager.RunQuery(query + "(" + (i + 1) + "," + (MapSizeOnZ - 1) + "," + Map[i, MapSizeOnZ - 1] + "," + Sprite[i, MapSizeOnZ - 1] + ")");
 
         }
 
-
         // Saving the status of the city
-        dataBaseManager.UpdateData("PlayerAccountStats", "", new string[1] {"UnderCityExist = 1"});
+        dataBaseManager.RunQuery("UPDATE PlayerAccountStats SET CurrentCityRegion = 1;");
 
     }
-
-
 
     public void UpdateCityData(int Tile, int Sprite, int x, int z)
     {
-        dataBaseManager.UpdateData("CityMap", "X=" + x + " and Y=" + z , new string[1] { "TileCode= " + Tile + "and SpriteVariation= " + Sprite });
+        // cleaning any existing record
+        dataBaseManager.RunQuery("DELETE FROM CityMap WHERE " +"X=" + x +" and Y=" + z +";");
+
+        // creating the x and z record
+        dataBaseManager.RunQuery("INSERT INTO CityMap VALUES (" +x + " , " + z + " , " + Tile + " , " + Sprite + " );");
+
     }
 
-
-
-
-    public (int[,] TileMap, int[,] SpriteMap ) LoadPlayerCityFromDataBase()
+    public (int MapSizeOnX, int MapSizeOnZ, int[,] TileMap, int[,] SpriteMap) LoadPlayerCityFromDataBase()
     {
         // Getting the dimensions of the map
-        (MapSizeOnX, MapSizeOnZ) = LoadMapDimension("UnderCity");
+        (int MapSizeOnX, int MapSizeOnZ) = LoadMapDimension("UnderCity");
+        //Debug.Log("Start loading map looping through " + MapSizeOnX + " in X and " + MapSizeOnZ + " in Z");
 
         // Getting the map details
-        PlayerCity = dataBaseManager.getArrayData("select * from CityMap");
- 
+        ArrayList PlayerCity = dataBaseManager.getArrayData("select * from CityMap");
+
         int[,] TileMap = new int[MapSizeOnX, MapSizeOnZ];
         int[,] SpriteMap = new int[MapSizeOnX, MapSizeOnZ];
-          
+
         for (int i = 0; i < MapSizeOnX; i++)
         {
             for (int j = 0; j < MapSizeOnZ; j++)
             {
-                TileMap[i,j] = System.Convert.ToInt32(((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[3]);
-                SpriteMap[i,j] = System.Convert.ToInt32(((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[3]);
+                TileMap[i, j] =     (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[2];
+                SpriteMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[3];
+                //Debug.Log("Loading tile and sprite at x="+(i + 1) + " and z="+(j + 1) +" being tilecode="+ TileMap[i, j]);
             }
         }
 
-        return (TileMap,SpriteMap);
+        return (MapSizeOnX, MapSizeOnZ, TileMap, SpriteMap);
 
     }
-
 
     public (int MapSizeOnX, int MapSizeOnZ) LoadMapDimension(string MapName)
     {
 
         // Getting the dimensions of the map
-        RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainSpecificities where MapName = '" + MapName  + "'");
-        MapSizeOnX = System.Convert.ToInt32(((ArrayList)RefCitySize[0])[2]);
-        MapSizeOnZ = System.Convert.ToInt32(((ArrayList)RefCitySize[0])[3]);
+        ArrayList RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainSpecificities where MapName = '" + MapName + "'");
+        int MapSizeOnX = (int)((ArrayList)RefCitySize[1])[1];
+        int MapSizeOnZ = (int)((ArrayList)RefCitySize[1])[2];
 
-        return (MapSizeOnX,MapSizeOnZ);
+        return (MapSizeOnX, MapSizeOnZ);
     }
-
-
 
 
 }
