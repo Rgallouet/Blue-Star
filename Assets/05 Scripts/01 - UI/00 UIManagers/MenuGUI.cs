@@ -7,7 +7,7 @@ public class MenuGUI : MonoBehaviour {
 
     // status
 	public CreateAPlayerStates currentState;
-	public enum CreateAPlayerStates{MENU,RESET,MODESELECTION,PREDEFINEDSELECTION,HISTORYSELECTION,STATALLOCATION,FINALSETUP,PLAY}
+	public enum CreateAPlayerStates{LOGO,MENU,RESET,MODESELECTION,PREDEFINEDSELECTION,HISTORYSELECTION,STATALLOCATION,FINALSETUP,PLAY}
 
     // Initiatlisation des calculs
 	public HistoryAllocation historyAllocation = new();
@@ -55,7 +55,7 @@ void Start () {
         statAllocation.statAllocationButtons = statAllocationButtons;
 
         // Get objects
-        currentState = CreateAPlayerStates.MENU;
+        currentState = CreateAPlayerStates.LOGO;
 
 		// Initiate transition status
 		lastActionWasNext = true;
@@ -70,15 +70,28 @@ void Start () {
 
     }
 
+    private void Update()
+    {
+        if (currentState == CreateAPlayerStates.LOGO && dialogue.isIntro == false)
+        {
+            MenuGoNext(0);
+        }
+    }
 
 
-public void MenuGoNext(int Option){
+
+    public void MenuGoNext(int Option){
 		
         
 
 		lastActionWasNext = true;
         switch (currentState)
         {
+
+
+            case CreateAPlayerStates.LOGO: 
+                gameMenuButtons.ActivateMenu(); 
+                break;
 
             case CreateAPlayerStates.MENU:
 

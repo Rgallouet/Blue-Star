@@ -339,7 +339,7 @@ public class HistorySelectionButtons : MonoBehaviour
 
         }
         else {
-            menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefErrors[1])[2], (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4]);
+            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[1])[2], (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4]);
         }
   
     }

@@ -106,7 +106,7 @@ public class StatAllocationButtons : MonoBehaviour {
         }
         else
         {
-            menuGUI.dialogue.UpdateDialogue(false, (string)((ArrayList)RefErrors[2])[2], (string)((ArrayList)RefErrors[2])[3], (string)((ArrayList)RefErrors[2])[4]);
+            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[2])[2], (string)((ArrayList)RefErrors[2])[3], (string)((ArrayList)RefErrors[2])[4]);
         }
 
     }
@@ -144,7 +144,7 @@ public class StatAllocationButtons : MonoBehaviour {
         }
         else
         {
-            menuGUI.dialogue.UpdateDialogue(false, (string)((ArrayList)menuGUI.RefQuestions[3])[2], (string)((ArrayList)menuGUI.RefQuestions[3])[3], (string)((ArrayList)menuGUI.RefQuestions[3])[4]);
+            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)menuGUI.RefQuestions[3])[2], (string)((ArrayList)menuGUI.RefQuestions[3])[3], (string)((ArrayList)menuGUI.RefQuestions[3])[4]);
 
         }
 

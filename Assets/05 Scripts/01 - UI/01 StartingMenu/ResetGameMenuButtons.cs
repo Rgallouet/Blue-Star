@@ -29,7 +29,7 @@ public class ResetGameMenuButtons : MonoBehaviour
         if (mode==1 && !(menuGUI.account.AccountName == " ") && havebeenwarned == false)
         {
             RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' and Trigger='WarningResetAccount'");
-            menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
+            menuGUI.dialogue.UpdateDialogue(150, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
             havebeenwarned = true;
         }
         // Wants to reset account even after being warned
@@ -45,7 +45,7 @@ public class ResetGameMenuButtons : MonoBehaviour
             {
                 // Explaining what will happen
                 RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' and Trigger='WarningResetAccountConfirm'");
-                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
+                menuGUI.dialogue.UpdateDialogue(150, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
                 Application.Quit();
             }
             else
@@ -53,7 +53,7 @@ public class ResetGameMenuButtons : MonoBehaviour
 
                 // Explaining what will happen
                 RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' and Trigger='WarningResetAccountFail'");
-                menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
+                menuGUI.dialogue.UpdateDialogue(150, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
 
             }
 

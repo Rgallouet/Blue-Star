@@ -8,7 +8,6 @@ public class CharacterDisplay : MonoBehaviour {
 
 
     private Image[] HistoryChoiceImage = new Image[9];
-    private Text[] HistoryChoiceText = new Text[10];
 
     // Sprites for displaying choices
     public Sprite[] RightArmSprites = new Sprite[10];
@@ -27,7 +26,6 @@ public class CharacterDisplay : MonoBehaviour {
     void Start () {
 
         for (int i = 0; i < 9; i++)  { HistoryChoiceImage[i] = GetComponentsInChildren<Image>()[i + 1]; }
-        for (int i = 0; i < 10; i++) { HistoryChoiceText[i] = GetComponentsInChildren<Text>()[i]; }
         
     }
 

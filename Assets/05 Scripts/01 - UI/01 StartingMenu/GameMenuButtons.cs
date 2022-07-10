@@ -11,7 +11,7 @@ public class GameMenuButtons : MonoBehaviour {
     void Start(){
 
 		GameMenu = GetComponent<Canvas>();
-        ActivateMenu();
+        GameMenu.enabled = false;
 
     }
 

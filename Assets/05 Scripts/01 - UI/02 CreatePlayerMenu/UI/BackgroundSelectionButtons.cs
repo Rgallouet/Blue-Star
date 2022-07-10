@@ -69,7 +69,7 @@ public class BackgroundSelectionButtons : MonoBehaviour {
             }
             else
             { 
-                menuGUI.dialogue.UpdateDialogue(false, (string)((ArrayList)RefErrors[3])[2], (string)((ArrayList)RefErrors[3])[3], (string)((ArrayList)RefErrors[3])[4]);
+                menuGUI.dialogue.UpdateDialogue(150, (string)((ArrayList)RefErrors[3])[2], (string)((ArrayList)RefErrors[3])[3], (string)((ArrayList)RefErrors[3])[4]);
             }
         } 
     }

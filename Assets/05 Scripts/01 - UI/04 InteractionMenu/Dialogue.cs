@@ -20,7 +20,8 @@ public class Dialogue : MonoBehaviour {
     public Image Center;
     public Image Panel;
 
-    bool isLoading;
+    public bool isLoading;
+    public bool isIntro;
 
     private CanvasGroup canvasGroup;
 
@@ -38,12 +39,13 @@ public class Dialogue : MonoBehaviour {
         canvasGroup.alpha = 0;
 
         isLoading = false;
+        isIntro = true;
 
     }
 
-    public void UpdateDialogue(bool Allowbckgrnd, string NameLeft, string NameRight, string DialogueText) {
+    public void UpdateDialogue(byte AllowbckgrndInt255, string NameLeft, string NameRight, string DialogueText) {
 
-        AllowBackground(Allowbckgrnd);
+        AllowBackground(AllowbckgrndInt255);
 
         // defining what is visible
         Panel.enabled = true;
@@ -58,7 +60,7 @@ public class Dialogue : MonoBehaviour {
         NameLeftUI.text = NameLeft;
         NameRightUI.text = NameRight;
         DialogueTextUI.text = DialogueText;
-
+        DialogueTextUI.alignment = TextAnchor.UpperLeft;
 
         StartCoroutine(DoFadeIn(2));
 
@@ -69,6 +71,8 @@ public class Dialogue : MonoBehaviour {
     }
 
     public void CloseDialogue() {
+        
+        isIntro = false;
 
         if (isLoading == false)
         {
@@ -105,10 +109,9 @@ public class Dialogue : MonoBehaviour {
     }
 
 
-    public void AllowBackground(bool Allowbckgrnd) {
+    public void AllowBackground(byte AllowbckgrndInt255) {
 
-        if (Allowbckgrnd == true) { BackgroundAlpha.color = new Color32(0, 0, 0, 150); }
-        else { BackgroundAlpha.color = new Color32(0, 0, 0, 255); }
+        BackgroundAlpha.color = new Color32(0, 0, 0, AllowbckgrndInt255); 
 
     }
 
@@ -116,7 +119,7 @@ public class Dialogue : MonoBehaviour {
 
     public void LoadingScreen(bool intro)
     {
-        AllowBackground(!intro);
+        AllowBackground(200);
         NameLeftUI.text = " ";
         NameRightUI.text = " ";
 
@@ -124,32 +127,24 @@ public class Dialogue : MonoBehaviour {
         CharacterLeft.enabled = false;
         CharacterRight.enabled = false;
 
-        
-
         // defining what is visible
         if (intro == false)
         {
             isLoading = true;
             Panel.enabled = true;
             DialogueTextUI.text = "Loading your city";
+            DialogueTextUI.alignment = TextAnchor.LowerCenter;
             StartCoroutine(DoFadeIn(2));
         }
         else {
             Panel.enabled = false;
-            DialogueTextUI.text = " ";
+            DialogueTextUI.text = " Click anywhere to proceed to the game";
+            DialogueTextUI.alignment = TextAnchor.LowerCenter;
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
         }
 
-
-
-        
-
-        //Fade in flash
-        //canvasGroup.alpha = 1;
-        //canvasGroup.interactable = true;
-        //canvasGroup.blocksRaycasts = true;
     }
 
 

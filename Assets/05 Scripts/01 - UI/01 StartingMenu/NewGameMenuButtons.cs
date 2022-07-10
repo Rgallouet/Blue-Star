@@ -50,7 +50,7 @@ public class NewGameMenuButtons : MonoBehaviour
         {
             // Asking player to choose a name
             RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' and Trigger='MissingNameChoice'");
-            menuGUI.dialogue.UpdateDialogue(true, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
+            menuGUI.dialogue.UpdateDialogue(150, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
         }
         else
         {

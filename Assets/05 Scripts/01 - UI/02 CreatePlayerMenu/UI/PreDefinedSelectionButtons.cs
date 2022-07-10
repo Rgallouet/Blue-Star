@@ -141,7 +141,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
         }
         else
         {
-            menuGUI.dialogue.UpdateDialogue(false, (string)((ArrayList)RefErrors[4])[2], (string)((ArrayList)RefErrors[4])[3], (string)((ArrayList)RefErrors[4])[4]);
+            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[4])[2], (string)((ArrayList)RefErrors[4])[3], (string)((ArrayList)RefErrors[4])[4]);
 
         }
 
