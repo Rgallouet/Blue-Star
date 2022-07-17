@@ -15,7 +15,7 @@ C:/Repo/Blue-Star
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-59368
+61287
 Successfully changed project path to: C:/Repo/Blue-Star
 C:/Repo/Blue-Star
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,7 +47,7 @@ C:/Repo/Blue-Star
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Refreshing native plugins compatible for Editor in 57.20 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 59.59 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.2.18f1 (0c6e675195cf)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.2.18f1/Editor/Data/Resources/UnitySubsystems
@@ -63,79 +63,79 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.2.18f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.2.18f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.2.18f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56948
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56440
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.2.18f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.2.18f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.004044 seconds.
+Registered in 0.003713 seconds.
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 49.09 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 49.17 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.560 seconds
+- Completed reload, in  0.594 seconds
 Domain Reload Profiling:
-	ReloadAssembly (561ms)
-		BeginReloadAssembly (60ms)
+	ReloadAssembly (594ms)
+		BeginReloadAssembly (108ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (403ms)
-			LoadAssemblies (59ms)
+		EndReloadAssembly (389ms)
+			LoadAssemblies (105ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (100ms)
+			SetupTypeCache (92ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (23ms)
-			SetupLoadedEditorAssemblies (234ms)
+			RebuildScriptCaches (25ms)
+			SetupLoadedEditorAssemblies (227ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (63ms)
+				InitializePlatformSupportModulesInManaged (51ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (49ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (83ms)
-				ProcessInitializeOnLoadMethodAttributes (38ms)
+				ProcessInitializeOnLoadAttributes (87ms)
+				ProcessInitializeOnLoadMethodAttributes (39ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.006093 seconds.
+Registered in 0.007896 seconds.
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 51.44 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 49.09 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Package Manager log level set to [2]
 Mono: successfully reloaded assembly
-- Completed reload, in  1.627 seconds
+- Completed reload, in  1.523 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1628ms)
-		BeginReloadAssembly (209ms)
+	ReloadAssembly (1523ms)
+		BeginReloadAssembly (206ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (127ms)
-		EndReloadAssembly (1317ms)
-			LoadAssemblies (82ms)
+			CreateAndSetChildDomain (129ms)
+		EndReloadAssembly (1226ms)
+			LoadAssemblies (76ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (185ms)
+			SetupTypeCache (181ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (48ms)
-			SetupLoadedEditorAssemblies (952ms)
+			RebuildScriptCaches (52ms)
+			SetupLoadedEditorAssemblies (865ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (18ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (52ms)
-				BeforeProcessingInitializeOnLoad (69ms)
-				ProcessInitializeOnLoadAttributes (690ms)
-				ProcessInitializeOnLoadMethodAttributes (117ms)
-				AfterProcessingInitializeOnLoad (7ms)
+				RefreshPlugins (49ms)
+				BeforeProcessingInitializeOnLoad (62ms)
+				ProcessInitializeOnLoadAttributes (628ms)
+				ProcessInitializeOnLoadMethodAttributes (102ms)
+				AfterProcessingInitializeOnLoad (5ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (5ms)
@@ -143,12 +143,12 @@ Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 0.93 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 0.73 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2836 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 73 unused Assets / (57.2 KB). Loaded Objects now: 3263.
 Memory consumption went from 118.0 MB to 118.0 MB.
-Total: 6.250200 ms (FindLiveObjects: 0.250800 ms CreateObjectMapping: 0.131000 ms MarkObjects: 5.766000 ms  DeleteObjects: 0.101300 ms)
+Total: 6.099000 ms (FindLiveObjects: 0.254100 ms CreateObjectMapping: 0.115000 ms MarkObjects: 5.615200 ms  DeleteObjects: 0.113400 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -163,103 +163,97 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 792439.973785 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '884696b38967b0894b09b1e7c4cbc184') in 0.337009 seconds 
+  Time since last request: 34388.250683 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
+  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a82333b5f7ef64916760eeee537a84b3') in 1.491571 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 4.668776 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRectTier1.psd
-  artifactKey: Guid(440cdcda54bf14b428bfcf12417ab3c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRectTier1.psd using Guid(440cdcda54bf14b428bfcf12417ab3c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '89bee7528664c72615f720138061dfd6') in 0.034467 seconds 
+  Time since last request: 362.791095 seconds.
+  path: Assets/04 Game assets/03 - UI components prefabs/CoreCharacterDisplay 1.prefab
+  artifactKey: Guid(66d652c03c943904e9687c27001c2569) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/03 - UI components prefabs/CoreCharacterDisplay 1.prefab using Guid(66d652c03c943904e9687c27001c2569) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0a365b429bc8d845d9a7929b832bfda') in 0.102743 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 322.072166 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29b3e332b109f949ff77a67a03c39363') in 0.036592 seconds 
+  Time since last request: 8.519885 seconds.
+  path: Assets/04 Game assets/03 - UI components prefabs/CoreCharacterDisplayNew.prefab
+  artifactKey: Guid(66d652c03c943904e9687c27001c2569) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/04 Game assets/03 - UI components prefabs/CoreCharacterDisplayNew.prefab using Guid(66d652c03c943904e9687c27001c2569) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b7f5b8ea8e2260b478f8e41788ab62dc') in 0.052823 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 16.531076 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60dfbccb75ff0181b01ded5413f76f26') in 0.035844 seconds 
+  Time since last request: 537.390816 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
+  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73666269e87e964f2dc2a5ca62b45fd9') in 1.403944 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 211.103045 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd83de01dfc5d0071f8141b1c5a8b38dc') in 0.035238 seconds 
+  Time since last request: 233.031883 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
+  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'abb84b4fa53ffe98b9f40420a97f7fd5') in 1.356539 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 28.112085 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '548791bcb6e51d17f05c07a091b95354') in 0.033347 seconds 
+  Time since last request: 154.202068 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
+  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb258b421b42dd35356361fbf3827fc1') in 0.250943 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 141.538436 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20369f704364bd734a36b0b4f56fe6df') in 0.035821 seconds 
+  Time since last request: 99.460351 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
+  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '82f822ee61077914ce639da634457dc8') in 1.445176 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 111.862985 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc1275fddc58afe19bd57e55aecbc579') in 0.032762 seconds 
+  Time since last request: 137.424464 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
+  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45a9be0e5c365a63305d41291e7dffc7') in 0.658842 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 28.454550 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57578d31cfa364377a5d22fc1ee23326') in 0.032590 seconds 
+  Time since last request: 118.609900 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
+  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cbc62fa17645e6d0a916d2eba5bd104b') in 0.208042 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 21.673459 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd8338368c78589a2db9d2c8d9c0e16b') in 0.027232 seconds 
+  Time since last request: 132.796452 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
+  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a17336df3d91a311bc11475f8d576a3') in 0.243879 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 13.097576 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8b46dce4654d78cd332ef8da81d7d44') in 0.032583 seconds 
+  Time since last request: 184.578918 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
+  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fea6b749381baf68f2f72f0f22402219') in 0.215854 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 11.825574 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7cf89995e811344685601ed9fd5c82a') in 0.032271 seconds 
+  Time since last request: 411.050034 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
+  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44fbb4bbf614fad5aee97616c4956233') in 0.406926 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 8.594380 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d80e8f390d490da60768d3edb55277b') in 0.032608 seconds 
+  Time since last request: 425.081494 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenuSource.psb
+  artifactKey: Guid(0c68f07a0540f4c4999dd1559335b49b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenuSource.psb using Guid(0c68f07a0540f4c4999dd1559335b49b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b9a7dd78961072cf54b426937d89ca9') in 1.391526 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 5.905771 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de707bdee7f1caa8517b1828972ef28f') in 0.012851 seconds 
+  Time since last request: 71.867792 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenuSource.psb
+  artifactKey: Guid(0c68f07a0540f4c4999dd1559335b49b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenuSource.psb using Guid(0c68f07a0540f4c4999dd1559335b49b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bb4744f450e308c62476d3a21c5f5ce3') in 0.704302 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 16.108448 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb3633e37f9e25758086972a15e3ebc3') in 0.021776 seconds 
+  Time since last request: 12653.381028 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenuSource.psb
+  artifactKey: Guid(0c68f07a0540f4c4999dd1559335b49b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenuSource.psb using Guid(0c68f07a0540f4c4999dd1559335b49b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '389cf1bb65343330328607f51ecc71a0') in 0.814965 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 28.632126 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb
-  artifactKey: Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRect.psb using Guid(6c9ae8f949f27ba48892c35526cb0165) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a46678581abc532dbc87cd69a13fc3d1') in 0.033369 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 8.413467 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRectTier1.jpg
-  artifactKey: Guid(38100dc833f89ba45a2ae44c1276968f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/UICharacterDisplayRectTier1.jpg using Guid(38100dc833f89ba45a2ae44c1276968f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1f9d523bad2820ae176e8131dd0e97f') in 0.005374 seconds 
+  Time since last request: 214.226559 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenuSource.psb
+  artifactKey: Guid(0c68f07a0540f4c4999dd1559335b49b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenuSource.psb using Guid(0c68f07a0540f4c4999dd1559335b49b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aff042432950e3d5ffac42a5a28ac048') in 0.501824 seconds 

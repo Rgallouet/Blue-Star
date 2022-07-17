@@ -262,7 +262,7 @@ PrefabInstance:
         type: 3}
       propertyPath: characterDisplay
       value: 
-      objectReference: {fileID: 104799124}
+      objectReference: {fileID: 51504530}
     - target: {fileID: 114830348975720802, guid: 87898850c19b3514f8d3fd25acae4a29,
         type: 3}
       propertyPath: m_FontData.m_Font
@@ -359,8 +359,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5006058080930831433, guid: 87898850c19b3514f8d3fd25acae4a29,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8202364740403027282, guid: 312ad591b8dce7241bd9c0600ed69754,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87898850c19b3514f8d3fd25acae4a29, type: 3}
+--- !u!114 &51504530 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7784422511258881615, guid: 87898850c19b3514f8d3fd25acae4a29,
+    type: 3}
+  m_PrefabInstance: {fileID: 51504529}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2af99efa6b8144086880f0767af40e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &84851847
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,18 +934,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &104799124 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114003023191932480, guid: 87898850c19b3514f8d3fd25acae4a29,
-    type: 3}
-  m_PrefabInstance: {fileID: 51504529}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a2af99efa6b8144086880f0767af40e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &191595501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -956,6 +962,16 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1291555431}
+    - target: {fileID: 114946876253258612, guid: 0429e6b931d35f745bc74a7df33c6a40,
+        type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 3840
+      objectReference: {fileID: 0}
+    - target: {fileID: 114946876253258612, guid: 0429e6b931d35f745bc74a7df33c6a40,
+        type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 2160
+      objectReference: {fileID: 0}
     - target: {fileID: 224753018038300790, guid: 0429e6b931d35f745bc74a7df33c6a40,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1337,16 +1353,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ClickMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 114490006383405984, guid: 8519e927bc42cc44592237d8ec82259f,
-        type: 3}
-      propertyPath: cityGUI
-      value: 
-      objectReference: {fileID: 1291555427}
-    - target: {fileID: 114490006383405984, guid: 8519e927bc42cc44592237d8ec82259f,
-        type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1291555431}
     - target: {fileID: 114902635043907732, guid: 8519e927bc42cc44592237d8ec82259f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1447,8 +1453,7 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114490006383405984, guid: 8519e927bc42cc44592237d8ec82259f, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8519e927bc42cc44592237d8ec82259f, type: 3}
 --- !u!1 &488529191
 GameObject:
@@ -2287,7 +2292,7 @@ MonoBehaviour:
   AccountName: 
   MaximumLevelReached: 0
   NumberOfDeaths: 0
-  UnderCityExists: 0
+  CurrentCityRegion: 0
   CumulativeExperience: 0
 --- !u!1 &1382347994
 GameObject:
@@ -2683,6 +2688,7 @@ MonoBehaviour:
   - {fileID: 1178491327}
   - {fileID: 566695803}
   ExitMenu: {fileID: 1390117971}
+  windowsCamera: {fileID: 1291555428}
   MenuAudio: {fileID: 84851849}
   characterMenu: {fileID: 2085752153}
   settingsMenu: {fileID: 1189813514}

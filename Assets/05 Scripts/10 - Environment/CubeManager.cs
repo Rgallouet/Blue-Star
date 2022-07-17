@@ -112,7 +112,7 @@ public class CubeManager : MonoBehaviour {
 
         // Generating the hero
         playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + (MapSizeOnX/2) +5, 15f, zOffset + (MapSizeOnZ / 2) + 5), Quaternion.Euler(0, 0, 0));
-        playerInstantiated.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer = saveAndLoad.LoadCharacterFromDataBase((long)1);
+        playerInstantiated.GetComponentInChildren<GameObjectInformation>().baseCharacter = saveAndLoad.LoadCharacterFromDataBase((long)1);
 
 
 

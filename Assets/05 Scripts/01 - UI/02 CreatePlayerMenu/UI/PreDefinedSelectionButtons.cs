@@ -121,7 +121,6 @@ public class PreDefinedSelectionButtons : MonoBehaviour
     {
 
         PreDefinedSelection.GetComponentsInChildren<Text>()[12].text = ((string)((ArrayList)refData[HistoryChoice])[2]).Replace("<br>", "\n");
-        characterDisplay.UpdateCharacterDisplay(demonPartsChoices);
 
     }
 

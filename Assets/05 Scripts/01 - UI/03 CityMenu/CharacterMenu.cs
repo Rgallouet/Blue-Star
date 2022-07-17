@@ -20,8 +20,17 @@ public class CharacterMenu : MonoBehaviour {
     public void ActivateMenu(BaseCharacter baseCharacter)
     {
         CharacterMenuCanvas.enabled = true;
-        characterDisplay.UpdateCharacterDisplay(baseCharacter.DemonPartChoices);
-        CharacterName.text = baseCharacter.characterName;
+
+        if (baseCharacter == null)
+        {
+            CharacterName.text = "No character selected";
+        }
+        else 
+        {
+            characterDisplay.UpdateCharacterDisplay(baseCharacter.DemonPartChoices);
+            CharacterName.text = baseCharacter.characterName;
+        }
+
     }
 
     public void DesactivateMenu()

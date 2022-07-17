@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameObjectInformation : MonoBehaviour {
 
-    public enum ObjectCategory { Player, Character, Wall, Ground };
+    public enum ObjectCategory { Character, Wall, Ground };
 
 
     public string ObjectName;
@@ -14,7 +14,7 @@ public class GameObjectInformation : MonoBehaviour {
 
 
     // Possible object categories
-    public BaseCharacter basePlayer;
+    public BaseCharacter baseCharacter;
 
 
 }

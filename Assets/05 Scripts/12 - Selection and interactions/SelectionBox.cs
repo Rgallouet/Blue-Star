@@ -24,13 +24,13 @@ public class SelectionBox : MonoBehaviour {
 
     public void Select(GameObject SelectedObject)
     {
-        switch (SelectedObject.GetComponentsInChildren<GameObjectInformation>()[0].objectCategory)
+        switch (SelectedObject.GetComponentInChildren<GameObjectInformation>().objectCategory)
         {
             case GameObjectInformation.ObjectCategory.Ground:
                 Selectionbox.transform.position = new Vector3(SelectedObject.transform.position.x-0.25f, SelectedObject.transform.position.y + 0.01f, SelectedObject.transform.position.z-0.25f);
                 break;
 
-            case GameObjectInformation.ObjectCategory.Player:
+            case GameObjectInformation.ObjectCategory.Character:
                 Selectionbox.transform.position = IdlePosition;
                 windowsCamera.characterSelected = SelectedObject;
                 leftJoystick.ActivateJoystick();
@@ -64,10 +64,10 @@ public class SelectionBox : MonoBehaviour {
             Mathf.Abs(SelectedObject.transform.position.z - Character.transform.position.z) <= 1.5f)
         {
 
-            if (SelectedObject.GetComponentsInChildren<GameObjectInformation>()[0].CanBeDigged <= Character.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer.DiggingLevel)
+            if (SelectedObject.GetComponentInChildren<GameObjectInformation>().CanBeDigged <= Character.GetComponentInChildren<GameObjectInformation>().baseCharacter.DiggingLevel)
             { interactionMenu.InstantiateDigThrough(); }
 
-            if (SelectedObject.GetComponentsInChildren<GameObjectInformation>()[0].CanBeBuilt <= Character.GetComponentsInChildren<GameObjectInformation>()[0].basePlayer.BuildingLevel)
+            if (SelectedObject.GetComponentInChildren<GameObjectInformation>().CanBeBuilt <= Character.GetComponentInChildren<GameObjectInformation>().baseCharacter.BuildingLevel)
             { interactionMenu.InstantiatePaving(); }
 
         }
