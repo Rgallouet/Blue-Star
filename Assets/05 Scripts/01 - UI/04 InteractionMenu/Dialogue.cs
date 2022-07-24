@@ -6,17 +6,13 @@ public class Dialogue : MonoBehaviour {
 
     public Canvas dialogueCanvas;
 
-    public Text NameLeftUI;
-    public Text NameRightUI;
-    public Text DialogueTextUI;
-
     public int fadeInTime;
     public int fadeOutTime;
 
     public Image BackgroundAlpha;
 
-    public Image CharacterRight;
-    public Image CharacterLeft;
+
+    public Image CharacterImage;
     public Image Center;
     public Image Panel;
 
@@ -29,10 +25,9 @@ public class Dialogue : MonoBehaviour {
     void Start () {
 
         canvasGroup = dialogueCanvas.GetComponent<CanvasGroup>();
-        CharacterRight = canvasGroup.GetComponentsInChildren<Image>()[1];
-        CharacterLeft = canvasGroup.GetComponentsInChildren<Image>()[2];
-        Center = canvasGroup.GetComponentsInChildren<Image>()[3];
-        Panel = canvasGroup.GetComponentsInChildren<Image>()[4];
+        CharacterImage = canvasGroup.GetComponentsInChildren<Image>()[1];
+        Center = canvasGroup.GetComponentsInChildren<Image>()[2];
+        Panel = canvasGroup.GetComponentsInChildren<Image>()[3];
 
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
@@ -43,7 +38,7 @@ public class Dialogue : MonoBehaviour {
 
     }
 
-    public void UpdateDialogue(byte AllowbckgrndInt255, string NameLeft, string NameRight, string DialogueText) {
+    public void UpdateDialogue(byte AllowbckgrndInt255, string characterName, string DialogueText) {
 
         AllowBackground(AllowbckgrndInt255);
 
@@ -51,16 +46,13 @@ public class Dialogue : MonoBehaviour {
         Panel.enabled = true;
         Center.enabled = false;
 
-        if (NameLeft != " ") CharacterLeft.enabled = true;
-        else CharacterLeft.enabled = false;
+        if (characterName != " ") CharacterImage.enabled = true;
+        else CharacterImage.enabled = false;
 
-        if (NameRight != " ") CharacterRight.enabled = true;
-        else CharacterRight.enabled = false;
 
-        NameLeftUI.text = NameLeft;
-        NameRightUI.text = NameRight;
-        DialogueTextUI.text = DialogueText;
-        DialogueTextUI.alignment = TextAnchor.UpperLeft;
+        Panel.GetComponentsInChildren<Text>()[1].text = characterName;
+        Panel.GetComponentsInChildren<Text>()[0].text = DialogueText;
+        Panel.GetComponentsInChildren<Text>()[0].alignment = TextAnchor.UpperLeft;
 
         StartCoroutine(DoFadeIn(2));
 
@@ -120,26 +112,24 @@ public class Dialogue : MonoBehaviour {
     public void LoadingScreen(bool intro)
     {
         AllowBackground(200);
-        NameLeftUI.text = " ";
-        NameRightUI.text = " ";
+        Panel.GetComponentsInChildren<Text>()[1].text = " ";
 
         Center.enabled = true;
-        CharacterLeft.enabled = false;
-        CharacterRight.enabled = false;
+        CharacterImage.enabled = false;
 
         // defining what is visible
         if (intro == false)
         {
             isLoading = true;
             Panel.enabled = true;
-            DialogueTextUI.text = "Loading your city";
-            DialogueTextUI.alignment = TextAnchor.LowerCenter;
+            Panel.GetComponentsInChildren<Text>()[0].text = "Loading your city";
+            Panel.GetComponentsInChildren<Text>()[0].alignment = TextAnchor.LowerCenter;
             StartCoroutine(DoFadeIn(2));
         }
         else {
             Panel.enabled = false;
-            DialogueTextUI.text = " Click anywhere to proceed to the game";
-            DialogueTextUI.alignment = TextAnchor.LowerCenter;
+            Panel.GetComponentsInChildren<Text>()[0].text = " Click anywhere to proceed to the game";
+            Panel.GetComponentsInChildren<Text>()[0].alignment = TextAnchor.LowerCenter;
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;

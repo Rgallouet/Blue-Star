@@ -37,7 +37,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
         //Link to left side text box for displaying names
         for (int i = 0; i < 9; i++)
         {
-            Choice[i] = PreDefinedSelection.GetComponentInChildren<GridLayoutGroup>().GetComponentsInChildren<Button>()[i];
+            Choice[i] = PreDefinedSelection.GetComponentsInChildren<Button>()[i];
         }
 
 
@@ -140,7 +140,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
         }
         else
         {
-            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[4])[2], (string)((ArrayList)RefErrors[4])[3], (string)((ArrayList)RefErrors[4])[4]);
+            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[4])[2], (string)((ArrayList)RefErrors[4])[3]);
 
         }
 

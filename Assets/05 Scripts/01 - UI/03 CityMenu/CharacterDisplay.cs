@@ -22,19 +22,20 @@ public class CharacterDisplay : MonoBehaviour {
     public void UpdateCharacterDisplay(DemonPartChoices demonPartChoices) {
 
 
+
         // Ranks
-        images[1].sprite = characterInMenuSprites.GetSprite("HeadRank",          "HeadRank_"+            demonPartChoices.HeadQuality);
-        images[2].sprite = characterInMenuSprites.GetSprite("BodyRank",          "BodyRank_" +           demonPartChoices.BodyQuality);
-        images[3].sprite = characterInMenuSprites.GetSprite("RightUpperArmRank", "RightUpperArmRank_" +  demonPartChoices.RightUpperArmQuality);
-        images[4].sprite = characterInMenuSprites.GetSprite("RightLowerArmRank", "RightLowerArmRank_" +  demonPartChoices.RightLowerArmQuality);
-        images[5].sprite = characterInMenuSprites.GetSprite("RightFistRank",     "RightFistRank_" +      demonPartChoices.RightFistQuality);
-        images[6].sprite = characterInMenuSprites.GetSprite("RightLegRank",      "RightLegRank_" +       demonPartChoices.RightLegQuality);
-        images[7].sprite = characterInMenuSprites.GetSprite("RightFootRank",     "RightFootRank_" +      demonPartChoices.RightFootQuality);
-        images[8].sprite = characterInMenuSprites.GetSprite("LeftUpperArmRank",  "LeftUpperArmRank_" +   demonPartChoices.LeftUpperArmQuality);
-        images[9].sprite = characterInMenuSprites.GetSprite("LeftLowerArmRank",  "LeftLowerArmRank_" +   demonPartChoices.LeftLowerArmQuality);
-        images[10].sprite = characterInMenuSprites.GetSprite("LeftFistRank",      "LeftFistRank_" +       demonPartChoices.LeftFistQuality);
-        images[11].sprite = characterInMenuSprites.GetSprite("LeftLegRank",      "LeftLegRank_" +        demonPartChoices.LeftLegQuality);
-        images[12].sprite = characterInMenuSprites.GetSprite("LeftFootRank",     "LeftFootRank_" +       demonPartChoices.LeftFootQuality);
+        images[1].sprite = characterInMenuSprites.GetSprite("Rank", "Rank_"+            demonPartChoices.HeadQuality);
+        images[2].sprite = characterInMenuSprites.GetSprite("Rank", "Rank_" +           demonPartChoices.BodyQuality);
+        images[3].sprite = characterInMenuSprites.GetSprite("Rank", "Rank_" +  demonPartChoices.RightUpperArmQuality);
+        images[4].sprite = characterInMenuSprites.GetSprite("Rank", "Rank_" +  demonPartChoices.RightLowerArmQuality);
+        images[5].sprite = characterInMenuSprites.GetSprite("Rank", "Rank_" +      demonPartChoices.RightFistQuality);
+        images[6].sprite = characterInMenuSprites.GetSprite("Rank", "Rank_" +       demonPartChoices.RightLegQuality);
+        images[7].sprite = characterInMenuSprites.GetSprite("Rank", "Rank_" +      demonPartChoices.RightFootQuality);
+        images[8].sprite = characterInMenuSprites.GetSprite("Rank", "Rank_" +   demonPartChoices.LeftUpperArmQuality);
+        images[9].sprite = characterInMenuSprites.GetSprite("Rank", "Rank_" +   demonPartChoices.LeftLowerArmQuality);
+        images[10].sprite = characterInMenuSprites.GetSprite("Rank","Rank_" +      demonPartChoices.LeftFistQuality);
+        images[11].sprite = characterInMenuSprites.GetSprite("Rank","Rank_" +        demonPartChoices.LeftLegQuality);
+        images[12].sprite = characterInMenuSprites.GetSprite("Rank","Rank_" +       demonPartChoices.LeftFootQuality);
 
         //Characters
         images[13].sprite = characterInMenuSprites.GetSprite("Head",             "Head_" +               demonPartChoices.HeadChoiceID);

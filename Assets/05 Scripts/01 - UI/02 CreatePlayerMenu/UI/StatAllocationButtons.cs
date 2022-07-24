@@ -41,21 +41,20 @@ public class StatAllocationButtons : MonoBehaviour {
 
 
         //Find the stats name
-        for (int i = 0; i < 22; i++) { StatName[i] = StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup>()[0].GetComponentsInChildren<Button>()[i].GetComponentInChildren<Text>(); }
+        for (int i = 0; i < 22; i++) { StatName[i] = StatAllocationMenu.GetComponentsInChildren<Button>()[i].GetComponentInChildren<Text>(); }
         
         //Find the Minus buttons for each stat to update visible/invisible property
-        for (int i = 0; i < 22; i++) { StatMinus[i] =        StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup>()[1].GetComponentsInChildren<Button>()[i]; }
-
-        // Find the stats display areas to update numbers when used push buttons
-        for (int i=0; i<6; i++)		{ Stat[i] = StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup>()[2].GetComponentsInChildren<Text> () [i+1];}
-		for (int i=6; i<12; i++)	{ Stat[i] = StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup>()[2].GetComponentsInChildren<Text> () [i+2];}
-		for (int i=12; i<14; i++)	{ Stat[i] = StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup>()[2].GetComponentsInChildren<Text> () [i+3];}
-		for (int i=14; i<16; i++) 	{ Stat[i] = StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup>()[2].GetComponentsInChildren<Text> () [i+4];}
-		for (int i=16; i<22; i++) 	{ Stat[i] = StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup>()[2].GetComponentsInChildren<Text> () [i+5];}
-		for (int i=0; i<3; i++) 	{ PointsToAlloc [i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup>()[2].GetComponentsInChildren<Text> () [i+28];}
+        for (int i = 0; i < 22; i++) { StatMinus[i] = StatAllocationMenu.GetComponentsInChildren<Button>()[i + 22]; }
 
         // Find the Plus buttons for each stat to update visibile/invisible property
-		for (int i=0; i<22; i++)	{ StatPlus[i] = 		StatAllocationMenu.GetComponentsInChildren<GridLayoutGroup>()[3].GetComponentsInChildren<Button> () [i];}
+        for (int i = 0; i < 22; i++) { StatPlus[i] = StatAllocationMenu.GetComponentsInChildren<Button>()[i + 44]; }
+
+
+        // Find the stats display areas to update numbers when used push buttons
+        for (int i=0; i<22; i++)	{ Stat[i] = StatAllocationMenu.GetComponentsInChildren<Text>()[i+54];}
+		for (int i=0; i<3; i++) 	{ PointsToAlloc[i] = StatAllocationMenu.GetComponentsInChildren<Text>()[i + 76]; }
+
+
 
 
         // Fill what can be filled
@@ -106,7 +105,7 @@ public class StatAllocationButtons : MonoBehaviour {
         }
         else
         {
-            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[2])[2], (string)((ArrayList)RefErrors[2])[3], (string)((ArrayList)RefErrors[2])[4]);
+            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[2])[2], (string)((ArrayList)RefErrors[2])[3]);
         }
 
     }
@@ -144,7 +143,7 @@ public class StatAllocationButtons : MonoBehaviour {
         }
         else
         {
-            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)menuGUI.RefQuestions[3])[2], (string)((ArrayList)menuGUI.RefQuestions[3])[3], (string)((ArrayList)menuGUI.RefQuestions[3])[4]);
+            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)menuGUI.RefQuestions[3])[2], (string)((ArrayList)menuGUI.RefQuestions[3])[3]);
 
         }
 

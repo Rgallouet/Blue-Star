@@ -28,6 +28,7 @@ public class HistorySelectionButtons : MonoBehaviour
 
     // Gestion données référentielles
     public DataBaseManager dataBaseManager;
+
     private ArrayList RefHellCircles = new();
     private ArrayList RefAllegiance = new();
     private ArrayList RefSocial = new();
@@ -38,6 +39,7 @@ public class HistorySelectionButtons : MonoBehaviour
     private ArrayList RefAstro = new();
     private ArrayList RefAffinity = new();
 
+    // descriptions
     private ArrayList RefQuestions = new();
     private ArrayList RefErrors = new();
 
@@ -51,7 +53,8 @@ public class HistorySelectionButtons : MonoBehaviour
     // Connection vers l'UI
     public MenuGUI menuGUI;
     public int HistoryChoice;
-	public GridLayoutGroup ChoiceDisplay;
+
+
 	public Text CommentText;
     public Text QuestionOnCurrentStep;
     public Text CommentHeader;
@@ -84,12 +87,14 @@ public class HistorySelectionButtons : MonoBehaviour
 
         //Connection vers éléments de l'UI
         HistorySelection = GetComponent<Canvas>();
-
+        QuestionOnCurrentStep = HistorySelection.GetComponentsInChildren<Text>()[0];
+        CommentHeader = HistorySelection.GetComponentsInChildren<Text>()[1];
+        CommentText = HistorySelection.GetComponentsInChildren<Text>()[2];
 
         for (int i = 0; i < 9; i++) 
             {
                 // Selecting the button
-                Choice[i] = ChoiceDisplay.GetComponentsInChildren<Button>()[i];
+                Choice[i] = HistorySelection.GetComponentsInChildren<Button>()[i];
 
             }
 
@@ -339,7 +344,7 @@ public class HistorySelectionButtons : MonoBehaviour
 
         }
         else {
-            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[1])[2], (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4]);
+            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[1])[2], (string)((ArrayList)RefErrors[1])[3]);
         }
   
     }

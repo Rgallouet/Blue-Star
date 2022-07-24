@@ -27,8 +27,9 @@ public class CharacterMenu : MonoBehaviour {
         }
         else 
         {
-            characterDisplay.UpdateCharacterDisplay(baseCharacter.DemonPartChoices);
             CharacterName.text = baseCharacter.characterName;
+            characterDisplay.UpdateCharacterDisplay(baseCharacter.DemonPartChoices);
+            
         }
 
     }
