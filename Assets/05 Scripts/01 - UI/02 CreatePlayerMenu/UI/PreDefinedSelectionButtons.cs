@@ -30,8 +30,8 @@ public class PreDefinedSelectionButtons : MonoBehaviour
         PreDefinedSelection = GetComponent<Canvas>();
         PreDefinedSelection.enabled = false;
 
-        refData = dataBaseManager.getArrayData("select * from REF_PredefinedCharacters order by Id asc");
-        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
+        refData = dataBaseManager.getArrayData("select * from REF_PredefinedCharacters order by CharacterTypeId asc");
+        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by DialogueId asc");
   
 
         //Link to left side text box for displaying names

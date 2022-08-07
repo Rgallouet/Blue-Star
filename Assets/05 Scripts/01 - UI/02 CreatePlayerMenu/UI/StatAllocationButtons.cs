@@ -34,8 +34,8 @@ public class StatAllocationButtons : MonoBehaviour {
 
 		StatAllocationMenu = GetComponent<Canvas>();
 
-        refData = dataBaseManager.getArrayData("select * from REF_StatsDescription order by Id asc");
-        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
+        refData = dataBaseManager.getArrayData("select * from REF_StatsDescription order by StatId asc");
+        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by DialogueId asc");
 
 
 
@@ -72,7 +72,7 @@ public class StatAllocationButtons : MonoBehaviour {
     public void DisplayStat(int WhichButton)
     {
     DescriptionHead.text = (string)((ArrayList)refData[WhichButton+1])[1] + " Description";
-    DescriptionBody.text = "<i>" + (string)((ArrayList)refData[WhichButton+1])[6] + "</i> \n\n" + (string)((ArrayList)refData[WhichButton + 1])[5]; 
+    DescriptionBody.text = "<i>" + (string)((ArrayList)refData[WhichButton+1])[5] + "</i> \n\n" + (string)((ArrayList)refData[WhichButton + 1])[4]; 
     }
 
     

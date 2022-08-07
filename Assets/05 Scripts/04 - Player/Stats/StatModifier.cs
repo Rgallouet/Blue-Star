@@ -3,7 +3,7 @@ using System.Collections;
 
 public class StatModifier {
 
-    public int Embodiment;
+    public int Endurance;
     public int Strength;
     public int Speed;
     public int Dexterity;

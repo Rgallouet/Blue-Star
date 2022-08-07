@@ -90,20 +90,20 @@ public class SaveAndLoad : MonoBehaviour
         // generating the baseline related stat modifier line
         dataBaseManager.RunQuery(
             "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'Baseline' as ModifierSource," +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Strength, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Speed, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Dexterity, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Embodiment, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Reflex, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Resilience, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Knowledge, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Elocution, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Intellect, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Influence, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Focus, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Mockery, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Malevolent, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Unmerciful, " +
+            75 + " as Strength, " +
+            100 + " as Speed, " +
+            75 + " as Dexterity, " +
+            75 + " as Endurance, " +
+            75 + " as Reflex, " +
+            75 + " as Resilience, " +
+            75 + " as Knowledge, " +
+            75 + " as Elocution, " +
+            75 + " as Intellect, " +
+            75 + " as Influence, " +
+            75 + " as Focus, " +
+            75 + " as Mockery, " +
+            75 + " as Malevolent, " +
+            75 + " as Unmerciful, " +
 
             10 + " as Rage, " +
             10 + " as Phase, " +
@@ -123,13 +123,13 @@ public class SaveAndLoad : MonoBehaviour
 
         // generating the choices related stat modifier line
         dataBaseManager.RunQuery(
-            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'HistoryChoices' as ModifierSource, sum(Strength) as Strength, sum(Speed) as Speed, sum(Dexterity) as Dexterity, sum(Embodiment) as Embodiment, sum(Reflex) as Reflex, sum(Resilience) as Resilience, " +
+            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'HistoryChoices' as ModifierSource, sum(Strength) as Strength, sum(Speed) as Speed, sum(Dexterity) as Dexterity, sum(Endurance) as Endurance, sum(Reflex) as Reflex, sum(Resilience) as Resilience, " +
             "sum(Knowledge) as Knowledge, sum(Elocution) as Elocution, sum(Intellect) as Intellect, sum(Influence) as Influence, sum(Focus) as Focus, sum(Mockery) as Mockery, " +
             "sum(Malevolent) as Malevolent, sum(Unmerciful) as Unmerciful, " +
             "sum(Rage) as Rage, sum(Phase) as Phase, " +
             "sum(Momentum) as Momentum, sum(Balance) as Balance, sum(Chaos) as Chaos, sum(Luck) as Luck, sum(Perception) as Perception, sum(Judgement) as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
             "from REF_HistoryChoicesStatistics " +
-            "where Id in ('"
+            "where ChoiceId in ('"
             + character.HistoryChoices.HellCircleChoice + "','"
             + character.HistoryChoices.AllegianceChoice + "','"
             + character.HistoryChoices.SocialChoice + "','"
@@ -143,24 +143,43 @@ public class SaveAndLoad : MonoBehaviour
 
         // generating the demon parts related stat modifier line
         dataBaseManager.RunQuery(
-            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'DemonPartsChoices' as ModifierSource, sum(Strength) as Strength, sum(Speed) as Speed, sum(Dexterity) as Dexterity, sum(Embodiment) as Embodiment, sum(Reflex) as Reflex, sum(Resilience) as Resilience, " +
+            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'DemonPartsChoices' as ModifierSource, sum(Strength) as Strength, sum(Speed) as Speed, sum(Dexterity) as Dexterity, sum(Endurance) as Endurance, sum(Reflex) as Reflex, sum(Resilience) as Resilience, " +
             "sum(Knowledge) as Knowledge, sum(Elocution) as Elocution, sum(Intellect) as Intellect, sum(Influence) as Influence, sum(Focus) as Focus, sum(Mockery) as Mockery, " +
-            "sum(Malevolent) as Malevolent, sum(Unmerciful) as Unmerciful, " +
-            "sum(Rage) as Rage, sum(Phase) as Phase, " +
-            "sum(Momentum) as Momentum, sum(Balance) as Balance, sum(Chaos) as Chaos, sum(Luck) as Luck, sum(Perception) as Perception, sum(Judgement) as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
-            "from REF_DemonPartsStatistics where " +
-            " (BodyPart='Head' and Id= " +          character.DemonPartChoices.HeadChoiceID + " and Quality=" +             character.DemonPartChoices.HeadQuality + ") or " +
-            " (BodyPart='Body' and Id= " +          character.DemonPartChoices.BodyChoiceID + " and Quality=" +             character.DemonPartChoices.BodyQuality + ") or " +
-            " (BodyPart='RightUpperArm' and Id= " + character.DemonPartChoices.RightUpperArmChoiceID + " and Quality=" +    character.DemonPartChoices.RightUpperArmQuality + ") or " +
-            " (BodyPart='RightLowerArm' and Id= " + character.DemonPartChoices.RightLowerArmChoiceID + " and Quality=" +    character.DemonPartChoices.RightLowerArmQuality + ") or " +
-            " (BodyPart='RightFist' and Id= " +     character.DemonPartChoices.RightFistChoiceID + " and Quality=" +        character.DemonPartChoices.RightFistQuality + ") or " +
-            " (BodyPart='RightLeg' and Id= " +      character.DemonPartChoices.RightLegChoiceID + " and Quality=" +         character.DemonPartChoices.RightLegQuality + ") or " +
-            " (BodyPart='RightFoot' and Id= " +     character.DemonPartChoices.RightFootChoiceID + " and Quality=" +        character.DemonPartChoices.RightFootQuality + ") or " +
-            " (BodyPart='LeftUpperArm' and Id= " +  character.DemonPartChoices.LeftUpperArmChoiceID + " and Quality=" +     character.DemonPartChoices.LeftUpperArmQuality + ") or " +
-            " (BodyPart='LeftLowerArm' and Id= " +  character.DemonPartChoices.LeftLowerArmChoiceID + " and Quality=" +     character.DemonPartChoices.LeftLowerArmQuality + ") or " +
-            " (BodyPart='LeftFist' and Id= " +      character.DemonPartChoices.LeftFistChoiceID + " and Quality=" +         character.DemonPartChoices.LeftFistQuality + ") or " +
-            " (BodyPart='LeftLeg' and Id= " +       character.DemonPartChoices.LeftLegChoiceID + " and Quality=" +          character.DemonPartChoices.LeftLegQuality + ") or " +
-            " (BodyPart='LeftFoot' and Id= " +      character.DemonPartChoices.LeftFootChoiceID + " and Quality=" +         character.DemonPartChoices.LeftFootQuality + "); " );
+            "0 as Malevolent, 0 as Unmerciful, sum(Rage) as Rage, sum(Phase) as Phase, 0 as Momentum, 0 as Balance, 0 as Chaos, 0 as Luck, 0 as Perception, 0 as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
+            "from VIEW_DemonPartsStatisticsWithQuality where " +
+            " (BodyPart='Head' and CharacterTypeId= " +          character.DemonPartChoices.HeadChoiceID + " and QualityId=" +             character.DemonPartChoices.HeadQuality + ") or " +
+            " (BodyPart='Body' and CharacterTypeId= " +          character.DemonPartChoices.BodyChoiceID + " and QualityId=" +             character.DemonPartChoices.BodyQuality + ") or " +
+            " (BodyPart='RightUpperArm' and CharacterTypeId= " + character.DemonPartChoices.RightUpperArmChoiceID + " and QualityId=" +    character.DemonPartChoices.RightUpperArmQuality + ") or " +
+            " (BodyPart='RightLowerArm' and CharacterTypeId= " + character.DemonPartChoices.RightLowerArmChoiceID + " and QualityId=" +    character.DemonPartChoices.RightLowerArmQuality + ") or " +
+            " (BodyPart='RightFist' and CharacterTypeId= " +     character.DemonPartChoices.RightFistChoiceID + " and QualityId=" +        character.DemonPartChoices.RightFistQuality + ") or " +
+            " (BodyPart='RightLeg' and CharacterTypeId= " +      character.DemonPartChoices.RightLegChoiceID + " and QualityId=" +         character.DemonPartChoices.RightLegQuality + ") or " +
+            " (BodyPart='RightFoot' and CharacterTypeId= " +     character.DemonPartChoices.RightFootChoiceID + " and QualityId=" +        character.DemonPartChoices.RightFootQuality + ") or " +
+            " (BodyPart='LeftUpperArm' and CharacterTypeId= " +  character.DemonPartChoices.LeftUpperArmChoiceID + " and QualityId=" +     character.DemonPartChoices.LeftUpperArmQuality + ") or " +
+            " (BodyPart='LeftLowerArm' and CharacterTypeId= " +  character.DemonPartChoices.LeftLowerArmChoiceID + " and QualityId=" +     character.DemonPartChoices.LeftLowerArmQuality + ") or " +
+            " (BodyPart='LeftFist' and CharacterTypeId= " +      character.DemonPartChoices.LeftFistChoiceID + " and QualityId=" +         character.DemonPartChoices.LeftFistQuality + ") or " +
+            " (BodyPart='LeftLeg' and CharacterTypeId= " +       character.DemonPartChoices.LeftLegChoiceID + " and QualityId=" +          character.DemonPartChoices.LeftLegQuality + ") or " +
+            " (BodyPart='LeftFoot' and CharacterTypeId= " +      character.DemonPartChoices.LeftFootChoiceID + " and QualityId=" +         character.DemonPartChoices.LeftFootQuality + "); " );
+
+
+
+        // generating the Leadership cost stats increase
+        dataBaseManager.RunQuery(
+            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'LeadershipCost' as ModifierSource, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Strength)) as Strength, " +
+            "0 as Speed, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Dexterity)) as Dexterity, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Endurance)) as Endurance, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Reflex)) as Reflex, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Resilience)) as Resilience, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Knowledge)) as Knowledge, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Elocution)) as Elocution, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Intellect)) as Intellect, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Influence)) as Influence, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Focus)) as Focus, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Mockery)) as Mockery, " +
+            "0 as Malevolent, 0 as Unmerciful, 0 as Rage, 0 as Phase, 0 as Momentum, 0 as Balance, 0 as Chaos, 0 as Luck, 0 as Perception, 0 as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
+            "from CharacterStatsModifiers where CharacterID=" + character.characterID + " and ModifierSource in ('Baseline','HistoryChoices','DemonPartsChoices'); ");
+
 
     }
 
@@ -179,7 +198,7 @@ public class SaveAndLoad : MonoBehaviour
             character.AllocatedStatsModifier.Strength + " as Strength," +
             character.AllocatedStatsModifier.Speed + " as Speed," +
             character.AllocatedStatsModifier.Dexterity + " as Dexterity," +
-            character.AllocatedStatsModifier.Embodiment + " as Embodiment," +
+            character.AllocatedStatsModifier.Endurance + " as Endurance," +
             character.AllocatedStatsModifier.Reflex + " as Reflex," +
             character.AllocatedStatsModifier.Resilience + " as Resilience," +
             character.AllocatedStatsModifier.Knowledge + " as Knowledge," +
@@ -342,7 +361,7 @@ public class SaveAndLoad : MonoBehaviour
         Character.AllocatedStatsModifier.Strength = (int)((ArrayList)CharacterStatsModifiers[1])[2];
         Character.AllocatedStatsModifier.Speed = (int)((ArrayList)CharacterStatsModifiers[1])[3];
         Character.AllocatedStatsModifier.Dexterity = (int)((ArrayList)CharacterStatsModifiers[1])[4];
-        Character.AllocatedStatsModifier.Embodiment = (int)((ArrayList)CharacterStatsModifiers[1])[5];
+        Character.AllocatedStatsModifier.Endurance = (int)((ArrayList)CharacterStatsModifiers[1])[5];
         Character.AllocatedStatsModifier.Reflex = (int)((ArrayList)CharacterStatsModifiers[1])[6];
         Character.AllocatedStatsModifier.Resilience = (int)((ArrayList)CharacterStatsModifiers[1])[7];
 
@@ -378,7 +397,7 @@ public class SaveAndLoad : MonoBehaviour
         Character.Strength = (int)(long)((ArrayList)CharacterStats[1])[1];
         Character.Speed = (int)(long)((ArrayList)CharacterStats[1])[2];
         Character.Dexterity = (int)(long)((ArrayList)CharacterStats[1])[3];
-        Character.Embodiment = (int)(long)((ArrayList)CharacterStats[1])[4];
+        Character.Endurance = (int)(long)((ArrayList)CharacterStats[1])[4];
         Character.Reflex = (int)(long)((ArrayList)CharacterStats[1])[5];
         Character.Resilience = (int)(long)((ArrayList)CharacterStats[1])[6];
 
