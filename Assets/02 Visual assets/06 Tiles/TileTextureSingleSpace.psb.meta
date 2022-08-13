@@ -92,7 +92,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: LooseEarth_1
+  - name: Layer 1 to finish
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -102,8 +102,8 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 512
-      height: 583
-    spriteID: dda22038c40d56647bcd0a7768aff6f2
+      height: 593
+    spriteID: 7869f798666ca334eb338561cd299f7e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -112,106 +112,6 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Ground_1
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 595
-      width: 256
-      height: 163
-    spriteID: 4e909188b94c50840aa4a63c89193a7c
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 595}
-  - name: Paved_1
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 929
-      width: 512
-      height: 326
-    spriteID: 7fab022572614c44ca4a0e414f3a6bc8
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 929}
-  - name: ShadowRight
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 524
-      y: 1263
-      width: 256
-      height: 194
-    spriteID: de7421535496fe348ac4e1b42f08d20a
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 268, y: 1263}
-  - name: ShadowLeft
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 524
-      y: 595
-      width: 256
-      height: 192
-    spriteID: 98d71f39b120736429b49c8d2e26020a
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 524, y: 595}
-  - name: base
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 1263
-      width: 512
-      height: 325
-    spriteID: b13af0b281c46c0479c805d853799e2f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 1263}
   characterData:
     bones: []
     parts: []
@@ -255,6 +155,16 @@ ScriptedImporter:
     flatten: 0
     isImported: 0
     isVisible: 1
+  - name: Layer 1 to finish
+    spriteName: Layer 1 to finish
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 7869f798666ca334eb338561cd299f7e
+    layerID: 83
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: LooseEarth_1
     spriteName: LooseEarth_1
     isGroup: 0
@@ -263,8 +173,8 @@ ScriptedImporter:
     layerID: 55
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
-    isImported: 1
-    isVisible: 1
+    isImported: 0
+    isVisible: 0
   - name: Ground
     spriteName: 
     isGroup: 1
@@ -274,16 +184,76 @@ ScriptedImporter:
     mosaicPosition: {x: 0, y: 0}
     flatten: 0
     isImported: 0
+    isVisible: 0
+  - name: Ground_7
+    spriteName: 
+    isGroup: 0
+    parentIndex: 3
+    spriteID: 2910155a03b1a8449b90989487d09c10
+    layerID: 78
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Ground_6
+    spriteName: 
+    isGroup: 0
+    parentIndex: 3
+    spriteID: 301ab653879c15a4495bbdbaea0ed8a0
+    layerID: 79
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Ground_5
+    spriteName: 
+    isGroup: 0
+    parentIndex: 3
+    spriteID: c51b18dc819f33c43ad92e341ae335ec
+    layerID: 80
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Ground_4
+    spriteName: 
+    isGroup: 0
+    parentIndex: 3
+    spriteID: b92b609101f4d9e4890dcf17b6b1a67e
+    layerID: 81
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Ground_3
+    spriteName: 
+    isGroup: 0
+    parentIndex: 3
+    spriteID: 57f4b47a88ad11541a3c80c998199f26
+    layerID: 82
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Ground_2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 3
+    spriteID: 2675d998495b42c4bb2dcbcba36319bc
+    layerID: 77
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
     isVisible: 1
   - name: Ground_1
-    spriteName: Ground_1
+    spriteName: 
     isGroup: 0
-    parentIndex: 2
-    spriteID: 4e909188b94c50840aa4a63c89193a7c
-    layerID: 26
-    mosaicPosition: {x: 4, y: 595}
+    parentIndex: 3
+    spriteID: b3bfdb534d187fd44ab627091df21188
+    layerID: 66
+    mosaicPosition: {x: 0, y: 0}
     flatten: 0
-    isImported: 1
+    isImported: 0
     isVisible: 1
   - name: Paved
     spriteName: 
@@ -294,16 +264,46 @@ ScriptedImporter:
     mosaicPosition: {x: 0, y: 0}
     flatten: 0
     isImported: 0
+    isVisible: 0
+  - name: Paved_4
+    spriteName: 
+    isGroup: 0
+    parentIndex: 11
+    spriteID: aa0bf65506c50fa42b881ec434ccfaba
+    layerID: 60
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Paved_3
+    spriteName: 
+    isGroup: 0
+    parentIndex: 11
+    spriteID: c6b1f9c3c5cdb2249a846a4fdb7ae33d
+    layerID: 57
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Paved_2
+    spriteName: 
+    isGroup: 0
+    parentIndex: 11
+    spriteID: 0e5c5cc7debca2642b9287ac17ac4d31
+    layerID: 65
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
     isVisible: 1
   - name: Paved_1
     spriteName: Paved_1
     isGroup: 0
-    parentIndex: 4
+    parentIndex: 11
     spriteID: 7fab022572614c44ca4a0e414f3a6bc8
     layerID: 43
     mosaicPosition: {x: 4, y: 929}
     flatten: 0
-    isImported: 1
+    isImported: 0
     isVisible: 1
   - name: Template
     spriteName: 
@@ -314,8 +314,8 @@ ScriptedImporter:
     mosaicPosition: {x: 0, y: 0}
     flatten: 0
     isImported: 0
-    isVisible: 1
-  - name: ShadowRight
+    isVisible: 0
+  - name: BaseFrame
     spriteName: ShadowRight
     isGroup: 0
     parentIndex: -1
@@ -323,28 +323,8 @@ ScriptedImporter:
     layerID: 39
     mosaicPosition: {x: 524, y: 1263}
     flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: ShadowLeft
-    spriteName: ShadowLeft
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 98d71f39b120736429b49c8d2e26020a
-    layerID: 38
-    mosaicPosition: {x: 524, y: 595}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: base
-    spriteName: base
-    isGroup: 0
-    parentIndex: -1
-    spriteID: b13af0b281c46c0479c805d853799e2f
-    layerID: 28
-    mosaicPosition: {x: 4, y: 1263}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
+    isImported: 0
+    isVisible: 0
   sharedRigPSDLayers: []
   pSDLayerImportSetting: []
   importFileNodeState: 1
