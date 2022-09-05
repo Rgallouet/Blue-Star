@@ -15,7 +15,7 @@ C:/Repo/Blue-Star
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-52330
+53497
 Successfully changed project path to: C:/Repo/Blue-Star
 C:/Repo/Blue-Star
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,7 +47,7 @@ C:/Repo/Blue-Star
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Refreshing native plugins compatible for Editor in 71.35 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 70.16 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.1.11f1 (09bebd6e9324)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/Resources/UnitySubsystems
@@ -63,103 +63,103 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56016
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56136
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll
-Registered in 0.004452 seconds.
+Registered in 0.004630 seconds.
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 61.06 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 58.63 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.634 seconds
+- Completed reload, in  0.632 seconds
 Domain Reload Profiling:
-	ReloadAssembly (635ms)
-		BeginReloadAssembly (63ms)
+	ReloadAssembly (633ms)
+		BeginReloadAssembly (64ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (470ms)
-			LoadAssemblies (62ms)
+		EndReloadAssembly (471ms)
+			LoadAssemblies (63ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
 			SetupTypeCache (109ms)
-				TypeCache.Initialize (109ms)
-					TypeCache.ScanAssembly (108ms)
+				TypeCache.Initialize (108ms)
+					TypeCache.ScanAssembly (107ms)
 				ResolveRequiredComponents (1ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (29ms)
-			SetupLoadedEditorAssemblies (280ms)
+			RebuildScriptCaches (28ms)
+			SetupLoadedEditorAssemblies (277ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (51ms)
-				SetLoadedEditorAssemblies (9ms)
-				RefreshPlugins (61ms)
-				BeforeProcessingInitializeOnLoad (2ms)
-				ProcessInitializeOnLoadAttributes (112ms)
-				ProcessInitializeOnLoadMethodAttributes (46ms)
+				InitializePlatformSupportModulesInManaged (52ms)
+				SetLoadedEditorAssemblies (8ms)
+				RefreshPlugins (59ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (111ms)
+				ProcessInitializeOnLoadMethodAttributes (45ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.005526 seconds.
+Registered in 0.005601 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 57.52 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 61.97 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Package Manager log level set to [2]
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Completed reload, in  1.222 seconds
+- Completed reload, in  1.332 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1223ms)
-		BeginReloadAssembly (209ms)
+	ReloadAssembly (1334ms)
+		BeginReloadAssembly (214ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (5ms)
+			DisableScriptedObjects (6ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (119ms)
-		EndReloadAssembly (914ms)
-			LoadAssemblies (78ms)
+			CreateAndSetChildDomain (123ms)
+		EndReloadAssembly (1021ms)
+			LoadAssemblies (81ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (216ms)
-				TypeCache.Initialize (213ms)
-					TypeCache.ScanAssembly (209ms)
+			SetupTypeCache (236ms)
+				TypeCache.Initialize (233ms)
+					TypeCache.ScanAssembly (229ms)
 				ResolveRequiredComponents (3ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (68ms)
-			SetupLoadedEditorAssemblies (497ms)
+			RebuildScriptCaches (61ms)
+			SetupLoadedEditorAssemblies (570ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (20ms)
-				SetLoadedEditorAssemblies (6ms)
-				RefreshPlugins (58ms)
-				BeforeProcessingInitializeOnLoad (76ms)
-				ProcessInitializeOnLoadAttributes (210ms)
-				ProcessInitializeOnLoadMethodAttributes (122ms)
+				InitializePlatformSupportModulesInManaged (22ms)
+				SetLoadedEditorAssemblies (8ms)
+				RefreshPlugins (62ms)
+				BeforeProcessingInitializeOnLoad (84ms)
+				ProcessInitializeOnLoadAttributes (248ms)
+				ProcessInitializeOnLoadMethodAttributes (141ms)
 				AfterProcessingInitializeOnLoad (5ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (5ms)
+			AwakeInstancesAfterBackupRestoration (6ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 0.80 ms, found 4 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 0.89 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3126 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 68 unused Assets / (59.1 KB). Loaded Objects now: 3564.
-Memory consumption went from 502.0 MB to 501.9 MB.
-Total: 5.846800 ms (FindLiveObjects: 0.252200 ms CreateObjectMapping: 0.196700 ms MarkObjects: 5.272300 ms  DeleteObjects: 0.124500 ms)
+Memory consumption went from 501.7 MB to 501.7 MB.
+Total: 6.210700 ms (FindLiveObjects: 0.315800 ms CreateObjectMapping: 0.199700 ms MarkObjects: 5.583100 ms  DeleteObjects: 0.110300 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -174,319 +174,119 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 168797.169353 seconds.
+  Time since last request: 259411.083832 seconds.
   path: Assets/02 Visual assets/06 Tiles/TileTextureSingleSpace.psb
   artifactKey: Guid(3660ff70f45d1284eacd405120015cd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TileTextureSingleSpace.psb using Guid(3660ff70f45d1284eacd405120015cd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0983e8154768276bbd8333c99a74d774') in 0.833030 seconds 
+Start importing Assets/02 Visual assets/06 Tiles/TileTextureSingleSpace.psb using Guid(3660ff70f45d1284eacd405120015cd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3eb53e6aa0d61b714580df9441ec0b1d') in 1.727472 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 25.561832 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TileTextureSingleSpace.psb
-  artifactKey: Guid(3660ff70f45d1284eacd405120015cd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TileTextureSingleSpace.psb using Guid(3660ff70f45d1284eacd405120015cd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df2c397c0c358fd9e61c879997aa2830') in 0.440755 seconds 
+  Time since last request: 9.990977 seconds.
+  path: Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_6.asset
+  artifactKey: Guid(3714dd587066a1e41a31599572ba9ce0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_6.asset using Guid(3714dd587066a1e41a31599572ba9ce0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5141ae1de4ab369b2bfebff3010d0ecb') in 0.026074 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 18.231196 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TileTextureSingleSpace.psb
-  artifactKey: Guid(3660ff70f45d1284eacd405120015cd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TileTextureSingleSpace.psb using Guid(3660ff70f45d1284eacd405120015cd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a67a67e555f4e4f11543743ae977ab13') in 1.559290 seconds 
+  Time since last request: 1.548831 seconds.
+  path: Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_5.asset
+  artifactKey: Guid(1986ff8ea3abbc742a8c726d93703482) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_5.asset using Guid(1986ff8ea3abbc742a8c726d93703482) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a86119f2c1146d902f01a72b6bbe58d5') in 0.007676 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 82.712894 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/UnderCityPalette.prefab
-  artifactKey: Guid(d43f1e2c49e0f6949b550c1fb8603c8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/UnderCityPalette.prefab using Guid(d43f1e2c49e0f6949b550c1fb8603c8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '458a892ee7a4f0d0f831c8067387f8a3') in 0.213413 seconds 
+  Time since last request: 4.710568 seconds.
+  path: Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_1.asset
+  artifactKey: Guid(bfe674834d63490489878a78b100d991) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_1.asset using Guid(bfe674834d63490489878a78b100d991) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01f4471999bae62a750e3d835b9717ea') in 0.008044 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 23.523571 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette
-  artifactKey: Guid(0eb983c36c5dd8a43bbad185d56c29da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette using Guid(0eb983c36c5dd8a43bbad185d56c29da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09d788088f6e27f83fd3504fcd219a47') in 0.005002 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 19.948933 seconds.
-  path: Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab
-  artifactKey: Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab using Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6bf46929c9cdfd39c79ca830eff39984') in 0.011429 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 16.195281 seconds.
-  path: Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab
-  artifactKey: Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab using Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe5f30fb30c414fa0891fbece9bc5f75') in 0.007684 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 447.045100 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TileTextureSingleSpace.psb
-  artifactKey: Guid(3660ff70f45d1284eacd405120015cd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TileTextureSingleSpace.psb using Guid(3660ff70f45d1284eacd405120015cd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '484e33f9239d0229d794f0f5632e0df9') in 1.431226 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 241.345880 seconds.
-  path: Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab
-  artifactKey: Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab using Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ad612f09a9a0222528ef97a1a75269f') in 0.008710 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 475.970096 seconds.
-  path: Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab
-  artifactKey: Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab using Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc96b2c081db43fb9476562de4f5f9cd') in 0.217161 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 4.069619 seconds.
-  path: Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab
-  artifactKey: Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab using Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5720c0e612188b8838fe29de2f4010d3') in 0.207349 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 44.628125 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/UnderCityPalette.prefab
-  artifactKey: Guid(d43f1e2c49e0f6949b550c1fb8603c8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/UnderCityPalette.prefab using Guid(d43f1e2c49e0f6949b550c1fb8603c8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd97f51ded6f48465d66e0177a53a5587') in 0.235931 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 6.139455 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/TileTextures_1.asset
-  artifactKey: Guid(c2cde55b7566a9b47bc03f6b7d6ced4a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/TileTextures_1.asset using Guid(c2cde55b7566a9b47bc03f6b7d6ced4a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c383509e1b38e9c9cdede7c88356f3f4') in 0.028424 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 174.041398 seconds.
-  path: Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab
-  artifactKey: Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/Isometric Palette.prefab using Guid(2ac59045f32723c4ba3152ec5ee76e68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99728907e7aed17c6b7db24f89b023de') in 0.206087 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 545.652182 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/1.asset
-  artifactKey: Guid(8b961bc96ea6de34f985ba21cf9ffb84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/1.asset using Guid(8b961bc96ea6de34f985ba21cf9ffb84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9bc078d133e46c0b66c6783d7bdb04c7') in 0.010773 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.010910 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_4.asset
-  artifactKey: Guid(202c093e71028e7448919f874892ede1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_4.asset using Guid(202c093e71028e7448919f874892ede1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '53ff3292763d1b61cca26e50c9bacd76') in 0.220334 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_3.asset
-  artifactKey: Guid(bc34beb6fece142499bc3e99ba8bc890) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_3.asset using Guid(bc34beb6fece142499bc3e99ba8bc890) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd07092fd381b091d59297e5b404d9688') in 0.010797 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000047 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/LooseEarth_2.asset
-  artifactKey: Guid(44569632a4e790949a5ff632d848f773) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/LooseEarth_2.asset using Guid(44569632a4e790949a5ff632d848f773) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f3cba3cbb1e6dab1a54f47879393ff6') in 0.206797 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Ground_5.asset
-  artifactKey: Guid(18f6db2f34503e54bac46754108123cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Ground_5.asset using Guid(18f6db2f34503e54bac46754108123cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa9f9d6bad02a96a4004c90c33141f2e') in 0.207663 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000041 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_43.asset
-  artifactKey: Guid(4d371a212a2219c4d8c803b1dc84c421) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_43.asset using Guid(4d371a212a2219c4d8c803b1dc84c421) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd74481b8415c193347e7bcd66d7ef707') in 0.008397 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000021 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_37.asset
-  artifactKey: Guid(d8553bceef18d3f4e8efcdb41be6d824) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_37.asset using Guid(d8553bceef18d3f4e8efcdb41be6d824) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0da557d573861cefdd40bed6c7eaac9') in 0.009021 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/SolidEarth_1.asset
-  artifactKey: Guid(83e6215658f591b4d90b96c620d0d840) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/SolidEarth_1.asset using Guid(83e6215658f591b4d90b96c620d0d840) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7893f6a43b8ca182733fb71054ec618') in 0.210230 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000029 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/LooseEarth_1.asset
-  artifactKey: Guid(bbf8a76cce3e1074eb25d309481c4b4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/LooseEarth_1.asset using Guid(bbf8a76cce3e1074eb25d309481c4b4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef48b868637453eb44855346c611f766') in 0.204430 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000036 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_18.asset
-  artifactKey: Guid(664b5c70c3ad98a4f8dd121b2f7ae8c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_18.asset using Guid(664b5c70c3ad98a4f8dd121b2f7ae8c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ffcaa56110cddc63d2335c4c6521a1b') in 0.008204 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000023 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_46.asset
-  artifactKey: Guid(e3d33334e8350b84b9756edac570eec4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_46.asset using Guid(e3d33334e8350b84b9756edac570eec4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ca67dc83c2ba80d87455c97afb8befb') in 0.007766 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_29.asset
-  artifactKey: Guid(7662e4fa407fad448aff1929831405f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_29.asset using Guid(7662e4fa407fad448aff1929831405f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '912961599eff2278b2722cc3d222d8f9') in 0.007531 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000021 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_14.asset
-  artifactKey: Guid(60bedb84e7df1c540b533954f4891438) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_14.asset using Guid(60bedb84e7df1c540b533954f4891438) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98810cc3daa8f944327e0f707d01b4cc') in 0.008213 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_49.asset
-  artifactKey: Guid(ff6a4f94c2aaf7a4792cd9f6ec9f49ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_49.asset using Guid(ff6a4f94c2aaf7a4792cd9f6ec9f49ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93b5ac1a183bf638b47759be1a0682dc') in 0.008212 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000021 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_20.asset
-  artifactKey: Guid(ae5b5a18ed5d0e44885b599d95c32028) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_20.asset using Guid(ae5b5a18ed5d0e44885b599d95c32028) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a87a56620e9f68cda44f1364103cd21') in 0.013097 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_42.asset
-  artifactKey: Guid(c9ce555820456f44d96b97f071a98d39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_42.asset using Guid(c9ce555820456f44d96b97f071a98d39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd53462f470a02afc82e3c5aaf12ace0b') in 0.008664 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Paved_1.asset
-  artifactKey: Guid(e2d704ee74e4f9645a60c0a02c1ebe02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Paved_1.asset using Guid(e2d704ee74e4f9645a60c0a02c1ebe02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '19c5231050628034773f918ee6202220') in 0.199992 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Rock_7.asset
-  artifactKey: Guid(b285dd16af59a5b47b06e9c4504d8f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Rock_7.asset using Guid(b285dd16af59a5b47b06e9c4504d8f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38a61fd1b77382604fff4caff9b6ec9e') in 0.240340 seconds 
+  Time since last request: 5.191981 seconds.
+  path: Assets/02 Visual assets/01 Startscreen/Source/Startscreen - Blue and red v3.psd
+  artifactKey: Guid(dc3581ff5c2f35944a9fbcb2234fbfc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/01 Startscreen/Source/Startscreen - Blue and red v3.psd using Guid(dc3581ff5c2f35944a9fbcb2234fbfc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3f1cb511a70b319c9d3f7eee588ffc6') in 0.296081 seconds 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000030 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Ground_1.asset
-  artifactKey: Guid(663f5f5ca7c1b78449f7e011a5705ae1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Ground_1.asset using Guid(663f5f5ca7c1b78449f7e011a5705ae1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f92ec1f9773d464fc37b5a7e12cff6ab') in 0.247984 seconds 
+  path: Assets/02 Visual assets/01 Startscreen/Source/Startscreen - Underground.psd
+  artifactKey: Guid(bf096c9da8af39f4098fbf349048fa02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/01 Startscreen/Source/Startscreen - Underground.psd using Guid(bf096c9da8af39f4098fbf349048fa02) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '927d9fb5de21b86dda36b4b0e301afbd') in 0.160120 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000032 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/SolidEarth_7.asset
-  artifactKey: Guid(00dd6264e8631b240afa2132c42d4e7c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/SolidEarth_7.asset using Guid(00dd6264e8631b240afa2132c42d4e7c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4fcfa4ee3f040320c58b22d83310a914') in 0.226477 seconds 
+  Time since last request: 6.379994 seconds.
+  path: Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_2.asset
+  artifactKey: Guid(0ef9aef6def7fd049ac57793b595da3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_2.asset using Guid(0ef9aef6def7fd049ac57793b595da3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22189bf63281f4e12ba73222795576a4') in 0.007652 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000042 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_23.asset
-  artifactKey: Guid(4e9db47aa71691c4da9bd5a87924b536) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_23.asset using Guid(4e9db47aa71691c4da9bd5a87924b536) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de1744fd575c8ff41e7d900e70664726') in 0.010269 seconds 
+  Time since last request: 10.207093 seconds.
+  path: Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_3.asset
+  artifactKey: Guid(6149f4697fd0357448552dcd26301f43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_3.asset using Guid(6149f4697fd0357448552dcd26301f43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d39959d619f780b5573b0970208d256') in 0.007886 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000035 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_28.asset
-  artifactKey: Guid(5b4a952bf65c619488110be637a9622f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_28.asset using Guid(5b4a952bf65c619488110be637a9622f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '83b4e117633d0ca093ce32981a78504c') in 0.007849 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000032 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/SolidEarth_4.asset
-  artifactKey: Guid(a5a3e2727f3c4fe408e67462584c90e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/SolidEarth_4.asset using Guid(a5a3e2727f3c4fe408e67462584c90e5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a968d07f6c4487a33ef1c8b4318dc2f') in 0.225710 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000029 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_9.asset
-  artifactKey: Guid(5bf32d24039899949a14c76e481599ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_9.asset using Guid(5bf32d24039899949a14c76e481599ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ca1066100fc1d2da0894d1b68851c37') in 0.009809 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000038 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_7.asset
-  artifactKey: Guid(5dd730252c962a140983c701a46e5f05) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_7.asset using Guid(5dd730252c962a140983c701a46e5f05) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfd9076d114e8d2b9cf52786b560479e') in 0.010473 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Paved_2.asset
-  artifactKey: Guid(53afdd1dac2c80b49bd543a30bdce305) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Paved_2.asset using Guid(53afdd1dac2c80b49bd543a30bdce305) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd3889c45dfeea3903d69f5e05d16171d') in 0.214466 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000075 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Rock_8.asset
-  artifactKey: Guid(68ab4ad4ec468804b82a028419dc354c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Rock_8.asset using Guid(68ab4ad4ec468804b82a028419dc354c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '887c861cf63dbb5e5c330d94891cb7fe') in 0.215874 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000037 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_10.asset
-  artifactKey: Guid(709f569401a45f2458a1892e53529198) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_10.asset using Guid(709f569401a45f2458a1892e53529198) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae62c95cccb3b435d9124880f365bb7f') in 0.009213 seconds 
+  Time since last request: 4.722961 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/DialogueCharacter/Character_HellGeneral.psd
+  artifactKey: Guid(32dd04de33ad78a46a794dd1dd5e1c66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/DialogueCharacter/Character_HellGeneral.psd using Guid(32dd04de33ad78a46a794dd1dd5e1c66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1ee663b65dacfd89f2f639c45d12ee8') in 0.093310 seconds 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000033 seconds.
-  path: Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_17.asset
-  artifactKey: Guid(f40318a489a308548af23946cab129e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/UndercityPalette/CubeSheet_17.asset using Guid(f40318a489a308548af23946cab129e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de091f0d12df96ac1b394ac2eab06803') in 0.010122 seconds 
+  path: Assets/02 Visual assets/08 working files/CubeSheet_Archive.psd
+  artifactKey: Guid(2a203577bd0400a42921552898f831aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/08 working files/CubeSheet_Archive.psd using Guid(2a203577bd0400a42921552898f831aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7da3edec8d277e0eb055ecffaa2eb5ec') in 0.113758 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/LooseEarth_3.asset
-  artifactKey: Guid(df78962b777c1694783e4b4442a881de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/LooseEarth_3.asset using Guid(df78962b777c1694783e4b4442a881de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5241efc6ea5407859ec85ab384ae6e8b') in 0.214992 seconds 
+  Time since last request: 0.000058 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/Legs_Sec.psd
+  artifactKey: Guid(5676d012e5a3a094f9452d83505c2c7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/Legs_Sec.psd using Guid(5676d012e5a3a094f9452d83505c2c7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af743b6616baa3e7f2d23dadd162e079') in 0.028149 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000038 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Ground_2.asset
-  artifactKey: Guid(74a59eeed9a4331478c558d8b7956e67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Ground_2.asset using Guid(74a59eeed9a4331478c558d8b7956e67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f3e2b5bafa4b4ee17e4b52d98dce63f') in 0.221949 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000031 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Gold_1.asset
-  artifactKey: Guid(0820122f04c093447bb34b31f6b0c969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Gold_1.asset using Guid(0820122f04c093447bb34b31f6b0c969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef3ff70dce8976941928929a16d97cc2') in 0.230122 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_3.asset
-  artifactKey: Guid(6149f4697fd0357448552dcd26301f43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_3.asset using Guid(6149f4697fd0357448552dcd26301f43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4adc64ec4b9fe5587a8e612d3028b297') in 0.216353 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000046 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Paved_3.asset
-  artifactKey: Guid(b1519b9fb6a9f7040ad37a3d825ed90f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Paved_3.asset using Guid(b1519b9fb6a9f7040ad37a3d825ed90f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '241cbf4f1a80d22acd31913aef63b6e6') in 0.243173 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000042 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Gold_4.asset
-  artifactKey: Guid(8eaf86c68dcc1d84184800d989a7bc7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Gold_4.asset using Guid(8eaf86c68dcc1d84184800d989a7bc7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eaaf65a6de817a134ecadd758518b8ff') in 0.243596 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000035 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/LooseEarth_5.asset
-  artifactKey: Guid(ff932b475d5877b47b1ace401e677046) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/LooseEarth_5.asset using Guid(ff932b475d5877b47b1ace401e677046) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdcb076ede740467218fbf1c6ef136d6') in 0.227412 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000085 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Gold_3.asset
-  artifactKey: Guid(d57178fc6dc923944a88009831943856) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Gold_3.asset using Guid(d57178fc6dc923944a88009831943856) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6afc549a7763d6be4c93cc02789bbd2') in 0.215490 seconds 
+  Time since last request: 0.000025 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/RightArm_Sec.psd
+  artifactKey: Guid(e0e5a728461bf5f42a60d87952131cf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/RightArm_Sec.psd using Guid(e0e5a728461bf5f42a60d87952131cf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c842680b27391d6c2492d51021905ed6') in 0.022398 seconds 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000031 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_6.asset
-  artifactKey: Guid(3714dd587066a1e41a31599572ba9ce0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_6.asset using Guid(3714dd587066a1e41a31599572ba9ce0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '53b9f7d57d29fa8bd09d2d0e7af7669a') in 0.214276 seconds 
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/RightFoot_Sec.psd
+  artifactKey: Guid(7d5398d83ef69b244819e87c89717d2e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/RightFoot_Sec.psd using Guid(7d5398d83ef69b244819e87c89717d2e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e42ef2344c5adc9a05d2d9d51282da3f') in 0.023365 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_5.asset
-  artifactKey: Guid(1986ff8ea3abbc742a8c726d93703482) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/06 Tiles/TilePalette/Cristal_5.asset using Guid(1986ff8ea3abbc742a8c726d93703482) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04ec9511440e5abc612b38caffd840fd') in 0.204058 seconds 
+  Time since last request: 0.000032 seconds.
+  path: Assets/02 Visual assets/02 UI components/GenericContainers/UI_Circle.psd
+  artifactKey: Guid(fcefc2fe3b9257f4a9522c584d8fd045) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/GenericContainers/UI_Circle.psd using Guid(fcefc2fe3b9257f4a9522c584d8fd045) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af448f7a780244bbb14e101e9ba1380e') in 0.031853 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000032 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/LeftFoot_Sec.psd
+  artifactKey: Guid(d1822a88c5d6be5499d4786615b20cfa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/LeftFoot_Sec.psd using Guid(d1822a88c5d6be5499d4786615b20cfa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30d380ff69409d62a0cd07d3b6c23d50') in 0.025587 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/Torso_Sec.psd
+  artifactKey: Guid(7f87ff1c42152a443a5c38368c6e6a40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/Torso_Sec.psd using Guid(7f87ff1c42152a443a5c38368c6e6a40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ff8ced1d74e3200135e8a4a61283ad9') in 0.021413 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/RightImp_Sec.psd
+  artifactKey: Guid(6577991249e3d4f43b1da44ce5e4eb32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body1_Sec/RightImp_Sec.psd using Guid(6577991249e3d4f43b1da44ce5e4eb32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc66432e780d5d7c1b5aa88f4a599509') in 0.016715 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.039546 seconds.
+  path: Assets/02 Visual assets/02 UI components/GenericContainers/UIPanelBackgroundBlack.psd
+  artifactKey: Guid(08777b54bef05254a8561f7130ba44b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/GenericContainers/UIPanelBackgroundBlack.psd using Guid(08777b54bef05254a8561f7130ba44b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6996227b8b2389eee5c8786f0aea4cc') in 0.028668 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/02 Visual assets/02 UI components/GenericContainers/UIPanelBackgroundSimpleTransparent.psd
+  artifactKey: Guid(efdef05b42cfeb64c9cc4d46848b22ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/02 UI components/GenericContainers/UIPanelBackgroundSimpleTransparent.psd using Guid(efdef05b42cfeb64c9cc4d46848b22ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f53364473a6edd2b93cc443ace73a758') in 0.034687 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
