@@ -15,7 +15,7 @@ C:/Repo/Blue-Star
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-53497
+50225
 Successfully changed project path to: C:/Repo/Blue-Star
 C:/Repo/Blue-Star
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -47,7 +47,7 @@ C:/Repo/Blue-Star
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Refreshing native plugins compatible for Editor in 73.39 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 71.97 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.1.11f1 (09bebd6e9324)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/Resources/UnitySubsystems
@@ -63,89 +63,89 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56708
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56436
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.1.11f1/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.UWP.Extensions.dll
-Registered in 0.004458 seconds.
+Registered in 0.004778 seconds.
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 56.79 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 63.49 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.637 seconds
+- Completed reload, in  0.622 seconds
 Domain Reload Profiling:
-	ReloadAssembly (638ms)
-		BeginReloadAssembly (62ms)
+	ReloadAssembly (623ms)
+		BeginReloadAssembly (61ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (478ms)
-			LoadAssemblies (61ms)
+		EndReloadAssembly (460ms)
+			LoadAssemblies (60ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (112ms)
-				TypeCache.Initialize (112ms)
-					TypeCache.ScanAssembly (110ms)
-				ResolveRequiredComponents (1ms)
+			SetupTypeCache (107ms)
+				TypeCache.Initialize (107ms)
+					TypeCache.ScanAssembly (106ms)
+				ResolveRequiredComponents (0ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (27ms)
-			SetupLoadedEditorAssemblies (285ms)
+			SetupLoadedEditorAssemblies (274ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (58ms)
-				SetLoadedEditorAssemblies (9ms)
-				RefreshPlugins (57ms)
+				InitializePlatformSupportModulesInManaged (53ms)
+				SetLoadedEditorAssemblies (8ms)
+				RefreshPlugins (64ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (107ms)
-				ProcessInitializeOnLoadMethodAttributes (53ms)
+				ProcessInitializeOnLoadAttributes (101ms)
+				ProcessInitializeOnLoadMethodAttributes (47ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.005173 seconds.
+Registered in 0.005347 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for UWP target not found
 Native extension for WindowsStandalone target not found
 Native extension for Android target not found
-Refreshing native plugins compatible for Editor in 60.91 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 66.40 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Package Manager log level set to [2]
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Completed reload, in  1.359 seconds
+- Completed reload, in  1.253 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1360ms)
-		BeginReloadAssembly (235ms)
+	ReloadAssembly (1254ms)
+		BeginReloadAssembly (225ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (9ms)
+			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (140ms)
-		EndReloadAssembly (1020ms)
-			LoadAssemblies (75ms)
+			CreateAndSetChildDomain (134ms)
+		EndReloadAssembly (936ms)
+			LoadAssemblies (76ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (240ms)
-				TypeCache.Initialize (236ms)
-					TypeCache.ScanAssembly (231ms)
-				ResolveRequiredComponents (3ms)
+			SetupTypeCache (216ms)
+				TypeCache.Initialize (213ms)
+					TypeCache.ScanAssembly (209ms)
+				ResolveRequiredComponents (4ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (59ms)
-			SetupLoadedEditorAssemblies (577ms)
+			RebuildScriptCaches (55ms)
+			SetupLoadedEditorAssemblies (527ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (22ms)
-				SetLoadedEditorAssemblies (8ms)
-				RefreshPlugins (61ms)
-				BeforeProcessingInitializeOnLoad (92ms)
-				ProcessInitializeOnLoadAttributes (252ms)
-				ProcessInitializeOnLoadMethodAttributes (138ms)
+				InitializePlatformSupportModulesInManaged (21ms)
+				SetLoadedEditorAssemblies (7ms)
+				RefreshPlugins (66ms)
+				BeforeProcessingInitializeOnLoad (83ms)
+				ProcessInitializeOnLoadAttributes (213ms)
+				ProcessInitializeOnLoadMethodAttributes (132ms)
 				AfterProcessingInitializeOnLoad (5ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
@@ -153,13 +153,13 @@ Domain Reload Profiling:
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 0.89 ms, found 4 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 0.87 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3126 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 68 unused Assets / (59.1 KB). Loaded Objects now: 3564.
-Memory consumption went from 501.7 MB to 501.7 MB.
-Total: 5.886400 ms (FindLiveObjects: 0.260400 ms CreateObjectMapping: 0.140700 ms MarkObjects: 5.368100 ms  DeleteObjects: 0.115300 ms)
+Memory consumption went from 502.0 MB to 501.9 MB.
+Total: 6.727700 ms (FindLiveObjects: 0.250100 ms CreateObjectMapping: 0.252400 ms MarkObjects: 6.099900 ms  DeleteObjects: 0.124100 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -174,79 +174,17 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 259434.320323 seconds.
-  path: Assets/02 Visual assets/01 Startscreen/Source/Startscreen - blue landscape.psd
-  artifactKey: Guid(d6043c7d9a1704f45b1349d949bf3004) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/01 Startscreen/Source/Startscreen - blue landscape.psd using Guid(d6043c7d9a1704f45b1349d949bf3004) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f60839c8925761feeb996d414fe8ade') in 0.251491 seconds 
+  Time since last request: 175464.048823 seconds.
+  path: Assets/02 Visual assets/03 Fonts/minster1.ttf
+  artifactKey: Guid(147bf7b385512ba448b73a00ebb9d834) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/03 Fonts/minster1.ttf using Guid(147bf7b385512ba448b73a00ebb9d834) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df6c95545ee9cd61f62ee777dafee726') in 0.143302 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/02 Visual assets/01 Startscreen/Source/Startscreen - blue landscape and dark underground.psd
-  artifactKey: Guid(45a2d8addc2d937418889f88f5186c08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/01 Startscreen/Source/Startscreen - blue landscape and dark underground.psd using Guid(45a2d8addc2d937418889f88f5186c08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c27e630b8f2ce4879cb9989685dfcb9') in 0.271692 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 21.263914 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb
-  artifactKey: Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/CharacterInMenu.psb using Guid(312ad591b8dce7241bd9c0600ed69754) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d311b2b67524c59fa1ddfdacfe84778') in 0.772463 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 1261.740277 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body6_Vaporous/LeftFoot_Vaporous.psd
-  artifactKey: Guid(e2b71c07aa7aab44e8c3d63e4cc358da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body6_Vaporous/LeftFoot_Vaporous.psd using Guid(e2b71c07aa7aab44e8c3d63e4cc358da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9cd87084bba1ab6d7ab444ebab68a951') in 0.019922 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.032822 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body2_Poilu/Legs_Poilu.psd
-  artifactKey: Guid(21ca777f28ae27a458677a86c3320718) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body2_Poilu/Legs_Poilu.psd using Guid(21ca777f28ae27a458677a86c3320718) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd3b7bdd358cd263a659783364e86dd82') in 0.020768 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000021 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body6_Vaporous/Legs_Vaporous.psd
-  artifactKey: Guid(35aac3d7b26640f42b0c50bc9d359f37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body6_Vaporous/Legs_Vaporous.psd using Guid(35aac3d7b26640f42b0c50bc9d359f37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8c1f3528de360f550792b7f6d2e4a1c0') in 0.018699 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000027 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body2_Poilu/RightArm_Poilu.psd
-  artifactKey: Guid(0cb804c545682f04ca0f3e76fb3e314c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body2_Poilu/RightArm_Poilu.psd using Guid(0cb804c545682f04ca0f3e76fb3e314c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'feaeb00d33b70ffa4d060cfa8b2b2103') in 0.021867 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body6_Vaporous/RightFoot_Vaporous.psd
-  artifactKey: Guid(43c264de027a1344b86901241a5ce12d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body6_Vaporous/RightFoot_Vaporous.psd using Guid(43c264de027a1344b86901241a5ce12d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c70756fdb610c6af893e5c3727ddc04d') in 0.018913 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.003289 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body7_Woody/RightImp_Woody.psd
-  artifactKey: Guid(7ffc24691cfcfea46b4f78caee6ffd75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body7_Woody/RightImp_Woody.psd using Guid(7ffc24691cfcfea46b4f78caee6ffd75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49ee042870832a9b6ce6bedfc2d66a38') in 0.018413 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/02 Visual assets/07 Characters/OLD/Girl/TemplateGirl/Right_Arm/RightUpperArm.png
-  artifactKey: Guid(9730bc51051c21e4b825cd4472f2dd4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/07 Characters/OLD/Girl/TemplateGirl/Right_Arm/RightUpperArm.png using Guid(9730bc51051c21e4b825cd4472f2dd4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8972f9174684d094ebcdb825c0a7c413') in 0.021267 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000032 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body6_Vaporous/Torso_Vaporous.psd
-  artifactKey: Guid(36e3c2d4e7c26d445a9c3733c487788a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body6_Vaporous/Torso_Vaporous.psd using Guid(36e3c2d4e7c26d445a9c3733c487788a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '453facf5f2de6998635643c3f5640081') in 0.027231 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body2_Poilu/RightImp_Poilu.psd
-  artifactKey: Guid(9cb36d339a327f141bfecc2c73deaadd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/04 Characters in menu/CharacterDisplay/Sources/Body2_Poilu/RightImp_Poilu.psd using Guid(9cb36d339a327f141bfecc2c73deaadd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6bd0d458212f54aafdabba801fee8a8') in 0.018939 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.243156 seconds.
-  path: Assets/02 Visual assets/02 UI components/GenericContainers/UIPanelBackgroundTransparent.psd
-  artifactKey: Guid(1ec9f341dd62e384eae8c9c408e1d2d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/02 Visual assets/02 UI components/GenericContainers/UIPanelBackgroundTransparent.psd using Guid(1ec9f341dd62e384eae8c9c408e1d2d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2a77a86cd8e303ffd1724466b534e57') in 0.031894 seconds 
+  Time since last request: 0.000034 seconds.
+  path: Assets/02 Visual assets/03 Fonts/minster5.ttf
+  artifactKey: Guid(2274c7eee7ff20f40a3767724596c82b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/02 Visual assets/03 Fonts/minster5.ttf using Guid(2274c7eee7ff20f40a3767724596c82b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '77f6d847a3ebf0051b4e915468f2ed4b') in 0.018551 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
