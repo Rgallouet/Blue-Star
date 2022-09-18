@@ -151,7 +151,7 @@ public class StatAllocation {
 		InitialStat[0] = newPlayer.HistoryChoicesModifier.Strength;
         InitialStat[1] = newPlayer.HistoryChoicesModifier.Speed;
         InitialStat[2] = newPlayer.HistoryChoicesModifier.Dexterity;
-        InitialStat[3] = newPlayer.HistoryChoicesModifier.Embodiment;
+        InitialStat[3] = newPlayer.HistoryChoicesModifier.Endurance;
         InitialStat[4] = newPlayer.HistoryChoicesModifier.Reflex;
         InitialStat[5] = newPlayer.HistoryChoicesModifier.Resilience;
         InitialStat[6] = newPlayer.HistoryChoicesModifier.Knowledge;
@@ -188,7 +188,7 @@ public class StatAllocation {
         AllocatedStatsModifier.Strength =     StatModifier[0];
         AllocatedStatsModifier.Speed =        StatModifier[1];
         AllocatedStatsModifier.Dexterity =    StatModifier[2];
-        AllocatedStatsModifier.Embodiment =   StatModifier[3];
+        AllocatedStatsModifier.Endurance =    StatModifier[3];
         AllocatedStatsModifier.Reflex =       StatModifier[4];
         AllocatedStatsModifier.Resilience =   StatModifier[5];
         AllocatedStatsModifier.Knowledge =    StatModifier[6];

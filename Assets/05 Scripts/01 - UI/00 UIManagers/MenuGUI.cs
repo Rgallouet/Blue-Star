@@ -61,7 +61,7 @@ void Start () {
 		lastActionWasNext = true;
 
         // Get the questions strings
-        RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc");
+        RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by DialogueId asc");
 
         // Converting it into the properties
         saveAndLoad.LoadAccountDetails(account);

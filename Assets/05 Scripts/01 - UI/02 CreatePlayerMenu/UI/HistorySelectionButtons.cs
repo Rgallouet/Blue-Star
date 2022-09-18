@@ -28,6 +28,7 @@ public class HistorySelectionButtons : MonoBehaviour
 
     // Gestion données référentielles
     public DataBaseManager dataBaseManager;
+
     private ArrayList RefHellCircles = new();
     private ArrayList RefAllegiance = new();
     private ArrayList RefSocial = new();
@@ -38,6 +39,7 @@ public class HistorySelectionButtons : MonoBehaviour
     private ArrayList RefAstro = new();
     private ArrayList RefAffinity = new();
 
+    // descriptions
     private ArrayList RefQuestions = new();
     private ArrayList RefErrors = new();
 
@@ -51,7 +53,8 @@ public class HistorySelectionButtons : MonoBehaviour
     // Connection vers l'UI
     public MenuGUI menuGUI;
     public int HistoryChoice;
-	public GridLayoutGroup ChoiceDisplay;
+
+
 	public Text CommentText;
     public Text QuestionOnCurrentStep;
     public Text CommentHeader;
@@ -65,17 +68,17 @@ public class HistorySelectionButtons : MonoBehaviour
 	{
         
         // Récupérer les référentiels
-        RefHellCircles= dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='HellCircles' order by Id asc");
-        RefAllegiance = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Allegiance' order by Id asc");
-        RefSocial = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Social' order by Id asc");
-        RefClass = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Class' order by Id asc");
-        RefImp = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Imp' order by Id asc");
-        RefOrigin = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Origin' order by Id asc");
-        RefTemper = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Temper' order by Id asc");
-        RefAstro = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Astro' order by Id asc");
-        RefAffinity = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Affinity' order by Id asc");
-        RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by Id asc");
-        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
+        RefHellCircles= dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='HellCircles' order by ChoiceId asc");
+        RefAllegiance = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Allegiance' order by ChoiceId asc");
+        RefSocial = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Social' order by ChoiceId asc");
+        RefClass = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Class' order by ChoiceId asc");
+        RefImp = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Imp' order by ChoiceId asc");
+        RefOrigin = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Origin' order by ChoiceId asc");
+        RefTemper = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Temper' order by ChoiceId asc");
+        RefAstro = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Astro' order by ChoiceId asc");
+        RefAffinity = dataBaseManager.getArrayData("select * from REF_HistoryChoicesStatistics where ChoiceStage='Affinity' order by ChoiceId asc");
+        RefQuestions = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='CharacterCreation' order by DialogueId asc");
+        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by DialogueId asc");
 
 
         //Initialiser le cycle
@@ -84,12 +87,14 @@ public class HistorySelectionButtons : MonoBehaviour
 
         //Connection vers éléments de l'UI
         HistorySelection = GetComponent<Canvas>();
-
+        QuestionOnCurrentStep = HistorySelection.GetComponentsInChildren<Text>()[0];
+        CommentHeader = HistorySelection.GetComponentsInChildren<Text>()[1];
+        CommentText = HistorySelection.GetComponentsInChildren<Text>()[2];
 
         for (int i = 0; i < 9; i++) 
             {
                 // Selecting the button
-                Choice[i] = ChoiceDisplay.GetComponentsInChildren<Button>()[i];
+                Choice[i] = HistorySelection.GetComponentsInChildren<Button>()[i];
 
             }
 
@@ -195,15 +200,15 @@ public class HistorySelectionButtons : MonoBehaviour
 
 		switch (currentStep) {
 			
-		case PlayerHistoryStep.HELLCIRCLE: UpdateStageUIButtons((string)((ArrayList)RefQuestions[4])[4], "Hell Circle Lore", 1, 9); break;
-		case PlayerHistoryStep.ALLEGIANCE: UpdateStageUIButtons((string)((ArrayList)RefQuestions[5])[4], "House Lore", 2, 9); break;
-		case PlayerHistoryStep.SOCIAL: UpdateStageUIButtons((string)((ArrayList)RefQuestions[6])[4], "Social Lore", 3, 6); break;
-        case PlayerHistoryStep.CLASS: UpdateStageUIButtons((string)((ArrayList)RefQuestions[7])[4], "Job Description", 4, 9);  break;
-		case PlayerHistoryStep.IMP: UpdateStageUIButtons((string)((ArrayList)RefQuestions[8])[4], "Imp Lore", 5, 9); break;
-		case PlayerHistoryStep.ORIGIN: UpdateStageUIButtons((string)((ArrayList)RefQuestions[9])[4], "Origin Influence", 6, 9); break;
-		case PlayerHistoryStep.TEMPER: UpdateStageUIButtons((string)((ArrayList)RefQuestions[10])[4], "Psychologic State", 7, 9); break;
-		case PlayerHistoryStep.ASTRO: UpdateStageUIButtons((string)((ArrayList)RefQuestions[11])[4], "Sign Lore", 8, 9); break; 
-		case PlayerHistoryStep.AFFINITY: UpdateStageUIButtons((string)((ArrayList)RefQuestions[12])[4], "Primordial Affinity", 9, 9); break;
+		    case PlayerHistoryStep.HELLCIRCLE: UpdateStageUIButtons((string)((ArrayList)RefQuestions[4])[4], "Hell Circle Lore", 1, 9); break;
+		    case PlayerHistoryStep.ALLEGIANCE: UpdateStageUIButtons((string)((ArrayList)RefQuestions[5])[4], "House Lore", 2, 9); break;
+		    case PlayerHistoryStep.SOCIAL: UpdateStageUIButtons((string)((ArrayList)RefQuestions[6])[4], "Social Lore", 3, 6); break;
+            case PlayerHistoryStep.CLASS: UpdateStageUIButtons((string)((ArrayList)RefQuestions[7])[4], "Job Description", 4, 9);  break;
+		    case PlayerHistoryStep.IMP: UpdateStageUIButtons((string)((ArrayList)RefQuestions[8])[4], "Imp Lore", 5, 9); break;
+		    case PlayerHistoryStep.ORIGIN: UpdateStageUIButtons((string)((ArrayList)RefQuestions[9])[4], "Origin Influence", 6, 9); break;
+		    case PlayerHistoryStep.TEMPER: UpdateStageUIButtons((string)((ArrayList)RefQuestions[10])[4], "Psychologic State", 7, 9); break;
+		    case PlayerHistoryStep.ASTRO: UpdateStageUIButtons((string)((ArrayList)RefQuestions[11])[4], "Sign Lore", 8, 9); break; 
+		    case PlayerHistoryStep.AFFINITY: UpdateStageUIButtons((string)((ArrayList)RefQuestions[12])[4], "Primordial Affinity", 9, 9); break;
 
 		}
 		
@@ -339,7 +344,7 @@ public class HistorySelectionButtons : MonoBehaviour
 
         }
         else {
-            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[1])[2], (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4]);
+            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[1])[2], (string)((ArrayList)RefErrors[1])[3]);
         }
   
     }

@@ -8,6 +8,8 @@ public class CityButtons : MonoBehaviour {
 
     public Button ExitMenu;
 
+    public WindowsCamera windowsCamera;
+
     public MenuAudio MenuAudio;
     public CharacterMenu characterMenu;
     public SettingsMenu settingsMenu;
@@ -44,9 +46,11 @@ public class CityButtons : MonoBehaviour {
         MenuOpened = choice;
         MenuAudio.PlayMenuInGameAudio();
 
+
+
         switch (choice) {
             case 1: settingsMenu.ActivateMenu(); break;
-            case 2: characterMenu.ActivateMenu(selectedCharacter); break;
+            case 2: characterMenu.ActivateMenu(windowsCamera.characterSelected.GetComponentInChildren<GameObjectInformation>().baseCharacter); break;
             case 3: break;
 
         }

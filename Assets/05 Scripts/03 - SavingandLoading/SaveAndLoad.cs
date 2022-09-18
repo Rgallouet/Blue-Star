@@ -90,20 +90,20 @@ public class SaveAndLoad : MonoBehaviour
         // generating the baseline related stat modifier line
         dataBaseManager.RunQuery(
             "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'Baseline' as ModifierSource," +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Strength, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Speed, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Dexterity, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Embodiment, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Reflex, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Resilience, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Knowledge, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Elocution, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Intellect, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Influence, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Focus, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Mockery, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Malevolent, " +
-            (50 + 25 * character.HistoryChoices.LeadershipCost) + " as Unmerciful, " +
+            75 + " as Strength, " +
+            100 + " as Speed, " +
+            75 + " as Dexterity, " +
+            75 + " as Endurance, " +
+            75 + " as Reflex, " +
+            75 + " as Resilience, " +
+            75 + " as Knowledge, " +
+            75 + " as Elocution, " +
+            75 + " as Intellect, " +
+            75 + " as Influence, " +
+            75 + " as Focus, " +
+            75 + " as Mockery, " +
+            75 + " as Malevolent, " +
+            75 + " as Unmerciful, " +
 
             10 + " as Rage, " +
             10 + " as Phase, " +
@@ -123,13 +123,13 @@ public class SaveAndLoad : MonoBehaviour
 
         // generating the choices related stat modifier line
         dataBaseManager.RunQuery(
-            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'HistoryChoices' as ModifierSource, sum(Strength) as Strength, sum(Speed) as Speed, sum(Dexterity) as Dexterity, sum(Embodiment) as Embodiment, sum(Reflex) as Reflex, sum(Resilience) as Resilience, " +
+            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'HistoryChoices' as ModifierSource, sum(Strength) as Strength, sum(Speed) as Speed, sum(Dexterity) as Dexterity, sum(Endurance) as Endurance, sum(Reflex) as Reflex, sum(Resilience) as Resilience, " +
             "sum(Knowledge) as Knowledge, sum(Elocution) as Elocution, sum(Intellect) as Intellect, sum(Influence) as Influence, sum(Focus) as Focus, sum(Mockery) as Mockery, " +
             "sum(Malevolent) as Malevolent, sum(Unmerciful) as Unmerciful, " +
             "sum(Rage) as Rage, sum(Phase) as Phase, " +
             "sum(Momentum) as Momentum, sum(Balance) as Balance, sum(Chaos) as Chaos, sum(Luck) as Luck, sum(Perception) as Perception, sum(Judgement) as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
             "from REF_HistoryChoicesStatistics " +
-            "where Id in ('"
+            "where ChoiceId in ('"
             + character.HistoryChoices.HellCircleChoice + "','"
             + character.HistoryChoices.AllegianceChoice + "','"
             + character.HistoryChoices.SocialChoice + "','"
@@ -143,24 +143,43 @@ public class SaveAndLoad : MonoBehaviour
 
         // generating the demon parts related stat modifier line
         dataBaseManager.RunQuery(
-            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'DemonPartsChoices' as ModifierSource, sum(Strength) as Strength, sum(Speed) as Speed, sum(Dexterity) as Dexterity, sum(Embodiment) as Embodiment, sum(Reflex) as Reflex, sum(Resilience) as Resilience, " +
+            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'DemonPartsChoices' as ModifierSource, sum(Strength) as Strength, sum(Speed) as Speed, sum(Dexterity) as Dexterity, sum(Endurance) as Endurance, sum(Reflex) as Reflex, sum(Resilience) as Resilience, " +
             "sum(Knowledge) as Knowledge, sum(Elocution) as Elocution, sum(Intellect) as Intellect, sum(Influence) as Influence, sum(Focus) as Focus, sum(Mockery) as Mockery, " +
-            "sum(Malevolent) as Malevolent, sum(Unmerciful) as Unmerciful, " +
-            "sum(Rage) as Rage, sum(Phase) as Phase, " +
-            "sum(Momentum) as Momentum, sum(Balance) as Balance, sum(Chaos) as Chaos, sum(Luck) as Luck, sum(Perception) as Perception, sum(Judgement) as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
-            "from REF_DemonPartsStatistics where " +
-            " (BodyPart='Head' and Id= " +          character.DemonPartChoices.HeadChoiceID + " and Quality=" +             character.DemonPartChoices.HeadQuality + ") or " +
-            " (BodyPart='Body' and Id= " +          character.DemonPartChoices.BodyChoiceID + " and Quality=" +             character.DemonPartChoices.BodyQuality + ") or " +
-            " (BodyPart='RightUpperArm' and Id= " + character.DemonPartChoices.RightUpperArmChoiceID + " and Quality=" +    character.DemonPartChoices.RightUpperArmQuality + ") or " +
-            " (BodyPart='RightLowerArm' and Id= " + character.DemonPartChoices.RightLowerArmChoiceID + " and Quality=" +    character.DemonPartChoices.RightLowerArmQuality + ") or " +
-            " (BodyPart='RightFist' and Id= " +     character.DemonPartChoices.RightFistChoiceID + " and Quality=" +        character.DemonPartChoices.RightFistQuality + ") or " +
-            " (BodyPart='RightLeg' and Id= " +      character.DemonPartChoices.RightLegChoiceID + " and Quality=" +         character.DemonPartChoices.RightLegQuality + ") or " +
-            " (BodyPart='RightFoot' and Id= " +     character.DemonPartChoices.RightFootChoiceID + " and Quality=" +        character.DemonPartChoices.RightFootQuality + ") or " +
-            " (BodyPart='LeftUpperArm' and Id= " +  character.DemonPartChoices.LeftUpperArmChoiceID + " and Quality=" +     character.DemonPartChoices.LeftUpperArmQuality + ") or " +
-            " (BodyPart='LeftLowerArm' and Id= " +  character.DemonPartChoices.LeftLowerArmChoiceID + " and Quality=" +     character.DemonPartChoices.LeftLowerArmQuality + ") or " +
-            " (BodyPart='LeftFist' and Id= " +      character.DemonPartChoices.LeftFistChoiceID + " and Quality=" +         character.DemonPartChoices.LeftFistQuality + ") or " +
-            " (BodyPart='LeftLeg' and Id= " +       character.DemonPartChoices.LeftLegChoiceID + " and Quality=" +          character.DemonPartChoices.LeftLegQuality + ") or " +
-            " (BodyPart='LeftFoot' and Id= " +      character.DemonPartChoices.LeftFootChoiceID + " and Quality=" +         character.DemonPartChoices.LeftFootQuality + "); " );
+            "0 as Malevolent, 0 as Unmerciful, sum(Rage) as Rage, sum(Phase) as Phase, 0 as Momentum, 0 as Balance, 0 as Chaos, 0 as Luck, 0 as Perception, 0 as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
+            "from VIEW_DemonPartsStatisticsWithQuality where " +
+            " (BodyPart='Head' and CharacterTypeId= " +          character.DemonPartChoices.HeadChoiceID + " and QualityId=" +             character.DemonPartChoices.HeadQuality + ") or " +
+            " (BodyPart='Body' and CharacterTypeId= " +          character.DemonPartChoices.BodyChoiceID + " and QualityId=" +             character.DemonPartChoices.BodyQuality + ") or " +
+            " (BodyPart='RightUpperArm' and CharacterTypeId= " + character.DemonPartChoices.RightUpperArmChoiceID + " and QualityId=" +    character.DemonPartChoices.RightUpperArmQuality + ") or " +
+            " (BodyPart='RightLowerArm' and CharacterTypeId= " + character.DemonPartChoices.RightLowerArmChoiceID + " and QualityId=" +    character.DemonPartChoices.RightLowerArmQuality + ") or " +
+            " (BodyPart='RightFist' and CharacterTypeId= " +     character.DemonPartChoices.RightFistChoiceID + " and QualityId=" +        character.DemonPartChoices.RightFistQuality + ") or " +
+            " (BodyPart='RightLeg' and CharacterTypeId= " +      character.DemonPartChoices.RightLegChoiceID + " and QualityId=" +         character.DemonPartChoices.RightLegQuality + ") or " +
+            " (BodyPart='RightFoot' and CharacterTypeId= " +     character.DemonPartChoices.RightFootChoiceID + " and QualityId=" +        character.DemonPartChoices.RightFootQuality + ") or " +
+            " (BodyPart='LeftUpperArm' and CharacterTypeId= " +  character.DemonPartChoices.LeftUpperArmChoiceID + " and QualityId=" +     character.DemonPartChoices.LeftUpperArmQuality + ") or " +
+            " (BodyPart='LeftLowerArm' and CharacterTypeId= " +  character.DemonPartChoices.LeftLowerArmChoiceID + " and QualityId=" +     character.DemonPartChoices.LeftLowerArmQuality + ") or " +
+            " (BodyPart='LeftFist' and CharacterTypeId= " +      character.DemonPartChoices.LeftFistChoiceID + " and QualityId=" +         character.DemonPartChoices.LeftFistQuality + ") or " +
+            " (BodyPart='LeftLeg' and CharacterTypeId= " +       character.DemonPartChoices.LeftLegChoiceID + " and QualityId=" +          character.DemonPartChoices.LeftLegQuality + ") or " +
+            " (BodyPart='LeftFoot' and CharacterTypeId= " +      character.DemonPartChoices.LeftFootChoiceID + " and QualityId=" +         character.DemonPartChoices.LeftFootQuality + "); " );
+
+
+
+        // generating the Leadership cost stats increase
+        dataBaseManager.RunQuery(
+            "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'LeadershipCost' as ModifierSource, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Strength)) as Strength, " +
+            "0 as Speed, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Dexterity)) as Dexterity, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Endurance)) as Endurance, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Reflex)) as Reflex, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Resilience)) as Resilience, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Knowledge)) as Knowledge, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Elocution)) as Elocution, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Intellect)) as Intellect, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Influence)) as Influence, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Focus)) as Focus, " +
+            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Mockery)) as Mockery, " +
+            "0 as Malevolent, 0 as Unmerciful, 0 as Rage, 0 as Phase, 0 as Momentum, 0 as Balance, 0 as Chaos, 0 as Luck, 0 as Perception, 0 as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
+            "from CharacterStatsModifiers where CharacterID=" + character.characterID + " and ModifierSource in ('Baseline','HistoryChoices','DemonPartsChoices'); ");
+
 
     }
 
@@ -179,7 +198,7 @@ public class SaveAndLoad : MonoBehaviour
             character.AllocatedStatsModifier.Strength + " as Strength," +
             character.AllocatedStatsModifier.Speed + " as Speed," +
             character.AllocatedStatsModifier.Dexterity + " as Dexterity," +
-            character.AllocatedStatsModifier.Embodiment + " as Embodiment," +
+            character.AllocatedStatsModifier.Endurance + " as Endurance," +
             character.AllocatedStatsModifier.Reflex + " as Reflex," +
             character.AllocatedStatsModifier.Resilience + " as Resilience," +
             character.AllocatedStatsModifier.Knowledge + " as Knowledge," +
@@ -342,7 +361,7 @@ public class SaveAndLoad : MonoBehaviour
         Character.AllocatedStatsModifier.Strength = (int)((ArrayList)CharacterStatsModifiers[1])[2];
         Character.AllocatedStatsModifier.Speed = (int)((ArrayList)CharacterStatsModifiers[1])[3];
         Character.AllocatedStatsModifier.Dexterity = (int)((ArrayList)CharacterStatsModifiers[1])[4];
-        Character.AllocatedStatsModifier.Embodiment = (int)((ArrayList)CharacterStatsModifiers[1])[5];
+        Character.AllocatedStatsModifier.Endurance = (int)((ArrayList)CharacterStatsModifiers[1])[5];
         Character.AllocatedStatsModifier.Reflex = (int)((ArrayList)CharacterStatsModifiers[1])[6];
         Character.AllocatedStatsModifier.Resilience = (int)((ArrayList)CharacterStatsModifiers[1])[7];
 
@@ -378,7 +397,7 @@ public class SaveAndLoad : MonoBehaviour
         Character.Strength = (int)(long)((ArrayList)CharacterStats[1])[1];
         Character.Speed = (int)(long)((ArrayList)CharacterStats[1])[2];
         Character.Dexterity = (int)(long)((ArrayList)CharacterStats[1])[3];
-        Character.Embodiment = (int)(long)((ArrayList)CharacterStats[1])[4];
+        Character.Endurance = (int)(long)((ArrayList)CharacterStats[1])[4];
         Character.Reflex = (int)(long)((ArrayList)CharacterStats[1])[5];
         Character.Resilience = (int)(long)((ArrayList)CharacterStats[1])[6];
 
@@ -421,20 +440,20 @@ public class SaveAndLoad : MonoBehaviour
         
                 
         // Getting the dimensions of the map
-        (int MapSizeOnX, int MapSizeOnZ) = LoadMapDimension("UnderCity");
+        ZoneConstructionDetail zoneConstructionDetail = LoadMapDimension("UnderCity");
 
         // Saving row by row
-        for (int i = 0; i < MapSizeOnX; i++)
+        for (int i = 0; i < zoneConstructionDetail.MapSizeOnX[2]; i++)
         {
             string query = "INSERT into CityMap VALUES ";
 
-            for (int j = 0; j < MapSizeOnZ-1; j++)
+            for (int j = 0; j < zoneConstructionDetail.MapSizeOnZ[2] - 1; j++)
             {
                 query += "(" + (i + 1) + "," + (j + 1) + "," + Map[i, j] + "," + Sprite[i, j] + "),";
             }
 
             // Saving the status of the city by batch of X size dimension
-            dataBaseManager.RunQuery(query + "(" + (i + 1) + "," + (MapSizeOnZ - 1) + "," + Map[i, MapSizeOnZ - 1] + "," + Sprite[i, MapSizeOnZ - 1] + ")");
+            dataBaseManager.RunQuery(query + "(" + (i + 1) + "," + (zoneConstructionDetail.MapSizeOnZ[2] - 1) + "," + Map[i, zoneConstructionDetail.MapSizeOnZ[2] - 1] + "," + Sprite[i, zoneConstructionDetail.MapSizeOnZ[2] - 1] + ")");
 
         }
 
@@ -456,38 +475,53 @@ public class SaveAndLoad : MonoBehaviour
     public (int MapSizeOnX, int MapSizeOnZ, int[,] TileMap, int[,] SpriteMap) LoadPlayerCityFromDataBase()
     {
         // Getting the dimensions of the map
-        (int MapSizeOnX, int MapSizeOnZ) = LoadMapDimension("UnderCity");
+        ZoneConstructionDetail zoneConstructionDetail = LoadMapDimension("UnderCity");
         //Debug.Log("Start loading map looping through " + MapSizeOnX + " in X and " + MapSizeOnZ + " in Z");
 
         // Getting the map details
         ArrayList PlayerCity = dataBaseManager.getArrayData("select * from CityMap");
 
-        int[,] TileMap = new int[MapSizeOnX, MapSizeOnZ];
-        int[,] SpriteMap = new int[MapSizeOnX, MapSizeOnZ];
+        int[,] TileMap = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
+        int[,] SpriteMap = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
 
-        for (int i = 0; i < MapSizeOnX; i++)
+        for (int i = 0; i < zoneConstructionDetail.MapSizeOnX[2]; i++)
         {
-            for (int j = 0; j < MapSizeOnZ; j++)
+            for (int j = 0; j < zoneConstructionDetail.MapSizeOnZ[2]; j++)
             {
-                TileMap[i, j] =     (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[2];
-                SpriteMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[3];
+                TileMap[i, j] =     (int)((ArrayList)PlayerCity[(i + 1) + (j * zoneConstructionDetail.MapSizeOnX[2])])[2];
+                SpriteMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * zoneConstructionDetail.MapSizeOnX[2])])[3];
                 //Debug.Log("Loading tile and sprite at x="+(i + 1) + " and z="+(j + 1) +" being tilecode="+ TileMap[i, j]);
             }
         }
 
-        return (MapSizeOnX, MapSizeOnZ, TileMap, SpriteMap);
+        return (zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2], TileMap, SpriteMap);
 
     }
 
-    public (int MapSizeOnX, int MapSizeOnZ) LoadMapDimension(string MapName)
+    public ZoneConstructionDetail LoadMapDimension(string MapName)
     {
-
+        ZoneConstructionDetail zoneConstructionDetail = new();
         // Getting the dimensions of the map
-        ArrayList RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainSpecificities where MapName = '" + MapName + "'");
-        int MapSizeOnX = (int)((ArrayList)RefCitySize[1])[1];
-        int MapSizeOnZ = (int)((ArrayList)RefCitySize[1])[2];
+        ArrayList RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainProbabilities where MapName = '" + MapName + "' order by ZoneID ASC");
 
-        return (MapSizeOnX, MapSizeOnZ);
+        for (int i = 1; i < 4; i++) {
+
+            zoneConstructionDetail.MinMapSizeOnX[i-1] = (int)((ArrayList)RefCitySize[i])[3];
+            zoneConstructionDetail.MinMapSizeOnZ[i - 1] = (int)((ArrayList)RefCitySize[i])[4];
+            zoneConstructionDetail.MapSizeOnX[i - 1] = (int)((ArrayList)RefCitySize[i])[5];
+            zoneConstructionDetail.MapSizeOnZ[i - 1] = (int)((ArrayList)RefCitySize[i])[6];
+            zoneConstructionDetail.ProbabilityEmpty[i - 1] = (int)((ArrayList)RefCitySize[i])[7];
+            zoneConstructionDetail.ProbabilityLooseEarth[i - 1] = (int)((ArrayList)RefCitySize[i])[8];
+            zoneConstructionDetail.ProbabilitySolidEarth[i - 1] = (int)((ArrayList)RefCitySize[i])[9];
+            zoneConstructionDetail.ProbabilityRock[i - 1] = (int)((ArrayList)RefCitySize[i])[10];
+            zoneConstructionDetail.ProbabilityObsidian[i - 1] = (int)((ArrayList)RefCitySize[i])[11];
+            zoneConstructionDetail.ProbabilityGoldVein[i - 1] = (int)((ArrayList)RefCitySize[i])[12];
+            zoneConstructionDetail.ProbabilityBloodCrystal[i - 1] = (int)((ArrayList)RefCitySize[i])[13];
+
+
+        }
+
+        return zoneConstructionDetail;
     }
 
 

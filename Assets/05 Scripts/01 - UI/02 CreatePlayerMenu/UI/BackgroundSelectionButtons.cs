@@ -11,7 +11,7 @@ public class BackgroundSelectionButtons : MonoBehaviour {
     private ArrayList RefErrors = new ArrayList();
 
 
-    private GridLayoutGroup[] ChoiceDisplay = new GridLayoutGroup[2];
+    private Image[] ChoiceDisplay = new Image[2];
 
     public string CharacterName;
     public string CharacterBio;
@@ -23,13 +23,13 @@ public class BackgroundSelectionButtons : MonoBehaviour {
 
 	void Start () {
 
-        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
+        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by DialogueId asc");
 
         BackgroundSelection = GetComponent<Canvas>();
 
-		for (int i=0;i<2;i++) {
-			ChoiceDisplay[i]=BackgroundSelection.GetComponentsInChildren<GridLayoutGroup>()[i];
-		}
+        ChoiceDisplay[0] = BackgroundSelection.GetComponentsInChildren<Image>()[1];
+        ChoiceDisplay[1] = BackgroundSelection.GetComponentsInChildren<Image>()[3];
+
 		BackgroundSelection.enabled = false;
 	}
 
@@ -69,7 +69,7 @@ public class BackgroundSelectionButtons : MonoBehaviour {
             }
             else
             { 
-                menuGUI.dialogue.UpdateDialogue(150, (string)((ArrayList)RefErrors[3])[2], (string)((ArrayList)RefErrors[3])[3], (string)((ArrayList)RefErrors[3])[4]);
+                menuGUI.dialogue.UpdateDialogue(150, (string)((ArrayList)RefErrors[3])[2], (string)((ArrayList)RefErrors[3])[3]);
             }
         } 
     }

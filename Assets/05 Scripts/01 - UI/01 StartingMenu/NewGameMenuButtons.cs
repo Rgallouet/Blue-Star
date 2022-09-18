@@ -39,9 +39,34 @@ public class NewGameMenuButtons : MonoBehaviour
         textRequirementCreateDemonForDeath = (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[3];
         textRequirementCreateDemonForExperience = (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[4];
 
+
         nameField = (newGameMenu.GetComponentsInChildren<Image>()[4]).GetComponentsInChildren<Text>()[1];
 
     }
+
+
+    public void Update()
+    {
+
+        if ((nameField.text == null) || (nameField.text == "") || (nameField.text == " "))
+        {
+
+            buttonStartDemon.interactable = false;
+            buttonStartDemon.GetComponentInChildren<Text>().color= new Color32(255, 255, 255, 125);
+            newGameMenu.GetComponentsInChildren<Text>()[9].color = new Color32(255, 255, 255, 125);
+        }
+        else
+        {
+            buttonStartDemon.interactable = true;
+            buttonStartDemon.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 255);
+            newGameMenu.GetComponentsInChildren<Text>()[9].color = new Color32(255, 255, 255, 255);
+
+        }
+
+
+    }
+
+
 
     public void Next(int mode)
     {
@@ -50,7 +75,7 @@ public class NewGameMenuButtons : MonoBehaviour
         {
             // Asking player to choose a name
             RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' and Trigger='MissingNameChoice'");
-            menuGUI.dialogue.UpdateDialogue(150, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4], (string)((ArrayList)RefErrors[1])[5]);
+            menuGUI.dialogue.UpdateDialogue(150, (string)((ArrayList)RefErrors[1])[3], (string)((ArrayList)RefErrors[1])[4]);
         }
         else
         {
@@ -126,12 +151,36 @@ public class NewGameMenuButtons : MonoBehaviour
         {
 
             buttonCreateDemon.interactable = false;
-            buttonSelectDemon.interactable = false;
+            buttonCreateDemon.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 125);
 
+            buttonSelectDemon.interactable = false;
+            buttonSelectDemon.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 125);
+
+            newGameMenu.GetComponentsInChildren<Text>()[7].color = new Color32(255, 255, 255, 125);
+            newGameMenu.GetComponentsInChildren<Text>()[8].color = new Color32(255, 255, 255, 125);
+
+
+            (newGameMenu.GetComponentsInChildren<Image>()[5]).GetComponentsInChildren<Text>()[0].color = new Color32(0, 0, 0, 125);
+            (newGameMenu.GetComponentsInChildren<Image>()[5]).GetComponentsInChildren<Text>()[1].color = new Color32(0, 0, 0, 125);
+            (newGameMenu.GetComponentsInChildren<Image>()[5]).GetComponentsInChildren<Text>()[2].color = new Color32(0, 0, 0, 125);
+            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[0].color = new Color32(0, 0, 0, 125);
+            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[1].color = new Color32(0, 0, 0, 125);
+            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[2].color = new Color32(0, 0, 0, 125);
+               
+        
         }
+
+
         else if (menuGUI.account.NumberOfDeaths < 2 || menuGUI.account.MaximumLevelReached < 30)
         {
             buttonCreateDemon.interactable = false;
+            buttonCreateDemon.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 125);
+
+            newGameMenu.GetComponentsInChildren<Text>()[7].color = new Color32(255, 255, 255, 125);
+
+            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[0].color = new Color32(0, 0, 0, 125);
+            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[1].color = new Color32(0, 0, 0, 125);
+            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[2].color = new Color32(0, 0, 0, 125);
         }
 
 

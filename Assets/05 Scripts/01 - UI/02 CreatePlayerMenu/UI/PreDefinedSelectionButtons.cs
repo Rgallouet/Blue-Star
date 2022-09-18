@@ -30,14 +30,14 @@ public class PreDefinedSelectionButtons : MonoBehaviour
         PreDefinedSelection = GetComponent<Canvas>();
         PreDefinedSelection.enabled = false;
 
-        refData = dataBaseManager.getArrayData("select * from REF_PredefinedCharacters order by Id asc");
-        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by Id asc");
+        refData = dataBaseManager.getArrayData("select * from REF_PredefinedCharacters order by CharacterTypeId asc");
+        RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by DialogueId asc");
   
 
         //Link to left side text box for displaying names
         for (int i = 0; i < 9; i++)
         {
-            Choice[i] = PreDefinedSelection.GetComponentInChildren<GridLayoutGroup>().GetComponentsInChildren<Button>()[i];
+            Choice[i] = PreDefinedSelection.GetComponentsInChildren<Button>()[i];
         }
 
 
@@ -121,7 +121,6 @@ public class PreDefinedSelectionButtons : MonoBehaviour
     {
 
         PreDefinedSelection.GetComponentsInChildren<Text>()[12].text = ((string)((ArrayList)refData[HistoryChoice])[2]).Replace("<br>", "\n");
-        characterDisplay.UpdateCharacterDisplay(demonPartsChoices);
 
     }
 
@@ -141,7 +140,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
         }
         else
         {
-            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[4])[2], (string)((ArrayList)RefErrors[4])[3], (string)((ArrayList)RefErrors[4])[4]);
+            menuGUI.dialogue.UpdateDialogue(255, (string)((ArrayList)RefErrors[4])[2], (string)((ArrayList)RefErrors[4])[3]);
 
         }
 
