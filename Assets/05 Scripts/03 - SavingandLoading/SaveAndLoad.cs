@@ -440,20 +440,20 @@ public class SaveAndLoad : MonoBehaviour
         
                 
         // Getting the dimensions of the map
-        (int MapSizeOnX, int MapSizeOnZ) = LoadMapDimension("UnderCity");
+        ZoneConstructionDetail zoneConstructionDetail = LoadMapDimension("UnderCity");
 
         // Saving row by row
-        for (int i = 0; i < MapSizeOnX; i++)
+        for (int i = 0; i < zoneConstructionDetail.MapSizeOnX[2]; i++)
         {
             string query = "INSERT into CityMap VALUES ";
 
-            for (int j = 0; j < MapSizeOnZ-1; j++)
+            for (int j = 0; j < zoneConstructionDetail.MapSizeOnZ[2] - 1; j++)
             {
                 query += "(" + (i + 1) + "," + (j + 1) + "," + Map[i, j] + "," + Sprite[i, j] + "),";
             }
 
             // Saving the status of the city by batch of X size dimension
-            dataBaseManager.RunQuery(query + "(" + (i + 1) + "," + (MapSizeOnZ - 1) + "," + Map[i, MapSizeOnZ - 1] + "," + Sprite[i, MapSizeOnZ - 1] + ")");
+            dataBaseManager.RunQuery(query + "(" + (i + 1) + "," + (zoneConstructionDetail.MapSizeOnZ[2] - 1) + "," + Map[i, zoneConstructionDetail.MapSizeOnZ[2] - 1] + "," + Sprite[i, zoneConstructionDetail.MapSizeOnZ[2] - 1] + ")");
 
         }
 
@@ -475,38 +475,53 @@ public class SaveAndLoad : MonoBehaviour
     public (int MapSizeOnX, int MapSizeOnZ, int[,] TileMap, int[,] SpriteMap) LoadPlayerCityFromDataBase()
     {
         // Getting the dimensions of the map
-        (int MapSizeOnX, int MapSizeOnZ) = LoadMapDimension("UnderCity");
+        ZoneConstructionDetail zoneConstructionDetail = LoadMapDimension("UnderCity");
         //Debug.Log("Start loading map looping through " + MapSizeOnX + " in X and " + MapSizeOnZ + " in Z");
 
         // Getting the map details
         ArrayList PlayerCity = dataBaseManager.getArrayData("select * from CityMap");
 
-        int[,] TileMap = new int[MapSizeOnX, MapSizeOnZ];
-        int[,] SpriteMap = new int[MapSizeOnX, MapSizeOnZ];
+        int[,] TileMap = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
+        int[,] SpriteMap = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
 
-        for (int i = 0; i < MapSizeOnX; i++)
+        for (int i = 0; i < zoneConstructionDetail.MapSizeOnX[2]; i++)
         {
-            for (int j = 0; j < MapSizeOnZ; j++)
+            for (int j = 0; j < zoneConstructionDetail.MapSizeOnZ[2]; j++)
             {
-                TileMap[i, j] =     (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[2];
-                SpriteMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[3];
+                TileMap[i, j] =     (int)((ArrayList)PlayerCity[(i + 1) + (j * zoneConstructionDetail.MapSizeOnX[2])])[2];
+                SpriteMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * zoneConstructionDetail.MapSizeOnX[2])])[3];
                 //Debug.Log("Loading tile and sprite at x="+(i + 1) + " and z="+(j + 1) +" being tilecode="+ TileMap[i, j]);
             }
         }
 
-        return (MapSizeOnX, MapSizeOnZ, TileMap, SpriteMap);
+        return (zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2], TileMap, SpriteMap);
 
     }
 
-    public (int MapSizeOnX, int MapSizeOnZ) LoadMapDimension(string MapName)
+    public ZoneConstructionDetail LoadMapDimension(string MapName)
     {
-
+        ZoneConstructionDetail zoneConstructionDetail = new();
         // Getting the dimensions of the map
-        ArrayList RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainSpecificities where MapName = '" + MapName + "'");
-        int MapSizeOnX = (int)((ArrayList)RefCitySize[1])[1];
-        int MapSizeOnZ = (int)((ArrayList)RefCitySize[1])[2];
+        ArrayList RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainProbabilities where MapName = '" + MapName + "' order by ZoneID ASC");
 
-        return (MapSizeOnX, MapSizeOnZ);
+        for (int i = 1; i < 4; i++) {
+
+            zoneConstructionDetail.MinMapSizeOnX[i-1] = (int)((ArrayList)RefCitySize[i])[3];
+            zoneConstructionDetail.MinMapSizeOnZ[i - 1] = (int)((ArrayList)RefCitySize[i])[4];
+            zoneConstructionDetail.MapSizeOnX[i - 1] = (int)((ArrayList)RefCitySize[i])[5];
+            zoneConstructionDetail.MapSizeOnZ[i - 1] = (int)((ArrayList)RefCitySize[i])[6];
+            zoneConstructionDetail.ProbabilityEmpty[i - 1] = (int)((ArrayList)RefCitySize[i])[7];
+            zoneConstructionDetail.ProbabilityLooseEarth[i - 1] = (int)((ArrayList)RefCitySize[i])[8];
+            zoneConstructionDetail.ProbabilitySolidEarth[i - 1] = (int)((ArrayList)RefCitySize[i])[9];
+            zoneConstructionDetail.ProbabilityRock[i - 1] = (int)((ArrayList)RefCitySize[i])[10];
+            zoneConstructionDetail.ProbabilityObsidian[i - 1] = (int)((ArrayList)RefCitySize[i])[11];
+            zoneConstructionDetail.ProbabilityGoldVein[i - 1] = (int)((ArrayList)RefCitySize[i])[12];
+            zoneConstructionDetail.ProbabilityBloodCrystal[i - 1] = (int)((ArrayList)RefCitySize[i])[13];
+
+
+        }
+
+        return zoneConstructionDetail;
     }
 
 

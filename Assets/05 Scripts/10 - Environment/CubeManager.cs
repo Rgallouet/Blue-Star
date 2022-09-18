@@ -1,7 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System;
+using UnityEngine;
 
 public class CubeManager : MonoBehaviour {
 
@@ -9,8 +8,10 @@ public class CubeManager : MonoBehaviour {
     public CityGUI cityGUI;
     public Transform PlayerPrefab;
     public Transform playerInstantiated;
-    public int MapSizeOnX;
-    public int MapSizeOnZ;
+
+
+    public ZoneConstructionDetail zoneConstructionDetail;
+
 
     public Transform[] CubePrefabs;
     public int[] Probability;
@@ -55,15 +56,30 @@ public class CubeManager : MonoBehaviour {
 
     public void GettingTheMap(string MapName) {
 
+        zoneConstructionDetail = cityGUI.saveAndLoad.LoadMapDimension(MapName);
+
         if (cityGUI.account.CurrentCityRegion == 0)
         {
             Debug.Log(MapName+" - Starting from scratch and generating a new map");
 
             System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
 
-            (MapSizeOnX, MapSizeOnZ) = cityGUI.saveAndLoad.LoadMapDimension(MapName);
+            // generating the maps by zone
+            int[,] mapEasy = CalculateTheMap(zoneConstructionDetail, 0);
+            int[,] mapMedium = CalculateTheMap(zoneConstructionDetail, 1);
+            int[,] mapHard = CalculateTheMap(zoneConstructionDetail, 2);
 
-            map = CalculateTheMap();
+            // merging the maps together
+            for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
+            {
+                for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
+                {
+                    map[x, z] = mapEasy[x, z] + mapMedium[x, z] + mapHard[x, z];
+
+                }
+            }
+
+
             //Debug.Log(MapName + " - Successfully generated a new map");
 
             sprite = CalculateTheSprite();
@@ -81,7 +97,7 @@ public class CubeManager : MonoBehaviour {
         else
         {
             Debug.Log(MapName + " - Loading the map saved in database");
-            (MapSizeOnX, MapSizeOnZ, map, sprite) = saveAndLoad.LoadPlayerCityFromDataBase();
+            (zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2], map, sprite) = saveAndLoad.LoadPlayerCityFromDataBase();
         }
 
 
@@ -98,9 +114,9 @@ public class CubeManager : MonoBehaviour {
 
         
         //Generating the Cubes
-        for (int x = 0; x < MapSizeOnX; x++)
+        for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
         {
-            for (int z = 0; z < MapSizeOnZ; z++)
+            for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
             {
                 if (Visible[x,z] != 3)
                 {
@@ -111,7 +127,7 @@ public class CubeManager : MonoBehaviour {
         }
 
         // Generating the hero
-        playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + (MapSizeOnX/2) +5, 15f, zOffset + (MapSizeOnZ / 2) + 5), Quaternion.Euler(0, 0, 0));
+        playerInstantiated = Instantiate(PlayerPrefab, new Vector3( xOffset + zoneConstructionDetailsHard.MapSizeOnX / 2) +5, 15f, zOffset + (zoneConstructionDetailsHard.MapSizeOnZ / 2) + 5), Quaternion.Euler(0, 0, 0));
         playerInstantiated.GetComponentInChildren<GameObjectInformation>().baseCharacter = saveAndLoad.LoadCharacterFromDataBase((long)1);
 
 
@@ -120,7 +136,7 @@ public class CubeManager : MonoBehaviour {
 
     }
 
-    public int[,] CalculateTheMap()
+    public int[,] CalculateTheMap(ZoneConstructionDetail zoneConstructionDetail, int ZoneID)
     {
 
 
@@ -128,7 +144,7 @@ public class CubeManager : MonoBehaviour {
         
         int[] localProbability = new int[NumberofPrefabs];
 
-        int[,] MapArray = new int[MapSizeOnX,MapSizeOnZ];
+        int[,] MapArray = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
    
         int diceRoll = 0;
         int cumulative = 0;
@@ -136,50 +152,70 @@ public class CubeManager : MonoBehaviour {
         //Debug.Log("Calculate The Map - prepared for looping on through "+MapSizeOnX+" in X and "+ MapSizeOnZ + " in Z");
         
         //Starting Ground
-        for (int x = 0; x < MapSizeOnX; x++)
+        for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
         {
-            for (int z = 0; z < MapSizeOnZ; z++)
+            for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
             {
-                //Debug.Log("Calculate The Map - Looping on X="+x+" and Z="+z);
 
-                // the Strict Borders
-                if (x == 0 || x == MapSizeOnX - 1 || z == 0 || z == MapSizeOnZ - 1)  { MapArray[x,z] = ObsidianPrefabRefence; }
-                // the starting ground
-                else if (x > (MapSizeOnX / 2) + 3 && x < (MapSizeOnX / 2) + 7 && z > (MapSizeOnZ / 2) + 3 && z < (MapSizeOnZ / 2) + 7)  { MapArray[x,z] = StartPrefabRefence; }
-                // the rest
-                else {
-                    for (int i=0; i< NumberofPrefabs; i++) localProbability[i] = Probability[i];
-                
-                    localProbability[MapArray[x - 1,z]] = Math.Min(localProbability[MapArray[x - 1,z]] + AdditiveFactor + MultiplicativeFactor* Probability[MapArray[x - 1,z]], Probability[MapArray[x - 1,z]]+ MaximumExcess);
-                    localProbability[MapArray[x,z-1]] = Math.Min(localProbability[MapArray[x,z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x,z - 1]], Probability[MapArray[x,z - 1]] + MaximumExcess);
-                    localProbability[MapArray[x - 1,z-1]] = Math.Min(localProbability[MapArray[x - 1,z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x - 1,z - 1]], Probability[MapArray[x - 1,z - 1]] + MaximumExcess);
-                    localProbability[MapArray[x + 1,z - 1]] = Math.Min(localProbability[MapArray[x + 1,z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x + 1,z - 1]], Probability[MapArray[x + 1,z - 1]] + MaximumExcess);
+                // Skipping if not in the good zone by equal to zero, for sum in the future
+                if ( (x < zoneConstructionDetail.MinMapSizeOnX[ZoneID] && z < zoneConstructionDetail.MinMapSizeOnZ[ZoneID]) 
+                    ||
+                     (x >= zoneConstructionDetail.MapSizeOnX[ZoneID])
+                    ||
+                     (z >= zoneConstructionDetail.MapSizeOnZ[ZoneID])
+                    )
+                {
+                    MapArray[x, z] = 0;
 
-                    int HowMuchDistributionChange = (localProbability[MapArray[x - 1,z]] + localProbability[MapArray[x,z - 1]] + localProbability[MapArray[x - 1,z - 1]] + localProbability[MapArray[x + 1,z - 1]]) - (Probability[MapArray[x - 1,z]] + Probability[MapArray[x,z - 1]] + Probability[MapArray[x - 1,z - 1]] + Probability[MapArray[x + 1,z - 1]]);
+                }
+                else
+                {
 
-                    localProbability[EarthCubePrefabRefence] = localProbability[EarthCubePrefabRefence] - HowMuchDistributionChange;
+                    //Debug.Log("Calculate The Map - Looping on X="+x+" and Z="+z);
 
-                    // Debug.Log("How much did the distribution change: " + HowMuchDistributionChange);
-                    // for (int i = 0; i < NumberofPrefabs; i++) Debug.Log ("Prefab "+ i +" - Local prob: "+ localProbability[i] +" , Absolu prob: " + Probability[i]) ;
-
-
-                    diceRoll = random.Next(0, 1000);
-
-                    //Debug.Log("Dice Roll: " + diceRoll + " et la proba obsidienne: " + localProbability[0] + " et le resultat final: " + i);
-                    //Debug.Log("Dice Roll by hundred: " + diceRoll / 100);
-
-                    cumulative = 0;
-
-                    for (int i = 0; i < NumberofPrefabs; i++)
+                    // the Strict Borders
+                    if (x == 0 || x == zoneConstructionDetail.MapSizeOnX[2] - 1 || z == 0 || z == zoneConstructionDetail.MapSizeOnZ[2] - 1) { MapArray[x, z] = ObsidianPrefabRefence; }
+                    // the starting ground
+                    else if (x > (MapSizeOnX / 2) + 3 && x < (MapSizeOnX / 2) + 7 && z > (MapSizeOnZ / 2) + 3 && z < (MapSizeOnZ / 2) + 7) { MapArray[x, z] = StartPrefabRefence; }
+                    // the rest
+                    else
                     {
-                        cumulative += localProbability[i];
-                        if (diceRoll < cumulative)
+                        for (int i = 0; i < NumberofPrefabs; i++) localProbability[i] = Probability[i];
+
+                        localProbability[MapArray[x - 1, z]] = Math.Min(localProbability[MapArray[x - 1, z]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x - 1, z]], Probability[MapArray[x - 1, z]] + MaximumExcess);
+                        localProbability[MapArray[x, z - 1]] = Math.Min(localProbability[MapArray[x, z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x, z - 1]], Probability[MapArray[x, z - 1]] + MaximumExcess);
+                        localProbability[MapArray[x - 1, z - 1]] = Math.Min(localProbability[MapArray[x - 1, z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x - 1, z - 1]], Probability[MapArray[x - 1, z - 1]] + MaximumExcess);
+                        localProbability[MapArray[x + 1, z - 1]] = Math.Min(localProbability[MapArray[x + 1, z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x + 1, z - 1]], Probability[MapArray[x + 1, z - 1]] + MaximumExcess);
+
+                        int HowMuchDistributionChange = (localProbability[MapArray[x - 1, z]] + localProbability[MapArray[x, z - 1]] + localProbability[MapArray[x - 1, z - 1]] + localProbability[MapArray[x + 1, z - 1]]) - (Probability[MapArray[x - 1, z]] + Probability[MapArray[x, z - 1]] + Probability[MapArray[x - 1, z - 1]] + Probability[MapArray[x + 1, z - 1]]);
+
+                        localProbability[EarthCubePrefabRefence] = localProbability[EarthCubePrefabRefence] - HowMuchDistributionChange;
+
+                        // Debug.Log("How much did the distribution change: " + HowMuchDistributionChange);
+                        // for (int i = 0; i < NumberofPrefabs; i++) Debug.Log ("Prefab "+ i +" - Local prob: "+ localProbability[i] +" , Absolu prob: " + Probability[i]) ;
+
+
+                        diceRoll = random.Next(0, 1000);
+
+                        //Debug.Log("Dice Roll: " + diceRoll + " et la proba obsidienne: " + localProbability[0] + " et le resultat final: " + i);
+                        //Debug.Log("Dice Roll by hundred: " + diceRoll / 100);
+
+                        cumulative = 0;
+
+                        for (int i = 0; i < NumberofPrefabs; i++)
                         {
-                            MapArray[x,z] = i;
-                            
-                            break;
+                            cumulative += localProbability[i];
+                            if (diceRoll < cumulative)
+                            {
+                                MapArray[x, z] = i;
+
+                                break;
+                            }
                         }
+
                     }
+                
+
                }
             }
         }
@@ -192,12 +228,12 @@ public class CubeManager : MonoBehaviour {
     public int[,] CalculateTheSprite()
     {
 
-        int[,] MapArray = new int[MapSizeOnX, MapSizeOnZ];
+        int[,] MapArray = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
 
         //Starting Ground
-        for (int x = 0; x < MapSizeOnX; x++)
+        for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
         {
-            for (int z = 0; z < MapSizeOnZ; z++)
+            for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
             {
                 
                 MapArray[x,z] = UnityEngine.Random.Range(0, MaxSpriteLimite[map[x,z]] -1);
@@ -211,12 +247,12 @@ public class CubeManager : MonoBehaviour {
 
     public int[,] CalculateTheVisibleArea(int[,] Map) {
 
-        int[,] MapArray = new int[MapSizeOnX,MapSizeOnZ];
+        int[,] MapArray = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
 
         // initialize starting zone
-        for (int x = (MapSizeOnX / 2) + 4; x < (MapSizeOnX / 2) + 7; x++)
+        for (int x = (zoneConstructionDetail.MapSizeOnX[2] / 2) + 4; x < (zoneConstructionDetail.MapSizeOnX[2] / 2) + 7; x++)
         {
-            for (int z = (MapSizeOnZ / 2) + 4; z < (MapSizeOnZ / 2) + 7; z++)
+            for (int z = (zoneConstructionDetail.MapSizeOnZ[2] / 2) + 4; z < (zoneConstructionDetail.MapSizeOnZ[2] / 2) + 7; z++)
             {
                 MapArray[x,z] = 1;
             }
