@@ -525,4 +525,26 @@ public class SaveAndLoad : MonoBehaviour
     }
 
 
+    public TileCode LoadTileReferences()
+    {
+        TileCode tileCode = new();
+        // Getting the dimensions of the map
+        ArrayList refTileCode = dataBaseManager.getArrayData("select * from REF_TileCode order by TileID ASC");
+
+        for (int i = 0; i < 8; i++)
+        {
+
+            tileCode.TileName[i] = (string)((ArrayList)refTileCode[i+1])[1];
+            tileCode.TileType[i] = (string)((ArrayList)refTileCode[i+1])[2];
+            tileCode.TileDescription[i] = (string)((ArrayList)refTileCode[i+1])[3];
+            tileCode.TileNumberSprite[i] = (int)((ArrayList)refTileCode[i+1])[4];
+
+
+        }
+
+        return tileCode;
+    }
+
+
+
 }

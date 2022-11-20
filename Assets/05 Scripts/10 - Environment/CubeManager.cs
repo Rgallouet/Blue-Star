@@ -11,7 +11,7 @@ public class CubeManager : MonoBehaviour {
 
 
     public ZoneConstructionDetail zoneConstructionDetail;
-
+    public TileCode tileCode;
 
     public Transform[] CubePrefabs;
     public int[] Probability;
@@ -40,6 +40,9 @@ public class CubeManager : MonoBehaviour {
     float yOffset = 0.75f;
     float zOffset = 0.5f;
 
+
+
+
     //Generation vectors
     Quaternion Setup = Quaternion.identity;
     Vector3 cubePosition;
@@ -48,15 +51,11 @@ public class CubeManager : MonoBehaviour {
     Transform Cube;
 
 
-    void Start() {
-
-    }
-
-
 
     public void GettingTheMap(string MapName) {
 
         zoneConstructionDetail = cityGUI.saveAndLoad.LoadMapDimension(MapName);
+        tileCode = cityGUI.saveAndLoad.LoadTileReferences();
 
         if (cityGUI.account.CurrentCityRegion == 0)
         {
@@ -70,9 +69,9 @@ public class CubeManager : MonoBehaviour {
             int[,] mapHard = CalculateTheMap(zoneConstructionDetail, 2);
 
             // merging the maps together
-            for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
+            for (int x = 0; x <= 2*zoneConstructionDetail.MapSizeOnX[2]; x++)
             {
-                for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
+                for (int z = 0; z <= 2*zoneConstructionDetail.MapSizeOnZ[2]; z++)
                 {
                     map[x, z] = mapEasy[x, z] + mapMedium[x, z] + mapHard[x, z];
 
@@ -103,9 +102,6 @@ public class CubeManager : MonoBehaviour {
 
     }
 
-
-
-
     public void GenerateRandomUnderground(string MapName) {
 
         GettingTheMap(MapName);
@@ -114,20 +110,20 @@ public class CubeManager : MonoBehaviour {
 
         
         //Generating the Cubes
-        for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
+        for (int x = 0 ; x <= 2*zoneConstructionDetail.MapSizeOnX[2]; x++)
         {
-            for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
+            for (int z = 0; z <= 2*zoneConstructionDetail.MapSizeOnZ[2]; z++)
             {
                 if (Visible[x,z] != 3)
                 {
-                    GenerateUndergroundElement(map[x,z],sprite[x,z], x, z);
+                    GenerateUndergroundElement(map[x,z],sprite[x,z], x - zoneConstructionDetail.MapSizeOnX[2], z- zoneConstructionDetail.MapSizeOnZ[2]);
                 }
                 
             }
         }
 
         // Generating the hero
-        playerInstantiated = Instantiate(PlayerPrefab, new Vector3( xOffset + zoneConstructionDetailsHard.MapSizeOnX / 2) +5, 15f, zOffset + (zoneConstructionDetailsHard.MapSizeOnZ / 2) + 5), Quaternion.Euler(0, 0, 0));
+        playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + zoneConstructionDetail.MapSizeOnX[2], yOffset, zOffset + zoneConstructionDetail.MapSizeOnZ[2]), Quaternion.Euler(0, 0, 0) );
         playerInstantiated.GetComponentInChildren<GameObjectInformation>().baseCharacter = saveAndLoad.LoadCharacterFromDataBase((long)1);
 
 
@@ -144,7 +140,7 @@ public class CubeManager : MonoBehaviour {
         
         int[] localProbability = new int[NumberofPrefabs];
 
-        int[,] MapArray = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
+        int[,] MapArray = new int[2*zoneConstructionDetail.MapSizeOnX[2]+1, 2*zoneConstructionDetail.MapSizeOnZ[2]+1];
    
         int diceRoll = 0;
         int cumulative = 0;
@@ -152,20 +148,20 @@ public class CubeManager : MonoBehaviour {
         //Debug.Log("Calculate The Map - prepared for looping on through "+MapSizeOnX+" in X and "+ MapSizeOnZ + " in Z");
         
         //Starting Ground
-        for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
+        for (int x = -zoneConstructionDetail.MapSizeOnX[2]; x <= zoneConstructionDetail.MapSizeOnX[2]; x++)
         {
-            for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
+            for (int z = -zoneConstructionDetail.MapSizeOnZ[2]; z <= zoneConstructionDetail.MapSizeOnZ[2]; z++)
             {
 
                 // Skipping if not in the good zone by equal to zero, for sum in the future
-                if ( (x < zoneConstructionDetail.MinMapSizeOnX[ZoneID] && z < zoneConstructionDetail.MinMapSizeOnZ[ZoneID]) 
+                if ( (Math.Abs(x) < zoneConstructionDetail.MinMapSizeOnX[ZoneID] && Math.Abs(z) < zoneConstructionDetail.MinMapSizeOnZ[ZoneID]) 
                     ||
-                     (x >= zoneConstructionDetail.MapSizeOnX[ZoneID])
+                     (Math.Abs(x) >= zoneConstructionDetail.MapSizeOnX[ZoneID])
                     ||
-                     (z >= zoneConstructionDetail.MapSizeOnZ[ZoneID])
+                     (Math.Abs(z) >= zoneConstructionDetail.MapSizeOnZ[ZoneID])
                     )
                 {
-                    MapArray[x, z] = 0;
+                    MapArray[x+ zoneConstructionDetail.MapSizeOnX[2], z+ zoneConstructionDetail.MapSizeOnZ[2]] = 0;
 
                 }
                 else
@@ -174,9 +170,9 @@ public class CubeManager : MonoBehaviour {
                     //Debug.Log("Calculate The Map - Looping on X="+x+" and Z="+z);
 
                     // the Strict Borders
-                    if (x == 0 || x == zoneConstructionDetail.MapSizeOnX[2] - 1 || z == 0 || z == zoneConstructionDetail.MapSizeOnZ[2] - 1) { MapArray[x, z] = ObsidianPrefabRefence; }
+                    if (x == -zoneConstructionDetail.MapSizeOnX[2] || x == zoneConstructionDetail.MapSizeOnX[2] || z == -zoneConstructionDetail.MapSizeOnZ[2] || z == zoneConstructionDetail.MapSizeOnZ[2]) { MapArray[x, z] = ObsidianPrefabRefence; }
                     // the starting ground
-                    else if (x > (MapSizeOnX / 2) + 3 && x < (MapSizeOnX / 2) + 7 && z > (MapSizeOnZ / 2) + 3 && z < (MapSizeOnZ / 2) + 7) { MapArray[x, z] = StartPrefabRefence; }
+                    else if (Math.Abs(x) <= 3 && Math.Abs(z) <= 3) { MapArray[x, z] = StartPrefabRefence; }
                     // the rest
                     else
                     {
@@ -228,12 +224,12 @@ public class CubeManager : MonoBehaviour {
     public int[,] CalculateTheSprite()
     {
 
-        int[,] MapArray = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
+        int[,] MapArray = new int[2*zoneConstructionDetail.MapSizeOnX[2]+1, 2*zoneConstructionDetail.MapSizeOnZ[2]+1];
 
         //Starting Ground
-        for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
+        for (int x = 0; x <= 2*zoneConstructionDetail.MapSizeOnX[2]; x++)
         {
-            for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
+            for (int z = 0; z <= 2*zoneConstructionDetail.MapSizeOnZ[2]; z++)
             {
                 
                 MapArray[x,z] = UnityEngine.Random.Range(0, MaxSpriteLimite[map[x,z]] -1);
@@ -247,19 +243,19 @@ public class CubeManager : MonoBehaviour {
 
     public int[,] CalculateTheVisibleArea(int[,] Map) {
 
-        int[,] MapArray = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
+        int[,] MapArray = new int[2*zoneConstructionDetail.MapSizeOnX[2]+1, 2*zoneConstructionDetail.MapSizeOnZ[2]+1];
 
         // initialize starting zone
-        for (int x = (zoneConstructionDetail.MapSizeOnX[2] / 2) + 4; x < (zoneConstructionDetail.MapSizeOnX[2] / 2) + 7; x++)
+        for (int x = zoneConstructionDetail.MapSizeOnX[2]-3; x <= zoneConstructionDetail.MapSizeOnX[2] + 3; x++)
         {
-            for (int z = (zoneConstructionDetail.MapSizeOnZ[2] / 2) + 4; z < (zoneConstructionDetail.MapSizeOnZ[2] / 2) + 7; z++)
+            for (int z = zoneConstructionDetail.MapSizeOnZ[2] - 3; z <= zoneConstructionDetail.MapSizeOnZ[2] + 3; z++)
             {
                 MapArray[x,z] = 1;
             }
         }
 
         //Starting the To Do List
-        ArrayList ToDoList = new ArrayList();
+        ArrayList ToDoList = new();
 
         // Getting the first "to do" for getting the empty spaces connected to each other at the start zone
 
