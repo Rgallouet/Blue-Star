@@ -8,7 +8,7 @@ public class BaseAccount : MonoBehaviour
 	public string AccountName;
 	public int MaximumLevelReached;
 	public int NumberOfDeaths;
-	public int CurrentCityRegion;
+	public int CurrentCityTier;
 	public long CumulativeExperience;
 	
 

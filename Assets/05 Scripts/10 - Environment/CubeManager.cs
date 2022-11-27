@@ -22,17 +22,11 @@ public class CubeManager : MonoBehaviour {
     public int MultiplicativeFactor = 1;
     public int MaximumExcess = 150;
 
-    // Variety of Cubes
-    private int NumberofPrefabs = 21;
-    private int ObsidianPrefabRefence = 0;
-    private int StartPrefabRefence = 11;
-    private int EarthCubePrefabRefence = 4;
-
+    //Temporary objects
     public int[,] map;
     public int[,] sprite;
     private int[,] Visible;
     private int[,] NewVisible;
-
 
 
     // Generation offsetting
@@ -57,16 +51,23 @@ public class CubeManager : MonoBehaviour {
         zoneConstructionDetail = cityGUI.saveAndLoad.LoadMapDimension(MapName);
         tileCode = cityGUI.saveAndLoad.LoadTileReferences();
 
-        if (cityGUI.account.CurrentCityRegion == 0)
+        if (cityGUI.account.CurrentCityTier == 0)
         {
             Debug.Log(MapName+" - Starting from scratch and generating a new map");
 
             System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
 
-            // generating the maps by zone
-            int[,] mapEasy = CalculateTheMap(zoneConstructionDetail, 0);
-            int[,] mapMedium = CalculateTheMap(zoneConstructionDetail, 1);
-            int[,] mapHard = CalculateTheMap(zoneConstructionDetail, 2);
+            // Selecting a terrain tier (default 1) and updating the database
+            cityGUI.account.CurrentCityTier = 1;
+            saveAndLoad.SaveAccountDetails(cityGUI.account);
+
+            // Generating a base random map with zone ID
+            saveAndLoad.dataBaseManager.RunQuery(
+           "DELETE FROM TEMPORARY_CityMap;" +
+           "INSERT INTO TEMPORARY_CityMap Select VIEW_NewCityMap;");
+
+
+
 
             // merging the maps together
             for (int x = 0; x <= 2*zoneConstructionDetail.MapSizeOnX[2]; x++)

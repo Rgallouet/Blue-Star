@@ -249,7 +249,7 @@ public class SaveAndLoad : MonoBehaviour
             baseAccount.AccountName + "' as AccountName, " +
             baseAccount.MaximumLevelReached + " as MaximumLevelReached, " +
             baseAccount.NumberOfDeaths + " as NumberOfDeaths, " +
-            baseAccount.CurrentCityRegion + " as CurrentCityTier, " +
+            baseAccount.CurrentCityTier + " as CurrentCityTier, " +
             baseAccount.CumulativeExperience + " as CumulativeExperience ;");
 
     }
@@ -475,26 +475,26 @@ public class SaveAndLoad : MonoBehaviour
     public (int MapSizeOnX, int MapSizeOnZ, int[,] TileMap, int[,] SpriteMap) LoadPlayerCityFromDataBase()
     {
         // Getting the dimensions of the map
-        ZoneConstructionDetail zoneConstructionDetail = LoadMapDimension("UnderCity");
-        //Debug.Log("Start loading map looping through " + MapSizeOnX + " in X and " + MapSizeOnZ + " in Z");
+        int MapSizeOnX = (int)((ArrayList)dataBaseManager.getArrayData("select max(X) from CityMap")[1])[0];
+        int MapSizeOnZ = (int)((ArrayList)dataBaseManager.getArrayData("select max(Z) from CityMap")[1])[0];
 
         // Getting the map details
         ArrayList PlayerCity = dataBaseManager.getArrayData("select * from CityMap");
 
-        int[,] TileMap = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
-        int[,] SpriteMap = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
+        int[,] TileMap = new int[MapSizeOnX, MapSizeOnZ];
+        int[,] SpriteMap = new int[MapSizeOnX, MapSizeOnZ];
 
-        for (int i = 0; i < zoneConstructionDetail.MapSizeOnX[2]; i++)
+        for (int i = 0; i < MapSizeOnX; i++)
         {
-            for (int j = 0; j < zoneConstructionDetail.MapSizeOnZ[2]; j++)
+            for (int j = 0; j < MapSizeOnZ; j++)
             {
-                TileMap[i, j] =     (int)((ArrayList)PlayerCity[(i + 1) + (j * zoneConstructionDetail.MapSizeOnX[2])])[2];
-                SpriteMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * zoneConstructionDetail.MapSizeOnX[2])])[3];
+                TileMap[i, j] =     (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[2];
+                SpriteMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[3];
                 //Debug.Log("Loading tile and sprite at x="+(i + 1) + " and z="+(j + 1) +" being tilecode="+ TileMap[i, j]);
             }
         }
 
-        return (zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2], TileMap, SpriteMap);
+        return (MapSizeOnX, MapSizeOnZ, TileMap, SpriteMap);
 
     }
 
@@ -510,14 +510,6 @@ public class SaveAndLoad : MonoBehaviour
             zoneConstructionDetail.MinMapSizeOnZ[i - 1] = (int)((ArrayList)RefCitySize[i])[4];
             zoneConstructionDetail.MapSizeOnX[i - 1] = (int)((ArrayList)RefCitySize[i])[5];
             zoneConstructionDetail.MapSizeOnZ[i - 1] = (int)((ArrayList)RefCitySize[i])[6];
-            zoneConstructionDetail.ProbabilityEmpty[i - 1] = (int)((ArrayList)RefCitySize[i])[7];
-            zoneConstructionDetail.ProbabilityLooseEarth[i - 1] = (int)((ArrayList)RefCitySize[i])[8];
-            zoneConstructionDetail.ProbabilitySolidEarth[i - 1] = (int)((ArrayList)RefCitySize[i])[9];
-            zoneConstructionDetail.ProbabilityRock[i - 1] = (int)((ArrayList)RefCitySize[i])[10];
-            zoneConstructionDetail.ProbabilityObsidian[i - 1] = (int)((ArrayList)RefCitySize[i])[11];
-            zoneConstructionDetail.ProbabilityGoldVein[i - 1] = (int)((ArrayList)RefCitySize[i])[12];
-            zoneConstructionDetail.ProbabilityBloodCrystal[i - 1] = (int)((ArrayList)RefCitySize[i])[13];
-
 
         }
 
