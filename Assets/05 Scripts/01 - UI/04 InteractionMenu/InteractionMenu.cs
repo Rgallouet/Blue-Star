@@ -18,6 +18,7 @@ public class InteractionMenu : MonoBehaviour {
 
     GameObject LastObjectSelected;
     public float LastObjectSelected_x;
+    public float LastObjectSelected_y;
     public float LastObjectSelected_z;
 
     // Use this for initialization
@@ -37,6 +38,7 @@ public class InteractionMenu : MonoBehaviour {
         objectInteractionMenu.enabled = true;
         LastObjectSelected = gameObject;
         LastObjectSelected_x = gameObject.transform.position.x;
+        LastObjectSelected_y = gameObject.transform.position.y;
         LastObjectSelected_z = gameObject.transform.position.z;
 
         ObjectName.text = gameObject.GetComponentsInChildren <GameObjectInformation>()[0].ObjectName;
@@ -80,22 +82,36 @@ public class InteractionMenu : MonoBehaviour {
 
     public void UseDigThrough() {
 
-        GameObject.Destroy(LastObjectSelected);
-        cubeManager.GenerateUndergroundElement(10,0, (int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_z));
-        cubeManager.map[(int)Math.Floor(LastObjectSelected_x),(int)Math.Floor(LastObjectSelected_z)] = 10;
+        // defining tile to use
+        string tileAsset = "Ground_1";
+        int visibility = 1;
+
+        // updating the data warehouse
+        cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
+
+        // updating the tile
+        cubeManager.tileMapGround.SetTile(new Vector3Int((int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_y), (int)Math.Floor(LastObjectSelected_z)), tileAsset);
+   
+        // refreshing visible area
         cubeManager.UpdateTheVisibleArea();
-        cubeManager.saveAndLoad.UpdateCityData(10,0, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
 
     }
 
     public void UsePaving()
     {
 
-        GameObject.Destroy(LastObjectSelected);
-        cubeManager.GenerateUndergroundElement(11,0, (int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_z));
-        cubeManager.map[(int)Math.Floor(LastObjectSelected_x),(int)Math.Floor(LastObjectSelected_z)] = 11;
+        // defining tile to use
+        string tileAsset = "Paved_1";
+        int visibility = 1;
+
+        // updating the data warehouse
+        cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, (int)Math.Floor(LastObjectSelected_x) + 1, (int)Math.Floor(LastObjectSelected_z) + 1);
+
+        // updating the tile
+        cubeManager.tileMapGround.SetTile(new Vector3Int((int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_y), (int)Math.Floor(LastObjectSelected_z)), tileAsset);
+
+        // refreshing visible area
         cubeManager.UpdateTheVisibleArea();
-        cubeManager.saveAndLoad.UpdateCityData(11,0, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
 
     }
 

@@ -288,9 +288,9 @@ public class SaveAndLoad : MonoBehaviour
             baseAccount.MaximumLevelReached = (int)((ArrayList)PlayerAccountStatsBefore[1])[2];
         }
 
-        baseAccount.CurrentCityRegion = (int)((ArrayList)PlayerAccountStatsBefore[1])[3];
+        baseAccount.CurrentCityTier = (int)((ArrayList)PlayerAccountStatsBefore[1])[3];
 
-        Debug.Log("Loading account - playerName:'" + baseAccount.AccountName + "'; playerDeaths: " + baseAccount.NumberOfDeaths + "; playerMaximumLevel: " + baseAccount.MaximumLevelReached + "; playerCityExistence: " + baseAccount.CurrentCityRegion + "; playerCumulativeExperience: " + baseAccount.CumulativeExperience);
+        Debug.Log("Loading account - playerName:'" + baseAccount.AccountName + "'; playerDeaths: " + baseAccount.NumberOfDeaths + "; playerMaximumLevel: " + baseAccount.MaximumLevelReached + "; playerCityExistence: " + baseAccount.CurrentCityTier + "; playerCumulativeExperience: " + baseAccount.CumulativeExperience);
 
     }
 
@@ -462,17 +462,17 @@ public class SaveAndLoad : MonoBehaviour
 
     }
 
-    public void UpdateCityData(int Tile, int Sprite, int x, int z)
+    public void UpdateCityData(string Tile, int Visibility, int x, int z)
     {
         // cleaning any existing record
         dataBaseManager.RunQuery("DELETE FROM CityMap WHERE " +"X=" + x +" and Y=" + z +";");
 
         // creating the x and z record
-        dataBaseManager.RunQuery("INSERT INTO CityMap VALUES (" +x + " , " + z + " , " + Tile + " , " + Sprite + " );");
+        dataBaseManager.RunQuery("INSERT INTO CityMap VALUES (" +x + " , " + z + " , " + Tile + " , " + Visibility + " );");
 
     }
 
-    public (int MapSizeOnX, int MapSizeOnZ, int[,] TileMap, int[,] SpriteMap) LoadPlayerCityFromDataBase()
+    public (string[,] TileMap, int[,] VisibilityMap) LoadPlayerCityFromDataBase()
     {
         // Getting the dimensions of the map
         int MapSizeOnX = (int)((ArrayList)dataBaseManager.getArrayData("select max(X) from CityMap")[1])[0];
@@ -481,20 +481,20 @@ public class SaveAndLoad : MonoBehaviour
         // Getting the map details
         ArrayList PlayerCity = dataBaseManager.getArrayData("select * from CityMap");
 
-        int[,] TileMap = new int[MapSizeOnX, MapSizeOnZ];
-        int[,] SpriteMap = new int[MapSizeOnX, MapSizeOnZ];
+        string[,] TileMap = new string[MapSizeOnX, MapSizeOnZ];
+        int[,] VisibilityMap = new int[MapSizeOnX, MapSizeOnZ];
 
         for (int i = 0; i < MapSizeOnX; i++)
         {
             for (int j = 0; j < MapSizeOnZ; j++)
             {
-                TileMap[i, j] =     (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[2];
-                SpriteMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[3];
+                TileMap[i, j] =         (string)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[2];
+                VisibilityMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[2];
                 //Debug.Log("Loading tile and sprite at x="+(i + 1) + " and z="+(j + 1) +" being tilecode="+ TileMap[i, j]);
             }
         }
 
-        return (MapSizeOnX, MapSizeOnZ, TileMap, SpriteMap);
+        return (TileMap, VisibilityMap);
 
     }
 

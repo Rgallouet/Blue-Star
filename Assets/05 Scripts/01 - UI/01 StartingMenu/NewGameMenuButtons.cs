@@ -81,8 +81,9 @@ public class NewGameMenuButtons : MonoBehaviour
         {
             // Updating name
             menuGUI.account.AccountName = nameField.text;
+
             // Resetting the city
-            menuGUI.account.CurrentCityRegion = 0;
+            menuGUI.account.CurrentCityTier = 0;
 
             // Going to next stage
             menuGUI.MenuGoNext(mode);

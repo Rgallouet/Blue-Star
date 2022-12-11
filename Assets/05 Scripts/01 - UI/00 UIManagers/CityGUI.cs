@@ -15,7 +15,7 @@ public class CityGUI : MonoBehaviour {
 
         saveAndLoad.LoadAccountDetails(account);
         baseCharacter = saveAndLoad.LoadCharacterFromDataBase((long)1);
-        cubeManager.GenerateRandomUnderground("UnderCity");
+        cubeManager.GenerateMap();
 
 
     }
