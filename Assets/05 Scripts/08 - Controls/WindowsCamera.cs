@@ -33,9 +33,9 @@ public class WindowsCamera : MonoBehaviour
     float newTouchDistance;
 
     private float x_delta_translation;
-    private float z_delta_translation;
+    private float y_delta_translation;
     public float x_total_translation;
-    public float z_total_translation;
+    public float y_total_translation;
 
     public bool HasTheTouchMoved;
     public bool Objectselected;
@@ -44,7 +44,7 @@ public class WindowsCamera : MonoBehaviour
 
 
 
-    private float minZoom = 3;
+    private float minZoom = 2;
     private float maxZoom = 15;
 
 
@@ -96,8 +96,11 @@ public class WindowsCamera : MonoBehaviour
         // Moving around with one finger on the screen
         if (touch == 1)
         {
-                MoveCam = transform.position + transform.TransformDirection(x_delta_translation, 0, z_delta_translation);
-                transform.position = new Vector3(Mathf.Min(Mathf.Max(MoveCam.x, 0), 200), transform.position.y, Mathf.Min(Mathf.Max(MoveCam.z, 0), 200));
+                MoveCam = transform.position + transform.TransformDirection(x_delta_translation, y_delta_translation, 0);
+                transform.position = new Vector3(
+                    Mathf.Min(Mathf.Max(MoveCam.x, 0.25f * cubeManager.MinVisibleSizeOnX - 0.25f* cubeManager.MaxVisibleSizeOnY - 5), 0.25f * cubeManager.MaxVisibleSizeOnX - 0.25f * cubeManager.MinVisibleSizeOnY + 5), 
+                    Mathf.Min(Mathf.Max(MoveCam.y, 0.25f * cubeManager.MinVisibleSizeOnX + 0.25f* cubeManager.MinVisibleSizeOnY - 2.5f), 0.25f * cubeManager.MaxVisibleSizeOnX + 0.25f * cubeManager.MaxVisibleSizeOnY + 2.5f), 
+                    transform.position.z);
                 oldTouchPosition_0 = touchPosition[0];
         }
         
@@ -124,8 +127,8 @@ public class WindowsCamera : MonoBehaviour
 
         // Tracking the character selected
         float x_translation = characterSelected.transform.position.x - transform.position.x - 3.5f;
-        float z_translation = characterSelected.transform.position.z - transform.position.z - 3.5f;
-        transform.position = new Vector3(transform.position.x + x_translation*Time.deltaTime, transform.position.y, transform.position.z + z_translation * Time.deltaTime);
+        float y_translation = characterSelected.transform.position.y - transform.position.y - 3.5f;
+        transform.position = new Vector3(transform.position.x + x_translation*Time.deltaTime, transform.position.y + y_translation * Time.deltaTime, transform.position.z);
 
         // Zooming and dezooming
         GetComponent<Camera>().orthographicSize = Mathf.Max(minZoom, Mathf.Min(maxZoom, GetComponent<Camera>().orthographicSize - zoom));
@@ -221,12 +224,12 @@ public class WindowsCamera : MonoBehaviour
     void TouchMoved() {
 
         x_delta_translation = (oldTouchPosition_0.x - touchPosition[0].x) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * HorizontalSpeedRatio;
-        z_delta_translation = (oldTouchPosition_0.y - touchPosition[0].y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
+        y_delta_translation = 0.5f*(oldTouchPosition_0.y - touchPosition[0].y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
 
         x_total_translation = (firstPosition.x - touchPosition[0].x) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * HorizontalSpeedRatio;
-        z_total_translation = (firstPosition.y - touchPosition[0].y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
+        y_total_translation = 0.5f * (firstPosition.y - touchPosition[0].y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
 
-        HasTheTouchMoved = (x_total_translation + z_total_translation > 0.1);
+        HasTheTouchMoved = (x_total_translation + 0.5f*y_total_translation > 0.1);
     }
 
 

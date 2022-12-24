@@ -40,6 +40,11 @@ public class CubeManager : MonoBehaviour {
     readonly int xStartingPoint = 100;
     readonly int yStartingPoint = 100;
 
+    //Max visible dimensions
+    public int MaxVisibleSizeOnX;
+    public int MaxVisibleSizeOnY;
+    public int MinVisibleSizeOnX;
+    public int MinVisibleSizeOnY;
 
     //Generation vectors
     Quaternion Setup = Quaternion.identity;
@@ -153,8 +158,14 @@ public class CubeManager : MonoBehaviour {
         //Assigning the visibility of the starting point at 1
         MapArray[xStartingPoint, yStartingPoint] = 1;
 
-        //Starting the To Do List from the character starting point
-        ArrayList ToDoList = new()
+        // Initialising the visible dimensions
+        MaxVisibleSizeOnX= xStartingPoint;
+        MaxVisibleSizeOnY= yStartingPoint;
+        MinVisibleSizeOnX= xStartingPoint;
+        MinVisibleSizeOnY= yStartingPoint;
+
+    //Starting the To Do List from the character starting point
+    ArrayList ToDoList = new()
         {
             //First element should be starting point
             new int[] { xStartingPoint, yStartingPoint }
@@ -174,11 +185,15 @@ public class CubeManager : MonoBehaviour {
             ToDoList.RemoveAt(0);
 
             //Checking the x-1 cell
-            if (x_center - 1 >= 0)
+            if (x_center - 1 >= 0 && MapArray[x_center - 1, y_center]==3)
             {
                 // Making it visible
                 MapArray[x_center - 1, y_center] = VisibilityMap[x_center - 1, y_center];
 
+                // refreshing the min X
+                if (MinVisibleSizeOnX > x_center - 1) MinVisibleSizeOnX = x_center - 1;
+
+                // Assigning a new step if it's a ground
                 if (VisibilityMap[x_center - 1, y_center] == 1)
                 {
                     //in addition; if it is a ground, then we can add it to the to-do list
@@ -189,12 +204,16 @@ public class CubeManager : MonoBehaviour {
 
 
             //Checking the x+1 cell
-            if (x_center + 1 <= VisibilityMap.GetLength(0))
+            if (x_center + 1 <= VisibilityMap.GetLength(0) && MapArray[x_center + 1, y_center]==3)
             {
                 // Making it visible
                 MapArray[x_center + 1, y_center] = VisibilityMap[x_center + 1, y_center];
 
-                if (VisibilityMap[x_center + 1, y_center] == 1)
+                // refreshing the min X
+                if (MaxVisibleSizeOnX < x_center + 1) MaxVisibleSizeOnX = x_center + 1;
+
+                // Assigning a new step if it's a ground
+                if (MapArray[x_center + 1, y_center] == 1)
                 {
                     //in addition; if it is a ground, then we can add it to the to-do list
                     ToDoList.Add(new int[] { x_center + 1, y_center });
@@ -203,12 +222,16 @@ public class CubeManager : MonoBehaviour {
             }
 
             //Checking the y-1 cell
-            if (y_center - 1 >= 0)
+            if (y_center - 1 >= 0 && MapArray[x_center, y_center - 1]==3)
             {
                 // Making it visible
                 MapArray[x_center, y_center-1] = VisibilityMap[x_center, y_center-1];
 
-                if (VisibilityMap[x_center, y_center-1] == 1)
+                // refreshing the min X
+                if (MinVisibleSizeOnY > y_center -1) MinVisibleSizeOnY = y_center - 1;
+
+                // Assigning a new step if it's a ground
+                if (MapArray[x_center, y_center-1] == 1)
                 {
                     //in addition; if it is a ground, then we can add it to the to-do list
                     ToDoList.Add(new int[] { x_center, y_center-1 });
@@ -218,12 +241,16 @@ public class CubeManager : MonoBehaviour {
 
 
             //Checking the y+1 cell
-            if (y_center + 1 <= VisibilityMap.GetLength(1))
+            if (y_center + 1 <= VisibilityMap.GetLength(1) && MapArray[x_center, y_center + 1]==3)
             {
                 // Making it visible
                 MapArray[x_center, y_center +1 ] = VisibilityMap[x_center, y_center+1];
 
-                if (VisibilityMap[x_center, y_center+1] == 1)
+                // refreshing the min X
+                if (MaxVisibleSizeOnY < y_center + 1) MaxVisibleSizeOnY = y_center + 1;
+
+                // Assigning a new step if it's a ground
+                if (MapArray[x_center, y_center + 1] == 1)
                 {
                     //in addition; if it is a ground, then we can add it to the to-do list
                     ToDoList.Add(new int[] { x_center, y_center +1});
@@ -273,18 +300,23 @@ public class CubeManager : MonoBehaviour {
 
     public void ChangeTile(int x, int y, int tileSpriteId, Tilemap tilemap) 
     {
+        // Creating some different colour shades randomly
         System.Random rnd = new();
-        float randomColorModifier = 1f-0.005f*rnd.Next(10);
+        float randomColorModifierRed = 1f- 0.005f * rnd.Next(10);
+        float randomColorModifierGreen = 1f - 0.005f * rnd.Next(10);
+        float randomColorModifierBlue = 1f - 0.005f * rnd.Next(10);
+
+        //Debug.Log("Blue color will be "+ randomColorModifierBlue+ " and red "+ randomColorModifierRed);
 
         TileChangeData tileChangeData = new()
         {
             position = new Vector3Int(x, y, 0),
             tile = tiles[tileSpriteId],
-            color = new Color(randomColorModifier, randomColorModifier, randomColorModifier, 1),
+            color = new Color(randomColorModifierRed, randomColorModifierGreen, randomColorModifierBlue, 1),
             transform = Matrix4x4.Translate(new Vector3(0, 0.01f * tileOffsetOnYbycm[tileSpriteId], 0))
         };
 
-        tilemap.SetTile(tileChangeData,false);
+        tilemap.SetTile(tileChangeData,true);
 
     }
 
