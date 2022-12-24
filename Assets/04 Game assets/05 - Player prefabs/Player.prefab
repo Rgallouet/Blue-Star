@@ -108,11 +108,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4825727480881646}
   - component: {fileID: 33341453017849712}
-  - component: {fileID: 136175182635988442}
-  - component: {fileID: 54273959975827806}
-  - component: {fileID: 114577651522064216}
+  - component: {fileID: 7041776864734859930}
   - component: {fileID: 114446991491477348}
   - component: {fileID: 114124459078284944}
+  - component: {fileID: 287984827481496823}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -144,55 +143,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525499173515202}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!136 &136175182635988442
-CapsuleCollider:
+--- !u!58 &7041776864734859930
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525499173515202}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &54273959975827806
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525499173515202}
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &114577651522064216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525499173515202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d7dcf53b5b266f47aa818b39e4f1a90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeedMultiplier: 5
-  bodyStatus: 0
-  isUsingGravity: 0
-  groundNormal: {x: 0, y: 0, z: 0}
-  DistanceToGround: 0
-  PlayerVelocity: {x: 0, y: 0, z: 0}
-  ReadyToFly: 0
+  m_Radius: 0.25
 --- !u!114 &114446991491477348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,62 +189,84 @@ MonoBehaviour:
   objectCategory: 0
   CanBeDigged: 5
   CanBeBuilt: 5
+--- !u!50 &287984827481496823
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525499173515202}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1001 &6220360127659560505
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 4132304965265536}
     m_Modifications:
     - target: {fileID: -8900054985385889969, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -7029134292060396793, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: 7643098640743605781, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: -8505323704783602182, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2869340453365021401, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: 5500976737072282222, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: -7767011697637630881, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_SpriteKey
-      value: -2.4543032e+29
+      value: 7.212549e-10
       objectReference: {fileID: 0}
     - target: {fileID: -7026109209009205459, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 3531349562139800152, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: 1053895246685947722, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: -5721295257562271187, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_SpriteKey
-      value: 2.5435273e+34
+      value: 0.00007474755
       objectReference: {fileID: 0}
     - target: {fileID: -5093171376652493281, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_SpriteKey
-      value: 264.72226
+      value: 7.779488e-37
       objectReference: {fileID: 0}
     - target: {fileID: -4980472396650246160, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -7835539475706614727, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: -578907978497545171, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: -4777171455132049616, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 4007717971534535972, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: 8244285090857698550, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: -4701953380966648476, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_SpriteKey
-      value: -1.1777078e-30
+      value: 1.1777078e-30
       objectReference: {fileID: 0}
     - target: {fileID: -4658393607967694256, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
@@ -344,27 +332,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -906215962172297031, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: 3757976363816975210, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: -3389544896276983228, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_SpriteKey
-      value: -2.2112828e+33
+      value: 0.000006498376
       objectReference: {fileID: 0}
     - target: {fileID: -2835668774316265369, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_SpriteKey
-      value: 4.5722043e+33
+      value: 0.000013436501
       objectReference: {fileID: 0}
     - target: {fileID: -2752552281967838618, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_SpriteKey
-      value: -4.026207e+29
+      value: 0.0000000011831959
       objectReference: {fileID: 0}
     - target: {fileID: -1867690587127405933, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_SpriteKey
-      value: -1.1541398e-35
+      value: 1.1541398e-35
       objectReference: {fileID: 0}
     - target: {fileID: -297587800761805698, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
@@ -374,48 +362,48 @@ PrefabInstance:
     - target: {fileID: -229940049907607642, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_SpriteKey
-      value: 1.2774959e+38
+      value: 0.3754223
       objectReference: {fileID: 0}
     - target: {fileID: 37267888769357161, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -7558179007684699362, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: 6904845261675937967, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: 180899989032680168, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3228196858572536358, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: -7960218207223714398, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: 840591570650603302, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -6290794441235328955, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: 4336720945174696970, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: 1646143939727644834, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_SpriteKey
-      value: -1.5653485e-13
+      value: 1.5653485e-13
       objectReference: {fileID: 0}
     - target: {fileID: 2280350580727255371, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -4384224239443680444, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: 7219979743272382565, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: 3462413564913308229, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 7128008609725391500, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: 1409791335547448180, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: 4496959611049806343, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 3988315816652854388, guid: a5a1214d68105334eb6fda8f6ee30df6,
+      objectReference: {fileID: 6351799523598780835, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
     - target: {fileID: 5066457635751937280, guid: a5a1214d68105334eb6fda8f6ee30df6,
         type: 3}
@@ -423,6 +411,7 @@ PrefabInstance:
       value: 1.3212892e-34
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: -198880655749741927, guid: a5a1214d68105334eb6fda8f6ee30df6,
     type: 3}
 --- !u!4 &7568623691140197481 stripped

@@ -7,23 +7,26 @@ public class CubeManager : MonoBehaviour {
 
     public SaveAndLoad saveAndLoad;
     public CityGUI cityGUI;
+
     public Transform PlayerPrefab;
     public Transform playerInstantiated;
 
+    // TileMaps to interact with
     public Tilemap tileMapGround;
     public Tilemap tileMapWall;
 
+    // Repository of tile assets
+    public Tile[] tiles;
 
-    // Density function 
-    public int AdditiveFactor= 50;
-    public int MultiplicativeFactor = 1;
-    public int MaximumExcess = 150;
+    // references on tiles
+    private string[] tileName;
+    private string[] tileType;
+    private string[] tileDescription;
+    private int[] tileOffsetOnYbycm;
 
     //Temporary objects
-    public int MapSizeOnX;
-    public int MapSizeOnZ;
 
-    public string[,] TileMap;
+    public int[,] TileMap;
     public int[,] VisibilityMap;
 
     private int[,] Visible;
@@ -31,11 +34,11 @@ public class CubeManager : MonoBehaviour {
 
 
     // Generation offsetting
-    float xOffset = 0.5f;
-    float yOffset = 0.75f;
-    float zOffset = 0.5f;
+    readonly float xOffset = 0.5f;
+    readonly float yOffset = 0.5f;
+    readonly float zOffset = 0.75f;
     readonly int xStartingPoint = 100;
-    int zStartingPoint = 100;
+    readonly int yStartingPoint = 100;
 
 
     //Generation vectors
@@ -49,30 +52,39 @@ public class CubeManager : MonoBehaviour {
 
     public void GenerateMap() {
 
+        // Getting the references on tile assets
+        (tileName, tileType, tileDescription, tileOffsetOnYbycm) = saveAndLoad.LoadTileReferences();
+
+        // Generate or Load the map information
         (TileMap, VisibilityMap) = GettingTheMap();
         
+        // Calculate what should be visible
         Visible = CalculateTheVisibleArea(VisibilityMap);
 
-        
-        //Generating the Cubes
-        for (int x = 0 ; x <= MapSizeOnX; x++)
+        //Generating the tiles
+        for (int x = 0 ; x < TileMap.GetLength(0); x++)
         {
-            for (int z = 0; z <= MapSizeOnZ; z++)
+            for (int y = 0; y < TileMap.GetLength(1); y++)
             {
-                if (Visible[x,z] == 1)
+
+                //Debug.Log("Should I generate tile at x=" + x + ", y=" + y + ", with tile ID=" + TileMap[x, y] + ", and visibility=" + Visible[x, y]+"?");
+
+                if (Visible[x,y] == 1)
                 {
-                    tileMapGround.SetTile(new Vector3Int(x,0,z), TileMap[x,z]);
+                    ChangeTile(x, y, TileMap[x, y], tileMapGround);
+                    //Debug.Log("Creating a ground at x=" + x + " and y=" + y + "with tile nammed " + tiles[TileMap[x, y]].name);
                 }
 
-                if (Visible[x, z] == 2)
+                if (Visible[x, y] == 2)
                 {
-                    tileMapWall.SetTile(new Vector3Int(x, 0, z), TileMap[x, z]);
+                    ChangeTile(x, y, TileMap[x, y], tileMapWall); 
+                    //Debug.Log("Creating a wall at x=" + x + " and y=" + y + "with tile nammed " + tiles[TileMap[x, y]].name);
                 }
             }
         }
 
         // Generating the hero
-        playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + xStartingPoint, yOffset, zOffset + zStartingPoint), Quaternion.Euler(0, 0, 0) );
+        playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + xStartingPoint*0.25f - yStartingPoint*0.25f, yOffset + xStartingPoint * 0.25f + yStartingPoint * 0.25f, zOffset), Quaternion.Euler(0, 0, 0) );
         playerInstantiated.GetComponentInChildren<GameObjectInformation>().baseCharacter = saveAndLoad.LoadCharacterFromDataBase((long)1);
 
 
@@ -81,7 +93,7 @@ public class CubeManager : MonoBehaviour {
 
 
 
-    public (string[,] TileMap, int[,] VisibilityMap) GettingTheMap()
+    public (int[,] TileMap, int[,] VisibilityMap) GettingTheMap()
     {
         // hardcoding for now
         string MapName = "Undercity";
@@ -125,55 +137,105 @@ public class CubeManager : MonoBehaviour {
 
     public int[,] CalculateTheVisibleArea(int[,] VisibilityMap) {
 
+        // Creating a matrix the  size of the map
         int[,] MapArray = new int[VisibilityMap.GetLength(0), VisibilityMap.GetLength(1)];
 
-        //Starting the To Do List from the character starting point
-        ArrayList ToDoList = new();
-        ToDoList.Add(new int[] { xStartingPoint, zStartingPoint });
+        // Defulting the matrix to invisible
 
-
-        // Finishing all the to do spaces to reveal the map
-        int failsafe = 0;
-        while (ToDoList.Count > 0 && failsafe < 100000) {
-
-            failsafe++;
-            int x_center = ((int[])ToDoList[0])[0];
-            int z_center = ((int[])ToDoList[0])[1];
-
-            // Allocate the visibility to the tile
-            MapArray[x_center, z_center] = VisibilityMap[x_center, z_center];
-            ToDoList.RemoveAt(0);
-
-            // if the tile is a ground, add all surrounding tiles without visibility to the backlog
-            if (MapArray[x_center, z_center]==1)
+        for (int x = 0; x < VisibilityMap.GetLength(0); x++)
+        {
+            for (int y = 0; y < VisibilityMap.GetLength(1); y++)
             {
-                for (int x = x_center - 1; x < x_center + 2; x++)
-                {
-                    for (int z = z_center - 1; z < z_center + 2; z++)
-                    {
-                        if ((z != z_center || x != x_center) && (MapArray[x, z] != 1) && (MapArray[x, z] != 2))
-                        {
-                            ToDoList.Add(new int[] { x, z });
-                        }
-                    }
-                }
-
-
-            }
-
-            // setting all remaining tiles to invisible
-
-            for (int x = 0; x <= VisibilityMap.GetLength(0); x++)
-            {
-                for (int z = 0; z <= VisibilityMap.GetLength(1); z++)
-                {
-                    if ( (MapArray[x, z] != 1) && (MapArray[x, z] != 2) )
-                    {
-                        MapArray[x, z] = 3;
-                    }
-                }
+                MapArray[x, y] = 3;
             }
         }
+
+        //Assigning the visibility of the starting point at 1
+        MapArray[xStartingPoint, yStartingPoint] = 1;
+
+        //Starting the To Do List from the character starting point
+        ArrayList ToDoList = new()
+        {
+            //First element should be starting point
+            new int[] { xStartingPoint, yStartingPoint }
+        };
+
+        // Counting how many ground cells so far
+        int failsafe = 1;
+
+        // Finishing all the to do spaces to reveal the map
+        while (ToDoList.Count > 0 && failsafe < 100000) 
+        {
+
+            int x_center = ((int[])ToDoList[0])[0];
+            int y_center = ((int[])ToDoList[0])[1];
+
+            // Remove the current item from the list
+            ToDoList.RemoveAt(0);
+
+            //Checking the x-1 cell
+            if (x_center - 1 >= 0)
+            {
+                // Making it visible
+                MapArray[x_center - 1, y_center] = VisibilityMap[x_center - 1, y_center];
+
+                if (VisibilityMap[x_center - 1, y_center] == 1)
+                {
+                    //in addition; if it is a ground, then we can add it to the to-do list
+                    ToDoList.Add(new int[] { x_center - 1, y_center });
+                    failsafe++;
+                }
+            }
+
+
+            //Checking the x+1 cell
+            if (x_center + 1 <= VisibilityMap.GetLength(0))
+            {
+                // Making it visible
+                MapArray[x_center + 1, y_center] = VisibilityMap[x_center + 1, y_center];
+
+                if (VisibilityMap[x_center + 1, y_center] == 1)
+                {
+                    //in addition; if it is a ground, then we can add it to the to-do list
+                    ToDoList.Add(new int[] { x_center + 1, y_center });
+                    failsafe++;
+                }
+            }
+
+            //Checking the y-1 cell
+            if (y_center - 1 >= 0)
+            {
+                // Making it visible
+                MapArray[x_center, y_center-1] = VisibilityMap[x_center, y_center-1];
+
+                if (VisibilityMap[x_center, y_center-1] == 1)
+                {
+                    //in addition; if it is a ground, then we can add it to the to-do list
+                    ToDoList.Add(new int[] { x_center, y_center-1 });
+                    failsafe++;
+                }
+            }
+
+
+            //Checking the y+1 cell
+            if (y_center + 1 <= VisibilityMap.GetLength(1))
+            {
+                // Making it visible
+                MapArray[x_center, y_center +1 ] = VisibilityMap[x_center, y_center+1];
+
+                if (VisibilityMap[x_center, y_center+1] == 1)
+                {
+                    //in addition; if it is a ground, then we can add it to the to-do list
+                    ToDoList.Add(new int[] { x_center, y_center +1});
+                    failsafe++;
+                }
+            }
+
+
+
+        }
+
+        Debug.Log("To display: "+ failsafe+ " ground tiles are visibles along with their surroundings.");
 
         return MapArray;
     }
@@ -186,20 +248,18 @@ public class CubeManager : MonoBehaviour {
         //Getting latest Visible grid
         NewVisible = CalculateTheVisibleArea(VisibilityMap);
 
-        for (int x = 0; x < MapSizeOnX; x++)
+        for (int x = 0; x < TileMap.GetLength(0); x++)
         {
-            for (int z = 0; z < MapSizeOnZ; z++)
+            for (int y = 0; y < TileMap.GetLength(1); y++)
             {
-                if (Visible[x,z] == 3 && NewVisible[x,z] == 1)
+                if (Visible[x,y] == 3 && NewVisible[x,y] == 1)
                 {
-                    tileMapGround.SetTile(new Vector3Int(x, 0, z), TileMap[x, z]);
-                    
+                    ChangeTile(x, y, TileMap[x, y], tileMapGround);
                 }
 
-                if (Visible[x, z] == 3 && NewVisible[x, z] == 2)
+                if (Visible[x, y] == 3 && NewVisible[x, y] == 2)
                 {
-
-                    tileMapWall.SetTile(new Vector3Int(x, 0, z), TileMap[x, z]);
+                    ChangeTile(x, y, TileMap[x, y], tileMapWall);
 
                 }
 
@@ -209,6 +269,27 @@ public class CubeManager : MonoBehaviour {
         Visible = NewVisible;
 
     }
+
+
+    public void ChangeTile(int x, int y, int tileSpriteId, Tilemap tilemap) 
+    {
+        System.Random rnd = new();
+        float randomColorModifier = 1f-0.005f*rnd.Next(10);
+
+        TileChangeData tileChangeData = new()
+        {
+            position = new Vector3Int(x, y, 0),
+            tile = tiles[tileSpriteId],
+            color = new Color(randomColorModifier, randomColorModifier, randomColorModifier, 1),
+            transform = Matrix4x4.Translate(new Vector3(0, 0.01f * tileOffsetOnYbycm[tileSpriteId], 0))
+        };
+
+        tilemap.SetTile(tileChangeData,false);
+
+    }
+
+
+
 
 
 }

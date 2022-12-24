@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class SaveAndLoad : MonoBehaviour
 {
@@ -435,32 +436,6 @@ public class SaveAndLoad : MonoBehaviour
         return Character;
     }
 
-    public void SavePlayerCityInDataBase(int[,] Map, int[,] Sprite)
-    {
-        
-                
-        // Getting the dimensions of the map
-        ZoneConstructionDetail zoneConstructionDetail = LoadMapDimension("UnderCity");
-
-        // Saving row by row
-        for (int i = 0; i < zoneConstructionDetail.MapSizeOnX[2]; i++)
-        {
-            string query = "INSERT into CityMap VALUES ";
-
-            for (int j = 0; j < zoneConstructionDetail.MapSizeOnZ[2] - 1; j++)
-            {
-                query += "(" + (i + 1) + "," + (j + 1) + "," + Map[i, j] + "," + Sprite[i, j] + "),";
-            }
-
-            // Saving the status of the city by batch of X size dimension
-            dataBaseManager.RunQuery(query + "(" + (i + 1) + "," + (zoneConstructionDetail.MapSizeOnZ[2] - 1) + "," + Map[i, zoneConstructionDetail.MapSizeOnZ[2] - 1] + "," + Sprite[i, zoneConstructionDetail.MapSizeOnZ[2] - 1] + ")");
-
-        }
-
-        // Saving the status of the city
-        dataBaseManager.RunQuery("UPDATE PlayerAccountStats SET CurrentCityRegion = 1;");
-
-    }
 
     public void UpdateCityData(string Tile, int Visibility, int x, int z)
     {
@@ -472,25 +447,27 @@ public class SaveAndLoad : MonoBehaviour
 
     }
 
-    public (string[,] TileMap, int[,] VisibilityMap) LoadPlayerCityFromDataBase()
+    public (int[,] TileMap, int[,] VisibilityMap) LoadPlayerCityFromDataBase()
     {
+
         // Getting the dimensions of the map
-        int MapSizeOnX = (int)((ArrayList)dataBaseManager.getArrayData("select max(X) from CityMap")[1])[0];
-        int MapSizeOnZ = (int)((ArrayList)dataBaseManager.getArrayData("select max(Z) from CityMap")[1])[0];
+        int MapSizeOnX = Convert.ToInt32(((ArrayList)dataBaseManager.getArrayData("select count(distinct X) from CityMap")[1])[0]);
+        int MapSizeOnY = Convert.ToInt32(((ArrayList)dataBaseManager.getArrayData("select count(distinct Y) from CityMap")[1])[0]);
+
 
         // Getting the map details
-        ArrayList PlayerCity = dataBaseManager.getArrayData("select * from CityMap");
+        ArrayList PlayerCity = dataBaseManager.getArrayData("select * from CityMap order by X, Y");
 
-        string[,] TileMap = new string[MapSizeOnX, MapSizeOnZ];
-        int[,] VisibilityMap = new int[MapSizeOnX, MapSizeOnZ];
+        int[,] TileMap = new int[MapSizeOnX, MapSizeOnY];
+        int[,] VisibilityMap = new int[MapSizeOnX, MapSizeOnY];
 
         for (int i = 0; i < MapSizeOnX; i++)
         {
-            for (int j = 0; j < MapSizeOnZ; j++)
+            for (int j = 0; j < MapSizeOnY; j++)
             {
-                TileMap[i, j] =         (string)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[2];
-                VisibilityMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * MapSizeOnX)])[2];
-                //Debug.Log("Loading tile and sprite at x="+(i + 1) + " and z="+(j + 1) +" being tilecode="+ TileMap[i, j]);
+                TileMap[i, j] =         (int)((ArrayList)PlayerCity[1+j + (i * MapSizeOnY)])[2];
+                VisibilityMap[i, j] =   (int)((ArrayList)PlayerCity[1+j + (i * MapSizeOnY)])[3];
+                //Debug.Log("Loading tile and sprite at x="+ i + " and z="+ j +" being tilecode="+ TileMap[i, j] + " with a visibility of "+ VisibilityMap[i, j]);
             }
         }
 
@@ -498,43 +475,35 @@ public class SaveAndLoad : MonoBehaviour
 
     }
 
-    public ZoneConstructionDetail LoadMapDimension(string MapName)
+
+    public (string[] tileName, string[] tileType, string[] tileDescription, int[] tileOffsetOnYbycm) LoadTileReferences()
     {
-        ZoneConstructionDetail zoneConstructionDetail = new();
+
+        // Finding number of sprites
+        int numberOfSprites = Convert.ToInt32(((ArrayList)dataBaseManager.getArrayData("select count(distinct TileSpriteId) from VIEW_TileSpriteCodeDetailed;")[1])[0]);
+        //Debug.Log("Number of tile sprite reference to load " + numberOfSprites);
+
+        // Preparing arrays of the right size
+        string[] tileName = new string[numberOfSprites];
+        string[] tileType = new string[numberOfSprites];
+        string[] tileDescription = new string[numberOfSprites];
+        int[] tileOffsetOnYbycm = new int[numberOfSprites];
+
         // Getting the dimensions of the map
-        ArrayList RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainProbabilities where MapName = '" + MapName + "' order by ZoneID ASC");
+        ArrayList refTileCode = dataBaseManager.getArrayData("select * from VIEW_TileSpriteCodeDetailed order by TileSpriteId ASC;");
 
-        for (int i = 1; i < 4; i++) {
-
-            zoneConstructionDetail.MinMapSizeOnX[i-1] = (int)((ArrayList)RefCitySize[i])[3];
-            zoneConstructionDetail.MinMapSizeOnZ[i - 1] = (int)((ArrayList)RefCitySize[i])[4];
-            zoneConstructionDetail.MapSizeOnX[i - 1] = (int)((ArrayList)RefCitySize[i])[5];
-            zoneConstructionDetail.MapSizeOnZ[i - 1] = (int)((ArrayList)RefCitySize[i])[6];
-
-        }
-
-        return zoneConstructionDetail;
-    }
-
-
-    public TileCode LoadTileReferences()
-    {
-        TileCode tileCode = new();
-        // Getting the dimensions of the map
-        ArrayList refTileCode = dataBaseManager.getArrayData("select * from REF_TileCode order by TileID ASC");
-
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < numberOfSprites; i++)
         {
 
-            tileCode.TileName[i] = (string)((ArrayList)refTileCode[i+1])[1];
-            tileCode.TileType[i] = (string)((ArrayList)refTileCode[i+1])[2];
-            tileCode.TileDescription[i] = (string)((ArrayList)refTileCode[i+1])[3];
-            tileCode.TileNumberSprite[i] = (int)((ArrayList)refTileCode[i+1])[4];
+            tileName[i] = (string)((ArrayList)refTileCode[i+1])[4];
+            tileType[i] = (string)((ArrayList)refTileCode[i+1])[5];
+            tileDescription[i] = (string)((ArrayList)refTileCode[i+1])[6];
+            tileOffsetOnYbycm[i] = (int)((ArrayList)refTileCode[i+1])[3];
 
-
+            //Debug.Log("Loaded reference of "+ tileName[i]+ " on iteration "+ i);
         }
 
-        return tileCode;
+        return (tileName, tileType, tileDescription, tileOffsetOnYbycm);
     }
 
 

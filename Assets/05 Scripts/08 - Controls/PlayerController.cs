@@ -7,12 +7,12 @@ public class PlayerController : MonoBehaviour {
     public float moveSpeed = 1.0f; // movement speed of the player character
     private Animator animator; // the animator controller of the player character
     private Vector3 leftJoystickInput; // holds the input of the Left Joystick
-    private Rigidbody rigidBody; // rigid body component of the player character
+    private Rigidbody2D rigidBody; // rigid body component of the player character
 
     // Use this for initialization
     void Start () {
         leftJoystick = GameObject.FindGameObjectWithTag("Joystick").GetComponentsInChildren<LeftJoystick>()[0];
-        rigidBody = gameObject.GetComponentsInChildren<Rigidbody>()[0];
+        rigidBody = gameObject.GetComponentInChildren<Rigidbody2D>();
         //animator= gameObject.GetComponentsInChildren<Animator>()[0];
     }
 

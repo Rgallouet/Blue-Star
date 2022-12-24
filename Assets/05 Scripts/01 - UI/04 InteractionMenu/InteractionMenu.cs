@@ -89,8 +89,11 @@ public class InteractionMenu : MonoBehaviour {
         // updating the data warehouse
         cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
 
-        // updating the tile
-        cubeManager.tileMapGround.SetTile(new Vector3Int((int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_y), (int)Math.Floor(LastObjectSelected_z)), tileAsset);
+        // removing the wall
+        cubeManager.tileMapWall.SetTile(new Vector3Int((int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_y), (int)Math.Floor(LastObjectSelected_z)), null);
+
+        // Creating the tile
+        //cubeManager.tileMapGround.SetTile(new Vector3Int((int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_y), (int)Math.Floor(LastObjectSelected_z)), tileAsset);
    
         // refreshing visible area
         cubeManager.UpdateTheVisibleArea();
@@ -108,7 +111,7 @@ public class InteractionMenu : MonoBehaviour {
         cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, (int)Math.Floor(LastObjectSelected_x) + 1, (int)Math.Floor(LastObjectSelected_z) + 1);
 
         // updating the tile
-        cubeManager.tileMapGround.SetTile(new Vector3Int((int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_y), (int)Math.Floor(LastObjectSelected_z)), tileAsset);
+        //cubeManager.tileMapGround.SetTile(new Vector3Int((int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_y), (int)Math.Floor(LastObjectSelected_z)), tileAsset);
 
         // refreshing visible area
         cubeManager.UpdateTheVisibleArea();
