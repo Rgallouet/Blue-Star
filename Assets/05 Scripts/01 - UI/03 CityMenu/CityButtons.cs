@@ -49,8 +49,13 @@ public class CityButtons : MonoBehaviour {
 
 
         switch (choice) {
-            case 1: settingsMenu.ActivateMenu(); break;
-            case 2: characterMenu.ActivateMenu(windowsCamera.characterSelected.GetComponentInChildren<GameObjectInformation>().baseCharacter); break;
+            case 1: 
+                settingsMenu.ActivateMenu(); 
+                break;
+            case 2:
+                if (windowsCamera.characterSelected == null) windowsCamera.characterSelected = windowsCamera.cubeManager.playerInstantiated.gameObject;
+                characterMenu.ActivateMenu(windowsCamera.characterSelected.GetComponentInChildren<GameObjectInformation>().baseCharacter); 
+                break;
             case 3: break;
 
         }

@@ -70,10 +70,28 @@ public class PlayerController : MonoBehaviour {
             leftJoystickInput *= moveSpeed;
 
             // rotate the player to face the direction of input
-            if (tempAngle > 0 && tempAngle<= 1.57079 && spriteDirectionSet != SpriteDirectionSet.TopRight) ChangeSpriteDirectionSetTo(SpriteDirectionSet.TopRight);
-            if (tempAngle > 1.57079 && spriteDirectionSet != SpriteDirectionSet.TopLeft) ChangeSpriteDirectionSetTo(SpriteDirectionSet.TopLeft);
-            if (tempAngle < 0 && tempAngle >= -1.57079 && spriteDirectionSet != SpriteDirectionSet.BottomRight) ChangeSpriteDirectionSetTo(spriteDirectionSet = SpriteDirectionSet.BottomRight);
-            if (tempAngle < -1.57079 && spriteDirectionSet != SpriteDirectionSet.BottomLeft) ChangeSpriteDirectionSetTo(SpriteDirectionSet.BottomLeft);
+            if (tempAngle > 0 && tempAngle <= 1.57079 && spriteDirectionSet != SpriteDirectionSet.TopRight)
+            {
+                ChangeSpriteDirectionSetTo(SpriteDirectionSet.TopRight);
+                transform.localScale = new Vector3(1,1,1);
+            }
+            else if (tempAngle > 1.57079 && spriteDirectionSet != SpriteDirectionSet.TopLeft)
+            {
+                ChangeSpriteDirectionSetTo(SpriteDirectionSet.TopLeft);
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else if (tempAngle < 0 && tempAngle >= -1.57079 && spriteDirectionSet != SpriteDirectionSet.BottomRight)
+            {
+                ChangeSpriteDirectionSetTo(spriteDirectionSet = SpriteDirectionSet.BottomRight);
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (tempAngle < -1.57079 && spriteDirectionSet != SpriteDirectionSet.BottomLeft)
+                
+            {
+                ChangeSpriteDirectionSetTo(SpriteDirectionSet.BottomLeft);
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+
 
             if (animator != null)
             {

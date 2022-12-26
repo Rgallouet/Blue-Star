@@ -85,6 +85,9 @@ public class CubeManager : MonoBehaviour {
         // Generating the hero
         playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + xStartingPoint*0.25f - yStartingPoint*0.25f, yOffset + xStartingPoint * 0.25f + yStartingPoint * 0.25f, zOffset), Quaternion.Euler(0, 0, 0) );
         playerInstantiated.GetComponentInChildren<GameObjectInformation>().baseCharacter = saveAndLoad.LoadCharacterFromDataBase((long)1);
+        playerInstantiated.GetComponentInChildren<BodyAppearanceSwapper>().RefreshBodySkin(playerInstantiated.GetComponentInChildren<GameObjectInformation>().baseCharacter.DemonPartChoices, "f");
+        playerInstantiated.GetComponentInChildren<BodyAppearanceSwapper>().RefreshEquipmentSkin();
+
 
 
     }

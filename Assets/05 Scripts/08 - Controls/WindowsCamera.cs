@@ -45,7 +45,7 @@ public class WindowsCamera : MonoBehaviour
 
 
     // zoom limits
-    private readonly float minZoom = 2;
+    private readonly float minZoom = 1;
     private readonly float maxZoom = 5;
 
     // screen moving speed
