@@ -476,7 +476,7 @@ public class SaveAndLoad : MonoBehaviour
     }
 
 
-    public (string[] tileName, string[] tileType, string[] tileDescription, int[] tileOffsetOnYbycm) LoadTileReferences()
+    public (string[] tileName, string[] tileType, string[] tileDescription, int[] tileOffsetOnYbycm, int[] fallingEdgeTileSpriteId) LoadTileReferences()
     {
 
         // Finding number of sprites
@@ -488,6 +488,7 @@ public class SaveAndLoad : MonoBehaviour
         string[] tileType = new string[numberOfSprites];
         string[] tileDescription = new string[numberOfSprites];
         int[] tileOffsetOnYbycm = new int[numberOfSprites];
+        int[] fallingEdgeTileSpriteId = new int[numberOfSprites];
 
         // Getting the dimensions of the map
         ArrayList refTileCode = dataBaseManager.getArrayData("select * from VIEW_TileSpriteCodeDetailed order by TileSpriteId ASC;");
@@ -495,15 +496,16 @@ public class SaveAndLoad : MonoBehaviour
         for (int i = 0; i < numberOfSprites; i++)
         {
 
-            tileName[i] = (string)((ArrayList)refTileCode[i+1])[4];
-            tileType[i] = (string)((ArrayList)refTileCode[i+1])[5];
-            tileDescription[i] = (string)((ArrayList)refTileCode[i+1])[6];
+            tileName[i] = (string)((ArrayList)refTileCode[i+1])[5];
+            tileType[i] = (string)((ArrayList)refTileCode[i+1])[6];
+            tileDescription[i] = (string)((ArrayList)refTileCode[i+1])[7];
             tileOffsetOnYbycm[i] = (int)((ArrayList)refTileCode[i+1])[3];
+            fallingEdgeTileSpriteId[i] = (int)((ArrayList)refTileCode[i + 1])[4];
 
             //Debug.Log("Loaded reference of "+ tileName[i]+ " on iteration "+ i);
         }
 
-        return (tileName, tileType, tileDescription, tileOffsetOnYbycm);
+        return (tileName, tileType, tileDescription, tileOffsetOnYbycm, fallingEdgeTileSpriteId);
     }
 
 

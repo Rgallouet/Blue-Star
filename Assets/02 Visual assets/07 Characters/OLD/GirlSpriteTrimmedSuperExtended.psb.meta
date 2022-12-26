@@ -27,7 +27,7 @@ ScriptedImporter:
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
     vTOnly: 0
-    ignoreMasterTextureLimit: 0
+    ignoreMipmapLimit: 0
     nPOTScale: 1
     sRGBTexture: 1
     spriteMode: 2
@@ -49,6 +49,7 @@ ScriptedImporter:
     flipbookRows: 0
     flipbookColumns: 0
     ignorePngGamma: 0
+    cookieMode: 0
     filterMode: 1
     aniso: 1
     mipBias: 0
@@ -90,6 +91,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
   - name: Head_000
@@ -111,7 +113,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 39, y: 82}
+    uvTransform: {x: 84, y: 396}
+    spritePosition: {x: 45, y: 314}
   - name: RightUpperArm_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +134,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 164, y: -220}
+    uvTransform: {x: 172, y: 4}
+    spritePosition: {x: 8, y: 224}
   - name: RightLowerArm_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -151,7 +155,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 172, y: -64}
+    uvTransform: {x: 176, y: 132}
+    spritePosition: {x: 4, y: 196}
   - name: RightFist_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -171,7 +176,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 264}
+    uvTransform: {x: 4, y: 428}
+    spritePosition: {x: 0, y: 164}
   - name: Body_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -191,7 +197,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 48, y: -92}
+    uvTransform: {x: 84, y: 132}
+    spritePosition: {x: 36, y: 224}
   - name: RightLeg_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -211,7 +218,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: -16, y: -40}
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 20, y: 44}
   - name: LeftLeg_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -231,7 +239,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: -56, y: 172}
+    uvTransform: {x: 4, y: 216}
+    spritePosition: {x: 60, y: 44}
   - name: LeftUpperArm_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -251,7 +260,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 80, y: -48}
+    uvTransform: {x: 176, y: 208}
+    spritePosition: {x: 96, y: 256}
   - name: LeftLowerArm_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -271,7 +281,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 80, y: 80}
+    uvTransform: {x: 176, y: 292}
+    spritePosition: {x: 96, y: 212}
   - name: LeftFist_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -291,7 +302,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 120, y: 14}
+    uvTransform: {x: 216, y: 208}
+    spritePosition: {x: 96, y: 194}
   - name: LeftFoot_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -311,7 +323,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 24, y: -20}
+    uvTransform: {x: 84, y: 4}
+    spritePosition: {x: 60, y: 24}
   - name: RightFoot_000
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -331,7 +344,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 72, y: 252}
+    uvTransform: {x: 84, y: 252}
+    spritePosition: {x: 12, y: 0}
   characterData:
     bones: []
     parts: []
@@ -359,6 +373,7 @@ ScriptedImporter:
   keepDupilcateSpriteName: 0
   skeletonAssetReferenceID: 
   padding: 4
+  spriteSizeExpand: 0
   spriteCategoryList:
     categories: []
   spritePackingTag: 
@@ -738,6 +753,8 @@ ScriptedImporter:
   sharedRigPSDLayers: []
   pSDLayerImportSetting: []
   importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
   generateGOHierarchy: 0
   textureAssetName: GirlSpriteTrimmedSuperExtended Texture
   prefabAssetName: GirlSpriteTrimmedSuperExtended Prefab
