@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 
     // movement tracker
     public float tempAngle; // facing direction
+    public float tempAmplitude; // movement amplitude
     public float xMovementLeftJoystick; // current speed on x after isometric correction
     public float yMovementLeftJoystick; // current speed on y after isometric correction
 
@@ -62,10 +63,13 @@ public class PlayerController : MonoBehaviour {
         // if there is only input from the left joystick
         if (leftJoystickInput != Vector3.zero)
         {
+
+            tempAmplitude = leftJoystickInput.magnitude;
+
             // calculate the player's direction based on angle
             tempAngle = Mathf.Atan2(leftJoystickInput.y, leftJoystickInput.x);
-            xMovementLeftJoystick = leftJoystickInput.magnitude* Mathf.Cos(tempAngle+ angleOffsetDueToIsometricView);
-            yMovementLeftJoystick = leftJoystickInput.magnitude* Mathf.Sin(tempAngle+ angleOffsetDueToIsometricView);
+            xMovementLeftJoystick = tempAmplitude * Mathf.Cos(tempAngle+ angleOffsetDueToIsometricView);
+            yMovementLeftJoystick = tempAmplitude * Mathf.Sin(tempAngle+ angleOffsetDueToIsometricView);
 
             // Moving in the direction of the joystick
             leftJoystickInput = new Vector3(xMovementLeftJoystick, yMovementLeftJoystick, 0);
@@ -103,7 +107,7 @@ public class PlayerController : MonoBehaviour {
 
             if (animator != null)
             {
-                animator.SetFloat("MovingSpeed", leftJoystickInput.magnitude);
+                animator.SetFloat("MovingSpeed", tempAmplitude);
             }
 
             // move the player
