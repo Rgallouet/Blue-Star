@@ -59,14 +59,23 @@ public class CubeManager : MonoBehaviour {
 
     public void GenerateMap() {
 
+        // Starting timer
+        System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
+
         // Getting the references on tile assets
         (tileName, tileType, tileDescription, tileOffsetOnYbycm, fallingEdgeTileSpriteId) = saveAndLoad.LoadTileReferences();
 
         // Generate or Load the map information
         (TileMap, VisibilityMap) = GettingTheMap();
-        
+
+        TimeSpan timespan = timer.Elapsed;
+        Debug.Log(" Timecheck - Map detail is properly collected: " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
         // Calculate what should be visible
         Visible = CalculateTheVisibleArea(VisibilityMap);
+
+        timespan = timer.Elapsed;
+        Debug.Log(" Timecheck - Visibility grid is calculated: " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
 
         //Generating the tiles
         for (int x = 0 ; x < TileMap.GetLength(0); x++)
@@ -82,14 +91,18 @@ public class CubeManager : MonoBehaviour {
             }
         }
 
+        timespan = timer.Elapsed;
+        Debug.Log(" Timecheck - tilemap is generated: " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
         // Generating the hero
         playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + xStartingPoint*0.25f - yStartingPoint*0.25f, yOffset + xStartingPoint * 0.25f + yStartingPoint * 0.25f, zOffset), Quaternion.Euler(0, 0, 0) );
         playerInstantiated.GetComponentInChildren<GameObjectInformation>().baseCharacter = saveAndLoad.LoadCharacterFromDataBase((long)1);
-        playerInstantiated.GetComponentInChildren<BodyAppearanceSwapper>().RefreshBodySkin(playerInstantiated.GetComponentInChildren<GameObjectInformation>().baseCharacter.DemonPartChoices, "f");
-        playerInstantiated.GetComponentInChildren<BodyAppearanceSwapper>().RefreshEquipmentSkin();
+        playerInstantiated.GetComponentInChildren<BodyAppearanceSwapper>().InitialiseSkin();
 
 
-
+        timer.Stop();
+        timespan = timer.Elapsed;
+        Debug.Log(" Timecheck - Player is generated: " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
     }
 
 
@@ -105,7 +118,7 @@ public class CubeManager : MonoBehaviour {
         {
             Debug.Log(MapName + " - Starting from scratch and generating a new map");
 
-            System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
+            
 
             // Selecting a terrain tier (default 1) and updating the database
             cityGUI.account.CurrentCityTier = 1;
@@ -120,10 +133,9 @@ public class CubeManager : MonoBehaviour {
            "DELETE FROM TEMPORARY_CityMap;");
 
 
-            timer.Stop();
-            TimeSpan timespan = timer.Elapsed;
 
-            Debug.Log(MapName + " - Time to create and save the map : " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
+            Debug.Log(MapName + " - Map is generated and saved in database");
 
         }
         // otherwise we load one

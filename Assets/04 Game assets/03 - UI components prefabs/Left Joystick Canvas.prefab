@@ -32,7 +32,7 @@ RectTransform:
   m_Children:
   - {fileID: 224998012949924038}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -53,13 +53,13 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &114138723211703332
 MonoBehaviour:
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!1 &1499594918961258
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,4 +246,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystickStaysInFixedPosition: 1
   joystickHandleDistance: 4
+  inputVector: {x: 0, y: 0, z: 0}
   moveDetectedOnJoystick: 0

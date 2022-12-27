@@ -33,7 +33,7 @@ public class SelectionBox : MonoBehaviour {
             case GameObjectInformation.ObjectCategory.Character:
                 Selectionbox.transform.position = IdlePosition;
                 windowsCamera.characterSelected = SelectedObject;
-                leftJoystick.ActivateJoystick();
+                //leftJoystick.ActivateJoystick();
                 break;
 
             default:

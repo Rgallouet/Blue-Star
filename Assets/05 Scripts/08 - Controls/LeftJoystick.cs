@@ -37,9 +37,6 @@ public class LeftJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoi
     public int moveDetectedOnJoystick;
 
 
-
-
-
     private void Start()
     {
 
@@ -75,11 +72,14 @@ public class LeftJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoi
     // this event happens when there is a drag on screen
     public virtual void OnDrag(PointerEventData ped)
     {
+        //Debug.Log("Event OnDrag has been identified, trigerring the joystick routine. current position is x="+ ped.position.x+" and y="+ ped.position.y);
         Vector2 localPoint = Vector2.zero; // resets the localPoint out parameter of the RectTransformUtility.ScreenPointToLocalPointInRectangle function on each drag event
 
         // if the point touched on the screen is within the background image of this joystick
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(bgImage.rectTransform, ped.position, ped.pressEventCamera, out localPoint))
         {
+            //Debug.Log("Event OnDrag occured inside the joystick background image");
+
             // starting a movement
             moveDetectedOnJoystick = 3;
             /*
@@ -146,12 +146,14 @@ public class LeftJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoi
     // this event happens when there is a touch down (or mouse pointer down) on the screen
     public virtual void OnPointerDown(PointerEventData ped)
     {
+        //Debug.Log("Identified a pointer Down event. current position is x=" + ped.position.x + " and y=" + ped.position.y);
         OnDrag(ped); // sent the event data to the OnDrag event
     }
 
     // this event happens when the touch (or mouse pointer) comes up and off the screen
     public virtual void OnPointerUp(PointerEventData ped)
     {
+        //Debug.Log("Identified a pointer Up event. current position is x=" + ped.position.x + " and y=" + ped.position.y);
         inputVector = Vector3.zero; // resets the inputVector so that output will no longer affect movement of the game object (example, a player character or any desired game object)
         joystickKnobImage.rectTransform.anchoredPosition = Vector3.zero; // resets the handle ("knob") of this joystick back to the center
         moveDetectedOnJoystick = 2; // release the camera from the joystick
