@@ -26,8 +26,8 @@ public class PlayerController : MonoBehaviour {
     public float xMovementLeftJoystick; // current speed on x after isometric correction
     public float yMovementLeftJoystick; // current speed on y after isometric correction
 
-    // animation
-    private Animator animator; // the animator controller of the player character
+
+
     private Rigidbody2D rigidBody; // rigid body component of the player character
 
     //Childs
@@ -36,15 +36,22 @@ public class PlayerController : MonoBehaviour {
     public SpriteDirectionSet spriteDirectionSet;
 
     // Skin modifications
-    public BodyAppearanceSwapper bodyAppearanceSwapper;
+    public BodyAppearanceSwapper bodyAppearanceSwapperFront;
+    public BodyAppearanceSwapper bodyAppearanceSwapperBack;
+
+    // animation
+    public Animator animatorFront; // the animator controller of the player character looking bottom
+    public Animator animatorBack; // the animator controller of the player character looking top
 
 
     // Use this for initialization
     void Start () {
         leftJoystick = GameObject.FindGameObjectWithTag("Joystick").GetComponentsInChildren<LeftJoystick>()[0];
         rigidBody = gameObject.GetComponentInChildren<Rigidbody2D>();
-        animator= gameObject.GetComponentsInChildren<Animator>()[0];
         spriteDirectionSet = SpriteDirectionSet.BottomRight;
+        SwitchingVisibleSpriteTo(animatorFront, animatorBack);
+
+
     }
 
 
@@ -55,9 +62,10 @@ public class PlayerController : MonoBehaviour {
         leftJoystickInput = leftJoystick.GetInputDirection();
 
         // if there is no input on the left joystick
-        if (leftJoystickInput == Vector3.zero && animator != null)
+        if (leftJoystickInput == Vector3.zero && animatorFront != null && animatorBack != null)
         {
-            animator.SetFloat("MovingSpeed", 0f);
+            animatorFront.SetFloat("MovingSpeed", 0f);
+            animatorBack.SetFloat("MovingSpeed", 0f);
         }
 
         // if there is only input from the left joystick
@@ -77,37 +85,16 @@ public class PlayerController : MonoBehaviour {
             leftJoystickInput *= moveSpeed;
 
             // rotate the player to face the direction of input
-            if (tempAngle > 0 && tempAngle <= 1.57079 && spriteDirectionSet != SpriteDirectionSet.TopRight)
-            {
-                if (spriteDirectionSet != SpriteDirectionSet.BottomRight) bodyAppearanceSwapper.MirrorSpriteAppearrance();
-                characterObject.transform.localScale = new Vector3(1, 1, 1);
-                ChangeSpriteDirectionSetTo(SpriteDirectionSet.TopRight);
-
-            }
-            else if (tempAngle > 1.57079 && spriteDirectionSet != SpriteDirectionSet.TopLeft)
-            {
-                if (spriteDirectionSet != SpriteDirectionSet.BottomLeft) bodyAppearanceSwapper.MirrorSpriteAppearrance();
-                characterObject.transform.localScale = new Vector3(-1, 1, 1);
-                ChangeSpriteDirectionSetTo(SpriteDirectionSet.TopLeft);
-            }
-            else if (tempAngle < 0 && tempAngle >= -1.57079 && spriteDirectionSet != SpriteDirectionSet.BottomRight)
-            {
-                if (spriteDirectionSet != SpriteDirectionSet.TopRight) bodyAppearanceSwapper.MirrorSpriteAppearrance();
-                characterObject.transform.localScale = new Vector3(1, 1, 1);
-                ChangeSpriteDirectionSetTo(spriteDirectionSet = SpriteDirectionSet.BottomRight);
-            }
-            else if (tempAngle < -1.57079 && spriteDirectionSet != SpriteDirectionSet.BottomLeft)
-                
-            {
-                if (spriteDirectionSet != SpriteDirectionSet.TopLeft) bodyAppearanceSwapper.MirrorSpriteAppearrance();
-                characterObject.transform.localScale = new Vector3(-1, 1, 1);
-                ChangeSpriteDirectionSetTo(SpriteDirectionSet.BottomLeft);
-            }
+            if (tempAngle > 0 && tempAngle <= 1.57079 && spriteDirectionSet != SpriteDirectionSet.TopRight) ChangeSpriteDirectionSetTo(SpriteDirectionSet.TopRight);
+            else if (tempAngle > 1.57079 && spriteDirectionSet != SpriteDirectionSet.TopLeft) ChangeSpriteDirectionSetTo(SpriteDirectionSet.TopLeft);
+            else if (tempAngle < 0 && tempAngle >= -1.57079 && spriteDirectionSet != SpriteDirectionSet.BottomRight) ChangeSpriteDirectionSetTo(SpriteDirectionSet.BottomRight);
+            else if (tempAngle < -1.57079 && spriteDirectionSet != SpriteDirectionSet.BottomLeft) ChangeSpriteDirectionSetTo(SpriteDirectionSet.BottomLeft);
 
 
-            if (animator != null)
+            if (animatorFront != null && animatorBack != null)
             {
-                animator.SetFloat("MovingSpeed", tempAmplitude);
+                animatorFront.SetFloat("MovingSpeed", tempAmplitude);
+                animatorBack.SetFloat("MovingSpeed", tempAmplitude);
             }
 
             // move the player
@@ -118,7 +105,17 @@ public class PlayerController : MonoBehaviour {
 
     public void ChangeSpriteDirectionSetTo(SpriteDirectionSet newDirection) 
     {
-        spriteDirectionSet = newDirection;
+
+        // Switching Front to back if needed
+        if ((spriteDirectionSet == SpriteDirectionSet.BottomRight || spriteDirectionSet == SpriteDirectionSet.BottomLeft) && (newDirection == SpriteDirectionSet.TopRight || newDirection == SpriteDirectionSet.TopLeft)) SwitchingVisibleSpriteTo(animatorBack, animatorFront);
+        if ((spriteDirectionSet == SpriteDirectionSet.TopRight || spriteDirectionSet == SpriteDirectionSet.TopLeft) && (newDirection == SpriteDirectionSet.BottomRight || newDirection == SpriteDirectionSet.BottomLeft)) SwitchingVisibleSpriteTo(animatorFront, animatorBack);
+
+
+        // mirroring the character if needed
+        if ((spriteDirectionSet == SpriteDirectionSet.BottomRight || spriteDirectionSet == SpriteDirectionSet.TopRight) && (newDirection == SpriteDirectionSet.BottomLeft || newDirection == SpriteDirectionSet.TopLeft)) MirroringSprite();
+        if ((spriteDirectionSet == SpriteDirectionSet.BottomLeft || spriteDirectionSet == SpriteDirectionSet.TopLeft) && (newDirection == SpriteDirectionSet.BottomRight || newDirection == SpriteDirectionSet.TopRight)) MirroringSprite();
+
+        // moving the spot light
         if (lightObject != null)
         {
             switch (newDirection) 
@@ -145,7 +142,33 @@ public class PlayerController : MonoBehaviour {
 
             }
         }
+
+        // Updating the status of the direction
+        spriteDirectionSet = newDirection;
+
     }
+
+    public void SwitchingVisibleSpriteTo(Animator animatorToTurnVisible, Animator animatorToTurnInvisible)
+    {
+
+        foreach (Renderer r in animatorToTurnInvisible.GetComponentsInChildren(typeof(Renderer)))
+        {
+            r.enabled = false;
+        }
+
+        foreach (Renderer r in animatorToTurnVisible.GetComponentsInChildren(typeof(Renderer)))
+        {
+            r.enabled = true;
+        }
+    }
+
+    public void MirroringSprite()
+    {
+        characterObject.transform.localScale = new Vector3(-1* characterObject.transform.localScale.x, characterObject.transform.localScale.y, characterObject.transform.localScale.z);
+        bodyAppearanceSwapperFront.MirrorSpriteAppearrance();
+        bodyAppearanceSwapperBack.MirrorSpriteAppearrance();
+    }
+
 }
 
 

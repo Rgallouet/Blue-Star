@@ -9,7 +9,6 @@ public class BodyAppearanceSwapper : MonoBehaviour
 
     public void InitialiseSkin()
     {
-        gameObjectInformation = transform.GetComponentInParent<Transform>().GetComponentInParent<GameObjectInformation>();
         RefreshBodySkin(gameObjectInformation.baseCharacter.DemonPartChoices);
         RefreshEquipmentSkin();
 
