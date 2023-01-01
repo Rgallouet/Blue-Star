@@ -86,6 +86,8 @@ public class BodyAppearanceSwapper : MonoBehaviour
         UpdateAppearrance("Helmet", 0);
         UpdateAppearrance("Chest", 1);
         UpdateAppearrance("Weapon", 1);
+        UpdateAppearrance("RightWeapon", 2);
+        UpdateAppearrance("LeftWeapon", 0);
         UpdateAppearrance("RightShoulderPad", 1);
         UpdateAppearrance("RightWristBand", 0);
         UpdateAppearrance("RightGlove", 0);
@@ -123,6 +125,7 @@ public class BodyAppearanceSwapper : MonoBehaviour
         SwitchLeftToRight("Glove");
         SwitchLeftToRight("Legging");
         SwitchLeftToRight("Boot");
+        SwitchLeftToRight("Weapon");
 
     }
 
