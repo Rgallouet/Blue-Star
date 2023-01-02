@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System;
 
 public enum SpriteDirectionSet
 {
@@ -43,6 +43,11 @@ public class PlayerController : MonoBehaviour {
     public Animator animatorFront; // the animator controller of the player character looking bottom
     public Animator animatorBack; // the animator controller of the player character looking top
 
+    // delay action
+    public float delay = 0.3f;
+    private bool actionBlocked;
+    public bool actionRequested = false;
+
 
     // Use this for initialization
     void Start () {
@@ -50,7 +55,6 @@ public class PlayerController : MonoBehaviour {
         rigidBody = gameObject.GetComponentInChildren<Rigidbody2D>();
         spriteDirectionSet = SpriteDirectionSet.BottomRight;
         SwitchingVisibleSpriteTo(animatorFront, animatorBack);
-
 
     }
 
@@ -66,6 +70,18 @@ public class PlayerController : MonoBehaviour {
         {
             animatorFront.SetFloat("MovingSpeed", 0f);
             animatorBack.SetFloat("MovingSpeed", 0f);
+
+            if ( actionRequested == true && actionBlocked==false )
+            {
+                animatorFront.SetTrigger("Attack");
+                animatorBack.SetTrigger("Attack");
+                actionBlocked = true;
+                actionRequested = false;
+                StartCoroutine(DelayAction());
+
+            }
+
+
         }
 
         // if there is only input from the left joystick
@@ -102,6 +118,11 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private IEnumerator DelayAction()
+    {
+        yield return new WaitForSeconds(delay);
+        actionBlocked = false;
+    }
 
     public void ChangeSpriteDirectionSetTo(SpriteDirectionSet newDirection) 
     {

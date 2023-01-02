@@ -6,15 +6,11 @@ public class CityButtons : MonoBehaviour {
 
     public Image[] UIButtons = new Image[3];
 
-    public Button ExitMenu;
-
     public WindowsCamera windowsCamera;
 
     public MenuAudio MenuAudio;
     public CharacterMenu characterMenu;
     public SettingsMenu settingsMenu;
-
-    public BaseCharacter selectedCharacter;
 
 	private int MenuOpened;
 
@@ -23,9 +19,7 @@ public class CityButtons : MonoBehaviour {
     private Color32 InactiveMenuColor = new Color32(255, 100, 100,100);
 
     void Start(){
-        ExitMenu.interactable = false;
         MenuAudio.PlayCityAudio();
-        //for (int i = 0; i < 3; i++) UIButtons[i].color = InactiveMenuColor;
         
     }
 
@@ -57,9 +51,26 @@ public class CityButtons : MonoBehaviour {
                 characterMenu.ActivateMenu(windowsCamera.characterSelected.GetComponentInChildren<GameObjectInformation>().baseCharacter); 
                 break;
             case 3: break;
+            case 4:
+                if (windowsCamera.characterSelected == null) windowsCamera.characterSelected = windowsCamera.cubeManager.playerInstantiated.gameObject;
+                windowsCamera.characterSelected.GetComponent<PlayerController>().actionRequested = true;
+                break;
 
         }
-        ExitMenu.interactable = true;
+
+    }
+
+    public void DoAction(int choice)
+    {
+        switch (choice)
+        {
+
+            case 1:
+                if (windowsCamera.characterSelected == null) windowsCamera.characterSelected = windowsCamera.cubeManager.playerInstantiated.gameObject;
+                windowsCamera.characterSelected.GetComponent<PlayerController>().actionRequested = true;
+                break;
+
+        }
 
     }
 
@@ -77,7 +88,6 @@ public class CityButtons : MonoBehaviour {
 
         }
 
-        ExitMenu.interactable = false;
         MenuOpened = 0;
 
     }
