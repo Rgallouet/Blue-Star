@@ -73,8 +73,11 @@ public class PlayerController : MonoBehaviour {
 
             if ( actionRequested == true && actionBlocked==false )
             {
-                animatorFront.SetTrigger("Attack");
-                animatorBack.SetTrigger("Attack");
+                string triggerToUse = "LeftAction";
+                if (spriteDirectionSet == SpriteDirectionSet.BottomRight || spriteDirectionSet == SpriteDirectionSet.TopRight) triggerToUse = "RightAction";
+                
+                animatorFront.SetTrigger(triggerToUse);
+                animatorBack.SetTrigger(triggerToUse);
                 actionBlocked = true;
                 actionRequested = false;
                 StartCoroutine(DelayAction());
