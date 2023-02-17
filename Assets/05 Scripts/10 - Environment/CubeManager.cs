@@ -12,6 +12,7 @@ public class CubeManager : MonoBehaviour {
     public Transform playerInstantiated;
 
     // TileMaps to interact with
+    public Tilemap tileMapOverlay; 
     public Tilemap tileMapGround;
     public Tilemap tileMapWall;
     public Tilemap tileMapEdge;
@@ -368,6 +369,11 @@ public class CubeManager : MonoBehaviour {
 
     public void ChangeTile(int x, int y, int tileSpriteId, int visibility) 
     {
+        // cleaning up any tiles
+        tileMapGround.SetTile(new Vector3Int(x, y, 0), null);
+        tileMapWall.SetTile(new Vector3Int(x, y, 0), null);
+        tileMapEdge.SetTile(new Vector3Int(x, y, 0), null);
+
         // Creating some different colour shades randomly
         System.Random rnd = new();
         float randomColorModifierRed = 1f- 0.005f * rnd.Next(10);

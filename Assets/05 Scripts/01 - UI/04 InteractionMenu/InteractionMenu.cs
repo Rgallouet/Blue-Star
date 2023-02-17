@@ -58,7 +58,7 @@ public class InteractionMenu : MonoBehaviour {
         digThrough = Instantiate(InteractionButton);
         digThrough.GetComponentInChildren<Text>().text = "Dig Throught!";
         digThrough.parent = transform;
-        digThrough.GetComponentInChildren<Button>().onClick.AddListener(() => { UseDigThrough(); });
+        digThrough.GetComponentInChildren<Button>().onClick.AddListener(() => { AchieveActionTile("DigThrough"); });
 
     }
 
@@ -67,7 +67,7 @@ public class InteractionMenu : MonoBehaviour {
         digThrough = Instantiate(InteractionButton);
         digThrough.GetComponentInChildren<Text>().text = "Pave the ground";
         digThrough.parent = transform;
-        digThrough.GetComponentInChildren<Button>().onClick.AddListener(() => { UsePaving(); });
+        digThrough.GetComponentInChildren<Button>().onClick.AddListener(() => { AchieveActionTile("Paving"); });
 
     }
 
@@ -80,42 +80,41 @@ public class InteractionMenu : MonoBehaviour {
 
     }
 
-    public void UseDigThrough() {
+    public void AchieveActionTile(string action) {
 
-        // defining tile to use
-        string tileAsset = "Ground_1";
-        int visibility = 1;
+        // Deciding what needs to be changed - with default being ground
+        int tileAsset=13;
+        int visibility=1;
+
+        switch (action)
+        {
+            case "DigThrough":
+                tileAsset = 13;
+                visibility = 1;
+                break;
+
+            case "Paving":
+                tileAsset = 21;
+                visibility = 1;
+                break;
+
+        }
+            
+        // defining where to change the tile
+        int x = (int)Math.Floor(LastObjectSelected_x);
+        int y = (int)Math.Floor(LastObjectSelected_y);
+
 
         // updating the data warehouse
-        cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
+        cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, x, y);
 
-        // removing the wall
-        cubeManager.tileMapWall.SetTile(new Vector3Int((int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_y), (int)Math.Floor(LastObjectSelected_z)), null);
+        // Creating the tile with tile id 13 (ground 0) and visibility 1
+        cubeManager.ChangeTile(x, y, tileAsset, visibility);
 
-        // Creating the tile
-        //cubeManager.tileMapGround.SetTile(new Vector3Int((int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_y), (int)Math.Floor(LastObjectSelected_z)), tileAsset);
-   
         // refreshing visible area
         cubeManager.UpdateTheVisibleArea();
 
     }
 
-    public void UsePaving()
-    {
-
-        // defining tile to use
-        string tileAsset = "Paved_1";
-        int visibility = 1;
-
-        // updating the data warehouse
-        cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, (int)Math.Floor(LastObjectSelected_x) + 1, (int)Math.Floor(LastObjectSelected_z) + 1);
-
-        // updating the tile
-        //cubeManager.tileMapGround.SetTile(new Vector3Int((int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_y), (int)Math.Floor(LastObjectSelected_z)), tileAsset);
-
-        // refreshing visible area
-        cubeManager.UpdateTheVisibleArea();
-
-    }
 
 }

@@ -66,10 +66,14 @@ public class CityButtons : MonoBehaviour {
         {
 
             case 1:
+                // Digging
                 if (windowsCamera.characterSelected == null) windowsCamera.characterSelected = windowsCamera.cubeManager.playerInstantiated.gameObject;
                 windowsCamera.characterSelected.GetComponent<PlayerController>().actionRequested = true;
                 break;
 
+            case 2:
+                // Do an action
+                break;
         }
 
     }

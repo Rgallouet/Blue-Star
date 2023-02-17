@@ -437,13 +437,13 @@ public class SaveAndLoad : MonoBehaviour
     }
 
 
-    public void UpdateCityData(string Tile, int Visibility, int x, int z)
+    public void UpdateCityData(int TileSpriteId, int Visibility, int x, int y)
     {
         // cleaning any existing record
-        dataBaseManager.RunQuery("DELETE FROM CityMap WHERE " +"X=" + x +" and Y=" + z +";");
+        dataBaseManager.RunQuery("DELETE FROM CityMap WHERE " +"X=" + x +" and Y=" + y +";");
 
         // creating the x and z record
-        dataBaseManager.RunQuery("INSERT INTO CityMap VALUES (" +x + " , " + z + " , " + Tile + " , " + Visibility + " );");
+        dataBaseManager.RunQuery("INSERT INTO CityMap VALUES (" +x + " , " + y + " , " + TileSpriteId + " , " + Visibility + " );");
 
     }
 

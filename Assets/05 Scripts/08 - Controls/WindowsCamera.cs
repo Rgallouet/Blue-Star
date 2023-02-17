@@ -79,7 +79,7 @@ public class WindowsCamera : MonoBehaviour
         if (hit)
         {
             Objectselected = true;
-            selectionBox.Select(hitInfo.transform.gameObject);
+            //selectionBox.Select(hitInfo.transform.gameObject);
             interactionMenu.ActivateMenu(hitInfo.transform.gameObject);
         }
 

@@ -797,16 +797,20 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4000011209446732, guid: a8723ea2a41591d49ad3221957b3b845, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011209446732, guid: a8723ea2a41591d49ad3221957b3b845, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 79.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000011209446732, guid: a8723ea2a41591d49ad3221957b3b845, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000011209446732, guid: a8723ea2a41591d49ad3221957b3b845, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 80.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000011209446732, guid: a8723ea2a41591d49ad3221957b3b845, type: 3}
       propertyPath: m_LocalRotation.w
@@ -832,6 +836,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012336298644, guid: a8723ea2a41591d49ad3221957b3b845,
+        type: 3}
+      propertyPath: cubeManager
+      value: 
+      objectReference: {fileID: 1382347995}
     - target: {fileID: 114000012336298644, guid: a8723ea2a41591d49ad3221957b3b845,
         type: 3}
       propertyPath: leftJoystick
@@ -1180,6 +1189,12 @@ Tilemap:
     type: 3}
   m_PrefabInstance: {fileID: 2042662157}
   m_PrefabAsset: {fileID: 0}
+--- !u!1839735485 &2042662161 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 8459996150442464696, guid: 08017211dbdfb7f48a63871f7294b761,
+    type: 3}
+  m_PrefabInstance: {fileID: 2042662157}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2085752153 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114712003707150006, guid: 87898850c19b3514f8d3fd25acae4a29,
@@ -1215,6 +1230,11 @@ PrefabInstance:
       propertyPath: tileMapGround
       value: 
       objectReference: {fileID: 2042662159}
+    - target: {fileID: 3006640927545007184, guid: a0dbdb2c41f6a1d4a846ce7be91b87d5,
+        type: 3}
+      propertyPath: tileMapOverlay
+      value: 
+      objectReference: {fileID: 2042662161}
     - target: {fileID: 3006640927921404643, guid: a0dbdb2c41f6a1d4a846ce7be91b87d5,
         type: 3}
       propertyPath: m_RootOrder
