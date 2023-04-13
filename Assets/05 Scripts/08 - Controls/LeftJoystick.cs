@@ -73,7 +73,7 @@ public class LeftJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoi
     // this event happens when there is a drag on screen
     public virtual void OnDrag(PointerEventData ped)
     {
-        Debug.Log("Event OnDrag has been identified, trigerring the joystick routine. current position is x="+ ped.position.x+" and y="+ ped.position.y);
+        //Debug.Log("Event OnDrag has been identified, trigerring the joystick routine. current position is x="+ ped.position.x+" and y="+ ped.position.y);
         Vector2 localPoint = Vector2.zero; // resets the localPoint out parameter of the RectTransformUtility.ScreenPointToLocalPointInRectangle function on each drag event
 
 
@@ -155,7 +155,7 @@ public class LeftJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoi
     // this event happens when there is a touch down (or mouse pointer down) on the screen
     public virtual void OnPointerDown(PointerEventData ped)
     {
-        Debug.Log("Identified a pointer Down event. current position is x=" + ped.position.x + " and y=" + ped.position.y);
+        //Debug.Log("Identified a pointer Down event. current position is x=" + ped.position.x + " and y=" + ped.position.y);
         OnDrag(ped); // sent the event data to the OnDrag event
     }
 

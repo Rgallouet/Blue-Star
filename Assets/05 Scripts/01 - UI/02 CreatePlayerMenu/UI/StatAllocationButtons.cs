@@ -12,7 +12,7 @@ public class StatAllocationButtons : MonoBehaviour {
 
     public MenuGUI menuGUI;
 
-	private Canvas StatAllocationMenu;
+	public Canvas StatAllocationMenu;
     public GameObject DisplayStatArea;
 
     public Text[] StatName = new Text[22];
@@ -31,8 +31,6 @@ public class StatAllocationButtons : MonoBehaviour {
 
 
     void Start(){
-
-		StatAllocationMenu = GetComponent<Canvas>();
 
         refData = dataBaseManager.getArrayData("select * from REF_StatsDescription order by StatId asc");
         RefErrors = dataBaseManager.getArrayData("select * from REF_Dialogues where Context='Errors' order by DialogueId asc");

@@ -32,7 +32,7 @@ public class CubeManager : MonoBehaviour {
     public int[,] TileMap;
     public int[,] VisibilityMap;
 
-    private int[,] Visible;
+    public int[,] Visible;
     private int[,] NewVisible;
 
 

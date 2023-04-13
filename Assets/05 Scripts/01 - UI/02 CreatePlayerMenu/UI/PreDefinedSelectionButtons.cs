@@ -10,7 +10,7 @@ public class PreDefinedSelectionButtons : MonoBehaviour
     private ArrayList RefErrors = new ArrayList();
 
 
-    private Canvas PreDefinedSelection;
+    public Canvas PreDefinedSelection;
     public CharacterDisplay characterDisplay;
     //Link to master
     public MenuGUI menuGUI;
@@ -27,7 +27,6 @@ public class PreDefinedSelectionButtons : MonoBehaviour
     void Start()
     {
 
-        PreDefinedSelection = GetComponent<Canvas>();
         PreDefinedSelection.enabled = false;
 
         refData = dataBaseManager.getArrayData("select * from REF_PredefinedCharacters order by CharacterTypeId asc");

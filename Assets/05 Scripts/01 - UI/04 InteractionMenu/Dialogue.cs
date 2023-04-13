@@ -129,7 +129,7 @@ public class Dialogue : MonoBehaviour {
             StartCoroutine(DoFadeIn(2));
         }
         else {
-            Debug.Log("should be here once");
+            //Debug.Log("should be here once");
             Panel.enabled = false;
             Panel.GetComponentsInChildren<Text>()[0].text = " Click anywhere to proceed to the game";
             Panel.GetComponentsInChildren<Text>()[0].alignment = TextAnchor.LowerCenter;

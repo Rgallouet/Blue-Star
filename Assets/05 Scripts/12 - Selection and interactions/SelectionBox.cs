@@ -25,7 +25,8 @@ public class SelectionBox : MonoBehaviour {
 
     public void Select(int x, int y)
     {
-        ArrayList TileInformation = cubeManager.saveAndLoad.dataBaseManager.getArrayData("select TileName, TileType, TileDescription from VIEW_TileSpriteCodeDetailed where TileSpriteId in (select TileSpriteId from CityMap where X='' and y='')");
+
+        ArrayList TileInformation = cubeManager.saveAndLoad.dataBaseManager.getArrayData("select TileName, TileType, TileDescription, Visibility from VIEW_TileSpriteCodeDetailed as a inner join (select TileSpriteId, Visibility from CityMap where X=" + x + " and y=" + y + ") as b on a.TileSpriteId=b.TileSpriteId");
 
         selectionTileName = (string)((ArrayList)TileInformation[1])[0];
         selectionTileType = (string)((ArrayList)TileInformation[1])[1];
@@ -34,6 +35,7 @@ public class SelectionBox : MonoBehaviour {
         selectionX = x;
         selectionY = y;
 
+        Debug.Log("Selected " + selectionTileName + " which is a " + selectionTileType);
 
         switch (selectionTileType)
         {

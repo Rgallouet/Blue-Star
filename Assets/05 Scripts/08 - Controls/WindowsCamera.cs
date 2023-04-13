@@ -1,7 +1,7 @@
 ﻿// Just add this script to your camera. It doesn't need any configuration.
-
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class WindowsCamera : MonoBehaviour
 {
@@ -69,21 +69,22 @@ public class WindowsCamera : MonoBehaviour
 
     }
 
-    public bool SelectObject(Vector2 Target)
+    void SelectObject(Vector2 Target)
     {
 
-        RaycastHit hitInfo = new RaycastHit();
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Target);
 
-        bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Target), out hitInfo);
-        
-        if (hit)
-        {
+        Vector3Int tpos = cubeManager.tileMapGround.WorldToCell(worldPoint);
+
+        Debug.Log("cell at x:" + tpos.x + " , y:" + tpos.y + " , z:" + tpos.z);
+
+        selectionBox.Deselect();
+        if (cubeManager.Visible[tpos.x, tpos.y]!=4)
+        { 
             Objectselected = true;
-            //selectionBox.Select(hitInfo.transform.gameObject);
-            interactionMenu.ActivateMenu(hitInfo.transform.gameObject);
+            selectionBox.Select(tpos.x, tpos.y);
+            //interactionMenu.ActivateMenu(tpos);
         }
-
-        return hit;
     }
 
     void Deselect()
