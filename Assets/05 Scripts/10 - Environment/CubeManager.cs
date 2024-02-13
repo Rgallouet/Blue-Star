@@ -24,7 +24,7 @@ public class CubeManager : MonoBehaviour {
     private string[] tileName;
     private string[] tileType;
     private string[] tileDescription;
-    private int[] tileOffsetOnYbycm;
+    public int[] tileOffsetOnYbycm;
     private int[] fallingEdgeTileSpriteId;
 
     //Temporary objects
@@ -376,9 +376,9 @@ public class CubeManager : MonoBehaviour {
 
         // Creating some different colour shades randomly
         System.Random rnd = new();
-        float randomColorModifierRed = 1f- 0.005f * rnd.Next(10);
-        float randomColorModifierGreen = 1f - 0.005f * rnd.Next(10);
-        float randomColorModifierBlue = 1f - 0.005f * rnd.Next(10);
+        float randomColorModifierRed = 1f- 0.01f * rnd.Next(10);
+        float randomColorModifierGreen = 1f - 0.01f * rnd.Next(10);
+        float randomColorModifierBlue = 1f - 0.01f * rnd.Next(10);
 
         //Debug.Log("Blue color will be "+ randomColorModifierBlue+ " and red "+ randomColorModifierRed);
 

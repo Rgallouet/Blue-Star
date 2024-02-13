@@ -166,18 +166,18 @@ public class SaveAndLoad : MonoBehaviour
         // generating the Leadership cost stats increase
         dataBaseManager.RunQuery(
             "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'LeadershipCost' as ModifierSource, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Strength)) as Strength, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Strength) as INTEGER) as Strength, " +
             "0 as Speed, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Dexterity)) as Dexterity, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Endurance)) as Endurance, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Reflex)) as Reflex, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Resilience)) as Resilience, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Knowledge)) as Knowledge, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Elocution)) as Elocution, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Intellect)) as Intellect, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Influence)) as Influence, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Focus)) as Focus, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Mockery)) as Mockery, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Dexterity) as INTEGER) as Dexterity, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Endurance) as INTEGER) as Endurance, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Reflex) as INTEGER) as Reflex, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Resilience) as INTEGER) as Resilience, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Knowledge) as INTEGER) as Knowledge, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Elocution) as INTEGER) as Elocution, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Intellect) as INTEGER) as Intellect, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Influence) as INTEGER) as Influence, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Focus) as INTEGER) as Focus, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Mockery) as INTEGER) as Mockery, " +
             "0 as Malevolent, 0 as Unmerciful, 0 as Rage, 0 as Phase, 0 as Momentum, 0 as Balance, 0 as Chaos, 0 as Luck, 0 as Perception, 0 as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
             "from CharacterStatsModifiers where CharacterID=" + character.characterID + " and ModifierSource in ('Baseline','HistoryChoices','DemonPartsChoices'); ");
 

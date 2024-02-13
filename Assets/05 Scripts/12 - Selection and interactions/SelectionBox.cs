@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Tilemaps;
+using UnityEngine.WSA;
 
 public class SelectionBox : MonoBehaviour {
 
@@ -37,21 +39,35 @@ public class SelectionBox : MonoBehaviour {
 
         Debug.Log("Selected " + selectionTileName + " which is a " + selectionTileType);
 
+        // defaulting to ground selection effect
+        int TileID = 69;
+
         switch (selectionTileType)
         {
             case "Ground":
-                cubeManager.tileMapOverlay.SetTile(new Vector3Int(x, y, 0), cubeManager.tiles[69]);
+                TileID = 69;
                 break;
 
             case "Wall":
-                cubeManager.tileMapOverlay.SetTile(new Vector3Int(x, y, 0), cubeManager.tiles[70]);
+                TileID = 70;
                 break;
 
             case "Resource":
-                cubeManager.tileMapOverlay.SetTile(new Vector3Int(x, y, 0), cubeManager.tiles[70]);
+                TileID = 70;
                 break;
 
         }
+
+        TileChangeData tileChangeData = new()
+        {
+            position = new Vector3Int(x, y, 0),
+            tile = cubeManager.tiles[TileID],
+            color = new Color(1, 1, 1, 1),
+            transform = Matrix4x4.Translate(new Vector3(0, 0.01f * cubeManager.tileOffsetOnYbycm[TileID], 0))
+        };
+
+        cubeManager.tileMapOverlay.SetTile(tileChangeData, true);
+
 
         //ActionButtonUpdate(SelectedObject, windowsCamera.characterSelected);
 
