@@ -4,17 +4,17 @@ using System.Collections;
 
 public class Dialogue : MonoBehaviour {
 
-    public Canvas dialogueCanvas;
+    private Canvas dialogueCanvas;
 
     public int fadeInTime;
     public int fadeOutTime;
 
-    public Image BackgroundAlpha;
+    
 
-
-    public Image CharacterImage;
-    public Image Center;
-    public Image Panel;
+    private Image BackGroundAlpha;
+    private Image CharacterImage;
+    private Image Center;
+    private Image Panel;
 
     public bool isLoading;
     public bool isIntro;
@@ -22,9 +22,11 @@ public class Dialogue : MonoBehaviour {
     private CanvasGroup canvasGroup;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
 
-        canvasGroup = dialogueCanvas.GetComponent<CanvasGroup>();
+        canvasGroup = transform.GetComponent<CanvasGroup>();
+
+        BackGroundAlpha = canvasGroup.GetComponentsInChildren<Image>()[0];
         CharacterImage = canvasGroup.GetComponentsInChildren<Image>()[1];
         Center = canvasGroup.GetComponentsInChildren<Image>()[2];
         Panel = canvasGroup.GetComponentsInChildren<Image>()[3];
@@ -103,7 +105,7 @@ public class Dialogue : MonoBehaviour {
 
     public void AllowBackground(byte AllowbckgrndInt255) {
 
-        BackgroundAlpha.color = new Color32(0, 0, 0, AllowbckgrndInt255); 
+        BackGroundAlpha.color = new Color32(0, 0, 0, AllowbckgrndInt255); 
 
     }
 
@@ -127,6 +129,7 @@ public class Dialogue : MonoBehaviour {
             StartCoroutine(DoFadeIn(2));
         }
         else {
+            //Debug.Log("should be here once");
             Panel.enabled = false;
             Panel.GetComponentsInChildren<Text>()[0].text = " Click anywhere to proceed to the game";
             Panel.GetComponentsInChildren<Text>()[0].alignment = TextAnchor.LowerCenter;

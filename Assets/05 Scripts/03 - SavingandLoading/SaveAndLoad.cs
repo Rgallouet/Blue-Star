@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class SaveAndLoad : MonoBehaviour
 {
@@ -165,18 +166,18 @@ public class SaveAndLoad : MonoBehaviour
         // generating the Leadership cost stats increase
         dataBaseManager.RunQuery(
             "INSERT into CharacterStatsModifiers Select " + character.characterID + " as CharacterID, 'LeadershipCost' as ModifierSource, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Strength)) as Strength, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Strength) as INTEGER) as Strength, " +
             "0 as Speed, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Dexterity)) as Dexterity, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Endurance)) as Endurance, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Reflex)) as Reflex, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Resilience)) as Resilience, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Knowledge)) as Knowledge, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Elocution)) as Elocution, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Intellect)) as Intellect, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Influence)) as Influence, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Focus)) as Focus, " +
-            "FLOOR(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Mockery)) as Mockery, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Dexterity) as INTEGER) as Dexterity, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Endurance) as INTEGER) as Endurance, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Reflex) as INTEGER) as Reflex, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Resilience) as INTEGER) as Resilience, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Knowledge) as INTEGER) as Knowledge, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Elocution) as INTEGER) as Elocution, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Intellect) as INTEGER) as Intellect, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Influence) as INTEGER) as Influence, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Focus) as INTEGER) as Focus, " +
+            "CAST(" + (character.HistoryChoices.LeadershipCost - 1) + "*0.1*sum(Mockery) as INTEGER) as Mockery, " +
             "0 as Malevolent, 0 as Unmerciful, 0 as Rage, 0 as Phase, 0 as Momentum, 0 as Balance, 0 as Chaos, 0 as Luck, 0 as Perception, 0 as Judgement, 0 as PrimaryStatsToAllocate, 0 as SecondaryStatsToAllocate, 0 as HeroicStatsToAllocate  " +
             "from CharacterStatsModifiers where CharacterID=" + character.characterID + " and ModifierSource in ('Baseline','HistoryChoices','DemonPartsChoices'); ");
 
@@ -249,7 +250,7 @@ public class SaveAndLoad : MonoBehaviour
             baseAccount.AccountName + "' as AccountName, " +
             baseAccount.MaximumLevelReached + " as MaximumLevelReached, " +
             baseAccount.NumberOfDeaths + " as NumberOfDeaths, " +
-            baseAccount.CurrentCityRegion + " as CurrentCityTier, " +
+            baseAccount.CurrentCityTier + " as CurrentCityTier, " +
             baseAccount.CumulativeExperience + " as CumulativeExperience ;");
 
     }
@@ -288,9 +289,9 @@ public class SaveAndLoad : MonoBehaviour
             baseAccount.MaximumLevelReached = (int)((ArrayList)PlayerAccountStatsBefore[1])[2];
         }
 
-        baseAccount.CurrentCityRegion = (int)((ArrayList)PlayerAccountStatsBefore[1])[3];
+        baseAccount.CurrentCityTier = (int)((ArrayList)PlayerAccountStatsBefore[1])[3];
 
-        Debug.Log("Loading account - playerName:'" + baseAccount.AccountName + "'; playerDeaths: " + baseAccount.NumberOfDeaths + "; playerMaximumLevel: " + baseAccount.MaximumLevelReached + "; playerCityExistence: " + baseAccount.CurrentCityRegion + "; playerCumulativeExperience: " + baseAccount.CumulativeExperience);
+        Debug.Log("Loading account - playerName:'" + baseAccount.AccountName + "'; playerDeaths: " + baseAccount.NumberOfDeaths + "; playerMaximumLevel: " + baseAccount.MaximumLevelReached + "; playerCityExistence: " + baseAccount.CurrentCityTier + "; playerCumulativeExperience: " + baseAccount.CumulativeExperience);
 
     }
 
@@ -435,94 +436,78 @@ public class SaveAndLoad : MonoBehaviour
         return Character;
     }
 
-    public void SavePlayerCityInDataBase(int[,] Map, int[,] Sprite)
-    {
-        
-                
-        // Getting the dimensions of the map
-        ZoneConstructionDetail zoneConstructionDetail = LoadMapDimension("UnderCity");
 
-        // Saving row by row
-        for (int i = 0; i < zoneConstructionDetail.MapSizeOnX[2]; i++)
-        {
-            string query = "INSERT into CityMap VALUES ";
-
-            for (int j = 0; j < zoneConstructionDetail.MapSizeOnZ[2] - 1; j++)
-            {
-                query += "(" + (i + 1) + "," + (j + 1) + "," + Map[i, j] + "," + Sprite[i, j] + "),";
-            }
-
-            // Saving the status of the city by batch of X size dimension
-            dataBaseManager.RunQuery(query + "(" + (i + 1) + "," + (zoneConstructionDetail.MapSizeOnZ[2] - 1) + "," + Map[i, zoneConstructionDetail.MapSizeOnZ[2] - 1] + "," + Sprite[i, zoneConstructionDetail.MapSizeOnZ[2] - 1] + ")");
-
-        }
-
-        // Saving the status of the city
-        dataBaseManager.RunQuery("UPDATE PlayerAccountStats SET CurrentCityRegion = 1;");
-
-    }
-
-    public void UpdateCityData(int Tile, int Sprite, int x, int z)
+    public void UpdateCityData(int TileSpriteId, int Visibility, int x, int y)
     {
         // cleaning any existing record
-        dataBaseManager.RunQuery("DELETE FROM CityMap WHERE " +"X=" + x +" and Y=" + z +";");
+        dataBaseManager.RunQuery("DELETE FROM CityMap WHERE " +"X=" + x +" and Y=" + y +";");
 
         // creating the x and z record
-        dataBaseManager.RunQuery("INSERT INTO CityMap VALUES (" +x + " , " + z + " , " + Tile + " , " + Sprite + " );");
+        dataBaseManager.RunQuery("INSERT INTO CityMap VALUES (" +x + " , " + y + " , " + TileSpriteId + " , " + Visibility + " );");
 
     }
 
-    public (int MapSizeOnX, int MapSizeOnZ, int[,] TileMap, int[,] SpriteMap) LoadPlayerCityFromDataBase()
+    public (int[,] TileMap, int[,] VisibilityMap) LoadPlayerCityFromDataBase()
     {
+
         // Getting the dimensions of the map
-        ZoneConstructionDetail zoneConstructionDetail = LoadMapDimension("UnderCity");
-        //Debug.Log("Start loading map looping through " + MapSizeOnX + " in X and " + MapSizeOnZ + " in Z");
+        int MapSizeOnX = Convert.ToInt32(((ArrayList)dataBaseManager.getArrayData("select count(distinct X) from CityMap")[1])[0]);
+        int MapSizeOnY = Convert.ToInt32(((ArrayList)dataBaseManager.getArrayData("select count(distinct Y) from CityMap")[1])[0]);
+
 
         // Getting the map details
-        ArrayList PlayerCity = dataBaseManager.getArrayData("select * from CityMap");
+        ArrayList PlayerCity = dataBaseManager.getArrayData("select * from CityMap order by X, Y");
 
-        int[,] TileMap = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
-        int[,] SpriteMap = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
+        int[,] TileMap = new int[MapSizeOnX, MapSizeOnY];
+        int[,] VisibilityMap = new int[MapSizeOnX, MapSizeOnY];
 
-        for (int i = 0; i < zoneConstructionDetail.MapSizeOnX[2]; i++)
+        for (int i = 0; i < MapSizeOnX; i++)
         {
-            for (int j = 0; j < zoneConstructionDetail.MapSizeOnZ[2]; j++)
+            for (int j = 0; j < MapSizeOnY; j++)
             {
-                TileMap[i, j] =     (int)((ArrayList)PlayerCity[(i + 1) + (j * zoneConstructionDetail.MapSizeOnX[2])])[2];
-                SpriteMap[i, j] =   (int)((ArrayList)PlayerCity[(i + 1) + (j * zoneConstructionDetail.MapSizeOnX[2])])[3];
-                //Debug.Log("Loading tile and sprite at x="+(i + 1) + " and z="+(j + 1) +" being tilecode="+ TileMap[i, j]);
+                TileMap[i, j] =         (int)((ArrayList)PlayerCity[1+j + (i * MapSizeOnY)])[2];
+                VisibilityMap[i, j] =   (int)((ArrayList)PlayerCity[1+j + (i * MapSizeOnY)])[3];
+                //Debug.Log("Loading tile and sprite at x="+ i + " and z="+ j +" being tilecode="+ TileMap[i, j] + " with a visibility of "+ VisibilityMap[i, j]);
             }
         }
 
-        return (zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2], TileMap, SpriteMap);
+        return (TileMap, VisibilityMap);
 
     }
 
-    public ZoneConstructionDetail LoadMapDimension(string MapName)
+
+    public (string[] tileName, string[] tileType, string[] tileDescription, int[] tileOffsetOnYbycm, int[] fallingEdgeTileSpriteId) LoadTileReferences()
     {
-        ZoneConstructionDetail zoneConstructionDetail = new();
+
+        // Finding number of sprites
+        int numberOfSprites = Convert.ToInt32(((ArrayList)dataBaseManager.getArrayData("select count(distinct TileSpriteId) from VIEW_TileSpriteCodeDetailed;")[1])[0]);
+        //Debug.Log("Number of tile sprite reference to load " + numberOfSprites);
+
+        // Preparing arrays of the right size
+        string[] tileName = new string[numberOfSprites];
+        string[] tileType = new string[numberOfSprites];
+        string[] tileDescription = new string[numberOfSprites];
+        int[] tileOffsetOnYbycm = new int[numberOfSprites];
+        int[] fallingEdgeTileSpriteId = new int[numberOfSprites];
+
         // Getting the dimensions of the map
-        ArrayList RefCitySize = dataBaseManager.getArrayData("select * from REF_TerrainProbabilities where MapName = '" + MapName + "' order by ZoneID ASC");
+        ArrayList refTileCode = dataBaseManager.getArrayData("select * from VIEW_TileSpriteCodeDetailed order by TileSpriteId ASC;");
 
-        for (int i = 1; i < 4; i++) {
+        for (int i = 0; i < numberOfSprites; i++)
+        {
 
-            zoneConstructionDetail.MinMapSizeOnX[i-1] = (int)((ArrayList)RefCitySize[i])[3];
-            zoneConstructionDetail.MinMapSizeOnZ[i - 1] = (int)((ArrayList)RefCitySize[i])[4];
-            zoneConstructionDetail.MapSizeOnX[i - 1] = (int)((ArrayList)RefCitySize[i])[5];
-            zoneConstructionDetail.MapSizeOnZ[i - 1] = (int)((ArrayList)RefCitySize[i])[6];
-            zoneConstructionDetail.ProbabilityEmpty[i - 1] = (int)((ArrayList)RefCitySize[i])[7];
-            zoneConstructionDetail.ProbabilityLooseEarth[i - 1] = (int)((ArrayList)RefCitySize[i])[8];
-            zoneConstructionDetail.ProbabilitySolidEarth[i - 1] = (int)((ArrayList)RefCitySize[i])[9];
-            zoneConstructionDetail.ProbabilityRock[i - 1] = (int)((ArrayList)RefCitySize[i])[10];
-            zoneConstructionDetail.ProbabilityObsidian[i - 1] = (int)((ArrayList)RefCitySize[i])[11];
-            zoneConstructionDetail.ProbabilityGoldVein[i - 1] = (int)((ArrayList)RefCitySize[i])[12];
-            zoneConstructionDetail.ProbabilityBloodCrystal[i - 1] = (int)((ArrayList)RefCitySize[i])[13];
+            tileName[i] = (string)((ArrayList)refTileCode[i+1])[5];
+            tileType[i] = (string)((ArrayList)refTileCode[i+1])[6];
+            tileDescription[i] = (string)((ArrayList)refTileCode[i+1])[7];
+            tileOffsetOnYbycm[i] = (int)((ArrayList)refTileCode[i+1])[3];
+            fallingEdgeTileSpriteId[i] = (int)((ArrayList)refTileCode[i + 1])[4];
 
-
+            //Debug.Log("Loaded reference of "+ tileName[i]+ " on iteration "+ i);
         }
 
-        return zoneConstructionDetail;
+        return (tileName, tileType, tileDescription, tileOffsetOnYbycm, fallingEdgeTileSpriteId);
     }
+
 
 
 }

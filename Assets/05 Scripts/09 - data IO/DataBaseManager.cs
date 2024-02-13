@@ -28,7 +28,8 @@ public class DataBaseManager : MonoBehaviour
             Debug.Log("Awaking - No database is available in the persistent data path, hence one will be created using the empty template in : " + filepath);
 
             // Get the template db from Resources
-            TextAsset emptyDataWarehouse = Resources.Load<TextAsset>("DataWarehouse.db");
+            TextAsset emptyDataWarehouse = Resources.Load("DataWarehouse.db") as TextAsset;
+            //TextAsset emptyDataWarehouse = Resources.Load<TextAsset>("DataWarehouse.db");
 
             // then save it in binazy to Application.persistentDataPath
             File.WriteAllBytes(filepath, emptyDataWarehouse.bytes);

@@ -1,7 +1,7 @@
 ﻿// Just add this script to your camera. It doesn't need any configuration.
-
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class WindowsCamera : MonoBehaviour
 {
@@ -10,68 +10,81 @@ public class WindowsCamera : MonoBehaviour
     public CubeManager cubeManager;
     public SelectionBox selectionBox;
     public InteractionMenu interactionMenu;
-    public JoystickMenu joystickMenu;
+    public LeftJoystick leftJoystick;
     public CityButtons cityButtons;
-
-    public bool CharacterViewMode;
     public GameObject characterSelected;
 
+    public Transform skyBoxCameraTracker;
+
+    // inputs
     public int touch;
-    private float zoom;
+    public float zoom;
     public Vector2[] touchPosition;
-    public Vector2 oldTouchPosition_0;
-    public Vector2 oldTouchPosition_1;
 
+    // memory
+    private Vector2 oldTouchPosition_0;
+    private Vector2 oldTouchPosition_1;
     private Vector2 firstPosition;
+    private float oldTouchDistance;
+    private float newTouchDistance;
 
-    public Vector3 MoveCam;
+    // actions
+    private Vector3 MoveCam;
 
-    public float HorizontalSpeedRatio = 2f;
-    public float VerticalSpeedRatio = 4.5f;
 
-    float oldTouchDistance;
-    float newTouchDistance;
-
+    // calculations
     private float x_delta_translation;
-    private float z_delta_translation;
-    public float x_total_translation;
-    public float z_total_translation;
+    private float y_delta_translation;
+    private float x_total_translation;
+    private float y_total_translation;
 
-    public bool HasTheTouchMoved;
-    public bool Objectselected;
-    public bool LiftingFinger;
-    public bool back;
+    private bool HasTheTouchMoved;
+    private bool Objectselected;
+    private bool LiftingFinger;
+    private bool back;
 
 
+    // zoom limits
+    private readonly float minZoom = 1;
+    private readonly float maxZoom = 5;
 
-    private float minZoom = 3;
-    private float maxZoom = 15;
+    // screen moving speed
+    private readonly float HorizontalSpeedRatio = 2f;
+    private readonly float VerticalSpeedRatio = 2f;
 
+    // Platform tracker
+    private bool isMobile;
+
+    private void Start()
+    {
+        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer) isMobile = true;
+    }
 
 
     void Update()
     {
 
-        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)  GetInputFromMobile(); else GetInputFromWindows();
+        if (isMobile==true)  GetInputFromMobile(); else GetInputFromWindows();
+        CityNavigation();
 
-        if (CharacterViewMode == false) CityView(); else CharacterView();
     }
 
-    public bool SelectObject(Vector2 Target)
+    void SelectObject(Vector2 Target)
     {
 
-        RaycastHit hitInfo = new RaycastHit();
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Target);
 
-        bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Target), out hitInfo);
-        
-        if (hit)
-        {
+        Vector3Int tpos = cubeManager.tileMapGround.WorldToCell(worldPoint);
+
+        Debug.Log("cell at x:" + tpos.x + " , y:" + tpos.y + " , z:" + tpos.z);
+
+        selectionBox.Deselect();
+        if (cubeManager.Visible[tpos.x, tpos.y]!=4)
+        { 
             Objectselected = true;
-            selectionBox.Select(hitInfo.transform.gameObject);
-            interactionMenu.ActivateMenu(hitInfo.transform.gameObject);
+            selectionBox.Select(tpos.x, tpos.y);
+            //interactionMenu.ActivateMenu(tpos);
         }
-
-        return hit;
     }
 
     void Deselect()
@@ -81,7 +94,7 @@ public class WindowsCamera : MonoBehaviour
         interactionMenu.DesactivateMenu();
     }
 
-    void CityView() {
+    void CityNavigation() {
 
 
         //select only if i touched and didn't move until i lifted my finger
@@ -93,42 +106,56 @@ public class WindowsCamera : MonoBehaviour
         //deselect if I start moving around
         if ((HasTheTouchMoved == true || back == true) && Objectselected == true) Deselect();
 
-        // Moving around with one finger on the screen
-        if (touch == 1)
+
+        // Tracking the character selected if moving with joystick
+        if(leftJoystick.moveDetectedOnJoystick>=1) 
         {
-                MoveCam = transform.position + transform.TransformDirection(x_delta_translation, 0, z_delta_translation);
-                transform.position = new Vector3(Mathf.Min(Mathf.Max(MoveCam.x, 0), cubeManager.MapSizeOnX - 5), transform.position.y, Mathf.Min(Mathf.Max(MoveCam.z, 0), cubeManager.MapSizeOnZ - 5));
-                oldTouchPosition_0 = touchPosition[0];
+
+            if (characterSelected == null) characterSelected = cubeManager.playerInstantiated.gameObject;
+
+            // Finding distance between character and camera
+            float x_translation = characterSelected.transform.position.x - transform.position.x;
+            float y_translation = characterSelected.transform.position.y - transform.position.y;
+
+            //Moving Camera towards character
+            transform.position = new Vector3(transform.position.x + x_translation * Time.deltaTime, transform.position.y + y_translation * Time.deltaTime, transform.position.z);
+
+            // Moving the skybox to match
+            skyBoxCameraTracker.position = new Vector3(0.95f * transform.position.x, 2.5f + 0.95f * transform.position.y, 0);
         }
-        
-        // Zooming and dezooming
-       GetComponent<Camera>().orthographicSize = Mathf.Max(minZoom, Mathf.Min(maxZoom, GetComponent<Camera>().orthographicSize - zoom));
+        // Moving around with one finger on the screen
+        if (touch == 1 && leftJoystick.moveDetectedOnJoystick<=1)
+        {
+            // resetting the camera to free movement
+            leftJoystick.moveDetectedOnJoystick = 0;
 
+            // Calculating the movement needed
+            MoveCam = transform.position + transform.TransformDirection(x_delta_translation, y_delta_translation, 0);
 
+            // Setting the new position of the camera
+            transform.position = new Vector3(
+                    Mathf.Min(Mathf.Max(MoveCam.x, 0.25f * cubeManager.MinVisibleSizeOnX - 0.25f* cubeManager.MaxVisibleSizeOnY - 5), 0.25f * cubeManager.MaxVisibleSizeOnX - 0.25f * cubeManager.MinVisibleSizeOnY + 5), 
+                    Mathf.Min(Mathf.Max(MoveCam.y, 0.25f * cubeManager.MinVisibleSizeOnX + 0.25f* cubeManager.MinVisibleSizeOnY - 2.5f), 0.25f * cubeManager.MaxVisibleSizeOnX + 0.25f * cubeManager.MaxVisibleSizeOnY + 2.5f), 
+                    transform.position.z);
 
+            // Moving the skybox to match
+            skyBoxCameraTracker.position = new Vector3(0.95f * transform.position.x, 2.5f+0.95f * transform.position.y, 0);
 
-    }
-    
-    void CharacterView()
-    {
+            // Saving the latest position
+            oldTouchPosition_0 = touchPosition[0];
+        }
 
-
-        //select only if i touched and didn't move until i lifted my finger
-        if (LiftingFinger == true && HasTheTouchMoved == false) SelectObject(touchPosition[0]);
-
-        //Get out of the Character view if I click Back
-        if (back == true && Objectselected == false) joystickMenu.DesactivateJoystick();
-
-        //deselect if I start moving around or click back
-        if ( (HasTheTouchMoved == true || back==true ) && Objectselected == true) Deselect();
-
-        // Tracking the character selected
-        float x_translation = characterSelected.transform.position.x - transform.position.x - 3.5f;
-        float z_translation = characterSelected.transform.position.z - transform.position.z - 3.5f;
-        transform.position = new Vector3(transform.position.x + x_translation*Time.deltaTime, transform.position.y, transform.position.z + z_translation * Time.deltaTime);
+        // If joystick was released, then freeing up camera for next touch
+        if (leftJoystick.moveDetectedOnJoystick == 2) leftJoystick.moveDetectedOnJoystick = 1;
 
         // Zooming and dezooming
-        GetComponent<Camera>().orthographicSize = Mathf.Max(minZoom, Mathf.Min(maxZoom, GetComponent<Camera>().orthographicSize - zoom));
+        if (zoom != 0)
+        {
+            float newZoom = Mathf.Max(minZoom, Mathf.Min(maxZoom, GetComponent<Camera>().orthographicSize - zoom));
+            float sizeRatio = (newZoom - minZoom) / (maxZoom - minZoom);
+            GetComponent<Camera>().orthographicSize = newZoom;
+            skyBoxCameraTracker.localScale = new Vector3(1 + sizeRatio, 1 + sizeRatio, 1 + sizeRatio);
+        }
 
 
 
@@ -221,12 +248,12 @@ public class WindowsCamera : MonoBehaviour
     void TouchMoved() {
 
         x_delta_translation = (oldTouchPosition_0.x - touchPosition[0].x) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * HorizontalSpeedRatio;
-        z_delta_translation = (oldTouchPosition_0.y - touchPosition[0].y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
+        y_delta_translation = (oldTouchPosition_0.y - touchPosition[0].y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
 
         x_total_translation = (firstPosition.x - touchPosition[0].x) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * HorizontalSpeedRatio;
-        z_total_translation = (firstPosition.y - touchPosition[0].y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
+        y_total_translation = (firstPosition.y - touchPosition[0].y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
 
-        HasTheTouchMoved = (x_total_translation + z_total_translation > 0.1);
+        HasTheTouchMoved = (x_total_translation + y_total_translation > 0.1);
     }
 
 

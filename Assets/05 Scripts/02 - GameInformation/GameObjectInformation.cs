@@ -17,4 +17,5 @@ public class GameObjectInformation : MonoBehaviour {
     public BaseCharacter baseCharacter;
 
 
+
 }

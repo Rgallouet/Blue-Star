@@ -1,53 +1,92 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Tilemaps;
+using UnityEngine.WSA;
 
 public class SelectionBox : MonoBehaviour {
 
-    private Transform Selectionbox;
     public JoystickMenu leftJoystick;
     public WindowsCamera windowsCamera;
     public InteractionMenu interactionMenu;
+    public CubeManager cubeManager;
 
-    private Vector3 IdlePosition = new Vector3(0, -10, 0);
+    // Selection information
+    public string selectionTileName;
+    public string selectionTileType;
+    public string selectionTileDescription;
+
+    // if there is a unit of building
+    public string selectionEntityName;
+    public string selectionEntityType;
+    public string selectionEntityDescription;
+
+    // position of selection
+    public int selectionX = -1;
+    public int selectionY = -1;
 
 
-    // Use this for initialization
-    void Start () {
-        Selectionbox = GetComponent<Transform>();
-        Selectionbox.transform.position = IdlePosition;
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    public void Select(GameObject SelectedObject)
+    public void Select(int x, int y)
     {
-        switch (SelectedObject.GetComponentInChildren<GameObjectInformation>().objectCategory)
+
+        ArrayList TileInformation = cubeManager.saveAndLoad.dataBaseManager.getArrayData("select TileName, TileType, TileDescription, Visibility from VIEW_TileSpriteCodeDetailed as a inner join (select TileSpriteId, Visibility from CityMap where X=" + x + " and y=" + y + ") as b on a.TileSpriteId=b.TileSpriteId");
+
+        selectionTileName = (string)((ArrayList)TileInformation[1])[0];
+        selectionTileType = (string)((ArrayList)TileInformation[1])[1];
+        selectionTileDescription = (string)((ArrayList)TileInformation[1])[2];
+
+        selectionX = x;
+        selectionY = y;
+
+        Debug.Log("Selected " + selectionTileName + " which is a " + selectionTileType);
+
+        // defaulting to ground selection effect
+        int TileID = 69;
+
+        switch (selectionTileType)
         {
-            case GameObjectInformation.ObjectCategory.Ground:
-                Selectionbox.transform.position = new Vector3(SelectedObject.transform.position.x-0.25f, SelectedObject.transform.position.y + 0.01f, SelectedObject.transform.position.z-0.25f);
+            case "Ground":
+                TileID = 69;
                 break;
 
-            case GameObjectInformation.ObjectCategory.Character:
-                Selectionbox.transform.position = IdlePosition;
-                windowsCamera.characterSelected = SelectedObject;
-                leftJoystick.ActivateJoystick();
+            case "Wall":
+                TileID = 70;
                 break;
 
-            default:
-                Selectionbox.transform.position = new Vector3(SelectedObject.transform.position.x, SelectedObject.transform.position.y + 0.01f, SelectedObject.transform.position.z);
+            case "Resource":
+                TileID = 70;
                 break;
+
         }
 
-        ActionButtonUpdate(SelectedObject, windowsCamera.characterSelected);
+        TileChangeData tileChangeData = new()
+        {
+            position = new Vector3Int(x, y, 0),
+            tile = cubeManager.tiles[TileID],
+            color = new Color(1, 1, 1, 1),
+            transform = Matrix4x4.Translate(new Vector3(0, 0.01f * cubeManager.tileOffsetOnYbycm[TileID], 0))
+        };
+
+        cubeManager.tileMapOverlay.SetTile(tileChangeData, true);
+
+
+        //ActionButtonUpdate(SelectedObject, windowsCamera.characterSelected);
 
     }
 
     public void Deselect()
     {
-        Selectionbox.transform.position = IdlePosition;
+        if (selectionX!=-1) cubeManager.tileMapOverlay.SetTile(new Vector3Int(selectionX, selectionY, 0), null);
+
+        selectionX = -1;
+        selectionY = -1;
+
+        selectionTileName = "";
+        selectionTileType = "";
+        selectionTileDescription = "";
+
+        selectionEntityName="";
+        selectionEntityType="";
+        selectionEntityDescription="";
     }
 
 

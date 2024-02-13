@@ -1,341 +1,364 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class CubeManager : MonoBehaviour {
 
     public SaveAndLoad saveAndLoad;
     public CityGUI cityGUI;
+
     public Transform PlayerPrefab;
     public Transform playerInstantiated;
 
+    // TileMaps to interact with
+    public Tilemap tileMapOverlay; 
+    public Tilemap tileMapGround;
+    public Tilemap tileMapWall;
+    public Tilemap tileMapEdge;
 
-    public ZoneConstructionDetail zoneConstructionDetail;
+    // Repository of tile assets
+    public Tile[] tiles;
 
+    // references on tiles
+    private string[] tileName;
+    private string[] tileType;
+    private string[] tileDescription;
+    public int[] tileOffsetOnYbycm;
+    private int[] fallingEdgeTileSpriteId;
 
-    public Transform[] CubePrefabs;
-    public int[] Probability;
-    public int[] MaxSpriteLimite;
+    //Temporary objects
 
-    // Density function 
-    public int AdditiveFactor= 50;
-    public int MultiplicativeFactor = 1;
-    public int MaximumExcess = 150;
+    public int[,] TileMap;
+    public int[,] VisibilityMap;
 
-    // Variety of Cubes
-    private int NumberofPrefabs = 21;
-    private int ObsidianPrefabRefence = 0;
-    private int StartPrefabRefence = 11;
-    private int EarthCubePrefabRefence = 4;
-
-    public int[,] map;
-    public int[,] sprite;
-    private int[,] Visible;
+    public int[,] Visible;
     private int[,] NewVisible;
 
 
-
     // Generation offsetting
-    float xOffset = 0.5f;
-    float yOffset = 0.75f;
-    float zOffset = 0.5f;
+    readonly float xOffset = 0.5f;
+    readonly float yOffset = 0.5f;
+    readonly float zOffset = 0f;
+    readonly int xStartingPoint = 100;
+    readonly int yStartingPoint = 100;
+
+    //Max visible dimensions
+    public int MaxVisibleSizeOnX;
+    public int MaxVisibleSizeOnY;
+    public int MinVisibleSizeOnX;
+    public int MinVisibleSizeOnY;
 
     //Generation vectors
     Quaternion Setup = Quaternion.identity;
-    Vector3 cubePosition;
 
     // Current cube
     Transform Cube;
 
 
-    void Start() {
 
+
+    public void GenerateMap() {
+
+        // Starting timer
+        System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
+
+        // Getting the references on tile assets
+        (tileName, tileType, tileDescription, tileOffsetOnYbycm, fallingEdgeTileSpriteId) = saveAndLoad.LoadTileReferences();
+
+        // Generate or Load the map information
+        (TileMap, VisibilityMap) = GettingTheMap();
+
+        TimeSpan timespan = timer.Elapsed;
+        Debug.Log(" Timecheck - Map detail is properly collected: " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
+        // Calculate what should be visible
+        Visible = CalculateTheVisibleArea(VisibilityMap);
+
+        timespan = timer.Elapsed;
+        Debug.Log(" Timecheck - Visibility grid is calculated: " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
+        //Generating the tiles
+        for (int x = 0 ; x < TileMap.GetLength(0); x++)
+        {
+            for (int y = 0; y < TileMap.GetLength(1); y++)
+            {
+                //Debug.Log("Should I generate tile at x=" + x + ", y=" + y + ", with tile ID=" + TileMap[x, y] + ", and visibility=" + Visible[x, y]+"?");
+                if (Visible[x,y] != 4)
+                {
+                    ChangeTile(x, y, TileMap[x, y], Visible[x, y]);
+                    //Debug.Log("Creating a ground at x=" + x + " and y=" + y + "with tile nammed " + tiles[TileMap[x, y]].name);
+                }
+            }
+        }
+
+        timespan = timer.Elapsed;
+        Debug.Log(" Timecheck - tilemap is generated: " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+
+        // Generating the hero
+        playerInstantiated = Instantiate(PlayerPrefab, new Vector3(xOffset + xStartingPoint*0.25f - yStartingPoint*0.25f, yOffset + xStartingPoint * 0.25f + yStartingPoint * 0.25f, zOffset), Quaternion.Euler(0, 0, 0) );
+        playerInstantiated.GetComponentInChildren<GameObjectInformation>().baseCharacter = saveAndLoad.LoadCharacterFromDataBase((long)1);
+        playerInstantiated.GetComponentsInChildren<BodyAppearanceSwapper>()[0].InitialiseSkin();
+        playerInstantiated.GetComponentsInChildren<BodyAppearanceSwapper>()[1].InitialiseSkin();
+
+        timer.Stop();
+        timespan = timer.Elapsed;
+        Debug.Log(" Timecheck - Player is generated: " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
     }
 
 
 
-    public void GettingTheMap(string MapName) {
 
-        zoneConstructionDetail = cityGUI.saveAndLoad.LoadMapDimension(MapName);
+    public (int[,] TileMap, int[,] VisibilityMap) GettingTheMap()
+    {
+        // hardcoding for now
+        string MapName = "Undercity";
 
-        if (cityGUI.account.CurrentCityRegion == 0)
+        // if there is no map saved, then we create one
+        if (cityGUI.account.CurrentCityTier == 0)
         {
-            Debug.Log(MapName+" - Starting from scratch and generating a new map");
+            Debug.Log(MapName + " - Starting from scratch and generating a new map");
 
-            System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
+            
 
-            // generating the maps by zone
-            int[,] mapEasy = CalculateTheMap(zoneConstructionDetail, 0);
-            int[,] mapMedium = CalculateTheMap(zoneConstructionDetail, 1);
-            int[,] mapHard = CalculateTheMap(zoneConstructionDetail, 2);
+            // Selecting a terrain tier (default 1) and updating the database
+            cityGUI.account.CurrentCityTier = 1;
+            saveAndLoad.SaveAccountDetails(cityGUI.account);
 
-            // merging the maps together
-            for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
-            {
-                for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
-                {
-                    map[x, z] = mapEasy[x, z] + mapMedium[x, z] + mapHard[x, z];
-
-                }
-            }
+            // Generating a base random map with zone ID
+            saveAndLoad.dataBaseManager.RunQuery(
+           "DELETE FROM TEMPORARY_CityMap;" +
+           "INSERT INTO TEMPORARY_CityMap Select * from VIEW_NewCityMap;" +
+           "DELETE FROM CityMap;" +
+           "INSERT INTO CityMap Select * from VIEW_NewCityMapWithTiles;" +
+           "DELETE FROM TEMPORARY_CityMap;");
 
 
-            //Debug.Log(MapName + " - Successfully generated a new map");
 
-            sprite = CalculateTheSprite();
-            //Debug.Log(MapName + " - Successfully generated the randomised sprites for the map");
 
-            saveAndLoad.SavePlayerCityInDataBase(map, sprite);
-            //Debug.Log(MapName + " - Successfully saved the map");
-
-            timer.Stop();
-            TimeSpan timespan = timer.Elapsed;
-
-            Debug.Log(MapName + " - Time to create and save the map : " + String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
+            Debug.Log(MapName + " - Map is generated and saved in database");
 
         }
+        // otherwise we load one
         else
         {
             Debug.Log(MapName + " - Loading the map saved in database");
-            (zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2], map, sprite) = saveAndLoad.LoadPlayerCityFromDataBase();
-        }
-
-
-    }
-
-
-
-
-    public void GenerateRandomUnderground(string MapName) {
-
-        GettingTheMap(MapName);
-        
-        Visible = CalculateTheVisibleArea(map);
-
-        
-        //Generating the Cubes
-        for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
-        {
-            for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
-            {
-                if (Visible[x,z] != 3)
-                {
-                    GenerateUndergroundElement(map[x,z],sprite[x,z], x, z);
-                }
-                
-            }
-        }
-
-        // Generating the hero
-        playerInstantiated = Instantiate(PlayerPrefab, new Vector3( xOffset + zoneConstructionDetailsHard.MapSizeOnX / 2) +5, 15f, zOffset + (zoneConstructionDetailsHard.MapSizeOnZ / 2) + 5), Quaternion.Euler(0, 0, 0));
-        playerInstantiated.GetComponentInChildren<GameObjectInformation>().baseCharacter = saveAndLoad.LoadCharacterFromDataBase((long)1);
-
-
-
- 
-
-    }
-
-    public int[,] CalculateTheMap(ZoneConstructionDetail zoneConstructionDetail, int ZoneID)
-    {
-
-
-        var random = new System.Random();
-        
-        int[] localProbability = new int[NumberofPrefabs];
-
-        int[,] MapArray = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
-   
-        int diceRoll = 0;
-        int cumulative = 0;
-
-        //Debug.Log("Calculate The Map - prepared for looping on through "+MapSizeOnX+" in X and "+ MapSizeOnZ + " in Z");
-        
-        //Starting Ground
-        for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
-        {
-            for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
-            {
-
-                // Skipping if not in the good zone by equal to zero, for sum in the future
-                if ( (x < zoneConstructionDetail.MinMapSizeOnX[ZoneID] && z < zoneConstructionDetail.MinMapSizeOnZ[ZoneID]) 
-                    ||
-                     (x >= zoneConstructionDetail.MapSizeOnX[ZoneID])
-                    ||
-                     (z >= zoneConstructionDetail.MapSizeOnZ[ZoneID])
-                    )
-                {
-                    MapArray[x, z] = 0;
-
-                }
-                else
-                {
-
-                    //Debug.Log("Calculate The Map - Looping on X="+x+" and Z="+z);
-
-                    // the Strict Borders
-                    if (x == 0 || x == zoneConstructionDetail.MapSizeOnX[2] - 1 || z == 0 || z == zoneConstructionDetail.MapSizeOnZ[2] - 1) { MapArray[x, z] = ObsidianPrefabRefence; }
-                    // the starting ground
-                    else if (x > (MapSizeOnX / 2) + 3 && x < (MapSizeOnX / 2) + 7 && z > (MapSizeOnZ / 2) + 3 && z < (MapSizeOnZ / 2) + 7) { MapArray[x, z] = StartPrefabRefence; }
-                    // the rest
-                    else
-                    {
-                        for (int i = 0; i < NumberofPrefabs; i++) localProbability[i] = Probability[i];
-
-                        localProbability[MapArray[x - 1, z]] = Math.Min(localProbability[MapArray[x - 1, z]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x - 1, z]], Probability[MapArray[x - 1, z]] + MaximumExcess);
-                        localProbability[MapArray[x, z - 1]] = Math.Min(localProbability[MapArray[x, z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x, z - 1]], Probability[MapArray[x, z - 1]] + MaximumExcess);
-                        localProbability[MapArray[x - 1, z - 1]] = Math.Min(localProbability[MapArray[x - 1, z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x - 1, z - 1]], Probability[MapArray[x - 1, z - 1]] + MaximumExcess);
-                        localProbability[MapArray[x + 1, z - 1]] = Math.Min(localProbability[MapArray[x + 1, z - 1]] + AdditiveFactor + MultiplicativeFactor * Probability[MapArray[x + 1, z - 1]], Probability[MapArray[x + 1, z - 1]] + MaximumExcess);
-
-                        int HowMuchDistributionChange = (localProbability[MapArray[x - 1, z]] + localProbability[MapArray[x, z - 1]] + localProbability[MapArray[x - 1, z - 1]] + localProbability[MapArray[x + 1, z - 1]]) - (Probability[MapArray[x - 1, z]] + Probability[MapArray[x, z - 1]] + Probability[MapArray[x - 1, z - 1]] + Probability[MapArray[x + 1, z - 1]]);
-
-                        localProbability[EarthCubePrefabRefence] = localProbability[EarthCubePrefabRefence] - HowMuchDistributionChange;
-
-                        // Debug.Log("How much did the distribution change: " + HowMuchDistributionChange);
-                        // for (int i = 0; i < NumberofPrefabs; i++) Debug.Log ("Prefab "+ i +" - Local prob: "+ localProbability[i] +" , Absolu prob: " + Probability[i]) ;
-
-
-                        diceRoll = random.Next(0, 1000);
-
-                        //Debug.Log("Dice Roll: " + diceRoll + " et la proba obsidienne: " + localProbability[0] + " et le resultat final: " + i);
-                        //Debug.Log("Dice Roll by hundred: " + diceRoll / 100);
-
-                        cumulative = 0;
-
-                        for (int i = 0; i < NumberofPrefabs; i++)
-                        {
-                            cumulative += localProbability[i];
-                            if (diceRoll < cumulative)
-                            {
-                                MapArray[x, z] = i;
-
-                                break;
-                            }
-                        }
-
-                    }
-                
-
-               }
-            }
-        }
-
-        return MapArray;
-
-
-    }
-    
-    public int[,] CalculateTheSprite()
-    {
-
-        int[,] MapArray = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
-
-        //Starting Ground
-        for (int x = 0; x < zoneConstructionDetail.MapSizeOnX[2]; x++)
-        {
-            for (int z = 0; z < zoneConstructionDetail.MapSizeOnZ[2]; z++)
-            {
-                
-                MapArray[x,z] = UnityEngine.Random.Range(0, MaxSpriteLimite[map[x,z]] -1);
-
-            }
-        }
-        return MapArray;
-
-
-    }
-
-    public int[,] CalculateTheVisibleArea(int[,] Map) {
-
-        int[,] MapArray = new int[zoneConstructionDetail.MapSizeOnX[2], zoneConstructionDetail.MapSizeOnZ[2]];
-
-        // initialize starting zone
-        for (int x = (zoneConstructionDetail.MapSizeOnX[2] / 2) + 4; x < (zoneConstructionDetail.MapSizeOnX[2] / 2) + 7; x++)
-        {
-            for (int z = (zoneConstructionDetail.MapSizeOnZ[2] / 2) + 4; z < (zoneConstructionDetail.MapSizeOnZ[2] / 2) + 7; z++)
-            {
-                MapArray[x,z] = 1;
-            }
-        }
-
-        //Starting the To Do List
-        ArrayList ToDoList = new ArrayList();
-
-        // Getting the first "to do" for getting the empty spaces connected to each other at the start zone
-
-        for (int x = (MapSizeOnX / 2) + 3; x < (MapSizeOnX / 2) + 8; x++)
-        {
-            for (int z = (MapSizeOnZ / 2) + 3; z < (MapSizeOnZ / 2) + 8; z++)
-            {
-                if ( (x== (MapSizeOnX / 2) + 3 || x == (MapSizeOnX / 2) + 7 || z == (MapSizeOnZ / 2) + 3 || z == (MapSizeOnZ / 2) + 7) && ( Map[x,z] > 9 && Map[x,z] < 20 ) ) ToDoList.Add(new int[] {x,z});
-            }
-        }
-
-
-        // Finishing all the to do spaces to analyse
-        int failsafe = 0;
-        while (ToDoList.Count > 0 && failsafe < 10000) {
-
-            failsafe = failsafe + 1;
-            int x_center = ((int[])ToDoList[0])[0];
-            int z_center = ((int[])ToDoList[0])[1];
-
-            MapArray[x_center,z_center] = 1;
-            ToDoList.RemoveAt(0);
-
-            for (int x = x_center-1; x < x_center+2; x++)
-            {
-                for (int z = z_center-1; z < z_center+2; z++)
-                {
-                    if ( (z!=z_center || x!=x_center) && Map[x,z] > 9 && Map[x,z] < 20 && MapArray[x,z]!=1) {
-                        ToDoList.Add(new int[] { x, z });
-                    }
-                }
-            }
             
         }
 
-        bool ShouldIbeSeen = false;
-        // Finding all the "transition" state between visible area and invisible area
-        for (int x_center = 0; x_center < MapSizeOnX; x_center++)
+        return saveAndLoad.LoadPlayerCityFromDataBase();
+
+    }
+
+    public int[,] CalculateTheVisibleArea(int[,] VisibilityMap) {
+
+        // Creating a matrix the size of the map
+        int[,] MapArray = new int[VisibilityMap.GetLength(0), VisibilityMap.GetLength(1)];
+
+        // Defaulting the matrix to invisible
+        for (int x = 0; x < VisibilityMap.GetLength(0); x++)
         {
-            for (int z_center = 0; z_center < MapSizeOnZ; z_center++)
+            for (int y = 0; y < VisibilityMap.GetLength(1); y++)
             {
-                if (MapArray[x_center,z_center] != 1) {
-
-                    ShouldIbeSeen = false;
-
-                    for (int x = Mathf.Max(0, x_center - 1); x < Mathf.Min(MapSizeOnX, x_center + 2); x++)
-                    {
-                        for (int z = Mathf.Max(0, z_center - 1); z < Mathf.Min(MapSizeOnZ, z_center + 2); z++)
-                        {
-                            if ((z != z_center || x != x_center) && MapArray[x,z] == 1)  ShouldIbeSeen = true;
-                        }
-                    }
-
-                    if (ShouldIbeSeen == true) MapArray[x_center,z_center] = 2; else MapArray[x_center,z_center] = 3;
-
-                 }
-
+                MapArray[x, y] = 4;
             }
         }
+
+        //Assigning the visibility of the starting point at 1
+        MapArray[xStartingPoint, yStartingPoint] = 1;
+
+        // Initialising the visible dimensions
+        MaxVisibleSizeOnX= xStartingPoint;
+        MaxVisibleSizeOnY= yStartingPoint;
+        MinVisibleSizeOnX= xStartingPoint;
+        MinVisibleSizeOnY= yStartingPoint;
+
+        //Starting the To Do List from the character starting point to find visible tiles
+        ArrayList ToDoList = new()
+        {
+            //First element should be starting point
+            new int[] { xStartingPoint, yStartingPoint }
+        };
+
+        //Starting the a list for generating edges too
+        ArrayList edgeCheckingList = new()
+        {
+            //First element should be starting point
+            new int[] { xStartingPoint, yStartingPoint }
+        };
+
+
+        // Counting how many ground cells so far
+        int visibleTilesToDisplay = 1;
+
+        // Finishing all the to do spaces to reveal the map
+        while (ToDoList.Count > 0 && visibleTilesToDisplay < 100000) 
+        {
+
+            int x_center = ((int[])ToDoList[0])[0];
+            int y_center = ((int[])ToDoList[0])[1];
+
+            // Remove the current item from the list
+            ToDoList.RemoveAt(0);
+
+            //Checking the x-1 cell has not already been assigned or is out of bounds
+            if (x_center - 1 >= 0 && MapArray[x_center - 1, y_center]==4)
+            {
+                // refreshing the min X
+                if (MinVisibleSizeOnX > x_center - 1) MinVisibleSizeOnX = x_center - 1;
+
+                // Checking if the cell at x-1 is a wall or a ground
+                if (VisibilityMap[x_center - 1, y_center] == 2)
+                {
+                    //Assigning for now as a wall
+                    MapArray[x_center - 1, y_center] = 2;
+
+                    //Keep in mind the tile to check later if it needs an edge
+                    edgeCheckingList.Add(new int[] { x_center - 1, y_center });
+
+                }
+                //if not a wall, keep on looping on visible
+                else 
+                {
+                    // assigning it as ground
+                    MapArray[x_center - 1, y_center] = 1;
+
+                    //in addition; if it is a ground, then we can add it to the to-do list
+                    ToDoList.Add(new int[] { x_center - 1, y_center });
+                    visibleTilesToDisplay++;
+                }
+            }
+
+            //Checking the x+1 cell has not already been assigned or is out of bounds
+            if (x_center + 1 <= VisibilityMap.GetLength(0) && MapArray[x_center + 1, y_center]==4)
+            {
+                // refreshing the max X
+                if (MaxVisibleSizeOnX < x_center + 1) MaxVisibleSizeOnX = x_center + 1;
+
+                // Checking if the cell at x-1 is a wall or a ground
+                if (VisibilityMap[x_center + 1, y_center] == 2)
+                {
+                    //Assigning for now as a wall
+                    MapArray[x_center + 1, y_center] = 2;
+
+                    //Keep in mind the tile to check later if it needs an edge
+                    edgeCheckingList.Add(new int[] { x_center + 1, y_center });
+
+                }
+                //if not a wall, keep on looping on visible
+                else
+                {
+                    // assigning it as ground
+                    MapArray[x_center + 1, y_center] = 1;
+
+                    //in addition; if it is a ground, then we can add it to the to-do list
+                    ToDoList.Add(new int[] { x_center + 1, y_center });
+                    visibleTilesToDisplay++;
+                }
+            }
+
+            //Checking the y-1 cell has not already been assigned or is out of bounds
+            if (y_center - 1 >= 0 && MapArray[x_center, y_center - 1]==4)
+            {
+                // refreshing the min Y
+                if (MinVisibleSizeOnY > y_center - 1) MinVisibleSizeOnY = y_center - 1;
+
+                // Checking if the cell at x-1 is a wall or a ground
+                if (VisibilityMap[x_center, y_center - 1] == 2)
+                {
+                    //Assigning for now as a wall
+                    MapArray[x_center, y_center - 1] = 2;
+
+                    //Keep in mind the tile to check later if it needs an edge
+                    edgeCheckingList.Add(new int[] { x_center, y_center - 1 });
+
+                }
+                //if not a wall, keep on looping on visible
+                else
+                {
+                    // assigning it as ground
+                    MapArray[x_center, y_center - 1] = 1;
+
+                    //in addition; if it is a ground, then we can add it to the to-do list
+                    ToDoList.Add(new int[] { x_center, y_center - 1 });
+                    visibleTilesToDisplay++;
+                }
+            }
+
+            //Checking the y+1 cell has not already been assigned or is out of bounds
+            if (y_center + 1 <= VisibilityMap.GetLength(1) && MapArray[x_center, y_center + 1]==4)
+            {
+                // refreshing the max Y
+                if (MaxVisibleSizeOnY < y_center + 1) MaxVisibleSizeOnY = y_center + 1;
+
+                // Checking if the cell at x-1 is a wall or a ground
+                if (VisibilityMap[x_center, y_center + 1] == 2)
+                {
+                    //Assigning for now as a wall
+                    MapArray[x_center , y_center + 1] = 2;
+
+                    //Keep in mind the tile to check later if it needs an edge
+                    edgeCheckingList.Add(new int[] { x_center , y_center + 1 });
+
+                }
+                //if not a wall, keep on looping on visible
+                else
+                {
+                    // assigning it as ground
+                    MapArray[x_center , y_center + 1] = 1;
+
+                    //in addition; if it is a ground, then we can add it to the to-do list
+                    ToDoList.Add(new int[] { x_center , y_center + 1 });
+                    visibleTilesToDisplay++;
+                }
+            }
+
+        }
+
+        Debug.Log("To display: "+ visibleTilesToDisplay + " ground tiles are visibles along with their surroundings.");
+
+        int edgesToDisplay = 0;
+
+        while (edgeCheckingList.Count > 0)
+        {
+            // center at the element
+            int x_center = ((int[])edgeCheckingList[0])[0];
+            int y_center = ((int[])edgeCheckingList[0])[1];
+
+            // Remove the current item from the list
+            edgeCheckingList.RemoveAt(0);
+
+            //Checking if either x-1 or y-1 are fully invisible
+            if (MapArray[x_center - 1, y_center]==4 || MapArray[x_center, y_center-1] == 4)
+            {
+                // if yes; then the tile at the center needs edges
+                MapArray[x_center, y_center] = 3;
+                edgesToDisplay++;
+            }
+        }
+
+        Debug.Log("To display: " + edgesToDisplay + " edges on the border of the map.");
 
         return MapArray;
     }
 
     public void UpdateTheVisibleArea() {
 
-        NewVisible = CalculateTheVisibleArea(map);
+        //Getting latest map details
+        (TileMap, VisibilityMap) = GettingTheMap();
 
-        for (int x = 0; x < MapSizeOnX; x++)
+        //Getting latest Visible grid
+        NewVisible = CalculateTheVisibleArea(VisibilityMap);
+
+        // Checking if any tile has updated its visibility status
+        for (int x = 0; x < TileMap.GetLength(0); x++)
         {
-            for (int z = 0; z < MapSizeOnZ; z++)
+            for (int y = 0; y < TileMap.GetLength(1); y++)
             {
-                if (Visible[x,z] == 3 && NewVisible[x,z] != 3 )
+                if (Visible[x,y] == 4 && NewVisible[x,y] != 4)
                 {
-                    GenerateUndergroundElement(map[x,z], sprite[x,z], x, z);
+                    ChangeTile(x, y, TileMap[x, y], NewVisible[x, y]);
                 }
-
             }
         }
 
@@ -343,24 +366,63 @@ public class CubeManager : MonoBehaviour {
 
     }
 
-    public void GenerateUndergroundElement(int CubeReference,int SpriteRef,int x, int z)
+
+    public void ChangeTile(int x, int y, int tileSpriteId, int visibility) 
     {
+        // cleaning up any tiles
+        tileMapGround.SetTile(new Vector3Int(x, y, 0), null);
+        tileMapWall.SetTile(new Vector3Int(x, y, 0), null);
+        tileMapEdge.SetTile(new Vector3Int(x, y, 0), null);
 
-        if (CubeReference > 9)
+        // Creating some different colour shades randomly
+        System.Random rnd = new();
+        float randomColorModifierRed = 1f- 0.01f * rnd.Next(10);
+        float randomColorModifierGreen = 1f - 0.01f * rnd.Next(10);
+        float randomColorModifierBlue = 1f - 0.01f * rnd.Next(10);
+
+        //Debug.Log("Blue color will be "+ randomColorModifierBlue+ " and red "+ randomColorModifierRed);
+
+        TileChangeData tileChangeData = new()
         {
-            Setup = Quaternion.Euler(0, 0, 0);
-            cubePosition = new Vector3(xOffset + x, 0, zOffset + z);
-        }
-        else
+            position = new Vector3Int(x, y, 0),
+            tile = tiles[tileSpriteId],
+            color = new Color(randomColorModifierRed, randomColorModifierGreen, randomColorModifierBlue, 1),
+            transform = Matrix4x4.Translate(new Vector3(0, 0.01f * tileOffsetOnYbycm[tileSpriteId], 0))
+        };
+
+        if (visibility == 1)
         {
-            Setup = Quaternion.Euler(0, 0, 0);
-            cubePosition = new Vector3(xOffset + x, yOffset, zOffset + z);
+            tileMapGround.SetTile(tileChangeData, true);
         }
 
-        Cube = Instantiate(CubePrefabs[CubeReference], cubePosition, Setup);
-        Cube.name = "Pos_" + x + "_" + z;
-        Cube.GetComponentsInChildren<SpriteSwitcher>()[0].UpdateSprite(SpriteRef);
+        if (visibility == 2)
+        {
+            tileMapWall.SetTile(tileChangeData, true);
+
+        }
+
+        if (visibility == 3)
+        {
+            tileMapWall.SetTile(tileChangeData, true);
+
+            //Debug.Log("tile id to be displayed as edge: " + fallingEdgeTileSpriteId[tileSpriteId]);
+            TileChangeData tileChangeDataEdge = new()
+            {
+                position = new Vector3Int(x, y, 0),
+                tile = tiles[fallingEdgeTileSpriteId[tileSpriteId]],
+                color = new Color(randomColorModifierRed, randomColorModifierGreen, randomColorModifierBlue, 1),
+                transform = Matrix4x4.Translate(new Vector3(0, 0.01f * tileOffsetOnYbycm[fallingEdgeTileSpriteId[tileSpriteId]], 0))
+            };
+
+            tileMapEdge.SetTile(tileChangeDataEdge, true);
+        }
+
+        
 
     }
+
+
+
+
 
 }

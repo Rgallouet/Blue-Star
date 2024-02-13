@@ -18,6 +18,7 @@ public class InteractionMenu : MonoBehaviour {
 
     GameObject LastObjectSelected;
     public float LastObjectSelected_x;
+    public float LastObjectSelected_y;
     public float LastObjectSelected_z;
 
     // Use this for initialization
@@ -37,6 +38,7 @@ public class InteractionMenu : MonoBehaviour {
         objectInteractionMenu.enabled = true;
         LastObjectSelected = gameObject;
         LastObjectSelected_x = gameObject.transform.position.x;
+        LastObjectSelected_y = gameObject.transform.position.y;
         LastObjectSelected_z = gameObject.transform.position.z;
 
         ObjectName.text = gameObject.GetComponentsInChildren <GameObjectInformation>()[0].ObjectName;
@@ -56,7 +58,7 @@ public class InteractionMenu : MonoBehaviour {
         digThrough = Instantiate(InteractionButton);
         digThrough.GetComponentInChildren<Text>().text = "Dig Throught!";
         digThrough.parent = transform;
-        digThrough.GetComponentInChildren<Button>().onClick.AddListener(() => { UseDigThrough(); });
+        digThrough.GetComponentInChildren<Button>().onClick.AddListener(() => { AchieveActionTile("DigThrough"); });
 
     }
 
@@ -65,7 +67,7 @@ public class InteractionMenu : MonoBehaviour {
         digThrough = Instantiate(InteractionButton);
         digThrough.GetComponentInChildren<Text>().text = "Pave the ground";
         digThrough.parent = transform;
-        digThrough.GetComponentInChildren<Button>().onClick.AddListener(() => { UsePaving(); });
+        digThrough.GetComponentInChildren<Button>().onClick.AddListener(() => { AchieveActionTile("Paving"); });
 
     }
 
@@ -78,25 +80,41 @@ public class InteractionMenu : MonoBehaviour {
 
     }
 
-    public void UseDigThrough() {
+    public void AchieveActionTile(string action) {
 
-        GameObject.Destroy(LastObjectSelected);
-        cubeManager.GenerateUndergroundElement(10,0, (int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_z));
-        cubeManager.map[(int)Math.Floor(LastObjectSelected_x),(int)Math.Floor(LastObjectSelected_z)] = 10;
+        // Deciding what needs to be changed - with default being ground
+        int tileAsset=13;
+        int visibility=1;
+
+        switch (action)
+        {
+            case "DigThrough":
+                tileAsset = 13;
+                visibility = 1;
+                break;
+
+            case "Paving":
+                tileAsset = 21;
+                visibility = 1;
+                break;
+
+        }
+            
+        // defining where to change the tile
+        int x = (int)Math.Floor(LastObjectSelected_x);
+        int y = (int)Math.Floor(LastObjectSelected_y);
+
+
+        // updating the data warehouse
+        cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, x, y);
+
+        // Creating the tile with tile id 13 (ground 0) and visibility 1
+        cubeManager.ChangeTile(x, y, tileAsset, visibility);
+
+        // refreshing visible area
         cubeManager.UpdateTheVisibleArea();
-        cubeManager.saveAndLoad.UpdateCityData(10,0, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
 
     }
 
-    public void UsePaving()
-    {
-
-        GameObject.Destroy(LastObjectSelected);
-        cubeManager.GenerateUndergroundElement(11,0, (int)Math.Floor(LastObjectSelected_x), (int)Math.Floor(LastObjectSelected_z));
-        cubeManager.map[(int)Math.Floor(LastObjectSelected_x),(int)Math.Floor(LastObjectSelected_z)] = 11;
-        cubeManager.UpdateTheVisibleArea();
-        cubeManager.saveAndLoad.UpdateCityData(11,0, (int)Math.Floor(LastObjectSelected_x)+1, (int)Math.Floor(LastObjectSelected_z)+1);
-
-    }
 
 }
