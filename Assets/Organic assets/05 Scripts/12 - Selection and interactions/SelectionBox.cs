@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Tilemaps;
-using UnityEngine.WSA;
 using UnityEngine.UI;
 
 public class SelectionBox : MonoBehaviour {
