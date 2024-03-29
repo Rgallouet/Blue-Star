@@ -13,7 +13,7 @@ public enum SpriteDirectionSet
 public class PlayerController : MonoBehaviour {
 
     //Interaction with selection
-    public SelectionBox selectionBox;
+    public SelectionMenu selectionMenu;
 
     // Checking for movement request
     public LeftJoystick leftJoystick; // the game object containing the LeftJoystick script
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         leftJoystick = GameObject.FindGameObjectWithTag("Joystick").GetComponentsInChildren<LeftJoystick>()[0];
-        selectionBox = GameObject.FindGameObjectWithTag("Selection").GetComponentInChildren<SelectionBox>();
+        selectionMenu = GameObject.FindGameObjectWithTag("Selection").GetComponentInChildren<SelectionMenu>();
         rigidBody = gameObject.GetComponentInChildren<Rigidbody2D>();
         rigidBody_x = Convert.ToInt32(Math.Floor( rigidBody.transform.position.x + 2.0f * rigidBody.transform.position.y));
         rigidBody_y = Convert.ToInt32(Math.Floor(-rigidBody.transform.position.x + 2.0f * rigidBody.transform.position.y));
@@ -226,21 +226,21 @@ public class PlayerController : MonoBehaviour {
 
     public void UpdateMovementSelection()
     {
-        selectionBox.Deselect();
+        selectionMenu.Deselect();
 
         switch (spriteDirectionSet)
         {
             case SpriteDirectionSet.TopRight:
-                selectionBox.Select(rigidBody_x + 1, rigidBody_y);
+                selectionMenu.Select(rigidBody_x + 1, rigidBody_y);
                 break;
             case SpriteDirectionSet.BottomRight:
-                selectionBox.Select(rigidBody_x, rigidBody_y - 1);
+                selectionMenu.Select(rigidBody_x, rigidBody_y - 1);
                 break;
             case SpriteDirectionSet.BottomLeft:
-                selectionBox.Select(rigidBody_x - 1, rigidBody_y);
+                selectionMenu.Select(rigidBody_x - 1, rigidBody_y);
                 break;
             case SpriteDirectionSet.TopLeft:
-                selectionBox.Select(rigidBody_x, rigidBody_y + 1);
+                selectionMenu.Select(rigidBody_x, rigidBody_y + 1);
                 break;
         }
 

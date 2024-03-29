@@ -4,24 +4,21 @@ using System.Collections;
 
 public class CityButtons : MonoBehaviour {
 
-
-    public Image[] UIButtons = new Image[3];
-
     public WindowsCamera windowsCamera;
-
     public MenuAudio MenuAudio;
+    public SelectionMenu selectionMenu;
     public CharacterMenu characterMenu;
     public SettingsMenu settingsMenu;
+
 
 	private int MenuOpened;
 
 
-    private Color32 ActiveMenuColor = new Color32(180, 0, 0,255);
-    private Color32 InactiveMenuColor = new Color32(255, 100, 100,100);
+    private Color32 ActiveMenuColor = new Color32(255, 255, 255,255);
+    private Color32 InactiveMenuColor = new Color32(255, 255, 255,100);
 
     void Start(){
         MenuAudio.PlayCityAudio();
-        
     }
 
 
@@ -41,22 +38,24 @@ public class CityButtons : MonoBehaviour {
         MenuOpened = choice;
         MenuAudio.PlayMenuInGameAudio();
 
-
+        gameObject.GetComponentsInChildren<Button>()[MenuOpened - 1].GetComponentInChildren<Text>().color = ActiveMenuColor;
+        gameObject.GetComponentsInChildren<Button>()[MenuOpened - 1].GetComponentInChildren<Image>().color = ActiveMenuColor;
 
         switch (choice) {
-            case 1: 
-                settingsMenu.ActivateMenu(); 
+            case 1:
+                if (windowsCamera.characterSelected == null) windowsCamera.characterSelected = windowsCamera.cubeManager.playerInstantiated.gameObject;
+                windowsCamera.characterSelected.GetComponent<PlayerController>().actionRequested = true;
                 break;
             case 2:
                 if (windowsCamera.characterSelected == null) windowsCamera.characterSelected = windowsCamera.cubeManager.playerInstantiated.gameObject;
                 characterMenu.ActivateMenu(windowsCamera.characterSelected.GetComponentInChildren<GameObjectInformation>().baseCharacter); 
                 break;
             case 3: break;
-            case 4:
-                if (windowsCamera.characterSelected == null) windowsCamera.characterSelected = windowsCamera.cubeManager.playerInstantiated.gameObject;
-                windowsCamera.characterSelected.GetComponent<PlayerController>().actionRequested = true;
+            case 4: break;
+            case 5: break;
+            case 6:
+                settingsMenu.ActivateMenu();
                 break;
-
         }
 
     }
@@ -82,14 +81,21 @@ public class CityButtons : MonoBehaviour {
     public void CloseMenu()
     {
         MenuAudio.PlayCityAudio();
-        UIButtons[MenuOpened-1].GetComponent<Button>().interactable = false;
-        UIButtons[MenuOpened-1].GetComponent<Button>().interactable = true;
+        gameObject.GetComponentsInChildren<Button>()[MenuOpened-1].GetComponent<Button>().interactable = false;
+        gameObject.GetComponentsInChildren<Button>()[MenuOpened-1].GetComponent<Button>().interactable = true;
+
+        gameObject.GetComponentsInChildren<Button>()[MenuOpened - 1].GetComponentInChildren<Text>().color= InactiveMenuColor;
+        gameObject.GetComponentsInChildren<Button>()[MenuOpened - 1].GetComponentInChildren<Image>().color = InactiveMenuColor;
 
         switch (MenuOpened)
         {
-            case 1: settingsMenu.DesactivateMenu(); break;
+            case 1: break;
             case 2: characterMenu.DesactivateMenu(); break;
             case 3: break;
+            case 4: break;
+            case 5: break;
+            case 6: settingsMenu.DesactivateMenu(); break;
+
 
         }
 

@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class InteractionMenu : MonoBehaviour {
+public class InteractionMenu : MonoBehaviour
+{
 
 
     private Text ObjectName;
-    private Canvas objectInteractionMenu;
+    private Canvas objectselectionMenu;
 
     public CubeManager cubeManager;
 
@@ -26,9 +27,9 @@ public class InteractionMenu : MonoBehaviour {
     void Start()
     {
 
-        objectInteractionMenu = transform.parent.GetComponent<Canvas>();
-        objectInteractionMenu.enabled = false;
-        ObjectName = objectInteractionMenu.GetComponentsInChildren<Text>()[0];
+        objectselectionMenu = transform.parent.GetComponent<Canvas>();
+        objectselectionMenu.enabled = false;
+        ObjectName = objectselectionMenu.GetComponentsInChildren<Text>()[0];
 
     }
 
@@ -36,7 +37,7 @@ public class InteractionMenu : MonoBehaviour {
     public void ActivateMenu(GameObject gameObject)
     {
         
-        objectInteractionMenu.enabled = true;
+        objectselectionMenu.enabled = true;
         LastObjectSelected = gameObject;
         LastObjectSelected_x = gameObject.transform.position.x;
         LastObjectSelected_y = gameObject.transform.position.y;
@@ -50,7 +51,7 @@ public class InteractionMenu : MonoBehaviour {
 
     public void DesactivateMenu()
     {
-        objectInteractionMenu.enabled = false;
+        objectselectionMenu.enabled = false;
     }
 
 

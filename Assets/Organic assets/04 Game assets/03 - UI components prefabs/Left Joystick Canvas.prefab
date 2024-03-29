@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 224836483730127514}
   - component: {fileID: 223593295624596928}
   - component: {fileID: 114138723211703332}
+  - component: {fileID: 493956799457428345}
   m_Layer: 5
   m_Name: Left Joystick Canvas
   m_TagString: Joystick
@@ -78,6 +79,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &493956799457428345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323952600337180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b08a00f2290064b83b41309cb26c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1499594918961258
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +235,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 81ad4b3b5a5aab4419bd6f36788a276f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b50fe592e9e35a4784ecd25268fe2e3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -246,5 +259,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystickStaysInFixedPosition: 1
   joystickHandleDistance: 4
+  buttonsToAvoid: []
   inputVector: {x: 0, y: 0, z: 0}
   moveDetectedOnJoystick: 0

@@ -27,7 +27,7 @@ public class LeftJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoi
     public int joystickHandleDistance = 4;
 
     private Image bgImage; // background of the joystick, this is the part of the joystick that recieves input
-    public Image[] buttonsToAvoid; //background of buttons that needs to be avoided from joystick selection
+    //public Image[] buttonsToAvoid; //background of buttons that needs to be avoided from joystick selection
     private Image joystickKnobImage; // the handle part of the joystick, it just moves to provide feedback, it does not receive input from the touch
     public Vector3 inputVector; // normalized direction vector that will be ouput from this joystick, it can be accessed from outside this class using the public function GetInputDirection() defined in this class, this vector can be used to control your game object ex. a player character or any desired game object
     private Vector3 unNormalizedInput; // unormalized direction vector (it has a magnitude) that is only used within this class to allow this joystick to drag along on the screen as the user drags
@@ -79,12 +79,12 @@ public class LeftJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoi
 
 
         // if the point touched on the screen is within the background image of this joystick
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(bgImage.rectTransform, ped.position, ped.pressEventCamera, out localPoint) &&
-            (
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(buttonsToAvoid[0].rectTransform, ped.position, ped.pressEventCamera, out Vector2 localPoint1) ||
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(buttonsToAvoid[1].rectTransform, ped.position, ped.pressEventCamera, out Vector2 localPoint2) ||
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(buttonsToAvoid[2].rectTransform, ped.position, ped.pressEventCamera, out Vector2 localPoint3)
-            )!
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(bgImage.rectTransform, ped.position, ped.pressEventCamera, out localPoint) //&&
+            //(
+            //RectTransformUtility.ScreenPointToLocalPointInRectangle(buttonsToAvoid[0].rectTransform, ped.position, ped.pressEventCamera, out Vector2 localPoint1) ||
+            //RectTransformUtility.ScreenPointToLocalPointInRectangle(buttonsToAvoid[1].rectTransform, ped.position, ped.pressEventCamera, out Vector2 localPoint2) ||
+            //RectTransformUtility.ScreenPointToLocalPointInRectangle(buttonsToAvoid[2].rectTransform, ped.position, ped.pressEventCamera, out Vector2 localPoint3)
+            //)!
             )
         {
             //Debug.Log("Event OnDrag occured inside the joystick background image");

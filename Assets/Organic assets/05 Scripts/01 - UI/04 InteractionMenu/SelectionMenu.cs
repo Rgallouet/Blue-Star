@@ -3,7 +3,8 @@ using System.Collections;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class SelectionBox : MonoBehaviour {
+public class SelectionMenu : MonoBehaviour
+{
 
     public JoystickMenu leftJoystick;
     public WindowsCamera windowsCamera;

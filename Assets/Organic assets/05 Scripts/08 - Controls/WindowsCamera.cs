@@ -9,8 +9,7 @@ public class WindowsCamera : MonoBehaviour
 
 
     public CubeManager cubeManager;
-    public SelectionBox selectionBox;
-    public InteractionMenu interactionMenu;
+    public SelectionMenu selectionMenu;
     public LeftJoystick leftJoystick;
     public CityButtons cityButtons;
     public GameObject characterSelected;
@@ -80,27 +79,26 @@ public class WindowsCamera : MonoBehaviour
 
         Debug.Log("cell at x:" + tpos.x + " , y:" + tpos.y + " , z:" + tpos.z);
 
-        selectionBox.Deselect();
+        selectionMenu.Deselect();
         if (cubeManager.Visible[tpos.x, tpos.y]!=4)
         { 
             Objectselected = true;
-            selectionBox.Select(tpos.x, tpos.y);
-            //interactionMenu.ActivateMenu(tpos);
+            selectionMenu.Select(tpos.x, tpos.y);
+            //selectionMenu.ActivateMenu(tpos);
         }
     }
 
     void Deselect()
     {
-        selectionBox.Deselect();
+        selectionMenu.Deselect();
         Objectselected = false;
-        interactionMenu.DesactivateMenu();
     }
 
     void CityNavigation() {
 
 
         //select only if i touched and didn't move until i lifted my finger
-        if (LiftingFinger==true && HasTheTouchMoved == false) SelectObject(touchPosition[0]);
+        if (LiftingFinger == true && HasTheTouchMoved == false) SelectObject(touchPosition[0]);
         
         //Get out of the Character view if I click Back
         if (back == true && Objectselected == false) cityButtons.ClickMenu(1);
