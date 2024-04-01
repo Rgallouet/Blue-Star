@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using static UnityEngine.GraphicsBuffer;
 
 public class WindowsCamera : MonoBehaviour
 {
@@ -9,10 +10,10 @@ public class WindowsCamera : MonoBehaviour
 
 
     public CubeManager cubeManager;
-    public SelectionMenu selectionMenu;
+    public ExplorationMenu explorationMenu;
     public LeftJoystick leftJoystick;
     public CityButtons cityButtons;
-    public GameObject characterSelected;
+    public GameObject characterMoving;
 
     public Transform skyBoxCameraTracker;
 
@@ -24,7 +25,7 @@ public class WindowsCamera : MonoBehaviour
     // memory
     private Vector2 oldTouchPosition_0;
     private Vector2 oldTouchPosition_1;
-    private Vector2 firstPosition;
+    public Vector2 firstPosition;
     private float oldTouchDistance;
     private float newTouchDistance;
 
@@ -38,7 +39,7 @@ public class WindowsCamera : MonoBehaviour
     private float x_total_translation;
     private float y_total_translation;
 
-    private bool HasTheTouchMoved;
+    public bool HasTheTouchMoved;
     private bool Objectselected;
     private bool LiftingFinger;
     private bool back;
@@ -66,56 +67,72 @@ public class WindowsCamera : MonoBehaviour
     {
 
         if (isMobile==true)  GetInputFromMobile(); else GetInputFromWindows();
-        CityNavigation();
+
+        // if we are pointing to the ground on exploration mode, then we calculate the city naviguation logic
+        if (cityButtons.MenuOpened == 1) CityNavigation();
 
     }
 
-    void SelectObject(Vector2 Target)
+    void SelectObject(Vector2 target)
     {
 
-        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Target);
+        //Debug.Log("Checking where I click on y=" + target.y);
+        
+        if ((explorationMenu.explorationMenuOpened == true && target.y > 860)
+            ||
+            (explorationMenu.explorationMenuOpened == false && explorationMenu.selectionMenuOpened == true && target.y > 430)
+            ||
+            (explorationMenu.selectionMenuOpened == false && explorationMenu.selectionMenuOpened == false && target.y > 230)
+            ) 
+        {
+            Vector3 worldPoint = Camera.main.ScreenToWorldPoint(target);
 
-        Vector3Int tpos = cubeManager.tileMapGround.WorldToCell(worldPoint);
+            Vector3Int tpos = cubeManager.tileMapGround.WorldToCell(worldPoint);
 
-        Debug.Log("cell at x:" + tpos.x + " , y:" + tpos.y + " , z:" + tpos.z);
+            Debug.Log("cell at x:" + tpos.x + " , y:" + tpos.y + " , z:" + tpos.z);
 
-        selectionMenu.Deselect();
-        if (cubeManager.Visible[tpos.x, tpos.y]!=4)
-        { 
-            Objectselected = true;
-            selectionMenu.Select(tpos.x, tpos.y);
-            //selectionMenu.ActivateMenu(tpos);
+
+            if (cubeManager.Visible[tpos.x, tpos.y] != 4)
+            {
+                Objectselected = true;
+                explorationMenu.Select(tpos.x, tpos.y);
+            }
+
         }
+
     }
 
-    void Deselect()
+    void DeselectCamera()
     {
-        selectionMenu.Deselect();
+
+        Debug.Log("Deselecting camera and removing exploration mode");
+        explorationMenu.Deselect();
         Objectselected = false;
+        if (explorationMenu.explorationMenuOpened == true)
+        {
+            explorationMenu.DesactivateSubMenu("exploration");
+            cityButtons.ChangeColourButton(1, false);
+        }
+        
     }
 
     void CityNavigation() {
 
 
         //select only if i touched and didn't move until i lifted my finger
-        if (LiftingFinger == true && HasTheTouchMoved == false) SelectObject(touchPosition[0]);
-        
-        //Get out of the Character view if I click Back
-        if (back == true && Objectselected == false) cityButtons.ClickMenu(1);
+        if (HasTheTouchMoved == false && LiftingFinger == true ) SelectObject(touchPosition[0]);
 
-        //deselect if I start moving around
-        if ((HasTheTouchMoved == true || back == true) && Objectselected == true) Deselect();
+        //deselect if I start moving around and I am in the SelectionOnly Mode
+        else if (HasTheTouchMoved == true && Objectselected == true && touch == 1) DeselectCamera();
 
-
-        // Tracking the character selected if moving with joystick
-        if(leftJoystick.moveDetectedOnJoystick>=1) 
+        // Tracking the character selected if moving with joystick (depreciated) or if in menu exploration
+        if (explorationMenu.explorationMenuOpened == true)
         {
-
-            if (characterSelected == null) characterSelected = cubeManager.playerInstantiated.gameObject;
+            if (characterMoving == null) characterMoving = cubeManager.playerInstantiated.gameObject;
 
             // Finding distance between character and camera
-            float x_translation = characterSelected.transform.position.x - transform.position.x;
-            float y_translation = characterSelected.transform.position.y - transform.position.y;
+            float x_translation = characterMoving.transform.position.x - transform.position.x;
+            float y_translation = characterMoving.transform.position.y - transform.position.y;
 
             //Moving Camera towards character
             transform.position = new Vector3(transform.position.x + x_translation * Time.deltaTime, transform.position.y + y_translation * Time.deltaTime, transform.position.z);
@@ -123,6 +140,8 @@ public class WindowsCamera : MonoBehaviour
             // Moving the skybox to match
             skyBoxCameraTracker.position = new Vector3(0.95f * transform.position.x, 2.5f + 0.95f * transform.position.y, 0);
         }
+
+
         // Moving around with one finger on the screen
         if (touch == 1 && leftJoystick.moveDetectedOnJoystick<=1)
         {
@@ -253,7 +272,7 @@ public class WindowsCamera : MonoBehaviour
         x_total_translation = (firstPosition.x - touchPosition[0].x) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * HorizontalSpeedRatio;
         y_total_translation = (firstPosition.y - touchPosition[0].y) * GetComponent<Camera>().orthographicSize / GetComponent<Camera>().pixelHeight * VerticalSpeedRatio;
 
-        HasTheTouchMoved = (x_total_translation + y_total_translation > 0.1);
+        HasTheTouchMoved = (x_total_translation + y_total_translation > 0.1) || (x_total_translation + y_total_translation < -0.1) ;
     }
 
 

@@ -15,7 +15,7 @@ public class CharacterMenu : MonoBehaviour {
     void Start () {
         CharacterMenuCanvas = GetComponent<Canvas>();
         CharacterName = CharacterMenuCanvas.GetComponentInChildren<Text>();
-        CharacterMenuCanvas.enabled = false;
+        DesactivateMenu();
     }
 
     public void ActivateMenu(BaseCharacter baseCharacter)

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 695245917284075074}
   - component: {fileID: 695245917284075075}
   - component: {fileID: 695245917284075072}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CityBottomCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,9 +117,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowsCamera: {fileID: 0}
   MenuAudio: {fileID: 0}
-  selectionMenu: {fileID: 0}
+  explorationMenu: {fileID: 0}
   characterMenu: {fileID: 0}
   settingsMenu: {fileID: 0}
+  selectionOnlyMenu: {fileID: 0}
+  MenuOpened: 0
 --- !u!1 &1939911502532591474
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +549,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 45b9dc27cc83b544aaeb8a97d059308d,
+      objectReference: {fileID: 21300000, guid: 14951e5d5346ee9469173a5701284239,
         type: 3}
     - target: {fileID: 6565219466539121731, guid: e6a41af773f1ea548ad8530eeee903ca,
         type: 3}

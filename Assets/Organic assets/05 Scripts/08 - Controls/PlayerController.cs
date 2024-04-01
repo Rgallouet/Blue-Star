@@ -13,7 +13,7 @@ public enum SpriteDirectionSet
 public class PlayerController : MonoBehaviour {
 
     //Interaction with selection
-    public SelectionMenu selectionMenu;
+    public ExplorationMenu explorationMenu;
 
     // Checking for movement request
     public LeftJoystick leftJoystick; // the game object containing the LeftJoystick script
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         leftJoystick = GameObject.FindGameObjectWithTag("Joystick").GetComponentsInChildren<LeftJoystick>()[0];
-        selectionMenu = GameObject.FindGameObjectWithTag("Selection").GetComponentInChildren<SelectionMenu>();
+        explorationMenu = GameObject.FindGameObjectWithTag("Selection").GetComponentInChildren<ExplorationMenu>();
         rigidBody = gameObject.GetComponentInChildren<Rigidbody2D>();
         rigidBody_x = Convert.ToInt32(Math.Floor( rigidBody.transform.position.x + 2.0f * rigidBody.transform.position.y));
         rigidBody_y = Convert.ToInt32(Math.Floor(-rigidBody.transform.position.x + 2.0f * rigidBody.transform.position.y));
@@ -143,6 +143,7 @@ public class PlayerController : MonoBehaviour {
                 rigidBody_x = new_x;
                 rigidBody_y = new_y;
                 UpdateMovementSelection();
+                explorationMenu.ActionButtonUpdate();
 
             }
 
@@ -226,21 +227,21 @@ public class PlayerController : MonoBehaviour {
 
     public void UpdateMovementSelection()
     {
-        selectionMenu.Deselect();
+        explorationMenu.Deselect();
 
         switch (spriteDirectionSet)
         {
             case SpriteDirectionSet.TopRight:
-                selectionMenu.Select(rigidBody_x + 1, rigidBody_y);
+                explorationMenu.Select(rigidBody_x + 1, rigidBody_y);
                 break;
             case SpriteDirectionSet.BottomRight:
-                selectionMenu.Select(rigidBody_x, rigidBody_y - 1);
+                explorationMenu.Select(rigidBody_x, rigidBody_y - 1);
                 break;
             case SpriteDirectionSet.BottomLeft:
-                selectionMenu.Select(rigidBody_x - 1, rigidBody_y);
+                explorationMenu.Select(rigidBody_x - 1, rigidBody_y);
                 break;
             case SpriteDirectionSet.TopLeft:
-                selectionMenu.Select(rigidBody_x, rigidBody_y + 1);
+                explorationMenu.Select(rigidBody_x, rigidBody_y + 1);
                 break;
         }
 

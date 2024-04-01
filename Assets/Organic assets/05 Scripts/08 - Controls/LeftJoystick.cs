@@ -34,6 +34,7 @@ public class LeftJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoi
     private readonly Vector3[] fourCornersArray = new Vector3[4]; // used to get the bottom right corner of the image in order to ensure that the pivot of the joystick's background image is always at the bottom right corner of the image (the pivot must always be placed on the bottom right corner of the joystick's background image in order to the script to work)
     private Vector2 bgImageStartPosition; // used to temporarily store the starting position of the joystick's background image (where it was placed on the canvas in the editor before play was pressed) in order to set the image back to this same position after setting the pivot to the bottom right corner of the image
 
+
     // giving a bool for activity
     public int moveDetectedOnJoystick;
 
@@ -73,6 +74,8 @@ public class LeftJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPoi
     // this event happens when there is a drag on screen
     public virtual void OnDrag(PointerEventData ped)
     {
+        
+        
         //Debug.Log("Event OnDrag has been identified, trigerring the joystick routine. current position is x="+ ped.position.x+" and y="+ ped.position.y);
         Vector2 localPoint = Vector2.zero; // resets the localPoint out parameter of the RectTransformUtility.ScreenPointToLocalPointInRectangle function on each drag event
 
