@@ -284,6 +284,7 @@ public class ExplorationMenu : MonoBehaviour
 
         }
 
+        windowsCamera.characterMoving.GetComponent<PlayerController>().actionRequested = true;
 
         // updating the data warehouse
         cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, selectionX, selectionY);
@@ -293,6 +294,9 @@ public class ExplorationMenu : MonoBehaviour
 
         // refreshing visible area
         cubeManager.UpdateTheVisibleArea();
+
+        //Resetting action buttons
+        Select(selectionX, selectionY);
 
     }
 
