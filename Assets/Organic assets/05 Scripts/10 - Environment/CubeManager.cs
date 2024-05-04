@@ -129,8 +129,8 @@ public class CubeManager : MonoBehaviour {
             saveAndLoad.dataBaseManager.RunQuery(
            "DELETE FROM TEMPORARY_CityMap;" +
            "INSERT INTO TEMPORARY_CityMap Select * from VIEW_NewCityMap;" +
-           "DELETE FROM CityMap;" +
-           "INSERT INTO CityMap Select * from VIEW_NewCityMapWithTiles;" +
+           "DELETE FROM ACCOUNT_CityMap;" +
+           "INSERT INTO ACCOUNT_CityMap Select * from VIEW_NewCityMapWithTiles;" +
            "DELETE FROM TEMPORARY_CityMap;");
 
 
