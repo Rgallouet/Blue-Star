@@ -17,12 +17,12 @@ public class ExplorationMenu : MonoBehaviour
     public bool selectionMenuOpened;
 
     // Tile Selection information
+    public int selectionTileId;
     public string selectionTileName;
-    public string selectionTileType;
     public string selectionTileDescription;
     public int selectionTileCanBeUsed;
     public int selectionTileVisibility;
-    public int selectionTileId;
+    public int selectionTileCanBeWalkedOn;
 
     // if there is a unit of building
     public string selectionEntityName;
@@ -106,46 +106,27 @@ public class ExplorationMenu : MonoBehaviour
         if (selectionX != -1) cubeManager.tileMapOverlay.SetTile(new Vector3Int(selectionX, selectionY, 0), null);
         if (selectionMenuOpened == false) ActivateSubMenu("selection");
 
-        ArrayList TileInformation = cubeManager.saveAndLoad.dataBaseManager.getArrayData("select TileName, TileType, TileDescription, CanBeUSed, Visibility, TileId from VIEW_TileSpriteCodeDetailed as a inner join (select TileSpriteId, Visibility from ACCOUNT_CityMap where X=" + x + " and y=" + y + ") as b on a.TileSpriteId=b.TileSpriteId");
+        ArrayList TileInformation = cubeManager.saveAndLoad.dataBaseManager.getArrayData("select TileId, TileName, TileDescription, Visibility, CanBeWalkedOn from VIEW_TileSpriteCodeDetailed as a inner join (select TileSpriteId, Visibility from ACCOUNT_CityMap where X=" + x + " and y=" + y + ") as b on a.TileSpriteId=b.TileSpriteId");
 
-        selectionTileName = (string)((ArrayList)TileInformation[1])[0];
-        selectionTileType = (string)((ArrayList)TileInformation[1])[1];
+        selectionTileId = (int)((ArrayList)TileInformation[1])[0];
+        selectionTileName = (string)((ArrayList)TileInformation[1])[1];
         selectionTileDescription = (string)((ArrayList)TileInformation[1])[2];
-
-        selectionTileCanBeUsed = (int)((ArrayList)TileInformation[1])[3];
-        selectionTileVisibility = (int)((ArrayList)TileInformation[1])[4];
-        selectionTileId = (int)((ArrayList)TileInformation[1])[5];
+        selectionTileVisibility = (int)((ArrayList)TileInformation[1])[3];
+        selectionTileCanBeWalkedOn = (int)((ArrayList)TileInformation[1])[4];
 
         selectionX = x;
         selectionY = y;
 
+        //If can be selected
         if (selectionTileVisibility <= 4) 
         {
-            // defaulting to ground selection effect
-            int TileID = 69;
-
-            switch (selectionTileType)
-            {
-                case "Ground":
-                    TileID = 69;
-                    break;
-
-                case "Wall":
-                    TileID = 70;
-                    break;
-
-                case "Resource":
-                    TileID = 70;
-                    break;
-
-            }
-
+            //Positioning a selection tile visible on the position of the selection
             TileChangeData tileChangeData = new()
             {
                 position = new Vector3Int(x, y, 0),
-                tile = cubeManager.tiles[TileID],
+                tile = cubeManager.tiles[70-selectionTileCanBeWalkedOn],
                 color = new Color(1, 1, 1, 1),
-                transform = Matrix4x4.Translate(new Vector3(0, 0.01f * cubeManager.tileOffsetOnYbycm[TileID], 0))
+                transform = Matrix4x4.Translate(new Vector3(0, -0.25f, 0))
             };
 
             cubeManager.tileMapOverlay.SetTile(tileChangeData, true);
@@ -173,7 +154,6 @@ public class ExplorationMenu : MonoBehaviour
         selectionY = -1;
         
         selectionTileName = "No selection";
-        selectionTileType = "Void";
         selectionTileDescription = "You have not selected anything yet";
         
         selectionTileCanBeUsed = 0;
@@ -209,14 +189,11 @@ public class ExplorationMenu : MonoBehaviour
             {
                 for (int i = 1; i < tileAction.Count; i++)
                 {
-                    InstantiateActionButton((string)((ArrayList)tileAction[i])[1], (string)((ArrayList)tileAction[i])[9]);
+                    InstantiateActionButton((ArrayList)tileAction[i]);
 
                 }
             }
 
-            //if (selectionTileCanBeUsed== 1)
-            // to redo with the new view
-            //{ InstantiateActionButton("Use"); }
 
         }
 
@@ -225,41 +202,63 @@ public class ExplorationMenu : MonoBehaviour
 
     public void UpdateTileDetailsinUI()
     {
-
-        tileNameTextInUI.text = selectionTileName + " (" + selectionTileType + " at [" + selectionX + "," + selectionY + "])";
+        tileNameTextInUI.text = selectionTileName + " [" + selectionX + "," + selectionY + "]";
         tileDescriptionTextInUI.text = selectionTileDescription;
     }
 
 
 
 
-    public void InstantiateActionButton(string actionType, string tileName)
+    public void InstantiateActionButton(ArrayList actionItem)
     {
         newButton = Instantiate(InteractionButton, actionButtonContainer);
 
-        switch (actionType)
+        newButton.GetComponentsInChildren<Text>()[0].text = (string)actionItem[3];
+
+        //updating the sin level requirements
+        newButton.GetComponentsInChildren<Text>()[1].text = (string)actionItem[4];
+
+        // updating the first resource info with quality level colours
+        newButton.GetComponentsInChildren<Text>()[2].text = (string)actionItem[5];
+        newButton.GetComponentsInChildren<Text>()[5].text = (string)actionItem[6];
+
+        // updating the second resource info with quality level colours
+        if ((string) actionItem[7]!="None")
+        {
+            newButton.GetComponentsInChildren<Text>()[3].text = (string)actionItem[7];
+            newButton.GetComponentsInChildren<Text>()[6].text = (string)actionItem[8];
+        }
+
+        // updating the third resource info with quality level colours
+        if ((string)actionItem[9] != "None")
+        {
+            newButton.GetComponentsInChildren<Text>()[4].text = (string)actionItem[9];
+            newButton.GetComponentsInChildren<Text>()[7].text = (string)actionItem[10];
+
+        }
+
+
+
+        switch ((string)actionItem[2])
         {
             case "Break":
-                newButton.GetComponentInChildren<Text>().text = "Let's break it down and retrieve materials!";
                 newButton.GetComponentsInChildren<Image>()[1].sprite = actionIcons[0];
                 // to redo this part with the new view
                 //newButton.GetComponentsInChildren<Text>()[0].text = ;
-
-                newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Break"); });
+        
+                //newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Break"); });
                 break;
-
+        
             case "Build":
-                newButton.GetComponentInChildren<Text>().text = "I should have the resources to build: "+ tileName;
                 newButton.GetComponentsInChildren<Image>()[1].sprite = actionIcons[1];
-                newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Build"); });
+                //newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Build"); });
                 break;
-
+        
             case "Use":
-                newButton.GetComponentInChildren<Text>().text = "Maybe I can use this";
                 newButton.GetComponentsInChildren<Image>()[1].sprite = actionIcons[2];
-                newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Use"); });
+                //newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Use"); });
                 break;
-
+        
         }
 
 

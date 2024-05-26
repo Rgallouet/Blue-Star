@@ -476,7 +476,7 @@ public class SaveAndLoad : MonoBehaviour
     }
 
 
-    public (string[] tileName, string[] tileType, string[] tileDescription, int[] tileOffsetOnYbycm, int[] fallingEdgeTileSpriteId) LoadTileReferences()
+    public (string[] tileName, string[] tileDescription, int[] fallingEdgeTileSpriteId) LoadTileReferences()
     {
 
         // Finding number of sprites
@@ -485,27 +485,23 @@ public class SaveAndLoad : MonoBehaviour
 
         // Preparing arrays of the right size
         string[] tileName = new string[numberOfSprites];
-        string[] tileType = new string[numberOfSprites];
         string[] tileDescription = new string[numberOfSprites];
-        int[] tileOffsetOnYbycm = new int[numberOfSprites];
         int[] fallingEdgeTileSpriteId = new int[numberOfSprites];
 
         // Getting the dimensions of the map
-        ArrayList refTileCode = dataBaseManager.getArrayData("select * from VIEW_TileSpriteCodeDetailed order by TileSpriteId ASC;");
+        ArrayList refTileCode = dataBaseManager.getArrayData("select TileName,TileDescription, TileMatchingFallingEdgeId from VIEW_TileSpriteCodeDetailed order by TileSpriteId ASC;");
 
         for (int i = 0; i < numberOfSprites; i++)
         {
 
-            tileName[i] = (string)((ArrayList)refTileCode[i+1])[5];
-            tileType[i] = (string)((ArrayList)refTileCode[i+1])[6];
-            tileDescription[i] = (string)((ArrayList)refTileCode[i+1])[7];
-            tileOffsetOnYbycm[i] = (int)((ArrayList)refTileCode[i+1])[3];
-            fallingEdgeTileSpriteId[i] = (int)((ArrayList)refTileCode[i + 1])[4];
+            tileName[i] = (string)((ArrayList)refTileCode[i+1])[0];
+            tileDescription[i] = (string)((ArrayList)refTileCode[i+1])[1];
+            fallingEdgeTileSpriteId[i] = (int)((ArrayList)refTileCode[i + 1])[2];
 
             //Debug.Log("Loaded reference of "+ tileName[i]+ " on iteration "+ i);
         }
 
-        return (tileName, tileType, tileDescription, tileOffsetOnYbycm, fallingEdgeTileSpriteId);
+        return (tileName, tileDescription,fallingEdgeTileSpriteId);
     }
 
 
