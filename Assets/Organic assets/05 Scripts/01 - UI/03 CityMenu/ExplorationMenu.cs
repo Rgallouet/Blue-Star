@@ -213,30 +213,29 @@ public class ExplorationMenu : MonoBehaviour
     {
         newButton = Instantiate(InteractionButton, actionButtonContainer);
 
-        newButton.GetComponentsInChildren<Text>()[0].text = (string)actionItem[3];
+        newButton.GetComponentsInChildren<Text>()[0].text = (string)actionItem[4];
 
         //updating the sin level requirements
-        newButton.GetComponentsInChildren<Text>()[1].text = (string)actionItem[4];
+        newButton.GetComponentsInChildren<Text>()[1].text = (string)actionItem[5];
 
         // updating the first resource info with quality level colours
-        newButton.GetComponentsInChildren<Text>()[2].text = (string)actionItem[5];
-        newButton.GetComponentsInChildren<Text>()[5].text = (string)actionItem[6];
+        newButton.GetComponentsInChildren<Text>()[2].text = (string)actionItem[6];
+        newButton.GetComponentsInChildren<Text>()[5].text = (string)actionItem[7];
 
         // updating the second resource info with quality level colours
-        if ((string) actionItem[7]!="None")
+        if ((string) actionItem[7]!=" ")
         {
-            newButton.GetComponentsInChildren<Text>()[3].text = (string)actionItem[7];
-            newButton.GetComponentsInChildren<Text>()[6].text = (string)actionItem[8];
+            newButton.GetComponentsInChildren<Text>()[3].text = (string)actionItem[8];
+            newButton.GetComponentsInChildren<Text>()[6].text = (string)actionItem[9];
         }
 
         // updating the third resource info with quality level colours
-        if ((string)actionItem[9] != "None")
+        if ((string)actionItem[9] != " ")
         {
-            newButton.GetComponentsInChildren<Text>()[4].text = (string)actionItem[9];
-            newButton.GetComponentsInChildren<Text>()[7].text = (string)actionItem[10];
+            newButton.GetComponentsInChildren<Text>()[4].text = (string)actionItem[10];
+            newButton.GetComponentsInChildren<Text>()[7].text = (string)actionItem[11];
 
         }
-
 
 
         switch ((string)actionItem[2])
@@ -261,6 +260,19 @@ public class ExplorationMenu : MonoBehaviour
         
         }
 
+        if ( (Int64)actionItem[3]==0) 
+        {
+            newButton.GetComponent<Button>().interactable = false;
+
+            foreach (Text textObject in newButton.GetComponentsInChildren<Text>())
+            {
+                textObject.color = new Color32(255,255,255,100);
+
+            }
+
+
+        }
+
 
     }
 
@@ -274,7 +286,7 @@ public class ExplorationMenu : MonoBehaviour
 
     }
 
-    public void AchieveActionTile(string actionType)
+    public void AchieveActionTile(string actionType, int tileId)
     {
 
         // Deciding what needs to be changed - with default being ground

@@ -15,10 +15,20 @@ public class NewGameMenuButtons : MonoBehaviour
     private Button buttonSelectDemon;
     private Button buttonCreateDemon;
 
+    private Image areaRequirementSelectDemonForDeath;
+    private Image areaRequirementCreateDemonForDeath;
+
     private Text textRequirementSelectDemonForDeath;
     private Text textRequirementSelectDemonForExperience;
     private Text textRequirementCreateDemonForDeath;
     private Text textRequirementCreateDemonForExperience;
+
+    private Text textStartDemon;
+    private Text textSelectDemon;
+    private Text textCreateDemon;
+
+    private Color32 colourInactive;
+    private Color32 colourActive;
 
     private Text nameField;
 
@@ -30,18 +40,27 @@ public class NewGameMenuButtons : MonoBehaviour
         newGameMenu = GetComponent<Canvas>();
         newGameMenu.enabled = false;
 
-        buttonBack = newGameMenu.GetComponentsInChildren<Button>()[0];
-        buttonStartDemon = newGameMenu.GetComponentsInChildren<Button>()[1];
-        buttonSelectDemon = newGameMenu.GetComponentsInChildren<Button>()[2];
-        buttonCreateDemon = newGameMenu.GetComponentsInChildren<Button>()[3];
+        buttonBack = newGameMenu.GetComponentsInChildren<Button>()[3];
+        buttonStartDemon = newGameMenu.GetComponentsInChildren<Button>()[0];
+        buttonSelectDemon = newGameMenu.GetComponentsInChildren<Button>()[1];
+        buttonCreateDemon = newGameMenu.GetComponentsInChildren<Button>()[2];
 
-        textRequirementSelectDemonForDeath = (newGameMenu.GetComponentsInChildren<Image>()[5]).GetComponentsInChildren<Text>()[3];
-        textRequirementSelectDemonForExperience = (newGameMenu.GetComponentsInChildren<Image>()[5]).GetComponentsInChildren<Text>()[4];
-        textRequirementCreateDemonForDeath = (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[3];
-        textRequirementCreateDemonForExperience = (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[4];
+        areaRequirementSelectDemonForDeath = newGameMenu.GetComponentsInChildren<Image>()[3];
+        areaRequirementCreateDemonForDeath = newGameMenu.GetComponentsInChildren<Image>()[5];
 
+        textRequirementSelectDemonForDeath = areaRequirementSelectDemonForDeath.GetComponentsInChildren<Text>()[3];
+        textRequirementSelectDemonForExperience = areaRequirementSelectDemonForDeath.GetComponentsInChildren<Text>()[4];
+        textRequirementCreateDemonForDeath = areaRequirementCreateDemonForDeath.GetComponentsInChildren<Text>()[3];
+        textRequirementCreateDemonForExperience = areaRequirementCreateDemonForDeath.GetComponentsInChildren<Text>()[4];
 
-        nameField = (newGameMenu.GetComponentsInChildren<Image>()[4]).GetComponentsInChildren<Text>()[1];
+        textStartDemon = newGameMenu.GetComponentsInChildren<Text>()[4];
+        textSelectDemon = newGameMenu.GetComponentsInChildren<Text>()[6];
+        textCreateDemon = newGameMenu.GetComponentsInChildren<Text>()[13];
+
+        nameField = (newGameMenu.GetComponentsInChildren<Image>()[0]).GetComponentsInChildren<Text>()[1];
+
+        colourInactive = new Color32(255, 255, 255, 125);
+        colourActive = new Color32(255, 255, 255, 255);
 
     }
 
@@ -53,14 +72,14 @@ public class NewGameMenuButtons : MonoBehaviour
         {
 
             buttonStartDemon.interactable = false;
-            buttonStartDemon.GetComponentInChildren<Text>().color= new Color32(255, 255, 255, 125);
-            newGameMenu.GetComponentsInChildren<Text>()[9].color = new Color32(255, 255, 255, 125);
+            buttonStartDemon.GetComponentInChildren<Text>().color= colourInactive;
+            textStartDemon.color = colourInactive;
         }
         else
         {
             buttonStartDemon.interactable = true;
-            buttonStartDemon.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 255);
-            newGameMenu.GetComponentsInChildren<Text>()[9].color = new Color32(255, 255, 255, 255);
+            buttonStartDemon.GetComponentInChildren<Text>().color = colourActive;
+            textStartDemon.color = colourActive;
 
         }
 
@@ -153,21 +172,21 @@ public class NewGameMenuButtons : MonoBehaviour
         {
 
             buttonCreateDemon.interactable = false;
-            buttonCreateDemon.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 125);
+            buttonCreateDemon.GetComponentInChildren<Text>().color = colourInactive;
 
             buttonSelectDemon.interactable = false;
-            buttonSelectDemon.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 125);
+            buttonSelectDemon.GetComponentInChildren<Text>().color = colourInactive;
 
-            newGameMenu.GetComponentsInChildren<Text>()[7].color = new Color32(255, 255, 255, 125);
-            newGameMenu.GetComponentsInChildren<Text>()[8].color = new Color32(255, 255, 255, 125);
+            textSelectDemon.color = colourInactive;
+            textCreateDemon.color = colourInactive;
 
 
-            (newGameMenu.GetComponentsInChildren<Image>()[5]).GetComponentsInChildren<Text>()[0].color = new Color32(0, 0, 0, 125);
-            (newGameMenu.GetComponentsInChildren<Image>()[5]).GetComponentsInChildren<Text>()[1].color = new Color32(0, 0, 0, 125);
-            (newGameMenu.GetComponentsInChildren<Image>()[5]).GetComponentsInChildren<Text>()[2].color = new Color32(0, 0, 0, 125);
-            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[0].color = new Color32(0, 0, 0, 125);
-            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[1].color = new Color32(0, 0, 0, 125);
-            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[2].color = new Color32(0, 0, 0, 125);
+            areaRequirementSelectDemonForDeath.GetComponentsInChildren<Text>()[0].color = new Color32(0, 0, 0, 50);
+            areaRequirementSelectDemonForDeath.GetComponentsInChildren<Text>()[1].color = new Color32(0, 0, 0, 50);
+            areaRequirementSelectDemonForDeath.GetComponentsInChildren<Text>()[2].color = new Color32(0, 0, 0, 50);
+            areaRequirementCreateDemonForDeath.GetComponentsInChildren<Text>()[0].color = new Color32(0, 0, 0, 50);
+            areaRequirementCreateDemonForDeath.GetComponentsInChildren<Text>()[1].color = new Color32(0, 0, 0, 50);
+            areaRequirementCreateDemonForDeath.GetComponentsInChildren<Text>()[2].color = new Color32(0, 0, 0, 50);
                
         
         }
@@ -176,13 +195,13 @@ public class NewGameMenuButtons : MonoBehaviour
         else if (menuGUI.account.NumberOfDeaths < 2 || menuGUI.account.MaximumLevelReached < 30)
         {
             buttonCreateDemon.interactable = false;
-            buttonCreateDemon.GetComponentInChildren<Text>().color = new Color32(255, 255, 255, 125);
+            buttonCreateDemon.GetComponentInChildren<Text>().color = colourInactive;
 
-            newGameMenu.GetComponentsInChildren<Text>()[7].color = new Color32(255, 255, 255, 125);
+            textCreateDemon.color = colourInactive;
 
-            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[0].color = new Color32(0, 0, 0, 125);
-            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[1].color = new Color32(0, 0, 0, 125);
-            (newGameMenu.GetComponentsInChildren<Image>()[6]).GetComponentsInChildren<Text>()[2].color = new Color32(0, 0, 0, 125);
+            areaRequirementCreateDemonForDeath.GetComponentsInChildren<Text>()[0].color = new Color32(0, 0, 0, 50);
+            areaRequirementCreateDemonForDeath.GetComponentsInChildren<Text>()[1].color = new Color32(0, 0, 0, 50);
+            areaRequirementCreateDemonForDeath.GetComponentsInChildren<Text>()[2].color = new Color32(0, 0, 0, 50);
         }
 
 
