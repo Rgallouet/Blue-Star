@@ -61,8 +61,6 @@ public class BaseCharacter {
 	public int Chaos;
 
 	//InteractionStats
-	public int BuildingLevel;
-    public int DiggingLevel;
 
 
 	public void AddExperience(int xpToGive)

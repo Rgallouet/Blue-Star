@@ -212,6 +212,33 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6da15bc8a4c2c4f4dad1d101c5692ebb, type: 2}
   - {fileID: 11400000, guid: 853fabb6451254b4f903e815869e7764, type: 2}
   - {fileID: 11400000, guid: b2e3a84406badc848a2b905e19adf2a6, type: 2}
+  - {fileID: 11400000, guid: 83b0fd490d1905047b5c56ff9835b29a, type: 2}
+  - {fileID: 11400000, guid: 2a861ce689492f744bb9af6d8fee482a, type: 2}
+  - {fileID: 11400000, guid: 48fc71b349cdb8543a1e9fbf35206949, type: 2}
+  - {fileID: 11400000, guid: ba2615fa3c57d604b830e3f156e807af, type: 2}
+  - {fileID: 11400000, guid: 38dc565251efa8b4e9d6148dc85c6984, type: 2}
+  - {fileID: 11400000, guid: 25d32e8f57d71624aa9b3e8b6a0abc08, type: 2}
+  - {fileID: 11400000, guid: f8463b64ee1eacc419d83764245f02cb, type: 2}
+  - {fileID: 11400000, guid: c4e8478bc5634ee479a1b608cb2f84dd, type: 2}
+  - {fileID: 11400000, guid: c6da86143857f444c8efe81388e76afe, type: 2}
+  - {fileID: 11400000, guid: c16d4902c2c089345b69494394e03b07, type: 2}
+  - {fileID: 11400000, guid: d727e22b70533f341ab6fbe5c6c58963, type: 2}
+  - {fileID: 11400000, guid: 564c787f09438124fa1395640582be21, type: 2}
+  - {fileID: 11400000, guid: 579f8a05c6404d74e98fa149c65b128d, type: 2}
+  - {fileID: 11400000, guid: d2dcf24a874084948be57b517b45ea01, type: 2}
+  - {fileID: 11400000, guid: 510ac067d39290a4692354447f296d00, type: 2}
+  - {fileID: 11400000, guid: afa015069c715d943a33d5cf1bf1412a, type: 2}
+  - {fileID: 11400000, guid: dd83231f8c12f4d4480700eb877ef848, type: 2}
+  - {fileID: 11400000, guid: 7007007716f1ba04b9c2ed66f16b2136, type: 2}
+  - {fileID: 11400000, guid: 64bd0c0ea2ebe4644bb8c386a16ccf62, type: 2}
+  - {fileID: 11400000, guid: 67ecb1d127d881a4aada2eb40331aaaa, type: 2}
+  - {fileID: 11400000, guid: d431ed644f91f1e4193b045decb160d7, type: 2}
+  - {fileID: 11400000, guid: 2d02e625670f9294c9f7df2636ddb132, type: 2}
+  - {fileID: 11400000, guid: 513bb1960af93c347a48123b899f271c, type: 2}
+  - {fileID: 11400000, guid: 59fa84defd6c3b24189652d48088020a, type: 2}
+  - {fileID: 11400000, guid: 0240d47d710fc924292d4d8e9a2eeba1, type: 2}
+  - {fileID: 11400000, guid: d581f41ceea4ed540895d3e72a123634, type: 2}
+  tileOffsetOnYbycm: 
   MaxVisibleSizeOnX: 0
   MaxVisibleSizeOnY: 0
   MinVisibleSizeOnX: 0
@@ -407,17 +434,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubeManager: {fileID: 3006640927545007184}
-  selectionBox: {fileID: 0}
-  interactionMenu: {fileID: 0}
+  explorationMenu: {fileID: 0}
   leftJoystick: {fileID: 0}
   cityButtons: {fileID: 0}
-  characterSelected: {fileID: 0}
+  characterMoving: {fileID: 0}
   skyBoxCameraTracker: {fileID: 0}
   touch: 0
   zoom: 0
   touchPosition:
   - {x: 0, y: 0}
   - {x: 0, y: 0}
+  firstPosition: {x: 0, y: 0}
+  HasTheTouchMoved: 0
 --- !u!114 &3006640927921404648
 MonoBehaviour:
   m_ObjectHideFlags: 0

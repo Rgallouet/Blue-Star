@@ -24,7 +24,6 @@ public class CubeManager : MonoBehaviour {
     private string[] tileName;
     private string[] tileType;
     private string[] tileDescription;
-    public int[] tileOffsetOnYbycm;
     private int[] fallingEdgeTileSpriteId;
 
     //Temporary objects
@@ -64,7 +63,7 @@ public class CubeManager : MonoBehaviour {
         System.Diagnostics.Stopwatch timer = System.Diagnostics.Stopwatch.StartNew();
 
         // Getting the references on tile assets
-        (tileName, tileType, tileDescription, tileOffsetOnYbycm, fallingEdgeTileSpriteId) = saveAndLoad.LoadTileReferences();
+        (tileName, tileDescription, fallingEdgeTileSpriteId) = saveAndLoad.LoadTileReferences();
 
         // Generate or Load the map information
         (TileMap, VisibilityMap) = GettingTheMap();
@@ -129,8 +128,8 @@ public class CubeManager : MonoBehaviour {
             saveAndLoad.dataBaseManager.RunQuery(
            "DELETE FROM TEMPORARY_CityMap;" +
            "INSERT INTO TEMPORARY_CityMap Select * from VIEW_NewCityMap;" +
-           "DELETE FROM CityMap;" +
-           "INSERT INTO CityMap Select * from VIEW_NewCityMapWithTiles;" +
+           "DELETE FROM ACCOUNT_CityMap;" +
+           "INSERT INTO ACCOUNT_CityMap Select * from VIEW_NewCityMapWithTiles;" +
            "DELETE FROM TEMPORARY_CityMap;");
 
 
@@ -387,7 +386,7 @@ public class CubeManager : MonoBehaviour {
             position = new Vector3Int(x, y, 0),
             tile = tiles[tileSpriteId],
             color = new Color(randomColorModifierRed, randomColorModifierGreen, randomColorModifierBlue, 1),
-            transform = Matrix4x4.Translate(new Vector3(0, 0.01f * tileOffsetOnYbycm[tileSpriteId], 0))
+            transform = Matrix4x4.Translate(new Vector3(0, -0.25f, 0))
         };
 
         if (visibility == 1)
@@ -411,7 +410,7 @@ public class CubeManager : MonoBehaviour {
                 position = new Vector3Int(x, y, 0),
                 tile = tiles[fallingEdgeTileSpriteId[tileSpriteId]],
                 color = new Color(randomColorModifierRed, randomColorModifierGreen, randomColorModifierBlue, 1),
-                transform = Matrix4x4.Translate(new Vector3(0, 0.01f * tileOffsetOnYbycm[fallingEdgeTileSpriteId[tileSpriteId]], 0))
+                transform = Matrix4x4.Translate(new Vector3(0, 0, 0))
             };
 
             tileMapEdge.SetTile(tileChangeDataEdge, true);

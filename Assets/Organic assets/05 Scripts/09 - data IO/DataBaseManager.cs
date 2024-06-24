@@ -272,7 +272,42 @@ public class DataBaseManager : MonoBehaviour
         return (readArray);
     }
 
+    public ArrayList getArrayDataWithoutHeader(string sqlQuery)
+    {
 
+        var ColArray = new ArrayList();
+        var readArray = new ArrayList();
+
+        try
+        {
+            OpenDB();
+            dbcmd = dbcon.CreateCommand();
+            dbcmd.CommandText = sqlQuery;
+            reader = dbcmd.ExecuteReader();
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Something Went Wrong..." + e);
+            return readArray;
+        }
+
+        // reading data
+
+        while (reader.Read())
+        {
+            var lineArray = new ArrayList();
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                lineArray.Add(reader.GetValue(i)); // This reads the entries in a row
+            }
+            readArray.Add(lineArray); // This makes an array of all the rows
+        }
+
+
+        //Closing
+        CloseDB();
+        return (readArray);
+    }
 
     public void RunQuery(string sqlQuery)
     {

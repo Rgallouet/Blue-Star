@@ -3,6 +3,8 @@ using System.Collections;
 using System;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.PlayerLoop;
+using Unity.Mathematics;
 
 public class ExplorationMenu : MonoBehaviour
 {
@@ -17,12 +19,12 @@ public class ExplorationMenu : MonoBehaviour
     public bool selectionMenuOpened;
 
     // Tile Selection information
+    public int selectionTileId;
     public string selectionTileName;
-    public string selectionTileType;
     public string selectionTileDescription;
-    public int selectionTileBreakLevelRequirement;
-    public int selectionTileBuildLevelRequirement;
     public int selectionTileCanBeUsed;
+    public int selectionTileVisibility;
+    public int selectionTileCanBeWalkedOn;
 
     // if there is a unit of building
     public string selectionEntityName;
@@ -106,57 +108,42 @@ public class ExplorationMenu : MonoBehaviour
         if (selectionX != -1) cubeManager.tileMapOverlay.SetTile(new Vector3Int(selectionX, selectionY, 0), null);
         if (selectionMenuOpened == false) ActivateSubMenu("selection");
 
-        ArrayList TileInformation = cubeManager.saveAndLoad.dataBaseManager.getArrayData("select TileName, TileType, TileDescription, BreakLevelRequirement, BuildLevelRequirement, CanBeUSed, Visibility from VIEW_TileSpriteCodeDetailed as a inner join (select TileSpriteId, Visibility from CityMap where X=" + x + " and y=" + y + ") as b on a.TileSpriteId=b.TileSpriteId");
+        ArrayList TileInformation = cubeManager.saveAndLoad.dataBaseManager.getArrayData("select TileId, TileName, TileDescription, Visibility, CanBeWalkedOn from VIEW_TileSpriteCodeDetailed as a inner join (select TileSpriteId, Visibility from ACCOUNT_CityMap where X=" + x + " and y=" + y + ") as b on a.TileSpriteId=b.TileSpriteId");
 
-        selectionTileName = (string)((ArrayList)TileInformation[1])[0];
-        selectionTileType = (string)((ArrayList)TileInformation[1])[1];
+        selectionTileId = (int)((ArrayList)TileInformation[1])[0];
+        selectionTileName = (string)((ArrayList)TileInformation[1])[1];
         selectionTileDescription = (string)((ArrayList)TileInformation[1])[2];
-
-        selectionTileBreakLevelRequirement = (int)((ArrayList)TileInformation[1])[3];
-        selectionTileBuildLevelRequirement = (int)((ArrayList)TileInformation[1])[4];
-        selectionTileCanBeUsed = (int)((ArrayList)TileInformation[1])[5];
-
+        selectionTileVisibility = (int)((ArrayList)TileInformation[1])[3];
+        selectionTileCanBeWalkedOn = (int)((ArrayList)TileInformation[1])[4];
 
         selectionX = x;
         selectionY = y;
 
-        //Debug.Log("Selected " + selectionTileName + " which is a " + selectionTileType);
-
-        // defaulting to ground selection effect
-        int TileID = 69;
-
-        switch (selectionTileType)
+        //If can be selected
+        if (selectionTileVisibility <= 4) 
         {
-            case "Ground":
-                TileID = 69;
-                break;
+            //Positioning a selection tile visible on the position of the selection
+            TileChangeData tileChangeData = new()
+            {
+                position = new Vector3Int(x, y, 0),
+                tile = cubeManager.tiles[70-selectionTileCanBeWalkedOn],
+                color = new Color(1, 1, 1, 1),
+                transform = Matrix4x4.Translate(new Vector3(0, -0.25f, 0))
+            };
 
-            case "Wall":
-                TileID = 70;
-                break;
+            cubeManager.tileMapOverlay.SetTile(tileChangeData, true);
 
-            case "Resource":
-                TileID = 70;
-                break;
+            // Add here the identification of a unit on top of the tile
+
+
+            UpdateTileDetailsinUI();
+
+            if (explorationMenuOpened == true) ActionButtonUpdate();
+
 
         }
 
-        TileChangeData tileChangeData = new()
-        {
-            position = new Vector3Int(x, y, 0),
-            tile = cubeManager.tiles[TileID],
-            color = new Color(1, 1, 1, 1),
-            transform = Matrix4x4.Translate(new Vector3(0, 0.01f * cubeManager.tileOffsetOnYbycm[TileID], 0))
-        };
 
-        cubeManager.tileMapOverlay.SetTile(tileChangeData, true);
-
-        // Add here the identification of a unit on top of the tile
-
-
-        UpdateTileDetailsinUI();
-
-        if(explorationMenuOpened==true) ActionButtonUpdate();
 
     }
 
@@ -169,13 +156,12 @@ public class ExplorationMenu : MonoBehaviour
         selectionY = -1;
         
         selectionTileName = "No selection";
-        selectionTileType = "Void";
         selectionTileDescription = "You have not selected anything yet";
         
-        selectionTileBreakLevelRequirement = 9;
-        selectionTileBuildLevelRequirement = 9;
         selectionTileCanBeUsed = 0;
-        
+        selectionTileVisibility =4;
+        selectionTileId = 0;
+
         selectionEntityName ="";
         selectionEntityType="";
         selectionEntityDescription="";
@@ -199,15 +185,13 @@ public class ExplorationMenu : MonoBehaviour
             &&
             Mathf.Abs(selectionY - windowsCamera.characterMoving.GetComponent<PlayerController>().rigidBody_y) <= 1.5f)
         {
+            ArrayList tileAction = cubeManager.saveAndLoad.dataBaseManager.getArrayDataWithoutHeader("select * from VIEW_TileSpriteActionList where TileIdSelected=" + selectionTileId );
 
-            if (selectionTileBreakLevelRequirement <= windowsCamera.characterMoving.GetComponentInChildren<GameObjectInformation>().baseCharacter.DiggingLevel)
-            { InstantiateActionButton("Break"); }
+            foreach (ArrayList action in tileAction)
+            {
+                InstantiateActionButton(action);
+            }
 
-            if (selectionTileBuildLevelRequirement <= windowsCamera.characterMoving.GetComponentInChildren<GameObjectInformation>().baseCharacter.BuildingLevel)
-            { InstantiateActionButton("Build"); }
-
-            if (selectionTileCanBeUsed== 1)
-            { InstantiateActionButton("Use"); }
 
         }
 
@@ -216,37 +200,77 @@ public class ExplorationMenu : MonoBehaviour
 
     public void UpdateTileDetailsinUI()
     {
-
-        tileNameTextInUI.text = selectionTileName + " (" + selectionTileType + " at [" + selectionX + "," + selectionY + "])";
+        tileNameTextInUI.text = selectionTileName + " [" + selectionX + "," + selectionY + "]";
         tileDescriptionTextInUI.text = selectionTileDescription;
     }
 
 
 
 
-    public void InstantiateActionButton(string actionType)
+    public void InstantiateActionButton(ArrayList actionItem)
     {
         newButton = Instantiate(InteractionButton, actionButtonContainer);
 
-        switch (actionType)
+        Debug.Log("the tile from "+ (int)actionItem[0]);
+        Debug.Log("the tile to " + (int)actionItem[1]);
+
+        //Adding an action on the button
+        newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile((int)actionItem[0], (int)actionItem[1]); });
+
+        // updating the description of the action
+        newButton.GetComponentsInChildren<Text>()[0].text = (string)actionItem[4];
+
+        //updating the sin level requirements
+        newButton.GetComponentsInChildren<Text>()[1].text = (string)actionItem[5];
+
+        // updating the first resource info with quality level colours
+        newButton.GetComponentsInChildren<Text>()[2].text = (string)actionItem[6];
+        newButton.GetComponentsInChildren<Text>()[5].text = (string)actionItem[7];
+
+        // updating the second resource info with quality level colours
+        if ((string) actionItem[7]!=" ")
+        {
+            newButton.GetComponentsInChildren<Text>()[3].text = (string)actionItem[8];
+            newButton.GetComponentsInChildren<Text>()[6].text = (string)actionItem[9];
+        }
+
+        // updating the third resource info with quality level colours
+        if ((string)actionItem[9] != " ")
+        {
+            newButton.GetComponentsInChildren<Text>()[4].text = (string)actionItem[10];
+            newButton.GetComponentsInChildren<Text>()[7].text = (string)actionItem[11];
+
+        }
+
+        // Updating the icon
+        switch ((string)actionItem[2])
         {
             case "Break":
-                newButton.GetComponentInChildren<Text>().text = "Let's break it down!";
                 newButton.GetComponentsInChildren<Image>()[1].sprite = actionIcons[0];
-                newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Break"); });
                 break;
-
+        
             case "Build":
-                newButton.GetComponentInChildren<Text>().text = "Should I build something here?";
                 newButton.GetComponentsInChildren<Image>()[1].sprite = actionIcons[1];
-                newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Build"); });
                 break;
-
+        
             case "Use":
-                newButton.GetComponentInChildren<Text>().text = "Maybe I can use this";
                 newButton.GetComponentsInChildren<Image>()[1].sprite = actionIcons[2];
-                newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Use"); });
                 break;
+        
+        }
+
+
+        //Disabling the button if the conditions are not met
+        if ( (Int64)actionItem[3]==0) 
+        {
+            newButton.GetComponent<Button>().interactable = false;
+
+            foreach (Text textObject in newButton.GetComponentsInChildren<Text>())
+            {
+                textObject.color = new Color32(255,255,255,100);
+
+            }
+
 
         }
 
@@ -263,36 +287,45 @@ public class ExplorationMenu : MonoBehaviour
 
     }
 
-    public void AchieveActionTile(string actionType)
+    public void AchieveActionTile(int tileIdSelected, int tileIdAfterAction)
     {
+        //Consumming or gaining resources
+        //Debug.Log("Checking tile ID used : " + tileIdSelected+" and "+ tileIdAfterAction);
+        ArrayList actionRessources = cubeManager.saveAndLoad.dataBaseManager.getArrayDataWithoutHeader("select * from VIEW_TileSpriteActionRessourceCost where TileIdSelected=" + tileIdSelected + " and TileIdAfterAction=" + tileIdAfterAction);
 
-        // Deciding what needs to be changed - with default being ground
-        int tileAsset = 13;
-        int visibility = 1;
+        
 
-        switch (actionType)
+        foreach (ArrayList ressourceCost in actionRessources)
         {
-            case "Break":
-                tileAsset = rnd.Next(14,22);
-                visibility = 1;
-                break;
-
-            case "Build":
-                tileAsset = rnd.Next(36, 44);
-                visibility = 1;
-                break;
-
+            //Debug.Log("Changing ressource " + ressourceCost[2].GetType() + " with quantity " + ressourceCost[3].GetType());
+            cubeManager.saveAndLoad.dataBaseManager.RunQuery("UPDATE ACCOUNT_Ressources SET Quantity = Quantity + ("+ (Int64)ressourceCost[3] + ") WHERE RessourceID = "+ (int)ressourceCost[2]);
         }
 
+
+        // Finding the range of sprites that needs to be used
+        ArrayList tileRange = (ArrayList)(cubeManager.saveAndLoad.dataBaseManager.getArrayDataWithoutHeader("select min(tileSpriteId) as min, max(tileSpriteId) as max from REF_TileSpriteCode where TileId=" + tileIdAfterAction))[0];
+        
+        //Debug.Log("Finding the object " + tileRange.GetType()+", the min " + tileRange[0].GetType() + " and max " + tileRange[1].GetType());
+
+        //Debug.Log("The tile ID to create is " + tileIdAfterAction + " and I need to take a random sprite between " + (Int64)tileRange[0] + " and " + (Int64)tileRange[1]);
+
+        int tileAsset = rnd.Next( (int)(Int64)tileRange[0], (int)(Int64)tileRange[1] );
+        int visibility = 1;
+
+        // Triggering the animation of an action
+        windowsCamera.characterMoving.GetComponent<PlayerController>().actionRequested = true;
 
         // updating the data warehouse
         cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, selectionX, selectionY);
 
-        // Creating the tile with tile id 13 (ground 0) and visibility 1
+        // Creating the tile
         cubeManager.ChangeTile(selectionX, selectionY, tileAsset, visibility);
 
         // refreshing visible area
         cubeManager.UpdateTheVisibleArea();
+
+        //Resetting action buttons
+        Select(selectionX, selectionY);
 
     }
 
