@@ -3,6 +3,8 @@ using System.Collections;
 using System;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.PlayerLoop;
+using Unity.Mathematics;
 
 public class ExplorationMenu : MonoBehaviour
 {
@@ -183,15 +185,11 @@ public class ExplorationMenu : MonoBehaviour
             &&
             Mathf.Abs(selectionY - windowsCamera.characterMoving.GetComponent<PlayerController>().rigidBody_y) <= 1.5f)
         {
-            ArrayList tileAction = cubeManager.saveAndLoad.dataBaseManager.getArrayData("select * from VIEW_TileSpriteActionList where TileIdSelected=" + selectionTileId );
+            ArrayList tileAction = cubeManager.saveAndLoad.dataBaseManager.getArrayDataWithoutHeader("select * from VIEW_TileSpriteActionList where TileIdSelected=" + selectionTileId );
 
-            if (tileAction.Count >= 1)
+            foreach (ArrayList action in tileAction)
             {
-                for (int i = 1; i < tileAction.Count; i++)
-                {
-                    InstantiateActionButton((ArrayList)tileAction[i]);
-
-                }
+                InstantiateActionButton(action);
             }
 
 
@@ -213,6 +211,13 @@ public class ExplorationMenu : MonoBehaviour
     {
         newButton = Instantiate(InteractionButton, actionButtonContainer);
 
+        Debug.Log("the tile from "+ (int)actionItem[0]);
+        Debug.Log("the tile to " + (int)actionItem[1]);
+
+        //Adding an action on the button
+        newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile((int)actionItem[0], (int)actionItem[1]); });
+
+        // updating the description of the action
         newButton.GetComponentsInChildren<Text>()[0].text = (string)actionItem[4];
 
         //updating the sin level requirements
@@ -237,29 +242,25 @@ public class ExplorationMenu : MonoBehaviour
 
         }
 
-
+        // Updating the icon
         switch ((string)actionItem[2])
         {
             case "Break":
                 newButton.GetComponentsInChildren<Image>()[1].sprite = actionIcons[0];
-                // to redo this part with the new view
-                //newButton.GetComponentsInChildren<Text>()[0].text = ;
-        
-                //newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Break"); });
                 break;
         
             case "Build":
                 newButton.GetComponentsInChildren<Image>()[1].sprite = actionIcons[1];
-                //newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Build"); });
                 break;
         
             case "Use":
                 newButton.GetComponentsInChildren<Image>()[1].sprite = actionIcons[2];
-                //newButton.GetComponent<Button>().onClick.AddListener(() => { AchieveActionTile("Use"); });
                 break;
         
         }
 
+
+        //Disabling the button if the conditions are not met
         if ( (Int64)actionItem[3]==0) 
         {
             newButton.GetComponent<Button>().interactable = false;
@@ -286,33 +287,38 @@ public class ExplorationMenu : MonoBehaviour
 
     }
 
-    public void AchieveActionTile(string actionType, int tileId)
+    public void AchieveActionTile(int tileIdSelected, int tileIdAfterAction)
     {
+        //Consumming or gaining resources
+        //Debug.Log("Checking tile ID used : " + tileIdSelected+" and "+ tileIdAfterAction);
+        ArrayList actionRessources = cubeManager.saveAndLoad.dataBaseManager.getArrayDataWithoutHeader("select * from VIEW_TileSpriteActionRessourceCost where TileIdSelected=" + tileIdSelected + " and TileIdAfterAction=" + tileIdAfterAction);
 
-        // Deciding what needs to be changed - with default being ground
-        int tileAsset = 13;
-        int visibility = 1;
+        
 
-        switch (actionType)
+        foreach (ArrayList ressourceCost in actionRessources)
         {
-            case "Break":
-                tileAsset = rnd.Next(14,22);
-                visibility = 1;
-                break;
-
-            case "Build":
-                tileAsset = rnd.Next(36, 44);
-                visibility = 1;
-                break;
-
+            //Debug.Log("Changing ressource " + ressourceCost[2].GetType() + " with quantity " + ressourceCost[3].GetType());
+            cubeManager.saveAndLoad.dataBaseManager.RunQuery("UPDATE ACCOUNT_Ressources SET Quantity = Quantity + ("+ (Int64)ressourceCost[3] + ") WHERE RessourceID = "+ (int)ressourceCost[2]);
         }
 
+
+        // Finding the range of sprites that needs to be used
+        ArrayList tileRange = (ArrayList)(cubeManager.saveAndLoad.dataBaseManager.getArrayDataWithoutHeader("select min(tileSpriteId) as min, max(tileSpriteId) as max from REF_TileSpriteCode where TileId=" + tileIdAfterAction))[0];
+        
+        //Debug.Log("Finding the object " + tileRange.GetType()+", the min " + tileRange[0].GetType() + " and max " + tileRange[1].GetType());
+
+        //Debug.Log("The tile ID to create is " + tileIdAfterAction + " and I need to take a random sprite between " + (Int64)tileRange[0] + " and " + (Int64)tileRange[1]);
+
+        int tileAsset = rnd.Next( (int)(Int64)tileRange[0], (int)(Int64)tileRange[1] );
+        int visibility = 1;
+
+        // Triggering the animation of an action
         windowsCamera.characterMoving.GetComponent<PlayerController>().actionRequested = true;
 
         // updating the data warehouse
         cubeManager.saveAndLoad.UpdateCityData(tileAsset, visibility, selectionX, selectionY);
 
-        // Creating the tile with tile id 13 (ground 0) and visibility 1
+        // Creating the tile
         cubeManager.ChangeTile(selectionX, selectionY, tileAsset, visibility);
 
         // refreshing visible area
