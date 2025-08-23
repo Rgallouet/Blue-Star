@@ -569,7 +569,7 @@ PrefabInstance:
     - target: {fileID: -7552582706839291426, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
@@ -614,7 +614,7 @@ PrefabInstance:
     - target: {fileID: -7439009925167173182, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.8034309
+      value: -0.8034307
       objectReference: {fileID: 0}
     - target: {fileID: -7439009925167173182, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
@@ -629,7 +629,7 @@ PrefabInstance:
     - target: {fileID: -7439009925167173182, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.59539795
+      value: -0.5953984
       objectReference: {fileID: 0}
     - target: {fileID: -7057582045032892902, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
@@ -737,12 +737,12 @@ PrefabInstance:
     - target: {fileID: -3277107124456680971, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9702205
+      value: 0.97022074
       objectReference: {fileID: 0}
     - target: {fileID: -3277107124456680971, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.24222341
+      value: 0.24222264
       objectReference: {fileID: 0}
     - target: {fileID: -2445468887912807714, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
@@ -1162,7 +1162,7 @@ PrefabInstance:
     - target: {fileID: 8491649712569204401, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.068813875
+      value: 0.068813555
       objectReference: {fileID: 0}
     - target: {fileID: 8491649712569204401, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
@@ -1172,7 +1172,7 @@ PrefabInstance:
     - target: {fileID: 8491649712569204401, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.9976295
+      value: 0.9976296
       objectReference: {fileID: 0}
     - target: {fileID: 8506240344499005485, guid: 8a21eef054150034590e2a9f90150182,
         type: 3}
@@ -1778,6 +1778,7 @@ MonoBehaviour:
   - {fileID: 7900847580677827455}
   - {fileID: 5642591879415438377}
   m_Weight: 1
+  m_AlwaysUpdate: 1
   m_SolverEditorData:
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
@@ -1818,7 +1819,7 @@ SortingGroup:
   m_SortAtRoot: 1
 --- !u!95 &4804225562941095051
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1829,9 +1830,10 @@ Animator:
   m_Controller: {fileID: 9100000, guid: dffc6a5e8b70ca643b51c3e143b764fe, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
