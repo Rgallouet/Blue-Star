@@ -53,6 +53,11 @@ public class BodyAppearanceSwapper : MonoBehaviour
             else if (skinId > 9) skinLabel = bodyPart + "_" + +skinId;
             else skinLabel = bodyPart + "_00" + skinId;
 
+            Debug.Log("Skin label is :" + skinLabel);
+            Debug.Log("Body part is :" + bodyPart);
+            Debug.Log("BodySprite step 1 is :" + bodySprite.name);
+            Debug.Log("BodySprite step 2 is :" + bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().name);
+
             //Debug.Log("Found a body part to swap skin for which currently has "+ bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel());
             bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().SetCategoryAndLabel(bodyPart, skinLabel);
 
