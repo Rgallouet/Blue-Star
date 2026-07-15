@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 
 public class BodyAppearanceSwapper : MonoBehaviour
@@ -16,16 +17,39 @@ public class BodyAppearanceSwapper : MonoBehaviour
     }
 
 
+    public GameObject FindBodyPart(string bodyPart)
+    {
+        // Search for the sprite
+        //Debug.Log("I will search in my transform the name :" + bodyPart);
+        SpriteRenderer[] bodySprites = transform.GetComponentsInChildren<SpriteRenderer>();
+        GameObject bodySprite = null;
+
+        foreach (var part in bodySprites)
+        {
+            if (part.gameObject.name == bodyPart)
+            {
+                bodySprite = part.gameObject;
+                // Do something with it
+                break;
+            }
+        }
+
+        return bodySprite;
+
+    }
+
+
+
     public int CheckAppearrance(string bodyPart)
     {
         // Search for the sprite
-        Transform bodySprite = transform.Find(bodyPart).GetChild(0);
+        GameObject bodySprite = FindBodyPart(bodyPart);
 
         // Update the sprite
         if (bodySprite != null)
         {
-            //Debug.Log("Found a body part to swap skin for which currently has "+ bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel());
-            //Debug.Log("What I will try to parse is " + bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel().Substring(bodyPart.Length +1, 3));
+            Debug.Log("Found a body part to swap skin for which currently has "+ bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel());
+            Debug.Log("What I will try to parse is " + bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel().Substring(bodyPart.Length +1, 3));
             return int.Parse(bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel().Substring(bodyPart.Length +1, 3));
         }
 
@@ -35,8 +59,7 @@ public class BodyAppearanceSwapper : MonoBehaviour
     public void UpdateAppearrance(string bodyPart, int skinId)
     {
 
-        // Search for the sprite
-        Transform bodySprite = transform.Find(bodyPart).GetChild(0);
+        GameObject bodySprite = FindBodyPart(bodyPart);
 
         // Update the sprite
         if (bodySprite != null)
@@ -53,10 +76,10 @@ public class BodyAppearanceSwapper : MonoBehaviour
             else if (skinId > 9) skinLabel = bodyPart + "_" + +skinId;
             else skinLabel = bodyPart + "_00" + skinId;
 
-            Debug.Log("Skin label is :" + skinLabel);
-            Debug.Log("Body part is :" + bodyPart);
-            Debug.Log("BodySprite step 1 is :" + bodySprite.name);
-            Debug.Log("BodySprite step 2 is :" + bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().name);
+            //Debug.Log("Skin label is :" + skinLabel);
+            //Debug.Log("Body part is :" + bodyPart);
+            //Debug.Log("BodySprite step 1 is :" + bodySprite.name);
+            //Debug.Log("BodySprite step 2 is :" + bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().name);
 
             //Debug.Log("Found a body part to swap skin for which currently has "+ bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel());
             bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().SetCategoryAndLabel(bodyPart, skinLabel);
