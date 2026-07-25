@@ -8,9 +8,21 @@ public class BodyAppearanceSwapper : MonoBehaviour
 
 
     public GameObjectInformation gameObjectInformation;
+    public bool isFront;
+    public string orientation;
+
+    private void Start()
+    {
+        orientation = isFront ? "Front_" : "Back_";
+
+    }
+
+
+
 
     public void InitialiseSkin()
     {
+        
         RefreshBodySkin(gameObjectInformation.baseCharacter.DemonPartChoices);
         RefreshEquipmentSkin();
 
@@ -24,9 +36,10 @@ public class BodyAppearanceSwapper : MonoBehaviour
         SpriteRenderer[] bodySprites = transform.GetComponentsInChildren<SpriteRenderer>();
         GameObject bodySprite = null;
 
+
         foreach (var part in bodySprites)
         {
-            if (part.gameObject.name == bodyPart)
+            if (part.gameObject.name == orientation+bodyPart+"_000")
             {
                 bodySprite = part.gameObject;
                 // Do something with it
@@ -48,9 +61,9 @@ public class BodyAppearanceSwapper : MonoBehaviour
         // Update the sprite
         if (bodySprite != null)
         {
-            Debug.Log("Found a body part to swap skin for which currently has "+ bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel());
-            Debug.Log("What I will try to parse is " + bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel().Substring(bodyPart.Length +1, 3));
-            return int.Parse(bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel().Substring(bodyPart.Length +1, 3));
+            //Debug.Log("Found a body part to swap skin for which currently has "+ bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel());
+            //Debug.Log("What I will try to parse is " + bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel()[^3..]);
+            return int.Parse(bodySprite.GetComponent<UnityEngine.U2D.Animation.SpriteResolver>().GetLabel()[^3..]);
         }
 
         return 0;
@@ -72,9 +85,9 @@ public class BodyAppearanceSwapper : MonoBehaviour
             Color color = bodySprite.GetComponent<SpriteRenderer>().color;
 
             // Creating the skin Id and checking if we need to turn invisible the sprite
-            if (skinId > 99) skinLabel = bodyPart + "_" + skinId;
-            else if (skinId > 9) skinLabel = bodyPart + "_" + +skinId;
-            else skinLabel = bodyPart + "_00" + skinId;
+            if (skinId > 99) skinLabel = orientation + bodyPart + "_" + skinId;
+            else if (skinId > 9) skinLabel = orientation + bodyPart + "_0" +skinId;
+            else skinLabel = orientation + bodyPart + "_00" + skinId;
 
             //Debug.Log("Skin label is :" + skinLabel);
             //Debug.Log("Body part is :" + bodyPart);
@@ -101,11 +114,13 @@ public class BodyAppearanceSwapper : MonoBehaviour
         UpdateAppearrance("RightLowerArm", demonPartChoices.RightLowerArmChoiceID);
         UpdateAppearrance("RightFist", demonPartChoices.RightFistChoiceID);
         UpdateAppearrance("RightLeg", demonPartChoices.RightLegChoiceID);
+        UpdateAppearrance("RightLowerLeg", demonPartChoices.RightLegChoiceID);
         UpdateAppearrance("RightFoot", demonPartChoices.RightFootChoiceID);
         UpdateAppearrance("LeftUpperArm", demonPartChoices.LeftUpperArmChoiceID);
         UpdateAppearrance("LeftLowerArm", demonPartChoices.LeftLowerArmChoiceID);
         UpdateAppearrance("LeftFist", demonPartChoices.LeftFistChoiceID);
         UpdateAppearrance("LeftLeg", demonPartChoices.LeftLegChoiceID);
+        UpdateAppearrance("LeftLowerLeg", demonPartChoices.LeftLegChoiceID);
         UpdateAppearrance("LeftFoot", demonPartChoices.LeftFootChoiceID);
 
 }
@@ -121,24 +136,26 @@ public class BodyAppearanceSwapper : MonoBehaviour
         UpdateAppearrance("RightWristBand", 0);
         UpdateAppearrance("RightGlove", 0);
         UpdateAppearrance("RightLegging", 1);
+        UpdateAppearrance("RightGrieve", 1);
         UpdateAppearrance("RightBoot", 0);
         UpdateAppearrance("LeftShoulderPad", 0);
         UpdateAppearrance("LeftWristBand", 1);
         UpdateAppearrance("LeftGlove", 1);
         UpdateAppearrance("LeftLegging", 1);
+        UpdateAppearrance("LeftGrieve", 1);
         UpdateAppearrance("LeftBoot", 1);
 
     }
 
-    public void SwitchLeftToRight(string bodyPart)
+    public void SwitchLeftToRight(string shortBodyPart)
     {
         // Checking the skin Id used on the right and left body parts
-        int right = CheckAppearrance("Right"+ bodyPart);
-        int left = CheckAppearrance("Left"+ bodyPart);
+        int right = CheckAppearrance("Right"+ shortBodyPart);
+        int left = CheckAppearrance("Left"+ shortBodyPart);
 
         // Switching the skin IDs
-        UpdateAppearrance("Right" + bodyPart, left);
-        UpdateAppearrance("Left" + bodyPart, right);
+        UpdateAppearrance("Right" + shortBodyPart, left);
+        UpdateAppearrance("Left" + shortBodyPart, right);
 
     }
 
@@ -148,11 +165,13 @@ public class BodyAppearanceSwapper : MonoBehaviour
         SwitchLeftToRight("LowerArm");
         SwitchLeftToRight("Fist");
         SwitchLeftToRight("Leg");
+        SwitchLeftToRight("LowerLeg");
         SwitchLeftToRight("Foot");
         SwitchLeftToRight("ShoulderPad");
         SwitchLeftToRight("WristBand");
         SwitchLeftToRight("Glove");
         SwitchLeftToRight("Legging");
+        SwitchLeftToRight("Grieve");
         SwitchLeftToRight("Boot");
         SwitchLeftToRight("Weapon");
 
